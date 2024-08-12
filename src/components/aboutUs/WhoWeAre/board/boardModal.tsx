@@ -111,7 +111,9 @@ const BoardModal = ({
         >
           <Box
             sx={{
-              width: { xs: "160px", md: "auto" },
+              width: { xs: "160px", md: "250px" },
+              height: { xs: "160px", md: "250px" },
+              position: "relative",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -121,13 +123,18 @@ const BoardModal = ({
               marginRight: locale === "en" ? { xs: "24px", md: "40px" } : "",
               marginLeft: locale === "ar" ? { xs: "24px", md: "40px" } : "",
             }}
-            component={"img"}
-            src={
-              boardMembers[currentMember]!.photoLink
-                ? boardMembers[currentMember]!.photoLink
-                : "/images/profile-picture-placeholder.svg"
-            }
-          />
+          >
+            <Image
+              fill={true}
+              objectFit="contain"
+              alt={boardMembers[currentMember]!.english_name}
+              src={
+                boardMembers[currentMember]!.photoLink
+                  ? boardMembers[currentMember]!.photoLink
+                  : "/images/profile-picture-placeholder.svg"
+              }
+            />
+          </Box>
           <Box>
             <Typography
               sx={{

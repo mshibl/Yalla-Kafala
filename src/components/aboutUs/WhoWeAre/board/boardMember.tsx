@@ -35,7 +35,9 @@ const BoardMember = ({
     >
       <Box
         sx={{
+          position: "relative",
           width: "100%",
+          height: { xs: "160px", md: "250px" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -43,9 +45,16 @@ const BoardMember = ({
           paddingX: { xs: "30px", md: "50px" },
           paddingY: { xs: "10px", md: "12px" },
         }}
-        component={"img"}
-        src={image ? image : "/images/profile-picture-placeholder.svg"}
-      />
+      >
+        <Image
+          fill={true}
+          objectFit="contain"
+          // width={200}
+          // height={230}
+          alt={name}
+          src={image ? image : "/images/profile-picture-placeholder.svg"}
+        />
+      </Box>
       <Typography
         sx={{
           textAlign: "start",

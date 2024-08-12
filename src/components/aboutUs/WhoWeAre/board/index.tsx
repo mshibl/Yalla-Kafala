@@ -28,6 +28,10 @@ const Board = ({
   const [boardFilter, setBoardFilter] = useState(
     locale === "en" ? "USA" : "Egypt"
   );
+  boardMembers = boardMembers.filter((boardMember) => {
+    if (boardMember?.location === "Egypt & USA") return true;
+    return boardMember?.location === boardFilter;
+  });
 
   const handleOpen = () => {
     setOpen(true);
@@ -99,28 +103,21 @@ const Board = ({
           : "أعضاء مجلس الإدارة في مصر"}
       </Typography>
       <Grid gap={10} container>
-        {boardMembers
-          .filter((boardMember) => {
-            if (boardMember?.location === "Egypt & USA") return true;
-            return boardMember?.location === boardFilter;
-          })
-          .map((member, index) => {
-            if (!member) return null;
-            return (
-              <BoardMember
-                name={
-                  locale === "en" ? member.english_name : member.arabic_name
-                }
-                // title={locale === "en" ? member.titleEn : member.titleAr}
-                image={member.photoLink}
-                bio={locale === "en" ? member.english_bio : member.arabic_bio}
-                key={index}
-                index={index}
-                setCurrentMember={setCurrentMember}
-                handleOpen={handleOpen}
-              />
-            );
-          })}
+        {boardMembers.map((member, index) => {
+          if (!member) return null;
+          return (
+            <BoardMember
+              name={locale === "en" ? member.english_name : member.arabic_name}
+              // title={locale === "en" ? member.titleEn : member.titleAr}
+              image={member.photoLink}
+              bio={locale === "en" ? member.english_bio : member.arabic_bio}
+              key={index}
+              index={index}
+              setCurrentMember={setCurrentMember}
+              handleOpen={handleOpen}
+            />
+          );
+        })}
       </Grid>
       <BoardModal
         currentMember={currentMember}
