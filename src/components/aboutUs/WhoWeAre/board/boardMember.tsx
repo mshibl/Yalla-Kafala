@@ -51,7 +51,7 @@ const BoardMember = ({
           objectFit="contain"
           // width={200}
           // height={230}
-          alt={name}
+          alt={name || "Board member"}
           src={image ? image : "/images/profile-picture-placeholder.svg"}
         />
       </Box>

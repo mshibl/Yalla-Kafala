@@ -127,7 +127,7 @@ const BoardModal = ({
             <Image
               fill={true}
               objectFit="contain"
-              alt={boardMembers[currentMember]!.english_name}
+              alt={boardMembers[currentMember]!.english_name || "Board Member"}
               src={
                 boardMembers[currentMember]!.photoLink
                   ? boardMembers[currentMember]!.photoLink
