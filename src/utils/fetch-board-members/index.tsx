@@ -1,30 +1,49 @@
+"use server";
 import { DATA_SOURCES } from "@/src/constants/data-sources";
 import { loadGoogleSheet } from "../google-api";
-import { cleanResponse } from "../string-utils";
+import {
+  cleanResponse,
+  convertGoogleDriveImageUrlToImageSrc,
+} from "../string-utils";
 
 function parseBoardMembers(data: any) {
-  // const [publish, question_en, question_ar, answer_en, answer_ar, slug] = data;
-  // if (!question_en && !question_ar) {
-  //   throw new Error("FAQ question is missing");
-  // }
-  // if (!answer_ar && !answer_en) {
-  //   throw new Error("FAQ answer is missing");
-  // }
-  // const cleanEnglishQuestion = cleanResponse(question_en?.trim() || "");
-  // const cleanArabicQuestion = cleanResponse(question_ar?.trim() || "");
-  // const cleanArabicAnswer = cleanResponse(answer_ar?.trim() || "");
-  // const cleanEnglishAnswer = cleanResponse(answer_en?.trim() || "");
-  // const arabicAnswer = cleanArabicAnswer || cleanEnglishAnswer;
-  // const englishAnswer = cleanEnglishAnswer || cleanArabicAnswer;
-  // const arabicQuestion = cleanArabicQuestion || cleanEnglishQuestion;
-  // const englishQuestion = cleanEnglishQuestion || cleanArabicQuestion;
-  // return {
-  //   publish: publish === "TRUE",
-  //   arabic_question: arabicQuestion,
-  //   english_question: englishQuestion,
-  //   arabic_answer: arabicAnswer,
-  //   english_answer: englishAnswer,
-  // };
+  const [
+    english_name,
+    arabic_name,
+    location,
+    publish,
+    status,
+    english_bio,
+    arabic_bio,
+    photoLink,
+  ] = data;
+  if (!english_bio && !arabic_bio) {
+    console.log("Bio is missing");
+    return;
+  }
+  if (!english_name && !arabic_name) {
+    console.log("Name is missing");
+    return;
+  }
+  if (!photoLink) {
+    console.log("Image is missing");
+    return;
+  }
+  const cleanEnglishBio = cleanResponse(english_bio?.trim() || "");
+  const cleanArabicBio = cleanResponse(arabic_bio?.trim() || "");
+  const arabicBio = cleanArabicBio || cleanEnglishBio;
+  const englishBio = cleanEnglishBio || cleanArabicBio;
+
+  return {
+    publish: (publish === "TRUE") as boolean,
+    arabic_bio: arabicBio as string,
+    english_bio: englishBio as string,
+    english_name: english_name as string,
+    arabic_name: arabic_name as string,
+    location: location as string,
+    status: status as string,
+    photoLink: convertGoogleDriveImageUrlToImageSrc(photoLink) as string,
+  };
 }
 
 export const fetchBoardMembers = async () => {
@@ -39,11 +58,12 @@ export const fetchBoardMembers = async () => {
     const boardMembers = rawBoardMembers.map((boardMember) => {
       return parseBoardMembers(boardMember);
     });
-    // const publishedBoardMembers = boardMembers.filter(
-    //   (boardMember) => boardMember.publish
-    // );
+    const publishedBoardMembers = boardMembers.filter((boardMember) => {
+      if (boardMember) return boardMember.publish;
+      return false;
+    });
 
-    // return publishedBoardMembers;
+    return publishedBoardMembers;
   } catch (error) {
     console.error("Error fetching boardMembers", error);
 

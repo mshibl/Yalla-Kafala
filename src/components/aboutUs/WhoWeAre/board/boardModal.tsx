@@ -1,5 +1,6 @@
 import { ArrowBack, ArrowForward, Close } from "@mui/icons-material";
 import { Modal, Box, IconButton, Typography } from "@mui/material";
+import Image from "next/image";
 
 const BoardModal = ({
   currentMember = 0,
@@ -13,15 +14,19 @@ const BoardModal = ({
   open: boolean;
   handleClose: () => void;
   setCurrentMember: (index: number) => void;
-  boardMembers: {
-    nameEn: string;
-    nameAr: string;
-    titleEn: string;
-    titleAr: string;
-    image: string;
-    bioEn: string;
-    bioAr: string;
-  }[];
+  boardMembers: (
+    | {
+        publish: boolean;
+        arabic_bio: string;
+        english_bio: string;
+        english_name: string;
+        arabic_name: string;
+        location: string;
+        status: string;
+        photoLink: string;
+      }
+    | undefined
+  )[];
   locale: string;
 }) => {
   return (
@@ -117,7 +122,11 @@ const BoardModal = ({
               marginLeft: locale === "ar" ? { xs: "24px", md: "40px" } : "",
             }}
             component={"img"}
-            src={boardMembers[currentMember].image}
+            src={
+              boardMembers[currentMember]!.photoLink
+                ? boardMembers[currentMember]!.photoLink
+                : "/images/profile-picture-placeholder.svg"
+            }
           />
           <Box>
             <Typography
@@ -129,10 +138,10 @@ const BoardModal = ({
               }}
             >
               {locale === "en"
-                ? boardMembers[currentMember].nameEn
-                : boardMembers[currentMember].nameAr}
+                ? boardMembers[currentMember]!.english_name
+                : boardMembers[currentMember]!.arabic_name}
             </Typography>
-            <Typography
+            {/* <Typography
               sx={{
                 textAlign: "start",
                 width: "100%",
@@ -142,7 +151,7 @@ const BoardModal = ({
               {locale === "en"
                 ? boardMembers[currentMember].titleEn
                 : boardMembers[currentMember].titleAr}
-            </Typography>
+            </Typography> */}
           </Box>
         </Box>
         <Typography
@@ -158,8 +167,8 @@ const BoardModal = ({
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           {locale === "en"
-            ? boardMembers[currentMember].bioEn
-            : boardMembers[currentMember].bioAr}
+            ? boardMembers[currentMember]!.english_bio
+            : boardMembers[currentMember]!.arabic_bio}
         </Typography>
       </Box>
     </Modal>

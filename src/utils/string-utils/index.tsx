@@ -23,6 +23,7 @@ export function cleanResponse(dirty: string) {
 export function convertGoogleDriveImageUrlToImageSrc(
   url: string
 ): string | null {
+  if (!url) return null;
   // Extract the file ID from the provided URL
   const match = url.match(/[-\w]{25,}/);
 
