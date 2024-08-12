@@ -18,17 +18,12 @@ function parseBoardMembers(data: any) {
     photoLink,
   ] = data;
   if (!english_bio && !arabic_bio) {
-    console.log("Bio is missing");
     return;
   }
   if (!english_name && !arabic_name) {
-    console.log("Name is missing");
     return;
   }
-  if (!photoLink) {
-    console.log("Image is missing");
-    return;
-  }
+
   const cleanEnglishBio = cleanResponse(english_bio?.trim() || "");
   const cleanArabicBio = cleanResponse(arabic_bio?.trim() || "");
   const arabicBio = cleanArabicBio || cleanEnglishBio;
