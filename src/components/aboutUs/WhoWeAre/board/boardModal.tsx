@@ -105,6 +105,7 @@ const BoardModal = ({
         <Box
           sx={{
             display: "flex",
+            alignItems: "center",
             flexDirection: "row",
             marginTop: "24px",
           }}
@@ -139,7 +140,7 @@ const BoardModal = ({
             <Typography
               sx={{
                 textAlign: "start",
-                fontSize: { xs: "18px", md: "24px" },
+                fontSize: { xs: "18px", md: "40px" },
                 color: "primary.main",
                 fontWeight: "bold",
               }}
@@ -148,17 +149,6 @@ const BoardModal = ({
                 ? boardMembers[currentMember]!.english_name
                 : boardMembers[currentMember]!.arabic_name}
             </Typography>
-            {/* <Typography
-              sx={{
-                textAlign: "start",
-                width: "100%",
-                fontSize: { xs: "16px", md: "24px" },
-              }}
-            >
-              {locale === "en"
-                ? boardMembers[currentMember].titleEn
-                : boardMembers[currentMember].titleAr}
-            </Typography> */}
           </Box>
         </Box>
         <Typography
