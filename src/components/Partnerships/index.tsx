@@ -11,7 +11,13 @@ const Partnerships = ({ locale }: { locale: string }) => {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <Box marginTop="40px" marginBottom="20px" width="700px" maxWidth="100%" px="20px">
+      <Box
+        marginTop="40px"
+        marginBottom="20px"
+        width="700px"
+        maxWidth="100%"
+        px="20px"
+      >
         <Box
           justifySelf="flex-start"
           width="70%"
@@ -30,7 +36,7 @@ const Partnerships = ({ locale }: { locale: string }) => {
         <Box>
           {locale === "en"
             ? "We collaborate with a diverse network of partners including the Ministry of Social Solidarity in government, nurseries and preschools in education, NGOs aligned with our mission, and receive in-kind support from corporations in the corporate sector, all working together to scale our efforts, innovate services, and sustain our impact."
-            : "نحن نتعاون مع شبكة متنوعة من الشركاء بما في ذلك وزارة التضامن الاجتماعي في الحكومة، ورياض الأطفال والحضانات في التعليم، والجمعيات غير الحكومية المتماشية مع مهمتنا، ونتلقى دعمًا عينيًا من الشركات في القطاع الخاص، جميعهم يعملون معًا لتوسيع جهودنا، وابتكار الخدمات، والحفاظ على تأثيرنا."}
+            : "نتعاون مع شبكة متنوعة من الشركاء بما في ذلك الحكومة المصرية ممثلة في وزارة التضامن الاجتماعي، والمؤسسات غير الحكومية التي تشارك رسالتنا، وعدد من رياض الأطفال والحضانات، ونتلقى دعمًا عينيًا من بعض الشركات الخاصة. تساعدنا هذه الشراكات على توسيع جهودنا، وابتكار مزيد من الخدمات، والحفاظ على تأثيرنا."}
         </Box>
       </Box>
       <Box display="flex" gap="15px" flexWrap="wrap" justifyContent="center">
@@ -195,10 +201,16 @@ const Partnerships = ({ locale }: { locale: string }) => {
           />
         </PartnerItem>
       </Box>
-      <Box width="700px" maxWidth="100%" marginTop="20px" marginBottom="20px" px="20px">
+      <Box
+        width="700px"
+        maxWidth="100%"
+        marginTop="20px"
+        marginBottom="20px"
+        px="20px"
+      >
         {locale === "en"
           ? "By supporting Yalla Kafala, you give hope, support, and contribute to a better future for our children. Together, we can build a future where every child knows the love of a family and the promise of a bright tomorrow."
-          : "من خلال دعم يلا كفالة، تمنح الأمل والدعم وتساهم في مستقبل أفضل لأطفالنا. معًا، يمكننا بناء مستقبل يعرف فيه كل طفل حب العائلة ووعد غد مشرق."}
+          : "من خلال دعم يلا كفالة، يمكنك أن تمنح الأمل والدعم وتساهم في مستقبل أفضل لأطفالنا. معًا، يمكننا بناء مستقبل يعرف فيه كل طفل حب العائلة وأمل في غد مشرق."}
       </Box>
       <HelpChildrenAndFamilies locale={locale} />
     </Box>
