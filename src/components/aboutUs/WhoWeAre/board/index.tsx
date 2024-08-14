@@ -1,8 +1,9 @@
 "use client";
 import { Box, Typography, Grid, Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BoardModal from "./boardModal";
 import BoardMember from "./boardMember";
+import { useLocationData } from "@/src/utils/useLocationData";
 
 const Board = ({
   locale,
@@ -25,9 +26,16 @@ const Board = ({
 }) => {
   const [currentMember, setCurrentMember] = useState(0);
   const [open, setOpen] = useState(false);
-  const [boardFilter, setBoardFilter] = useState(
-    locale === "en" ? "USA" : "Egypt"
-  );
+
+  const { locationData, loading, error } = useLocationData();
+  const [boardFilter, setBoardFilter] = useState("Egypt");
+  useEffect(() => {
+    if (locationData) {
+      setBoardFilter(locationData.country === "US" ? "USA" : "Egypt");
+    }
+  }, [locationData]);
+
+  if (loading || error || !locationData) return <Box height="500px" />;
   boardMembers = boardMembers.filter((boardMember) => {
     if (boardMember?.location === "Egypt & USA") return true;
     return boardMember?.location === boardFilter;
