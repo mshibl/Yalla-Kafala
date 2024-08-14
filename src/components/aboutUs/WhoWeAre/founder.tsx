@@ -22,7 +22,7 @@ const Founder = ({ locale }: { locale: string }) => {
           paddingX: { xs: "32px", md: "180px" },
           paddingLeft: { xs: "32px", md: "450px" },
           borderRadius: { md: "1000px 0px 0px 1000px" },
-          width: { xs: "100%", md: "95%" },
+          width: { xs: "100%", md: "100%" },
         }}
       >
         <Box
