@@ -18,9 +18,19 @@ const ContactList = () => {
 
   const egyptAddress = (
     <Typography variant="body2">
-      {locale === "ar"
-        ? "٢٤ شارع اللاسلكي الصغير، المعادي الجديدة، القاهرة، مصر"
-        : "24 Al Lasilki Al Sagheer Street, New Maadi, Cairo, Egypt."}
+      {locale === "ar" ? (
+        <>
+          ٢٤ شارع اللاسلكي الصغير، المعادي الجديدة،
+          <br />
+          القاهرة، مصر
+        </>
+      ) : (
+        <>
+          24 Al Lasilki Al Sagheer Street, New Maadi,
+          <br />
+          Cairo, Egypt.
+        </>
+      )}
       <br />
       <Link
         style={{ textDecoration: "underline" }}
