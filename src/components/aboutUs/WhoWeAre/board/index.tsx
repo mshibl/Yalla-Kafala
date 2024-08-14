@@ -64,7 +64,7 @@ const Board = ({
             fontSize: { xs: "24px", md: "50px" },
             fontWeight: "bold",
             marginBottom: { md: "10px" },
-            marginTop: { xs: "20px", md: "40px" },
+            marginTop: { xs: "20px", md: "60px" },
             lineHeight: "32px",
             color: "primary.main",
           }}
@@ -80,7 +80,7 @@ const Board = ({
           variant="outlined"
           sx={{
             // paddingLeft: "0",
-            marginY: { xs: "10px", md: "10px" },
+            marginY: { xs: "20px", md: "30px" },
           }}
         >
           {locale === "en"
