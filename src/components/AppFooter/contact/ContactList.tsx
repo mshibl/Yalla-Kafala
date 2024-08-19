@@ -18,9 +18,19 @@ const ContactList = () => {
 
   const egyptAddress = (
     <Typography variant="body2">
-      {locale === "ar"
-        ? "شارع اللاسلكي، المعادي الجديدة. القاهرة"
-        : "El Laselki Street, New Maadi, Cairo"}
+      {locale === "ar" ? (
+        <>
+          ٢٤ شارع اللاسلكي الصغير، المعادي الجديدة،
+          <br />
+          القاهرة، مصر
+        </>
+      ) : (
+        <>
+          24 Al Lasilki Al Sagheer Street, New Maadi,
+          <br />
+          Cairo, Egypt.
+        </>
+      )}
       <br />
       <Link
         style={{ textDecoration: "underline" }}
@@ -68,8 +78,8 @@ const ContactList = () => {
         </Typography>
       </Grid>
       <Box sx={{ pb: "20px" }}>
-      <EmailUs locale={locale} />
-      <Volunteer locale={locale} />
+        <EmailUs locale={locale} />
+        <Volunteer locale={locale} />
       </Box>
       <Address title={EgyptAddressTitle} content={egyptAddress} />
       {country !== "eg" && (
