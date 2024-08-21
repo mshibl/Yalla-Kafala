@@ -1,5 +1,6 @@
 import { ArrowBack, ArrowForward, Close } from "@mui/icons-material";
 import { Modal, Box, IconButton, Typography } from "@mui/material";
+import Image from "next/image";
 
 const BoardModal = ({
   currentMember = 0,
@@ -13,15 +14,19 @@ const BoardModal = ({
   open: boolean;
   handleClose: () => void;
   setCurrentMember: (index: number) => void;
-  boardMembers: {
-    nameEn: string;
-    nameAr: string;
-    titleEn: string;
-    titleAr: string;
-    image: string;
-    bioEn: string;
-    bioAr: string;
-  }[];
+  boardMembers: (
+    | {
+        publish: boolean;
+        arabic_bio: string;
+        english_bio: string;
+        english_name: string;
+        arabic_name: string;
+        location: string;
+        status: string;
+        photoLink: string;
+      }
+    | undefined
+  )[];
   locale: string;
 }) => {
   return (
@@ -100,13 +105,16 @@ const BoardModal = ({
         <Box
           sx={{
             display: "flex",
+            alignItems: "center",
             flexDirection: "row",
             marginTop: "24px",
           }}
         >
           <Box
             sx={{
-              width: { xs: "160px", md: "auto" },
+              width: { xs: "160px", md: "250px" },
+              height: { xs: "160px", md: "250px" },
+              position: "relative",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -116,32 +124,30 @@ const BoardModal = ({
               marginRight: locale === "en" ? { xs: "24px", md: "40px" } : "",
               marginLeft: locale === "ar" ? { xs: "24px", md: "40px" } : "",
             }}
-            component={"img"}
-            src={boardMembers[currentMember].image}
-          />
+          >
+            <Image
+              fill={true}
+              objectFit="contain"
+              alt={boardMembers[currentMember]!.english_name || "Board Member"}
+              src={
+                boardMembers[currentMember]!.photoLink
+                  ? boardMembers[currentMember]!.photoLink
+                  : "/images/profile-picture-placeholder.svg"
+              }
+            />
+          </Box>
           <Box>
             <Typography
               sx={{
                 textAlign: "start",
-                fontSize: { xs: "18px", md: "24px" },
+                fontSize: { xs: "18px", md: "40px" },
                 color: "primary.main",
                 fontWeight: "bold",
               }}
             >
               {locale === "en"
-                ? boardMembers[currentMember].nameEn
-                : boardMembers[currentMember].nameAr}
-            </Typography>
-            <Typography
-              sx={{
-                textAlign: "start",
-                width: "100%",
-                fontSize: { xs: "16px", md: "24px" },
-              }}
-            >
-              {locale === "en"
-                ? boardMembers[currentMember].titleEn
-                : boardMembers[currentMember].titleAr}
+                ? boardMembers[currentMember]!.english_name
+                : boardMembers[currentMember]!.arabic_name}
             </Typography>
           </Box>
         </Box>
@@ -158,8 +164,8 @@ const BoardModal = ({
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           {locale === "en"
-            ? boardMembers[currentMember].bioEn
-            : boardMembers[currentMember].bioAr}
+            ? boardMembers[currentMember]!.english_bio
+            : boardMembers[currentMember]!.arabic_bio}
         </Typography>
       </Box>
     </Modal>

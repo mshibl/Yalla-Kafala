@@ -1,16 +1,15 @@
 import { Grid, Box, Typography } from "@mui/material";
+import Image from "next/image";
 
 const BoardMember = ({
   name,
-  title,
   image,
   index,
   setCurrentMember,
   handleOpen,
 }: {
   name: string;
-  title: string;
-  image: string;
+  image: string | null;
   bio: string;
   index: number;
   setCurrentMember: (index: number) => void;
@@ -30,11 +29,14 @@ const BoardMember = ({
         flexDirection: "column",
         justifyContent: "start",
         alignItems: "center",
+        cursor: "pointer",
       }}
     >
       <Box
         sx={{
+          position: "relative",
           width: "100%",
+          height: { xs: "160px", md: "250px" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -42,9 +44,14 @@ const BoardMember = ({
           paddingX: { xs: "30px", md: "50px" },
           paddingY: { xs: "10px", md: "12px" },
         }}
-        component={"img"}
-        src={image}
-      />
+      >
+        <Image
+          fill={true}
+          objectFit="contain"
+          alt={name || "Board member"}
+          src={image ? image : "/images/profile-picture-placeholder.svg"}
+        />
+      </Box>
       <Typography
         sx={{
           textAlign: "start",
@@ -56,7 +63,7 @@ const BoardMember = ({
       >
         {name}
       </Typography>
-      <Typography
+      {/* <Typography
         sx={{
           textAlign: "start",
           width: "100%",
@@ -64,7 +71,7 @@ const BoardMember = ({
         }}
       >
         {title}
-      </Typography>
+      </Typography> */}
     </Grid>
   );
 };
