@@ -3,14 +3,12 @@ import Image from "next/image";
 
 const BoardMember = ({
   name,
-  // title,
   image,
   index,
   setCurrentMember,
   handleOpen,
 }: {
   name: string;
-  // title: string;
   image: string | null;
   bio: string;
   index: number;
@@ -50,8 +48,6 @@ const BoardMember = ({
         <Image
           fill={true}
           objectFit="contain"
-          // width={200}
-          // height={230}
           alt={name || "Board member"}
           src={image ? image : "/images/profile-picture-placeholder.svg"}
         />

@@ -53,12 +53,7 @@ const Board = ({
         paddingX: { xs: "32px" },
       }}
     >
-      <Box
-      // sx={{
-      //   display: "flex",
-      //   justifyContent: "space-between",
-      // }}
-      >
+      <Box>
         <Typography
           sx={{
             fontSize: { xs: "24px", md: "50px" },
@@ -79,7 +74,6 @@ const Board = ({
           }}
           variant="outlined"
           sx={{
-            // paddingLeft: "0",
             marginY: { xs: "20px", md: "30px" },
           }}
         >
@@ -116,7 +110,6 @@ const Board = ({
           return (
             <BoardMember
               name={locale === "en" ? member.english_name : member.arabic_name}
-              // title={locale === "en" ? member.titleEn : member.titleAr}
               image={member.photoLink}
               bio={locale === "en" ? member.english_bio : member.arabic_bio}
               key={index}
