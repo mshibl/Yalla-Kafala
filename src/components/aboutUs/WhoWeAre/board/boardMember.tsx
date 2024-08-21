@@ -31,6 +31,7 @@ const BoardMember = ({
         flexDirection: "column",
         justifyContent: "start",
         alignItems: "center",
+        cursor: "pointer",
       }}
     >
       <Box
