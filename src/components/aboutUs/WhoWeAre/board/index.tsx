@@ -40,7 +40,6 @@ const Board = ({
     if (boardMember?.location === "Egypt & USA") return true;
     return boardMember?.location === boardFilter;
   });
-
   const handleOpen = () => {
     setOpen(true);
   };
@@ -69,6 +68,7 @@ const Board = ({
         </Typography>
         <Button
           onClick={() => {
+            setCurrentMember(0);
             if (boardFilter === "USA") setBoardFilter("Egypt");
             else setBoardFilter("USA");
           }}
