@@ -1,33 +1,68 @@
-import { Card, CardContent, Grid, Typography } from "@mui/material";
+import { Card, CardContent, Grid, Typography, Box } from "@mui/material";
 
 const EgyptDonationOptions = ({ locale }: { locale: string }) => {
   return (
-    <Grid
-      container
-      justifyContent="center"
-      columns={{ xs: 2, sm: 8, md: 8 }}
-      spacing={8}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "secondary.main",
+        paddingBottom: { xs: "30px", md: "100px" },
+        paddingTop: "25px",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingX: { xs: "30px" },
+      }}
     >
-      <>
-        <Grid item width="90%" md={4}>
-          <CIB locale={locale} />
-        </Grid>
-        <Grid item width="90%" md={4}>
-          <Fawry locale={locale} />
-        </Grid>
-        <Grid item width="90%" md={4}>
-          <VodafoneCash locale={locale} />
-        </Grid>
-        <Grid item width="90%" md={4}>
-          <Checks locale={locale} />
-        </Grid>
-      </>
-    </Grid>
+      <Box
+        sx={{
+          width: { xs: "36px", md: "66px" },
+          height: { xs: "36px", md: "66px" },
+          borderRadius: "50%",
+          backgroundColor: "primary.main",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+          fontSize: "30px",
+          marginBottom: { xs: "10px", md: "25px" },
+        }}
+      >
+        <Typography fontWeight={"bold"} variant="body1">
+          {locale === "en" ? "or" : "او"}
+        </Typography>
+      </Box>
+      <Grid
+        container
+        justifyContent="center"
+        columns={{ xs: 2, sm: 8, md: 8 }}
+        // spacing={8}
+        sx={{
+          overflow: "hidden",
+          width: "100%",
+        }}
+      >
+        <>
+          <Grid item xs={12} md={3}>
+            <CIB locale={locale} />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Fawry locale={locale} />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <VodafoneCash locale={locale} />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Checks locale={locale} />
+          </Grid>
+        </>
+      </Grid>
+    </Box>
   );
 };
 
 const CIB = ({ locale }: { locale: string }) => (
-  <Card sx={{ height: "200px" }} variant="outlined">
+  <Card sx={{ height: "250px", margin: "8px" }} variant="outlined">
     <CardContent>
       <Typography
         color="text.primary"
@@ -56,7 +91,7 @@ const CIB = ({ locale }: { locale: string }) => (
 );
 
 const Fawry = ({ locale }: { locale: string }) => (
-  <Card sx={{ height: "200px" }} variant="outlined">
+  <Card sx={{ height: "250px", margin: "8px" }} variant="outlined">
     <CardContent>
       <Typography
         color="text.primary"
@@ -82,7 +117,7 @@ const Fawry = ({ locale }: { locale: string }) => (
 );
 
 const Checks = ({ locale }: { locale: string }) => (
-  <Card sx={{ height: "200px" }} variant="outlined">
+  <Card sx={{ height: "250px", margin: "8px" }} variant="outlined">
     <CardContent>
       <Typography
         color="text.primary"
@@ -104,7 +139,7 @@ const Checks = ({ locale }: { locale: string }) => (
 );
 
 const VodafoneCash = ({ locale }: { locale: string }) => (
-  <Card sx={{ height: "200px" }} variant="outlined">
+  <Card sx={{ height: "250px", margin: "8px" }} variant="outlined">
     <CardContent>
       <Typography
         color="text.primary"

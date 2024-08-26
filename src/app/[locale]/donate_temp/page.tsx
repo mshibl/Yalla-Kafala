@@ -1,41 +1,21 @@
-"use client";
-
-import PublicIcon from "@mui/icons-material/Public";
-import ETapestryDonationForm from "@/src/components/ETapestryDonationForm";
-import EgyptDonationOptions from "@/src/components/EgyptDonationOptions";
 import ErrorBoundary from "@/src/components/ErrorBoundary";
 import { useLocationData } from "@/src/utils/useLocationData";
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  IconButton,
-  TextField,
-  Typography,
-} from "@mui/material";
-import useResponsiveBreakpoint from "@/src/utils/mui-utils";
-import { useState } from "react";
+import { Box, Typography } from "@mui/material";
 import HeroImage from "@/src/components/aboutUs/WhoWeAre/heroImage";
+import DonationForm from "@/src/components/DonationForm";
+import EgyptDonationOptions from "@/src/components/EgyptDonationOptionsNew";
 
 const DonatePage = ({
   params: { locale },
 }: {
   params: { locale: "ar" | "en" };
 }) => {
-  const { locationData, loading, error } = useLocationData();
-  const [showEtapestry, setShowEtapestry] = useState(false);
-
-  if (loading || error || !locationData) return <Box height="500px" />;
-
-  const country = locationData?.country.toLowerCase();
-
   return (
     <ErrorBoundary locale={locale}>
       <HeroImage src="/images/donation_page_hero.png" />
       <Box
         sx={{
-          marginX: "25%",
+          marginX: { xs: "10%", md: "25%" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -51,7 +31,7 @@ const DonatePage = ({
           }}
           variant="h2"
         >
-          {locale === "en" ? "Transform Lives:" : "قصتنا"}
+          {locale === "en" ? "Transform Lives:" : "تغيير الحياة:"}
         </Typography>
         <Typography
           sx={{
@@ -63,7 +43,7 @@ const DonatePage = ({
           }}
           variant="h2"
         >
-          {locale === "en" ? "Your Donations, Their Hope" : "قصتنا"}
+          {locale === "en" ? "Your Donations, Their Hope" : "تبرعاتكم، أملهم"}
         </Typography>
         <Typography
           sx={{
@@ -92,239 +72,7 @@ const DonatePage = ({
             </>
           )}
         </Typography>
-        <Box
-          component={"form"}
-          sx={{
-            marginY: { xs: "25px", md: "40px" },
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <Box
-            component={"label"}
-            sx={{
-              fontWeight: "bold",
-              color: "primary.main",
-            }}
-          >
-            First Name
-          </Box>
-          <TextField
-            fullWidth
-            id="outlined-basic"
-            required
-            variant="outlined"
-            sx={{
-              marginBottom: { xs: "10px", md: "30px" },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "#B9D7E0", // Default border color
-                  borderWidth: "4px",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#B9D7E0", // Default border color
-                  borderWidth: "4px",
-                },
-              },
-            }}
-          />
-          <Box
-            component={"label"}
-            sx={{
-              fontWeight: "bold",
-              color: "primary.main",
-            }}
-          >
-            Last Name
-          </Box>
-          <TextField
-            fullWidth
-            id="outlined-basic"
-            required
-            variant="outlined"
-            sx={{
-              marginBottom: { xs: "10px", md: "30px" },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "#B9D7E0", // Default border color
-                  borderWidth: "4px",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#B9D7E0", // Default border color
-                  borderWidth: "4px",
-                },
-              },
-            }}
-          />
-          <Box
-            component={"label"}
-            sx={{
-              fontWeight: "bold",
-              color: "primary.main",
-            }}
-          >
-            Email
-          </Box>
-          <TextField
-            fullWidth
-            id="outlined-basic"
-            required
-            variant="outlined"
-            sx={{
-              marginBottom: { xs: "10px", md: "30px" },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "#B9D7E0", // Default border color
-                  borderWidth: "4px",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#B9D7E0", // Default border color
-                  borderWidth: "4px",
-                },
-              },
-            }}
-          />
-          <Box
-            component={"label"}
-            sx={{
-              fontWeight: "bold",
-              color: "primary.main",
-            }}
-          >
-            Phone
-          </Box>
-          <TextField
-            fullWidth
-            id="outlined-basic"
-            required
-            variant="outlined"
-            sx={{
-              marginBottom: { xs: "10px", md: "30px" },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "#B9D7E0", // Default border color
-                  borderWidth: "4px",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#B9D7E0", // Default border color
-                  borderWidth: "4px",
-                },
-              },
-            }}
-          />
-          <Box
-            component={"h3"}
-            sx={{
-              fontWeight: "bold",
-              color: "primary.main",
-            }}
-          >
-            Which program do you want to contribute to?
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <FormControlLabel
-              sx={{
-                color: "primary.main",
-              }}
-              control={
-                <Checkbox
-                  sx={{
-                    "& .MuiSvgIcon-root": { fontSize: 72 },
-                    color: "#B9D7E0",
-                    "&.Mui-checked": {
-                      color: "#B9D7E0",
-                    },
-                    "&.Mui-checked:hover": {
-                      color: "#B9D7E0",
-                    },
-                  }}
-                />
-              }
-              label="Education Initiatives"
-            />
-            <FormControlLabel
-              sx={{
-                color: "primary.main",
-              }}
-              control={
-                <Checkbox
-                  sx={{
-                    "& .MuiSvgIcon-root": { fontSize: 72 },
-                    color: "#B9D7E0",
-                    "&.Mui-checked": {
-                      color: "#B9D7E0",
-                    },
-                    "&.Mui-checked:hover": {
-                      color: "#B9D7E0",
-                    },
-                  }}
-                />
-              }
-              label="Advocacy Initiatives"
-            />
-            <FormControlLabel
-              sx={{
-                color: "primary.main",
-              }}
-              control={
-                <Checkbox
-                  sx={{
-                    "& .MuiSvgIcon-root": { fontSize: 72 },
-                    color: "#B9D7E0",
-                    "&.Mui-checked": {
-                      color: "#B9D7E0",
-                    },
-                    "&.Mui-checked:hover": {
-                      color: "#B9D7E0",
-                    },
-                  }}
-                />
-              }
-              label="Resource Development Initiatives"
-            />
-            <FormControlLabel
-              sx={{
-                color: "primary.main",
-              }}
-              control={
-                <Checkbox
-                  sx={{
-                    "& .MuiSvgIcon-root": { fontSize: 72 },
-                    color: "#B9D7E0",
-                    "&.Mui-checked": {
-                      color: "#B9D7E0",
-                    },
-                    "&.Mui-checked:hover": {
-                      color: "#B9D7E0",
-                    },
-                  }}
-                />
-              }
-              label="Yalla Kafala Admin/operations"
-            />
-          </Box>
-          <Button
-            variant="contained"
-            sx={{
-              fontWeight: 600,
-              backgroundColor: "#87226C",
-              color: "#FFFFFF",
-              fontSize: "40px",
-              borderRadius: "100px",
-              textTransform: "none",
-              boxShadow: "none",
-              marginTop: "80px",
-            }}
-          >
-            Next
-          </Button>
-        </Box>
+        <DonationForm locale={locale} />
       </Box>
       <EgyptDonationOptions locale={locale} />
     </ErrorBoundary>
