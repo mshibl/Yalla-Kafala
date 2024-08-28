@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 
-const HeroImage = () => {
+const HeroImage = ({ src }: { src: string }) => {
   return (
     <Box
       sx={{
@@ -11,7 +11,7 @@ const HeroImage = () => {
         objectPosition: "center",
       }}
       component={"img"}
-      src="/images/who_we_are.png"
+      src={src}
     />
   );
 };

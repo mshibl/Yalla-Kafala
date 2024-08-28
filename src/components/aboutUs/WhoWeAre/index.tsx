@@ -13,7 +13,7 @@ const WhoWeAre = async ({ locale }: { locale: string }) => {
 
   return (
     <>
-      <HeroImage />
+      <HeroImage src="/images/who_we_are.png" />
       <Story locale={locale} />
       <Founder locale={locale} />
       <Board boardMembers={boardMembers} locale={locale} />
