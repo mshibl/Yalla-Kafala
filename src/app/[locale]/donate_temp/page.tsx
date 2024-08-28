@@ -55,10 +55,10 @@ const DonatePage = ({
           {locale === "en" ? (
             <>
               Every child deserves a chance to dream, to thrive, to be loved.
-              Your donation has the power to make this come true. It's more than
-              a gift; it's a lifeline. It's a chance to provide food, shelter,
-              education, and hope. It's a chance to rewrite the story of a
-              child's life. 
+              Your donation has the power to make this come true. It&apos;s more
+              than a gift; it&apos;s a lifeline. It&apos;s a chance to provide
+              food, shelter, education, and hope. It&apos;s a chance to rewrite
+              the story of a child&apos;s life.
             </>
           ) : (
             <>
