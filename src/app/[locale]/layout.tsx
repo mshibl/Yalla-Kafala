@@ -1,4 +1,5 @@
 import AppTheme from "@/src/utils/AppTheme";
+import { GoogleAnalytics } from '@next/third-parties/google'
 import type { Metadata } from "next";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
@@ -37,6 +38,7 @@ const LocaleLayout = ({
           </NextIntlClientProvider>
         </AppRouterCacheProvider>
       </body>
+      <GoogleAnalytics gaId="G-VNB26EW6J6" />
     </html>
   );
 };
