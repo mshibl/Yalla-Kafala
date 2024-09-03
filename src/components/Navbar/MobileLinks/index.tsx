@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
+  APPLY_FOR_KAFALA,
   DONATE_PAGE,
   FAQS_PAGE,
   KAFALA_STEPS_PAGE,
@@ -21,6 +22,7 @@ import Link from "next/link";
 const MOBILE_LINKS_PAGES = [
   HOME_PAGE,
   DONATE_PAGE,
+  APPLY_FOR_KAFALA,
   WHO_WE_ARE_PAGE,
   VISION_MISSION_AND_VALUES_PAGE,
   ACTIVITIES_AND_MILESTONES_PAGE,
@@ -72,19 +74,24 @@ function MobileLinks({
           display: { xs: "block", lg: "none" },
         }}
       >
-        {MOBILE_LINKS_PAGES.map((pageName) => (
-          <Link
-            key={pageName}
-            href={`/${locale}${PAGE_PATHNAMES[pageName]}`}
-            style={{ textDecoration: "none" }}
-          >
-            <MenuItem sx={{ minWidth: "200px" }} onClick={handleClosePagesMenu}>
-              <Typography color="#000000" textAlign="center">
-                {t(`pages.${pageName}.name`)}
-              </Typography>
-            </MenuItem>
-          </Link>
-        ))}
+        {MOBILE_LINKS_PAGES.map((pageName) => {
+          let href = `/${locale}${PAGE_PATHNAMES[pageName]}`;
+          if (pageName === "apply_for_kafala") {
+            href = `${PAGE_PATHNAMES[pageName]}`;
+          }
+          return (
+            <Link key={pageName} href={href} style={{ textDecoration: "none" }}>
+              <MenuItem
+                sx={{ minWidth: "200px" }}
+                onClick={handleClosePagesMenu}
+              >
+                <Typography color="#000000" textAlign="center">
+                  {t(`pages.${pageName}.name`)}
+                </Typography>
+              </MenuItem>
+            </Link>
+          );
+        })}
       </Menu>
     </Box>
   );
