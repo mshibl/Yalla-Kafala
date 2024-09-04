@@ -17,6 +17,7 @@ import {
   WHAT_IS_KAFALA_PAGE,
   WHO_WE_ARE_PAGE,
 } from "@/src/constants/pages";
+import ApplyForKafalaButton from "../ApplyForKafalaButton";
 
 const DESKTOP_HIGHLIGHTED_PAGES = [
   KAFALA_STEPS_PAGE,
@@ -70,7 +71,7 @@ function DesktopLinks({
               fontWeight: "bold",
               fontSize: "16px",
               textTransform: "none",
-              marginLeft: "30px",
+              marginLeft: "20px",
             }}
           >
             {locale === "en" ? "About Us" : "من نحن"}
@@ -80,7 +81,7 @@ function DesktopLinks({
           <Link
             key={pageName}
             href={`/${locale}${PAGE_PATHNAMES[pageName]}`}
-            style={{ textDecoration: "none", marginLeft: "30px" }}
+            style={{ textDecoration: "none", marginLeft: "15px" }}
           >
             <Button
               sx={{
@@ -100,10 +101,18 @@ function DesktopLinks({
       <Box
         sx={{
           display: { xs: "none", lg: "flex" },
-          marginLeft: "36px",
+          marginLeft: "15px",
         }}
       >
         <NavbarDonateButton />
+      </Box>
+      <Box
+        sx={{
+          display: { xs: "none", lg: "flex" },
+          marginLeft: "15px",
+        }}
+      >
+        <ApplyForKafalaButton />
       </Box>
 
       <Menu

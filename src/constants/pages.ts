@@ -1,4 +1,5 @@
 export const HOME_PAGE = "home";
+export const APPLY_FOR_KAFALA = "apply_for_kafala";
 export const ABOUT_US_PAGE = "about_us";
 export const KAFALA_STORIES_PAGE = "kafala_stories";
 export const WHAT_IS_KAFALA_PAGE = "what_is_kafala";
@@ -18,6 +19,8 @@ export const PARTNERSHIPS_PAGE = "partnerships";
 
 export const PAGE_PATHNAMES: { [key: string]: string } = {
   [HOME_PAGE]: "/",
+  [APPLY_FOR_KAFALA]:
+    "https://www.moss.gov.eg/Sites/MOSA/ar-eg/Pages/AF-Request.aspx",
   [ABOUT_US_PAGE]: "/about_us",
   [KAFALA_STORIES_PAGE]: "/kafala_stories",
   [WHAT_IS_KAFALA_PAGE]: "/what_is_kafala",
@@ -38,6 +41,7 @@ export const PAGE_PATHNAMES: { [key: string]: string } = {
 
 export const ALL_PAGES = [
   HOME_PAGE,
+  APPLY_FOR_KAFALA,
   ABOUT_US_PAGE,
   KAFALA_STORIES_PAGE,
   WHAT_IS_KAFALA_PAGE,
