@@ -38,7 +38,7 @@ const LocaleLayout = ({
           </NextIntlClientProvider>
         </AppRouterCacheProvider>
       </body>
-      <GoogleAnalytics gaId="G-VNB26EW6J6" />
+      <GoogleAnalytics gaId="G-DXKW33HT8F" />
     </html>
   );
 };
