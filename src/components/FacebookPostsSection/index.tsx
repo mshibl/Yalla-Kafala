@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 
-export interface FacebookPost {
+interface FacebookPost {
   id: string;
   picture: string;
   createdAt: string;
@@ -19,11 +19,7 @@ export interface FacebookPost {
   attachments: any;
 }
 
-interface FacebookPostsProps {
-  posts: FacebookPost[];
-}
-
-const FacebookPosts = async () => {
+const FacebookPosts = async ({ locale }: { locale: "ar" | "en" }) => {
   let fbPosts: FacebookPost[] = [];
   try {
     const response = await fetch(
@@ -101,7 +97,7 @@ const FacebookPosts = async () => {
                         rel="noopener noreferrer"
                         fullWidth
                       >
-                        Read More
+                        {locale === "en" ? "Read More" : "اقراء المزيد"}
                       </Button>
                     </Box>
                   </CardContent>
@@ -120,7 +116,7 @@ const FacebookPosts = async () => {
                   textDecoration: "underline",
                 }}
               >
-                View more posts
+                {locale === "en" ? "View more posts" : "المزيد من المنشورات"}
               </Button>
             </Link>
           </Box>
