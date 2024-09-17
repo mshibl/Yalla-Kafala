@@ -23,7 +23,7 @@ const FacebookPosts = async ({ locale }: { locale: "ar" | "en" }) => {
   let fbPosts: FacebookPost[] = [];
   try {
     const response = await fetch(
-      `https://graph.facebook.com/v20.0/469771757195549/posts?limit=3&fields=message,created_time,permalink_url,full_picture,attachments,id&access_token=EAAVUbBwLqfIBO1WCDnrXqAwnfNWjo6ilJE7v5OagZCMZAdN0UHknxbTGBpsF2iicYVdwYSsZAm2rzsKjcZBbGH6Ch7qhWFjaaa3gvkdOnk2cRfXD6ZCRSbtP0Q1ZCT6l2LdzHAhg7xVtb7fyRCpuQWzMmEmQeJsOZC0wWIV1pDeDuHWfm01R5ZCYZCMpx65HoLYPeYWrjl8HxN8y6YzmD`,
+      `https://graph.facebook.com/v20.0/469771757195549/posts?limit=3&fields=message,created_time,permalink_url,full_picture,attachments,id&access_token=${process.env.FACEBOOK_PAGE_ACCESS_TOKEN}`,
       {
         method: "GET",
       }
