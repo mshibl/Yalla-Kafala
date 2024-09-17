@@ -5,14 +5,16 @@ import YKIntroSection from "./YKIntroSection";
 import StoriesSection from "./StoriesSection";
 import FAQsSection from "./FAQsSection";
 import MobileDonationButton from "../MobileDonateButton";
+import FacebookPosts, { FacebookPost } from "../FacebookPostsSection";
 
-const Home = ({ locale }: { locale: "ar" | "en" }) => {
+const Home = async ({ locale }: { locale: "ar" | "en" }) => {
   return (
     <Box>
       <HeroSection locale={locale} />
       <MissionStatement locale={locale} />
       <YKIntroSection locale={locale} />
       <StoriesSection locale={locale} />
+      <FacebookPosts />
       <FAQsSection locale={locale} />
       <MobileDonationButton locale={locale} />
     </Box>
