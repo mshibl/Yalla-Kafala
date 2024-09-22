@@ -13,7 +13,7 @@ const YKIntroSection = ({ locale }: { locale: "ar" | "en" }) => {
         <Typography variant="h5" paddingBottom="20px" fontWeight={600}>
           {locale === "ar" ? "مؤسسة يلا كفالة" : "Yalla Kafala"}
         </Typography>
-        <Typography variant="body2"  paddingBottom="20px">
+        <Typography fontSize="1.2rem"  paddingBottom="20px">
           {locale === "ar"
             ? "يلا كفالة منظمة خيرية غير هادفة للربح تأسست عام ٢٠٢٠ بهدف خلق حياة أفضل للأيتام في مصر من خلال رفع مستوى الوعي حول الكفالة، وتيسير إجراءات الكفالة، وتوجيه الأسر الكفالة وإعدادها من خلال تزويدهم بالأدوات اللازمة لتربية أطفال أصحاء نفسيًا وسلوكيًا."
             : "Yalla Kafala is a non-profit charity founded in 2020 with the aim of creating a better life for orphans in Egypt by raising awareness about Kafala, facilitating Kafala procedures, guiding Kafala families and preparing them by providing them with the necessary tools to raise children who are mentally and behaviorally healthy."}

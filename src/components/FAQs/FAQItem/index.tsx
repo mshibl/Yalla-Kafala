@@ -28,12 +28,12 @@ const Faq: React.FC<FaqProps> = ({ defaultExpanded, question, answer }) => {
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography color="primary.main" variant="body2" fontWeight={600}>
+          <Typography color="primary.main" fontSize="1.2rem" fontWeight={600}>
             {question}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography color="black" variant="body2" overflow="hidden">
+          <Typography color="black" fontSize="1.2rem" overflow="hidden">
             {formatText(answer)}
           </Typography>
         </AccordionDetails>

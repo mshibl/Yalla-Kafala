@@ -17,7 +17,7 @@ const MissionStatement = ({ locale }: { locale: "ar" | "en" }) => {
       >
         {locale === "ar" ? "رسالتنا" : "Our Mission"}
       </Typography>
-      <Typography variant="body1" textAlign="center" padding="20px" pt={0}>
+      <Typography fontSize="1.4rem" textAlign="center" padding="20px" pt={0}>
         {locale === "ar"
           ? "تقديم الرعاية الجيدة للأيتام من خلال الدعوة والتثقيف و تطوير الموارد للعائلات الكافلة"
           : "Advance quality care for orphans by advocating, educating, and developing resources for Kafala families"}
