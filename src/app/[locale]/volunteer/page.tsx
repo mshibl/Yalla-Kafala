@@ -1,35 +1,44 @@
-"use client";
+import VolunteerForm from "@/src/components/VolunteerForm";
+import { Metadata } from "next";
+export async function generateVolunteerFormMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const isArabic = locale === "ar";
 
-import ErrorBoundary from "@/src/components/ErrorBoundary";
-import ETapestryVolunteerForm from "@/src/components/ETapestryVolunteerForm";
-import { useLocationData } from "@/src/utils/useLocationData";
-import { Box, Typography } from "@mui/material";
+  const title = isArabic ? "تطوع معنا" : "Volunteer with us";
+  const description = isArabic
+    ? "انضم إلينا كمتطوع وساهم في تحسين حياة الأيتام في مصر. تعبئة النموذج أدناه للتسجيل."
+    : "Join us as a volunteer and help improve the lives of orphans in Egypt. Fill out the form below to register.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: "https://yallakafala.org/volunteer",
+      siteName: "Yalla Kafala",
+      images: [
+        {
+          url: "https://yallakafala.org/images/volunteer.jpg",
+          width: 1200,
+          height: 630,
+        },
+      ],
+      locale,
+      type: "website",
+    },
+  };
+}
 
 const VolunteerPage = ({
   params: { locale },
 }: {
   params: { locale: "ar" | "en" };
 }) => {
-  const { locationData, loading, error } = useLocationData();
-  if (loading || error || !locationData) return <Box height="500px" />;
-
-  return (
-    <ErrorBoundary locale={locale}>
-      <Box mb="100px" px={{ xs: "16px", md: "100px" }}>
-        <Box
-          sx={{
-            textAlign: { xs: "center", md: "center" },
-            py: "40px",
-          }}
-        >
-          <Typography variant="h4" color="primary.main" fontWeight={500}>
-            {locale === "ar" ? "تطوع معنا" : "Volunteer with us"}
-          </Typography>
-        </Box>
-        <ETapestryVolunteerForm locale={locale} show={true} />
-      </Box>
-    </ErrorBoundary>
-  );
+  return <VolunteerForm locale={locale} />;
 };
 
 export default VolunteerPage;
