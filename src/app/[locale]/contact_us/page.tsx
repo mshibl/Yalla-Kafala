@@ -1,35 +1,44 @@
-"use client";
+import ContactUsForm from "@/src/components/ContactUsForm";
+import { Metadata } from "next";
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const isArabic = locale === "ar";
 
-import ErrorBoundary from "@/src/components/ErrorBoundary";
-import ETapestryContactUsForm from "@/src/components/ETapestryContactUsForm";
-import { useLocationData } from "@/src/utils/useLocationData";
-import { Box, Typography } from "@mui/material";
+  const title = isArabic ? "اتصل بنا" : "Contact Us";
+  const description = isArabic
+    ? "تواصل معنا لأي استفسارات أو معلومات حول يلا كفالة. نحن هنا لمساعدتك!"
+    : "Reach out to us for any inquiries or information about Yalla Kafala. We are here to help!";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: "https://yallakafala.org/contact",
+      siteName: "Yalla Kafala",
+      images: [
+        {
+          url: "https://yallakafala.org/images/contact.jpg",
+          width: 1200,
+          height: 630,
+        },
+      ],
+      locale,
+      type: "website",
+    },
+  };
+}
 
 const ContactUsPage = ({
   params: { locale },
 }: {
   params: { locale: "ar" | "en" };
 }) => {
-  const { locationData, loading, error } = useLocationData();
-  if (loading || error || !locationData) return <Box height="500px" />;
-
-  return (
-    <ErrorBoundary locale={locale}>
-      <Box mb="100px" px={{ xs: "16px", md: "100px" }}>
-        <Box
-          sx={{
-            textAlign: { xs: "center", md: "center" },
-            py: "40px",
-          }}
-        >
-          <Typography variant="h4" color="primary.main" fontWeight={500}>
-            {locale === "ar" ? "اتصل بنا" : "Contact Us"}
-          </Typography>
-        </Box>
-        <ETapestryContactUsForm locale={locale} show={true} />
-      </Box>
-    </ErrorBoundary>
-  );
+  return <ContactUsForm locale={locale} />;
 };
 
 export default ContactUsPage;
