@@ -1,6 +1,6 @@
 import VolunteerForm from "@/src/components/VolunteerForm";
 import { Metadata } from "next";
-export async function generateVolunteerFormMetadata({
+export async function generateMetadata({
   params: { locale },
 }: {
   params: { locale: string };

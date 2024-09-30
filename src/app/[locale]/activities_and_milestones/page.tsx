@@ -8,7 +8,7 @@ import OnGroundAccomplishments from "@/src/components/OnGroundAccomplishments";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-export async function generateActivitiesMetadata({
+export async function generateMetadata({
   params: { locale },
 }: {
   params: { locale: string };

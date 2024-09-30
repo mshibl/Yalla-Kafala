@@ -1,6 +1,6 @@
 import ContactUsForm from "@/src/components/ContactUsForm";
 import { Metadata } from "next";
-export async function generateContactMetadata({
+export async function generateMetadata({
   params: { locale },
 }: {
   params: { locale: string };
