@@ -20,23 +20,68 @@ export async function generateMetadata({
     ? "اكتشف الأنشطة والمعالم التي تم تحقيقها لدعم الأيتام في مصر من خلال يلا كفالة."
     : "Explore the activities and milestones achieved to support orphans in Egypt through Yalla Kafala.";
 
+  const url = `https://yallakafala.org/${locale}/activities`;
+  const imageUrl = "https://yallakafala.org/images/activities.jpg";
+
   return {
     title,
     description,
+    alternates: {
+      languages: {
+        en: "/en/activities",
+        ar: "/ar/activities",
+      },
+    },
+    keywords: isArabic
+      ? ["الأنشطة", "المعالم", "كفالة", "أيتام", "مصر"]
+      : ["activities", "milestones", "kafala", "orphans", "Egypt"],
+    viewport: {
+      width: "device-width",
+      initialScale: 1,
+      maximumScale: 1,
+    },
     openGraph: {
       title,
       description,
-      url: "https://yallakafala.org/activities",
+      url,
       siteName: "Yalla Kafala",
       images: [
         {
-          url: "https://yallakafala.org/images/activities.jpg",
+          url: imageUrl,
           width: 1200,
           height: 630,
+          alt: isArabic ? "الأنشطة والمعالم" : "Activities and Milestones",
         },
       ],
-      locale,
+      locale: isArabic ? "ar_EG" : "en_US",
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+      creator: "@YallaKafala",
+    },
+    other: {
+      "og:image:width": "1200",
+      "og:image:height": "630",
+      "og:site_name": "Yalla Kafala",
+      "og:locale": isArabic ? "ar_EG" : "en_US",
+      "og:locale:alternate": isArabic ? "en_US" : "ar_EG",
+      "og:image:secure_url": imageUrl, // WhatsApp specific
+      "fb:pages": "469771757195549", // Facebook Page ID
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }

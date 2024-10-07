@@ -17,23 +17,68 @@ export async function generateMetadata({
     ? "يلا كفالة هي منظمة غير حكومية تعمل على تغيير رعاية الأطفال في مصر من خلال الكفالة. مع مكاتب في مصر وسان فرانسيسكو، نقدم بدائل رعاية مبتكرة، وخدمات دعم، ودعوة لحقوق الأيتام."
     : "Yalla Kafala is an NGO transforming child welfare in Egypt through Kafala (guardianship/adoption). With offices in Egypt and San Francisco, we offer innovative care alternatives, support services, and advocacy for orphans.";
 
+  const url = `https://yallakafala.org/${locale}`;
+  const imageUrl = "https://yallakafala.org/images/yk-team-1.jpg";
+
   return {
     title,
     description,
+    alternates: {
+      languages: {
+        en: "/en",
+        ar: "/ar",
+      },
+    },
+    keywords: isArabic
+      ? ["كفالة", "رعاية الأطفال", "أيتام", "مصر", "منظمة غير حكومية"]
+      : ["Kafala", "child welfare", "orphans", "Egypt", "NGO"],
+    viewport: {
+      width: "device-width",
+      initialScale: 1,
+      maximumScale: 1,
+    },
     openGraph: {
       title,
       description,
-      url: "https://yallakafala.org",
+      url,
       siteName: "Yalla Kafala",
       images: [
         {
-          url: "https://yallakafala.org/images/yk-team-1.jpg",
+          url: imageUrl,
           width: 1200,
           height: 630,
+          alt: isArabic ? "فريق يلا كفالة" : "Yalla Kafala Team",
         },
       ],
-      locale,
+      locale: isArabic ? "ar_EG" : "en_US",
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+      creator: "@YallaKafala",
+    },
+    other: {
+      "og:image:width": "1200",
+      "og:image:height": "630",
+      "og:site_name": "Yalla Kafala",
+      "og:locale": isArabic ? "ar_EG" : "en_US",
+      "og:locale:alternate": isArabic ? "en_US" : "ar_EG",
+      "og:image:secure_url": imageUrl, // WhatsApp specific
+      "fb:pages": "469771757195549", // Facebook Page ID
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
