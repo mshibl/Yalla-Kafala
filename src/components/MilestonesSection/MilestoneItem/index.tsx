@@ -55,6 +55,7 @@ const MilestoneItem = ({
           src={imgSrc}
           alt={locale === "en" ? englishImgAlt : arabicImgAlt}
           fill={true}
+          sizes="100% 100%"
           style={{
             objectFit: "contain",
             padding: "30px",
