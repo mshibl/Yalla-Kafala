@@ -12,23 +12,68 @@ export async function generateMetadata({
     ? "تواصل معنا لأي استفسارات أو معلومات حول يلا كفالة. نحن هنا لمساعدتك!"
     : "Reach out to us for any inquiries or information about Yalla Kafala. We are here to help!";
 
+  const url = `https://yallakafala.org/${locale}/contact`;
+  const imageUrl = "https://yallakafala.org/images/contact.jpg";
+
   return {
     title,
     description,
+    alternates: {
+      languages: {
+        en: "/en/contact",
+        ar: "/ar/contact",
+      },
+    },
+    keywords: isArabic
+      ? ["اتصل بنا", "كفالة", "دعم", "استفسارات", "مساعدة"]
+      : ["contact us", "kafala", "support", "inquiries", "help"],
+    viewport: {
+      width: "device-width",
+      initialScale: 1,
+      maximumScale: 1,
+    },
     openGraph: {
       title,
       description,
-      url: "https://yallakafala.org/contact",
+      url,
       siteName: "Yalla Kafala",
       images: [
         {
-          url: "https://yallakafala.org/images/contact.jpg",
+          url: imageUrl,
           width: 1200,
           height: 630,
+          alt: isArabic ? "اتصل بنا - يلا كفالة" : "Contact Us - Yalla Kafala",
         },
       ],
-      locale,
+      locale: isArabic ? "ar_EG" : "en_US",
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+      creator: "@YallaKafala",
+    },
+    other: {
+      "og:image:width": "1200",
+      "og:image:height": "630",
+      "og:site_name": "Yalla Kafala",
+      "og:locale": isArabic ? "ar_EG" : "en_US",
+      "og:locale:alternate": isArabic ? "en_US" : "ar_EG",
+      "og:image:secure_url": imageUrl, // WhatsApp specific
+      "fb:pages": "469771757195549", // Facebook Page ID
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
