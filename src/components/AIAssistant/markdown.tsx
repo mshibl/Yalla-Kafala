@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import ReactMarkdown from "react-markdown";
@@ -5,6 +6,9 @@ import remarkGfm from "remark-gfm";
 
 const NonMemoizedMarkdown = ({ children }: { children: string }) => {
   const components = {
+    p: ({ node, children, ...props }: any) => {
+      return <Typography variant="body1">{children}</Typography>;
+    },
     code: ({ node, inline, className, children, ...props }: any) => {
       const match = /language-(\w+)/.exec(className || "");
       return !inline && match ? (
@@ -74,5 +78,5 @@ const NonMemoizedMarkdown = ({ children }: { children: string }) => {
 
 export const Markdown = React.memo(
   NonMemoizedMarkdown,
-  (prevProps, nextProps) => prevProps.children === nextProps.children,
+  (prevProps, nextProps) => prevProps.children === nextProps.children
 );

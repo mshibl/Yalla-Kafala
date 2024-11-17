@@ -16,13 +16,7 @@ export async function POST(request: Request) {
         selection: selectedFilePathnames,
       },
     },
-    onFinish: async ({ text }) => {
-      await createMessage({
-        id,
-        messages: [...messages, { role: "assistant", content: text }],
-        author: "Kafala Assistant",
-      });
-    },
+    onFinish: async ({ text }) => {},
     experimental_telemetry: {
       isEnabled: true,
       functionId: "stream-text",

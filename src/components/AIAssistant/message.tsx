@@ -1,32 +1,33 @@
 "use client";
-
-import { motion } from "framer-motion";
-import { BotIcon, UserIcon } from "./icons";
-import { ReactNode } from "react";
+import Image from "next/image";
+import { Box, Avatar, Typography, Paper } from "@mui/material";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
+import PersonIcon from "@mui/icons-material/Person";
 import { Markdown } from "./markdown";
 
-export const Message = ({
-  role,
-  content,
-}: {
-  role: string;
-  content: string | ReactNode;
-}) => {
+export function Message({ role, content }: { role: string; content: string }) {
   return (
-    <motion.div
-      className={`flex flex-row gap-4 px-4 w-full md:w-[500px] md:px-0 first-of-type:pt-20`}
-      initial={{ y: 5, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-    >
-      <div className="size-[24px] flex flex-col justify-center items-center flex-shrink-0 text-zinc-400">
-        {role === "assistant" ? <BotIcon /> : <UserIcon />}
-      </div>
-
-      <div className="flex flex-col gap-6 w-full">
-        <div className="text-zinc-800 dark:text-zinc-300 flex flex-col gap-4">
-          <Markdown>{content as string}</Markdown>
-        </div>
-      </div>
-    </motion.div>
+    <Box display="flex" alignItems="flex-start">
+      <Avatar sx={{ mr: 2, width: 32, height: 32 }}>
+        {role === "user" ? (
+          <PersonIcon />
+        ) : (
+          <Image
+            src="/images/yk_logo.svg"
+            width={32}
+            height={32}
+            alt="YallaKafala logo"
+          />
+        )}
+      </Avatar>
+      <Box>
+        <Typography variant="subtitle1" fontWeight="bold">
+          {role === "user" ? "You" : "YallaKafala"}
+        </Typography>
+        <Paper elevation={0} sx={{ bgcolor: "background.default" }}>
+          <Markdown>{content}</Markdown>
+        </Paper>
+      </Box>
+    </Box>
   );
-};
+}
