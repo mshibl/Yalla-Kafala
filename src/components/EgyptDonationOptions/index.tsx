@@ -27,7 +27,7 @@ const EgyptDonationOptions = ({ locale }: { locale: string }) => {
 };
 
 const CIB = ({ locale }: { locale: string }) => (
-  <Card sx={{ height: "200px" }} variant="outlined">
+  <Card sx={{ height: { xs: "300px", lg: "200px" } }} variant="outlined">
     <CardContent>
       <Typography
         color="text.primary"
@@ -56,7 +56,7 @@ const CIB = ({ locale }: { locale: string }) => (
 );
 
 const Fawry = ({ locale }: { locale: string }) => (
-  <Card sx={{ height: "200px" }} variant="outlined">
+  <Card sx={{ height: { xs: "300px", lg: "200px" } }} variant="outlined">
     <CardContent>
       <Typography
         color="text.primary"
@@ -82,7 +82,7 @@ const Fawry = ({ locale }: { locale: string }) => (
 );
 
 const Checks = ({ locale }: { locale: string }) => (
-  <Card sx={{ height: "200px" }} variant="outlined">
+  <Card sx={{ height: { xs: "300px", lg: "200px" } }} variant="outlined">
     <CardContent>
       <Typography
         color="text.primary"
@@ -104,7 +104,7 @@ const Checks = ({ locale }: { locale: string }) => (
 );
 
 const VodafoneCash = ({ locale }: { locale: string }) => (
-  <Card sx={{ height: "200px" }} variant="outlined">
+  <Card sx={{ height: { xs: "300px", lg: "200px" } }} variant="outlined">
     <CardContent>
       <Typography
         color="text.primary"
