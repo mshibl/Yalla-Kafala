@@ -7,7 +7,7 @@ import { Container, CssBaseline } from "@mui/material";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import Navbar from "@/src/components/Navbar";
 import AppFooter from "@/src/components/AppFooter";
-import ChatAssistant from "@/src/components/AIAssistant/chatPopover";
+import Chat from "@/src/components/AIAssistant/chat";
 
 export async function generateMetadata({
   params: { locale },
@@ -189,7 +189,7 @@ const LocaleLayout = ({
             </ThemeProvider>
           </NextIntlClientProvider>
         </AppRouterCacheProvider>
-        <ChatAssistant />
+        <Chat />
       </body>
       <GoogleAnalytics gaId="G-DXKW33HT8F" />
     </html>
