@@ -44,7 +44,7 @@ const HeroSection = ({ locale }: { locale: "ar" | "en" }) => {
         }}
       >
         <Image
-          src="/images/hero.jpg"
+          src="/images/hero-new.jpg"
           alt="Yalla Kafala hero image"
           style={{ objectFit: "cover" }}
           fill={true}
