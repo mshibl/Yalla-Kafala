@@ -12,6 +12,7 @@ function parseBoardMembers(data: any) {
     arabic_name,
     location,
     publish,
+    type,
     status,
     english_bio,
     arabic_bio,
@@ -36,6 +37,7 @@ function parseBoardMembers(data: any) {
     english_name: english_name as string,
     arabic_name: arabic_name as string,
     location: location as string,
+    type: type as string,
     status: status as string,
     photoLink: convertGoogleDriveImageUrlToImageSrc(photoLink) as string,
   };

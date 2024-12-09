@@ -17,6 +17,7 @@ const Board = ({
         english_bio: string;
         english_name: string;
         arabic_name: string;
+        type: string;
         location: string;
         status: string;
         photoLink: string;
@@ -36,16 +37,27 @@ const Board = ({
   }, [locationData]);
 
   if (loading || error || !locationData) return <Box height="500px" />;
-  boardMembers = boardMembers.filter((boardMember) => {
-    if (boardMember?.location === "Egypt & USA") return true;
-    return boardMember?.location === boardFilter;
-  });
+
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
+  const filteredBoardMembers = boardMembers
+    .filter((boardMember) => {
+      if (boardMember?.location === "Egypt & USA") return true;
+      return boardMember?.location === boardFilter;
+    })
+    .filter((member) => member?.type === "Board Member");
+
+  const filteredAdvisoryCommittee = boardMembers
+    .filter((boardMember) => {
+      if (boardMember?.location === "Egypt & USA") return true;
+      return boardMember?.location === boardFilter;
+    })
+    .filter((member) => member?.type === "Advisory Committee");
+
   return (
     <Box
       sx={{
@@ -105,7 +117,7 @@ const Board = ({
           : "أعضاء مجلس الإدارة في مصر"}
       </Typography>
       <Grid gap={10} container>
-        {boardMembers.map((member, index) => {
+        {filteredBoardMembers.map((member, index) => {
           if (!member) return null;
           return (
             <BoardMember
@@ -120,6 +132,48 @@ const Board = ({
           );
         })}
       </Grid>
+
+      {filteredAdvisoryCommittee.length !== 0 && (
+        <>
+          {" "}
+          <Typography
+            sx={{
+              fontSize: { xs: "20px", md: "40px" },
+              fontWeight: "bold",
+              marginBottom: { xs: "10px", md: "35px" },
+            }}
+            color={"secondary.main"}
+            variant="h3"
+          >
+            {locale === "en"
+              ? boardFilter === "USA"
+                ? "USA Advisory Committee"
+                : "Egypt Advisory Committee"
+              : boardFilter === "USA"
+              ? "أعضاء اللجنة الاستشارية في الولايات المتحدة الأمريكية"
+              : "أعضاء اللجنة الاستشارية في مصر"}
+          </Typography>
+          <Grid gap={10} container>
+            {filteredAdvisoryCommittee.map((member, index) => {
+              if (!member) return null;
+              return (
+                <BoardMember
+                  name={
+                    locale === "en" ? member.english_name : member.arabic_name
+                  }
+                  image={member.photoLink}
+                  bio={locale === "en" ? member.english_bio : member.arabic_bio}
+                  key={index}
+                  index={index}
+                  setCurrentMember={setCurrentMember}
+                  handleOpen={handleOpen}
+                />
+              );
+            })}
+          </Grid>
+        </>
+      )}
+
       <BoardModal
         currentMember={currentMember}
         open={open}
