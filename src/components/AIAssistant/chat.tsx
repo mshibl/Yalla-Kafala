@@ -19,18 +19,28 @@ import SendIcon from "@mui/icons-material/Send";
 import ChatIcon from "@mui/icons-material/Chat";
 import { v4 as uuidv4 } from "uuid";
 
-const suggestedActions = [
-  "What services do you offer?",
-  "How can I contact support?",
-  "Tell me about pricing",
+const suggestedActionsEnglish = [
+  "What is Kafala?",
+  "How can I contact Yalla Kafala?",
+  "What is the mission of Yalla Kafala?",
 ];
 
-export default function Chat() {
+const suggestedActionsArabic = [
+  "ما هي الكفالة؟",
+  "كيف يمكنني الاتصال بيلا كفالة؟",
+  "ما هي مهمة يلا كفالة؟",
+];
+
+export default function Chat({ locale }: { locale: "ar" | "en" }) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const suggestedActions =
+    locale === "ar" ? suggestedActionsArabic : suggestedActionsEnglish;
+
   const [chatId, setChatId] = useState<string>("");
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    id: chatId,
-  });
+  const { messages, input, setInput, handleInputChange, handleSubmit } =
+    useChat({
+      id: chatId,
+    });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -54,10 +64,7 @@ export default function Chat() {
   };
 
   const handleSuggestedAction = (action: string) => {
-    handleSubmit({
-      preventDefault: () => {},
-      currentTarget: { message: { value: action } },
-    } as unknown as React.FormEvent<HTMLFormElement>);
+    setInput(action);
   };
 
   const open = Boolean(anchorEl);
@@ -161,7 +168,15 @@ export default function Chat() {
             <div ref={messagesEndRef} />
           </List>
           {messages.length === 0 && (
-            <Box sx={{ p: 2, display: "flex", flexWrap: "wrap", gap: 1 }}>
+            <Box
+              sx={{
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                flexWrap: "wrap",
+                gap: 1,
+              }}
+            >
               {suggestedActions.map((action, index) => (
                 <Chip
                   key={index}

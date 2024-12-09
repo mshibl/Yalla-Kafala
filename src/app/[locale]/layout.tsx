@@ -189,7 +189,7 @@ const LocaleLayout = ({
             </ThemeProvider>
           </NextIntlClientProvider>
         </AppRouterCacheProvider>
-        <Chat />
+        <Chat locale={locale} />
       </body>
       <GoogleAnalytics gaId="G-DXKW33HT8F" />
     </html>
