@@ -17,6 +17,8 @@ export const user = pgTable("User", {
 
 export const chat = pgTable("Chat", {
   id: text("id").primaryKey().notNull(),
+  messages: json("messages").notNull(),
+  author: varchar("author", { length: 64 }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

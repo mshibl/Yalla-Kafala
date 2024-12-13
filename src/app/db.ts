@@ -1,5 +1,5 @@
 import { drizzle } from "drizzle-orm/postgres-js";
-import { desc, eq, inArray } from "drizzle-orm";
+import { desc, eq, inArray } from "drizzle-orm/sql";
 import postgres from "postgres";
 import { genSaltSync, hashSync } from "bcrypt-ts";
 import { chat, chunk, user } from "@/schema";
