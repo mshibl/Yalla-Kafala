@@ -39,6 +39,8 @@ const suggestedActionsArabic = [
   "ما هي مهمة يلا كفالة؟",
 ];
 
+const LOCAL_STORAGE_USER_KEY = "yalla_kafala_user";
+
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;
@@ -52,10 +54,18 @@ interface ChatProps {
   locale: "ar" | "en";
 }
 
+interface UserInfo {
+  name: string;
+  mobile: string;
+}
+
 export default function Chat({ locale }: ChatProps) {
   const isMobile = !useResponsiveBreakpoint("md");
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [open, setOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [showNameForm, setShowNameForm] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const suggestedActions =
     locale === "ar" ? suggestedActionsArabic : suggestedActionsEnglish;
@@ -85,10 +95,11 @@ export default function Chat({ locale }: ChatProps) {
     }
   };
 
-  const [isFocused, setIsFocused] = useState(false);
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+    if (!userInfo) {
+      setShowNameForm(true);
+    }
     setOpen(true);
   };
 
@@ -105,10 +116,95 @@ export default function Chat({ locale }: ChatProps) {
   };
 
   const handleOpen = () => {
+    if (!userInfo) {
+      setShowNameForm(true);
+    }
     setOpen(true);
   };
 
   const id = open ? "chatbot-popover" : undefined;
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
+    if (storedUser) {
+      setUserInfo(JSON.parse(storedUser));
+    } else {
+      setShowNameForm(true);
+    }
+  }, []);
+
+  const handleNameSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const name = formData.get("name") as string;
+    const mobile = formData.get("mobile") as string;
+
+    if (name.trim() && mobile.trim()) {
+      const userInfo = {
+        name: name.trim(),
+        mobile: mobile.trim(),
+      };
+      localStorage.setItem(LOCAL_STORAGE_USER_KEY, JSON.stringify(userInfo));
+      setUserInfo(userInfo);
+      setShowNameForm(false);
+      setOpen(true);
+    }
+  };
+
+  const userForm = (
+    <Box
+      component="form"
+      onSubmit={handleNameSubmit}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+      }}
+    >
+      <Typography variant="h6">
+        {locale === "ar"
+          ? "مرحباً! من فضلك أدخل بياناتك"
+          : "Hello! Please enter your details"}
+      </Typography>
+      <TextField
+        required
+        name="name"
+        fullWidth
+        placeholder={locale === "ar" ? "أدخل اسمك" : "Enter your name"}
+        sx={{
+          "& .MuiInputBase-root": {
+            borderRadius: "8px",
+          },
+        }}
+      />
+      <TextField
+        required
+        name="mobile"
+        fullWidth
+        type="tel"
+        placeholder={locale === "ar" ? "رقم الهاتف المحمول" : "Mobile number"}
+        helperText={
+          locale === "ar"
+            ? "يرجى إدخال رقم هاتف محمول صالح (11 أرقام)"
+            : "Please enter a valid mobile number (11 digits)"
+        }
+        sx={{
+          "& .MuiInputBase-root": {
+            borderRadius: "8px",
+          },
+        }}
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        color="secondary"
+        fullWidth
+        sx={{ borderRadius: "8px" }}
+      >
+        {locale === "ar" ? "بدء المحادثة" : "Start Chatting"}
+      </Button>
+    </Box>
+  );
 
   if (isMobile) {
     return (
@@ -137,7 +233,7 @@ export default function Chat({ locale }: ChatProps) {
                   right: 0,
                   bottom: 0,
                   backgroundColor: "black",
-                  zIndex: 39, // Just below the chat panel
+                  zIndex: 39,
                 }}
               />
               <motion.div
@@ -151,136 +247,147 @@ export default function Chat({ locale }: ChatProps) {
                   backgroundColor: "white",
                   boxShadow: "0 -4px 6px -1px rgba(0, 0, 0, 0.1)",
                   zIndex: 40,
-                  maxHeight: isFocused ? "40vh" : "80vh",
-                  height: isFocused ? "400px" : "700px",
+                  maxHeight: "80vh",
+                  height: showNameForm
+                    ? "400px"
+                    : isFocused
+                    ? "400px"
+                    : "700px",
                   transition: "height 0.3s ease-in-out",
                   overflow: "auto",
                   paddingBottom: "100px",
                 }}
               >
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
+                {showNameForm ? (
+                  <Box sx={{ p: 3 }}>{userForm}</Box>
+                ) : (
                   <Box
                     sx={{
-                      px: "16px",
-                      py: "8px",
-                      borderBottom: 1,
-                      borderColor: "divider",
+                      width: "100%",
+                      height: "100%",
                       display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
+                      flexDirection: "column",
                     }}
                   >
-                    <Typography variant="h6">
-                      {locale === "ar"
-                        ? "✨ يلا كفالة AI"
-                        : "✨ Yalla Kafala AI"}
-                    </Typography>
-                    <IconButton onClick={handleClose}>
-                      <CloseIcon />
-                    </IconButton>
-                  </Box>
+                    <Box
+                      sx={{
+                        px: "16px",
+                        py: "8px",
+                        borderBottom: 1,
+                        borderColor: "divider",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography variant="h6">
+                        {locale === "ar"
+                          ? "✨ يلا كفالة AI"
+                          : "✨ Yalla Kafala AI"}
+                      </Typography>
+                      <IconButton onClick={handleClose}>
+                        <CloseIcon />
+                      </IconButton>
+                    </Box>
 
-                  <Box
-                    ref={chatContainerRef}
-                    sx={{ flexGrow: 1, overflow: "auto", p: "16px" }}
-                  >
-                    <List sx={{ flexGrow: 1, overflow: "auto" }}>
-                      {messages.map((m) => (
-                        <ListItem
-                          key={m.id}
+                    <Box
+                      ref={chatContainerRef}
+                      sx={{ flexGrow: 1, overflow: "auto", p: "16px" }}
+                    >
+                      <List sx={{ flexGrow: 1, overflow: "auto" }}>
+                        {messages.map((m) => (
+                          <ListItem
+                            key={m.id}
+                            sx={{
+                              py: 0,
+                              textAlign: locale === "ar" ? "right" : "left",
+                            }}
+                          >
+                            <ListItemText
+                              primary={
+                                m.role === "user"
+                                  ? locale === "ar"
+                                    ? "انت"
+                                    : "You"
+                                  : locale === "ar"
+                                  ? "👩🏻‍🏫 يلا كفالة AI"
+                                  : "👩🏻‍🏫 Yalla Kafala AI"
+                              }
+                              secondary={
+                                <ReactMarkdown
+                                  components={{
+                                    p: ({ node, children, ...props }) => (
+                                      <Typography
+                                        variant="body1"
+                                        sx={{ mb: 1 }}
+                                      >
+                                        {children}
+                                      </Typography>
+                                    ),
+                                    ul: ({ node, children, ...props }) => (
+                                      <Typography
+                                        variant="body2"
+                                        component="ul"
+                                        sx={{ pl: 2 }}
+                                      >
+                                        {children}
+                                      </Typography>
+                                    ),
+                                    ol: ({ node, children, ...props }) => (
+                                      <Typography
+                                        variant="body2"
+                                        component="ol"
+                                        sx={{ pl: 2 }}
+                                      >
+                                        {children}
+                                      </Typography>
+                                    ),
+                                    li: ({ node, children, ...props }) => (
+                                      <Typography
+                                        variant="body2"
+                                        component="li"
+                                        sx={{ mb: 1 }}
+                                      >
+                                        {children}
+                                      </Typography>
+                                    ),
+                                  }}
+                                >
+                                  {m.content}
+                                </ReactMarkdown>
+                              }
+                              primaryTypographyProps={{
+                                fontWeight: "bold",
+                                color:
+                                  m.role === "user" ? "primary" : "secondary",
+                              }}
+                            />
+                          </ListItem>
+                        ))}
+                        <div ref={messagesEndRef} />
+                      </List>
+                      {messages.length === 0 && (
+                        <Box
                           sx={{
-                            py: 0,
-                            textAlign: locale === "ar" ? "right" : "left",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 1,
                           }}
                         >
-                          <ListItemText
-                            primary={
-                              m.role === "user"
-                                ? locale === "ar"
-                                  ? "أنا"
-                                  : "You"
-                                : locale === "ar"
-                                ? "👩🏻‍🏫 يلا كفالة AI"
-                                : "👩🏻‍🏫 Yalla Kafala AI"
-                            }
-                            secondary={
-                              <ReactMarkdown
-                                components={{
-                                  p: ({ node, children, ...props }) => (
-                                    <Typography variant="body1" sx={{ mb: 1 }}>
-                                      {children}
-                                    </Typography>
-                                  ),
-                                  ul: ({ node, children, ...props }) => (
-                                    <Typography
-                                      variant="body2"
-                                      component="ul"
-                                      sx={{ pl: 2 }}
-                                    >
-                                      {children}
-                                    </Typography>
-                                  ),
-                                  ol: ({ node, children, ...props }) => (
-                                    <Typography
-                                      variant="body2"
-                                      component="ol"
-                                      sx={{ pl: 2 }}
-                                    >
-                                      {children}
-                                    </Typography>
-                                  ),
-                                  li: ({ node, children, ...props }) => (
-                                    <Typography
-                                      variant="body2"
-                                      component="li"
-                                      sx={{ mb: 1 }}
-                                    >
-                                      {children}
-                                    </Typography>
-                                  ),
-                                }}
-                              >
-                                {m.content}
-                              </ReactMarkdown>
-                            }
-                            primaryTypographyProps={{
-                              fontWeight: "bold",
-                              color:
-                                m.role === "user" ? "primary" : "secondary",
-                            }}
-                          />
-                        </ListItem>
-                      ))}
-                      <div ref={messagesEndRef} />
-                    </List>
-                    {messages.length === 0 && (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 1,
-                        }}
-                      >
-                        {suggestedActions.map((action, index) => (
-                          <Chip
-                            key={index}
-                            label={action}
-                            onClick={() => handleSuggestedAction(action)}
-                            color="secondary"
-                            sx={{ mb: 4, fontSize: "16px" }}
-                          />
-                        ))}
-                      </Box>
-                    )}
+                          {suggestedActions.map((action, index) => (
+                            <Chip
+                              key={index}
+                              label={action}
+                              onClick={() => handleSuggestedAction(action)}
+                              color="secondary"
+                              sx={{ mb: 4, fontSize: "16px" }}
+                            />
+                          ))}
+                        </Box>
+                      )}
+                    </Box>
                   </Box>
-                </Box>
+                )}
               </motion.div>
             </>
           )}
@@ -318,171 +425,179 @@ export default function Chat({ locale }: ChatProps) {
           horizontal: "right",
         }}
       >
-        <Box
-          sx={{
-            width: 500,
-            height: 700,
-            maxHeight: "80vh",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Typography
-            variant="h6"
-            sx={{ p: 2, borderBottom: 1, borderColor: "divider" }}
-          >
-            {locale === "ar" ? "✨ يلا كفالة AI" : "✨ Yalla Kafala AI"}
-          </Typography>
-          <List sx={{ flexGrow: 1, overflow: "auto", p: 2 }}>
-            {messages.map((m) => (
-              <ListItem
-                key={m.id}
-                sx={{ py: 0, textAlign: locale === "ar" ? "right" : "left" }}
-              >
-                <ListItemText
-                  primary={
-                    m.role === "user"
-                      ? locale === "ar"
-                        ? "أنا"
-                        : "You"
-                      : locale === "ar"
-                      ? "👩🏻‍🏫 يلا كفالة AI"
-                      : "👩🏻‍🏫 Yalla Kafala AI"
-                  }
-                  secondary={
-                    <ReactMarkdown
-                      components={{
-                        p: ({ node, children, ...props }) => (
-                          <Typography variant="body1" sx={{ mb: 1 }}>
-                            {children}
-                          </Typography>
-                        ),
-                        ul: ({ node, children, ...props }) => (
-                          <Typography
-                            variant="body2"
-                            component="ul"
-                            sx={{ pl: 2 }}
-                          >
-                            {children}
-                          </Typography>
-                        ),
-                        ol: ({ node, children, ...props }) => (
-                          <Typography
-                            variant="body2"
-                            component="ol"
-                            sx={{ pl: 2 }}
-                          >
-                            {children}
-                          </Typography>
-                        ),
-                        li: ({ node, children, ...props }) => (
-                          <Typography
-                            variant="body2"
-                            component="li"
-                            sx={{ mb: 1 }}
-                          >
-                            {children}
-                          </Typography>
-                        ),
-                      }}
-                    >
-                      {m.content}
-                    </ReactMarkdown>
-                  }
-                  primaryTypographyProps={{
-                    fontWeight: "bold",
-                    color: m.role === "user" ? "primary" : "secondary",
-                  }}
-                />
-              </ListItem>
-            ))}
-            <div ref={messagesEndRef} />
-          </List>
-          {messages.length === 0 && (
-            <Box
-              sx={{
-                p: 2,
-                display: "flex",
-                flexDirection: "column",
-                flexWrap: "wrap",
-                gap: 1,
-              }}
-            >
-              {suggestedActions.map((action, index) => (
-                <Chip
-                  key={index}
-                  label={action}
-                  onClick={() => handleSuggestedAction(action)}
-                  color="primary"
-                  variant="outlined"
-                  sx={{ mb: 1 }}
-                />
-              ))}
-            </Box>
-          )}
+        {showNameForm ? (
+          <Box sx={{ width: 400, p: 3 }}>{userForm}</Box>
+        ) : (
           <Box
-            component="form"
-            onSubmit={handleSubmit}
             sx={{
-              py: "16px",
-              borderTop: 1,
-              borderColor: "divider",
+              width: 500,
+              height: 700,
+              maxHeight: "80vh",
               display: "flex",
+              flexDirection: "column",
             }}
           >
-            <TextField
-              fullWidth
-              multiline
-              maxRows={3}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              value={input}
-              onChange={handleInputChange}
-              placeholder={
-                locale === "ar"
-                  ? "اسألني عن الكفالة..."
-                  : "Ask me about Kafala..."
-              }
+            <Typography
+              variant="h6"
+              sx={{ p: 8, borderBottom: 1, borderColor: "divider" }}
+            >
+              {locale === "ar" ? "✨ يلا كفالة AI" : "✨ Yalla Kafala AI"}
+            </Typography>
+            <List sx={{ flexGrow: 1, overflow: "auto", p: 8 }}>
+              {messages.map((m) => (
+                <ListItem
+                  key={m.id}
+                  sx={{ py: 0, textAlign: locale === "ar" ? "right" : "left" }}
+                >
+                  <ListItemText
+                    primary={
+                      m.role === "user"
+                        ? locale === "ar"
+                          ? "أنا"
+                          : "You"
+                        : locale === "ar"
+                        ? "👩🏻‍🏫 يلا كفالة AI"
+                        : "👩🏻‍🏫 Yalla Kafala AI"
+                    }
+                    secondary={
+                      <ReactMarkdown
+                        components={{
+                          p: ({ node, children, ...props }) => (
+                            <Typography variant="body1" sx={{ mb: 1 }}>
+                              {children}
+                            </Typography>
+                          ),
+                          ul: ({ node, children, ...props }) => (
+                            <Typography
+                              variant="body2"
+                              component="ul"
+                              sx={{ pl: 2 }}
+                            >
+                              {children}
+                            </Typography>
+                          ),
+                          ol: ({ node, children, ...props }) => (
+                            <Typography
+                              variant="body2"
+                              component="ol"
+                              sx={{ pl: 2 }}
+                            >
+                              {children}
+                            </Typography>
+                          ),
+                          li: ({ node, children, ...props }) => (
+                            <Typography
+                              variant="body2"
+                              component="li"
+                              sx={{ mb: 1 }}
+                            >
+                              {children}
+                            </Typography>
+                          ),
+                        }}
+                      >
+                        {m.content}
+                      </ReactMarkdown>
+                    }
+                    primaryTypographyProps={{
+                      fontWeight: "bold",
+                      color: m.role === "user" ? "primary" : "secondary",
+                    }}
+                  />
+                </ListItem>
+              ))}
+              <div ref={messagesEndRef} />
+            </List>
+            {messages.length === 0 && (
+              <Box
+                sx={{
+                  p: 8,
+                  display: "flex",
+                  flexDirection: "column",
+                  flexWrap: "wrap",
+                  gap: 1,
+                }}
+              >
+                {suggestedActions.map((action, index) => (
+                  <Chip
+                    key={index}
+                    label={action}
+                    onClick={() => handleSuggestedAction(action)}
+                    color="primary"
+                    variant="outlined"
+                    sx={{ mb: 1 }}
+                  />
+                ))}
+              </Box>
+            )}
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
               sx={{
-                "& .MuiInputBase-root": {
-                  borderRadius: "24px",
-                  bgcolor: "white",
-                },
-                "& .MuiOutlinedInput-input": {
-                  color: "#6B7280",
-                  fontSize: "16px",
-                  height: "28px",
-                  fontWeight: 400,
-                  "&::placeholder": {
-                    color: "#6B7280",
-                    opacity: 1,
-                  },
-                },
-              }}
-            />
-            <Button
-              type="submit"
-              sx={{
-                minWidth: "48px",
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                bgcolor: "secondary.main",
-                color: "white",
-                "&:hover": {
-                  bgcolor: "secondary.main",
-                },
+                p: 8,
+                borderTop: 1,
+                borderColor: "divider",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <Box
-                component="img"
-                src="/images/ai-send-icon.svg"
-                alt={locale === "ar" ? "إرسال" : "Send"}
-                sx={{ width: 24, height: 24 }}
+              <TextField
+                fullWidth
+                multiline
+                maxRows={3}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                value={input}
+                onChange={handleInputChange}
+                placeholder={
+                  locale === "ar"
+                    ? "اسألني عن الكفالة..."
+                    : "Ask me about Kafala..."
+                }
+                sx={{
+                  marginRight: locale === "ar" ? 0 : 2,
+                  marginLeft: locale === "ar" ? 2 : 0,
+                  "& .MuiInputBase-root": {
+                    borderRadius: "24px",
+                    bgcolor: "white",
+                  },
+                  "& .MuiOutlinedInput-input": {
+                    color: "#6B7280",
+                    fontSize: "16px",
+                    height: "28px",
+                    fontWeight: 400,
+                    "&::placeholder": {
+                      color: "#6B7280",
+                      opacity: 1,
+                    },
+                  },
+                }}
               />
-            </Button>
+              <Button
+                type="submit"
+                sx={{
+                  minWidth: "48px",
+                  width: "48px",
+                  height: "48px",
+                  borderRadius: "50%",
+                  bgcolor: "secondary.main",
+                  color: "white",
+                  "&:hover": {
+                    bgcolor: "secondary.main",
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src="/images/ai-send-icon.svg"
+                  alt={locale === "ar" ? "إرسا��" : "Send"}
+                  sx={{ width: 24, height: 24 }}
+                />
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        )}
       </Popover>
     </>
   );
