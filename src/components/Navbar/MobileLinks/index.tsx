@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { useLocale, useTranslations } from "next-intl";
-import { IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import { Button, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   APPLY_FOR_KAFALA,
@@ -18,6 +18,7 @@ import {
   HOME_PAGE,
 } from "@/src/constants/pages";
 import Link from "next/link";
+import DonateButton from "../NavbarDonateButton";
 
 const MOBILE_LINKS_PAGES = [
   HOME_PAGE,
@@ -47,15 +48,25 @@ function MobileLinks({
 
   return (
     <Box sx={{ display: { xs: "flex", lg: "none" } }}>
-      <IconButton
-        size="large"
-        aria-label="account of current user"
-        aria-controls="mobile-pages-menu"
-        aria-haspopup="true"
-        onClick={handleOpenPagesMenu}
-      >
-        <MenuIcon />
-      </IconButton>
+      <Box display="flex" alignItems="center">
+        <DonateButton
+          sx={{
+            height: "56px",
+            borderRadius: "0",
+            ml: locale === "ar" ? "10px" : "0",
+            mr: locale === "ar" ? "0" : "10px",
+          }}
+        />
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="mobile-pages-menu"
+          aria-haspopup="true"
+          onClick={handleOpenPagesMenu}
+        >
+          <MenuIcon />
+        </IconButton>
+      </Box>
       <Menu
         id="mobile-pages-menu"
         anchorEl={anchorPagesMenu}

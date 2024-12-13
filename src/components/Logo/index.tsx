@@ -29,7 +29,8 @@ function Logo({ noText }: { noText?: boolean }) {
       {!noText && (
         <Box
           sx={{
-            ml: 4,
+            ml: locale === "en" ? 4 : 0,
+            mr: locale === "en" ? 0 : 4,
             fontWeight: 500,
             color: "#000000",
             textDecoration: "none",

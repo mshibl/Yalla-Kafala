@@ -10,8 +10,10 @@ import DesktopLinks from "./DesktopLinks";
 import MobileLinks from "./MobileLinks";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import useResponsiveBreakpoint from "@/src/utils/mui-utils";
+import SocialMediaListItem from "../AppFooter/newsletter/SocialMediaListItem";
 
-function Navbar() {
+function Navbar({ locale }: { locale: "ar" | "en" }) {
   const [anchorPagesMenu, setAnchorPagesMenu] =
     React.useState<null | HTMLElement>(null);
 
@@ -36,46 +38,108 @@ function Navbar() {
 
   const pathname = usePathname();
   const activePage = pathname.split("/")[2];
+  const isMD = useResponsiveBreakpoint("md");
 
   return (
     <AppBar
       sx={{
-        position: "sticky",
         top: 0,
+        position: "sticky",
         zIndex: 2,
-        direction: "ltr", // Navbar should always be LTR
-        backgroundColor: "#FFFFFF",
         boxShadow: "none",
-        borderBottom: "1px solid #D1D1D1",
+        // borderBottom: "1px solid #D1D1D1",
       }}
     >
-      <Toolbar sx={{ px: 0 }}>
-        {/* Logo */}
-        <Box key="logo" sx={{ ml: "24px", flexGrow: 1 }}>
-          <Link href="/">
-            <Logo />
-          </Link>
+      <Toolbar
+        style={{
+          maxHeight: "44px",
+          minHeight: "44px",
+        }}
+        sx={{
+          px: 0,
+          backgroundColor: "secondary.main",
+          display: "flex",
+          justifyContent: "center",
+          border: "none",
+        }}
+      >
+        <Box
+          sx={{
+            maxWidth: "xl",
+            width: "100%",
+            pl: "8px",
+            pr: "8px",
+            mt: 0,
+            mb: 0,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            {["facebook", "instagram", "youtube", "twitter"].map(
+              (item, index) => (
+                <SocialMediaListItem
+                  key={index}
+                  name={item}
+                  language={locale}
+                />
+              )
+            )}
+          </Box>
+          <SwitchLanguageButton key="switch-language-button" />
         </Box>
+      </Toolbar>
+      <Toolbar
+        sx={{
+          px: 0,
+          backgroundColor: "#FFFFFF",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Box
+          sx={{
+            maxWidth: "xl",
+            width: "100%",
+            pl: "8px",
+            pr: "8px",
+            mt: 0,
+            mb: 0,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          {/* Logo */}
+          <Box
+            key="logo"
+            sx={{
+              flexGrow: 1,
+            }}
+          >
+            <Link href="/">
+              <Logo />
+            </Link>
+          </Box>
 
-        {/* Desktop Links */}
-        <DesktopLinks
-          key="desktop-links"
-          activePage={activePage}
-          handleOpenAboutUsMenu={handleOpenAboutUsMenu}
-          handleCloseAboutUsMenu={handleCloseAboutUsMenu}
-          anchorAboutUsMenu={anchorAboutUsMenu}
-        />
+          {/* Desktop Links */}
+          <DesktopLinks
+            key="desktop-links"
+            activePage={activePage}
+            handleOpenAboutUsMenu={handleOpenAboutUsMenu}
+            handleCloseAboutUsMenu={handleCloseAboutUsMenu}
+            anchorAboutUsMenu={anchorAboutUsMenu}
+          />
 
-        {/* Language Selector */}
-        <SwitchLanguageButton key="switch-language-button" />
-
-        {/* Mobile */}
-        <MobileLinks
-          key="mobile-links"
-          anchorPagesMenu={anchorPagesMenu}
-          handleOpenPagesMenu={handleOpenPagesMenu}
-          handleClosePagesMenu={handleClosePagesMenu}
-        />
+          {/* Mobile */}
+          <MobileLinks
+            key="mobile-links"
+            anchorPagesMenu={anchorPagesMenu}
+            handleOpenPagesMenu={handleOpenPagesMenu}
+            handleClosePagesMenu={handleClosePagesMenu}
+          />
+        </Box>
       </Toolbar>
     </AppBar>
   );

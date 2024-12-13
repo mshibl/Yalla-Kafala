@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import { useLocale } from "next-intl";
-import { Box, Button } from "@mui/material";
+import { Box, Button, SxProps } from "@mui/material";
 import Link from "next/link";
+import AppTheme from "@/src/utils/AppTheme";
 
-function DonateButton() {
+function DonateButton({ sx }: { sx?: SxProps<typeof AppTheme> }) {
   const locale = useLocale();
 
   return (
@@ -21,7 +22,9 @@ function DonateButton() {
               fontSize: "14px",
               borderRadius: "24px",
               textTransform: "none",
+              height: "100%",
               boxShadow: "none",
+              ...sx,
             }}
           >
             {locale === "en" ? "Donate" : "تبرع الآن"}

@@ -33,7 +33,7 @@ const SocialMediaListItem: React.FC<SocialMediaListItemProps> = ({
       break;
     case "twitter":
       url = "https://twitter.com/yallakafala";
-      icon = <X htmlColor="#ffffff" />;
+      icon = <X htmlColor="#ffffff" sx={{ fontSize: "22px" }} />;
       break;
     default:
   }
