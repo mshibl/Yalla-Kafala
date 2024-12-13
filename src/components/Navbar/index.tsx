@@ -45,7 +45,7 @@ function Navbar({ locale }: { locale: "ar" | "en" }) {
       sx={{
         top: 0,
         position: "sticky",
-        zIndex: 2,
+        zIndex: 1000,
         boxShadow: "none",
         // borderBottom: "1px solid #D1D1D1",
       }}
@@ -57,7 +57,7 @@ function Navbar({ locale }: { locale: "ar" | "en" }) {
         }}
         sx={{
           px: 0,
-          backgroundColor: "secondary.main",
+          backgroundColor: "#2194BC",
           display: "flex",
           justifyContent: "center",
           border: "none",

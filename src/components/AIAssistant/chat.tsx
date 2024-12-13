@@ -177,6 +177,9 @@ export default function Chat({ locale }: ChatProps) {
           "& .MuiInputBase-root": {
             borderRadius: "8px",
           },
+          "& .MuiInputBase-input": {
+            fontSize: "20px",
+          },
         }}
       />
       <TextField
@@ -194,6 +197,14 @@ export default function Chat({ locale }: ChatProps) {
           "& .MuiInputBase-root": {
             borderRadius: "8px",
           },
+          "& .MuiInputBase-input": {
+            fontSize: "20px",
+            textAlign: locale === "ar" ? "right" : "left",
+          },
+          "& .MuiFormHelperText-root": {
+            fontSize: "14px",
+            textAlign: locale === "ar" ? "right" : "left",
+          },
         }}
       />
       <Button
@@ -201,7 +212,7 @@ export default function Chat({ locale }: ChatProps) {
         variant="contained"
         color="secondary"
         fullWidth
-        sx={{ borderRadius: "8px" }}
+        sx={{ borderRadius: "8px", fontSize: "20px", textTransform: "none" }}
       >
         {locale === "ar" ? "بدء المحادثة" : "Start Chatting"}
       </Button>
@@ -211,15 +222,6 @@ export default function Chat({ locale }: ChatProps) {
   if (isMobile) {
     return (
       <>
-        <ChatInput
-          locale={locale}
-          handleSubmit={handleSubmit}
-          input={input}
-          handleInputChange={handleInputChange}
-          handleInputClick={handleOpen}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
         <AnimatePresence>
           {open && (
             <>
@@ -251,7 +253,7 @@ export default function Chat({ locale }: ChatProps) {
                   zIndex: 40,
                   maxHeight: "80vh",
                   height: showNameForm
-                    ? "400px"
+                    ? "500px"
                     : isFocused
                     ? "400px"
                     : "700px",
@@ -306,6 +308,12 @@ export default function Chat({ locale }: ChatProps) {
                             }}
                           >
                             <ListItemText
+                              primaryTypographyProps={{
+                                fontSize: "20px",
+                              }}
+                              secondaryTypographyProps={{
+                                fontSize: "20px",
+                              }}
                               primary={
                                 m.role === "user"
                                   ? locale === "ar"
@@ -321,34 +329,34 @@ export default function Chat({ locale }: ChatProps) {
                                     p: ({ node, children, ...props }) => (
                                       <Typography
                                         variant="body1"
-                                        sx={{ mb: 1 }}
+                                        sx={{ mb: 1, fontSize: "20px" }}
                                       >
                                         {children}
                                       </Typography>
                                     ),
                                     ul: ({ node, children, ...props }) => (
                                       <Typography
-                                        variant="body2"
+                                        variant="body1"
                                         component="ul"
-                                        sx={{ pl: 2 }}
+                                        sx={{ pl: 2, fontSize: "20px" }}
                                       >
                                         {children}
                                       </Typography>
                                     ),
                                     ol: ({ node, children, ...props }) => (
                                       <Typography
-                                        variant="body2"
+                                        variant="body1"
                                         component="ol"
-                                        sx={{ pl: 2 }}
+                                        sx={{ pl: 2, fontSize: "20px" }}
                                       >
                                         {children}
                                       </Typography>
                                     ),
                                     li: ({ node, children, ...props }) => (
                                       <Typography
-                                        variant="body2"
+                                        variant="body1"
                                         component="li"
-                                        sx={{ mb: 1 }}
+                                        sx={{ mb: 1, fontSize: "20px" }}
                                       >
                                         {children}
                                       </Typography>
@@ -394,6 +402,15 @@ export default function Chat({ locale }: ChatProps) {
             </>
           )}
         </AnimatePresence>
+        <ChatInput
+          locale={locale}
+          handleSubmit={handleSubmit}
+          input={input}
+          handleInputChange={handleInputChange}
+          handleInputClick={handleOpen}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
       </>
     );
   }
@@ -401,11 +418,11 @@ export default function Chat({ locale }: ChatProps) {
   return (
     <>
       <Fab
-        color="secondary"
         aria-label="Open chat"
         aria-describedby={id}
         onClick={handleClick}
         sx={{
+          backgroundColor: "#2194BC",
           position: "fixed",
           bottom: 16,
           right: 16,
@@ -465,33 +482,36 @@ export default function Chat({ locale }: ChatProps) {
                       <ReactMarkdown
                         components={{
                           p: ({ node, children, ...props }) => (
-                            <Typography variant="body1" sx={{ mb: 1 }}>
+                            <Typography
+                              variant="body1"
+                              sx={{ mb: 1, fontSize: "16px" }}
+                            >
                               {children}
                             </Typography>
                           ),
                           ul: ({ node, children, ...props }) => (
                             <Typography
-                              variant="body2"
+                              variant="body1"
                               component="ul"
-                              sx={{ pl: 2 }}
+                              sx={{ pl: 2, fontSize: "16px" }}
                             >
                               {children}
                             </Typography>
                           ),
                           ol: ({ node, children, ...props }) => (
                             <Typography
-                              variant="body2"
+                              variant="body1"
                               component="ol"
-                              sx={{ pl: 2 }}
+                              sx={{ pl: 2, fontSize: "16px" }}
                             >
                               {children}
                             </Typography>
                           ),
                           li: ({ node, children, ...props }) => (
                             <Typography
-                              variant="body2"
+                              variant="body1"
                               component="li"
-                              sx={{ mb: 1 }}
+                              sx={{ mb: 1, fontSize: "16px" }}
                             >
                               {children}
                             </Typography>
