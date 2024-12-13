@@ -1,8 +1,31 @@
+import { chat, message } from "@/schema";
 import { customModel } from "@/src/ai";
 import { convertToCoreMessages, streamText } from "ai";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+
+let client = postgres(`${process.env.POSTGRES_URL!}?sslmode=require`);
+let db = drizzle(client);
 
 export async function POST(request: Request) {
-  const { id, messages, selectedFilePathnames } = await request.json();
+  const { id, messages, selectedFilePathnames, authorName, authorMobile } =
+    await request.json();
+
+  console.log(id);
+
+  // if this is the first message, create a chat entry
+  if (messages.length === 1) {
+    await db.insert(chat).values({
+      id,
+    });
+  }
+  await db.insert(message).values({
+    chatId: id,
+    role: "user",
+    content: messages[0].content,
+    authorName,
+    authorMobile,
+  });
 
   const result = await streamText({
     model: customModel,
@@ -632,7 +655,13 @@ For information on how to apply and related conditions, please use the following
         selection: selectedFilePathnames,
       },
     },
-    onFinish: async ({ text }) => {},
+    onFinish: async ({ text }) => {
+      await db.insert(message).values({
+        chatId: id,
+        role: "assistant",
+        content: text,
+      });
+    },
     experimental_telemetry: {
       isEnabled: true,
       functionId: "stream-text",

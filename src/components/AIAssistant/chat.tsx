@@ -26,6 +26,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import { motion, AnimatePresence } from "framer-motion";
 import ChatInput from "./chat-input";
 import useResponsiveBreakpoint from "@/src/utils/mui-utils";
+import { generateId } from "ai";
 
 const suggestedActionsEnglish = [
   "What is Kafala?",
@@ -70,17 +71,18 @@ export default function Chat({ locale }: ChatProps) {
   const suggestedActions =
     locale === "ar" ? suggestedActionsArabic : suggestedActionsEnglish;
 
-  const [chatId, setChatId] = useState<string>("");
+  const [chatId, setChatId] = useState(generateId(10));
+
   const { messages, input, setInput, handleInputChange, handleSubmit, append } =
     useChat({
-      id: chatId,
+      body: {
+        id: chatId,
+        authorName: userInfo?.name,
+        authorMobile: userInfo?.mobile,
+      },
     });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setChatId(uuidv4());
-  }, []);
 
   useEffect(() => {
     if (messages.length > 0) {
