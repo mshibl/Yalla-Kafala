@@ -253,7 +253,7 @@ export default function Chat({ locale }: ChatProps) {
                   zIndex: 40,
                   maxHeight: "80vh",
                   height: showNameForm
-                    ? "500px"
+                    ? "420px"
                     : isFocused
                     ? "400px"
                     : "700px",
