@@ -11,8 +11,6 @@ export async function POST(request: Request) {
   const { id, messages, selectedFilePathnames, authorName, authorMobile } =
     await request.json();
 
-  console.log(id);
-
   // if this is the first message, create a chat entry
   if (messages.length === 1) {
     await db.insert(chat).values({
