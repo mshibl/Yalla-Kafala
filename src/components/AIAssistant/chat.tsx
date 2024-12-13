@@ -309,7 +309,10 @@ export default function Chat({ locale }: ChatProps) {
                           >
                             <ListItemText
                               primaryTypographyProps={{
+                                fontWeight: "bold",
                                 fontSize: "20px",
+                                color:
+                                  m.role === "user" ? "primary" : "secondary",
                               }}
                               secondaryTypographyProps={{
                                 fontSize: "20px",
@@ -366,11 +369,6 @@ export default function Chat({ locale }: ChatProps) {
                                   {m.content}
                                 </ReactMarkdown>
                               }
-                              primaryTypographyProps={{
-                                fontWeight: "bold",
-                                color:
-                                  m.role === "user" ? "primary" : "secondary",
-                              }}
                             />
                           </ListItem>
                         ))}
