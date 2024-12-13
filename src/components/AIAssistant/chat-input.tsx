@@ -8,14 +8,28 @@ const ChatInput = ({
   input,
   handleInputChange,
   handleInputClick,
+  onFocus,
+  onBlur,
 }: {
   locale: "ar" | "en";
   handleSubmit?: () => void;
   input?: string;
   handleInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleInputClick?: () => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }) => {
   const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    onFocus?.();
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    onBlur?.();
+  };
 
   return (
     <Box
@@ -57,8 +71,8 @@ const ChatInput = ({
           fullWidth
           multiline
           maxRows={3}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           value={input}
           onChange={handleInputChange}
           onClick={handleInputClick}
@@ -71,7 +85,7 @@ const ChatInput = ({
               bgcolor: "white",
               py: "12px",
               [locale === "ar" ? "paddingRight" : "paddingLeft"]:
-                !isFocused && !input ? "48px" : "16px",
+                !isFocused && !input ? "52px" : "16px",
             },
             "& .MuiOutlinedInput-input": {
               color: "#6B7280",

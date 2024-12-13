@@ -66,6 +66,7 @@ export default function Chat({ locale }: ChatProps) {
       id: chatId,
     });
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setChatId(uuidv4());
@@ -78,7 +79,10 @@ export default function Chat({ locale }: ChatProps) {
   }, [messages]);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
   };
 
   const [isFocused, setIsFocused] = useState(false);
@@ -115,6 +119,8 @@ export default function Chat({ locale }: ChatProps) {
           input={input}
           handleInputChange={handleInputChange}
           handleInputClick={handleOpen}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
         <AnimatePresence>
           {open && (
@@ -145,8 +151,9 @@ export default function Chat({ locale }: ChatProps) {
                   backgroundColor: "white",
                   boxShadow: "0 -4px 6px -1px rgba(0, 0, 0, 0.1)",
                   zIndex: 40,
-                  maxHeight: "80vh",
-                  height: "700px",
+                  maxHeight: isFocused ? "40vh" : "80vh",
+                  height: isFocused ? "400px" : "700px",
+                  transition: "height 0.3s ease-in-out",
                   overflow: "auto",
                   paddingBottom: "100px",
                 }}
@@ -180,73 +187,79 @@ export default function Chat({ locale }: ChatProps) {
                     </IconButton>
                   </Box>
 
-                  <Box sx={{ flexGrow: 1, overflow: "auto", p: "16px" }}>
-                    {messages.map((m) => (
-                      <ListItem
-                        key={m.id}
-                        sx={{
-                          py: 0,
-                          textAlign: locale === "ar" ? "right" : "left",
-                        }}
-                      >
-                        <ListItemText
-                          primary={
-                            m.role === "user"
-                              ? locale === "ar"
-                                ? "أنا"
-                                : "You"
-                              : locale === "ar"
-                              ? "👩🏻‍🏫 يلا كفالة AI"
-                              : "👩🏻‍🏫 Yalla Kafala AI"
-                          }
-                          secondary={
-                            <ReactMarkdown
-                              components={{
-                                p: ({ node, children, ...props }) => (
-                                  <Typography variant="body1" sx={{ mb: 1 }}>
-                                    {children}
-                                  </Typography>
-                                ),
-                                ul: ({ node, children, ...props }) => (
-                                  <Typography
-                                    variant="body2"
-                                    component="ul"
-                                    sx={{ pl: 2 }}
-                                  >
-                                    {children}
-                                  </Typography>
-                                ),
-                                ol: ({ node, children, ...props }) => (
-                                  <Typography
-                                    variant="body2"
-                                    component="ol"
-                                    sx={{ pl: 2 }}
-                                  >
-                                    {children}
-                                  </Typography>
-                                ),
-                                li: ({ node, children, ...props }) => (
-                                  <Typography
-                                    variant="body2"
-                                    component="li"
-                                    sx={{ mb: 1 }}
-                                  >
-                                    {children}
-                                  </Typography>
-                                ),
-                              }}
-                            >
-                              {m.content}
-                            </ReactMarkdown>
-                          }
-                          primaryTypographyProps={{
-                            fontWeight: "bold",
-                            color: m.role === "user" ? "primary" : "secondary",
+                  <Box
+                    ref={chatContainerRef}
+                    sx={{ flexGrow: 1, overflow: "auto", p: "16px" }}
+                  >
+                    <List sx={{ flexGrow: 1, overflow: "auto" }}>
+                      {messages.map((m) => (
+                        <ListItem
+                          key={m.id}
+                          sx={{
+                            py: 0,
+                            textAlign: locale === "ar" ? "right" : "left",
                           }}
-                        />
-                      </ListItem>
-                    ))}
-                    <div ref={messagesEndRef} />
+                        >
+                          <ListItemText
+                            primary={
+                              m.role === "user"
+                                ? locale === "ar"
+                                  ? "أنا"
+                                  : "You"
+                                : locale === "ar"
+                                ? "👩🏻‍🏫 يلا كفالة AI"
+                                : "👩🏻‍🏫 Yalla Kafala AI"
+                            }
+                            secondary={
+                              <ReactMarkdown
+                                components={{
+                                  p: ({ node, children, ...props }) => (
+                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                      {children}
+                                    </Typography>
+                                  ),
+                                  ul: ({ node, children, ...props }) => (
+                                    <Typography
+                                      variant="body2"
+                                      component="ul"
+                                      sx={{ pl: 2 }}
+                                    >
+                                      {children}
+                                    </Typography>
+                                  ),
+                                  ol: ({ node, children, ...props }) => (
+                                    <Typography
+                                      variant="body2"
+                                      component="ol"
+                                      sx={{ pl: 2 }}
+                                    >
+                                      {children}
+                                    </Typography>
+                                  ),
+                                  li: ({ node, children, ...props }) => (
+                                    <Typography
+                                      variant="body2"
+                                      component="li"
+                                      sx={{ mb: 1 }}
+                                    >
+                                      {children}
+                                    </Typography>
+                                  ),
+                                }}
+                              >
+                                {m.content}
+                              </ReactMarkdown>
+                            }
+                            primaryTypographyProps={{
+                              fontWeight: "bold",
+                              color:
+                                m.role === "user" ? "primary" : "secondary",
+                            }}
+                          />
+                        </ListItem>
+                      ))}
+                      <div ref={messagesEndRef} />
+                    </List>
                     {messages.length === 0 && (
                       <Box
                         sx={{
