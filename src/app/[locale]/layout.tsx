@@ -3,10 +3,11 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import { Container, CssBaseline } from "@mui/material";
+import { Box, Container, CssBaseline } from "@mui/material";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import Navbar from "@/src/components/Navbar";
 import AppFooter from "@/src/components/AppFooter";
+import Chat from "@/src/components/AIAssistant/chat";
 
 export async function generateMetadata({
   params: { locale },
@@ -180,9 +181,22 @@ const LocaleLayout = ({
           <NextIntlClientProvider messages={messages}>
             <ThemeProvider theme={AppTheme}>
               <CssBaseline />
-              <Container disableGutters={true} maxWidth="lg">
-                <Navbar />
-                {children}
+              <Container disableGutters={true} maxWidth={false}>
+                <Navbar locale={locale} />
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Box sx={{ width: "100%", maxWidth: "xl" }}>
+                    {children}
+                    <Chat locale={locale} />
+                  </Box>
+                </Box>
                 <AppFooter />
               </Container>
             </ThemeProvider>

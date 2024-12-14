@@ -20,11 +20,11 @@ import {
 import ApplyForKafalaButton from "../ApplyForKafalaButton";
 
 const DESKTOP_HIGHLIGHTED_PAGES = [
+  ABOUT_US_PAGE,
   KAFALA_STEPS_PAGE,
   KAFALA_STORIES_PAGE,
   WHAT_IS_KAFALA_PAGE,
   FAQS_PAGE,
-  ABOUT_US_PAGE,
 ];
 
 const ABOUT_US_MENU_PAGES = [
@@ -71,7 +71,8 @@ function DesktopLinks({
               fontWeight: "bold",
               fontSize: "16px",
               textTransform: "none",
-              marginLeft: "20px",
+              marginLeft: locale === "en" ? "20px" : "0",
+              marginRight: locale === "en" ? "0" : "20px",
             }}
           >
             {locale === "en" ? "About Us" : "من نحن"}
@@ -101,7 +102,8 @@ function DesktopLinks({
       <Box
         sx={{
           display: { xs: "none", lg: "flex" },
-          marginLeft: "15px",
+          marginLeft: locale === "en" ? "15px" : "0",
+          marginRight: locale === "en" ? "0" : "15px",
         }}
       >
         <NavbarDonateButton />
@@ -109,7 +111,8 @@ function DesktopLinks({
       <Box
         sx={{
           display: { xs: "none", lg: "flex" },
-          marginLeft: "15px",
+          marginLeft: locale === "en" ? "15px" : "0",
+          marginRight: locale === "en" ? "0" : "15px",
         }}
       >
         <ApplyForKafalaButton />

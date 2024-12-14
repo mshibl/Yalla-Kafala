@@ -11,6 +11,7 @@ const nextConfig = {
       },
     ],
   },
+  serverExternalPackages: ["pdf-parse"],
   async redirects() {
     return [
       {
