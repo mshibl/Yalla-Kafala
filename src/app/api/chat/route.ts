@@ -15,8 +15,6 @@ export async function POST(request: Request) {
   if (messages.length === 1) {
     await db.insert(chat).values({
       id,
-      messages: [],
-      author: authorName,
     });
   }
   await db.insert(message).values({

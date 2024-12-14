@@ -32,29 +32,10 @@ export async function createMessage({
 }) {
   const selectedChats = await db.select().from(chat).where(eq(chat.id, id));
 
-  if (selectedChats.length > 0) {
-    return await db
-      .update(chat)
-      .set({
-        messages: JSON.stringify(messages),
-      })
-      .where(eq(chat.id, id));
-  }
-
   return await db.insert(chat).values({
     id,
     createdAt: new Date(),
-    messages: JSON.stringify(messages),
-    author,
   });
-}
-
-export async function getChatsByUser({ email }: { email: string }) {
-  return await db
-    .select()
-    .from(chat)
-    .where(eq(chat.author, email))
-    .orderBy(desc(chat.createdAt));
 }
 
 export async function getChatById({ id }: { id: string }) {
