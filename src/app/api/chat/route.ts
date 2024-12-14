@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   await db.insert(message).values({
     chatId: id,
     role: "user",
-    content: messages[0].content,
+    content: messages[messages.length - 1].content,
     authorName,
     authorMobile,
   });
