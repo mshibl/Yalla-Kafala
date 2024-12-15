@@ -20,6 +20,11 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+interface UserInfo {
+  name: string;
+  mobile: string;
+}
+
 const AiAssistant = () => {
   const locale = useLocale();
   const isMobile = !useResponsiveBreakpoint("md");
