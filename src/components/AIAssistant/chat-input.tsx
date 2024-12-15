@@ -10,6 +10,7 @@ const ChatInput = ({
   handleInputClick,
   onFocus,
   onBlur,
+  useAsButton,
 }: {
   locale: "ar" | "en";
   handleSubmit?: () => void;
@@ -18,28 +19,36 @@ const ChatInput = ({
   handleInputClick?: () => void;
   onFocus?: () => void;
   onBlur?: () => void;
+  useAsButton?: boolean;
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
+    if (useAsButton) {
+      return;
+    }
+
     setIsFocused(true);
     onFocus?.();
   };
 
   const handleBlur = () => {
+    if (useAsButton) {
+      return;
+    }
+
     setIsFocused(false);
     onBlur?.();
   };
 
   return (
     <Box
-      component="form"
-      onSubmit={handleSubmit}
       bgcolor="primary.main"
-      display={{ xs: "flex", md: "none" }}
       width="100%"
       p="24px"
       sx={{
+        display: "flex",
+        alignItems: "center",
         position: "sticky",
         bottom: 0,
         zIndex: 45,
@@ -79,6 +88,9 @@ const ChatInput = ({
           placeholder={
             locale === "ar" ? "اسألني عن الكفالة..." : "Ask me about Kafala..."
           }
+          inputProps={{
+            readOnly: useAsButton,
+          }}
           sx={{
             "& .MuiInputBase-root": {
               borderRadius: "24px",
@@ -101,7 +113,13 @@ const ChatInput = ({
         />
       </Box>
       <Button
-        type="submit"
+        onClick={() => {
+          if (handleSubmit) {
+            handleSubmit();
+          } else if (handleInputClick) {
+            handleInputClick();
+          }
+        }}
         sx={{
           minWidth: "48px",
           width: "48px",

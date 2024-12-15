@@ -7,9 +7,11 @@ import { Breakpoint, useMediaQuery, useTheme } from "@mui/material";
  * @param {string} query MUI breakpoint or custom media query.
  * @returns {boolean} True if the current screen size matches the query.
  */
-function useResponsiveBreakpoint(query: number | Breakpoint) {
+function useResponsiveBreakpoint(query: number | Breakpoint, down?: boolean) {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up(query));
+  const matches = useMediaQuery(
+    down ? theme.breakpoints.down(query) : theme.breakpoints.up(query)
+  );
 
   return matches;
 }

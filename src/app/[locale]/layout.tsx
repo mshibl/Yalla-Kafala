@@ -7,7 +7,7 @@ import { Box, Container, CssBaseline } from "@mui/material";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import Navbar from "@/src/components/Navbar";
 import AppFooter from "@/src/components/AppFooter";
-import Chat from "@/src/components/AIAssistant/chat";
+import Chat from "@/src/components/AIAssistant/ai-assistant";
 
 export async function generateMetadata({
   params: { locale },
