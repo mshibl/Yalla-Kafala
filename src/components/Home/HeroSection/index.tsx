@@ -1,8 +1,12 @@
+"use client";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import HeroDonateButton from "@/src/components/Home/HeroSection/HeroDonateButton";
+import useResponsiveBreakpoint from "@/src/utils/mui-utils";
 
 const HeroSection = ({ locale }: { locale: "ar" | "en" }) => {
+  const isMobile = useResponsiveBreakpoint("sm", true);
+
   return (
     <Box
       display="flex"
@@ -13,8 +17,8 @@ const HeroSection = ({ locale }: { locale: "ar" | "en" }) => {
     >
       <Box
         flex={1}
-        bgcolor="primary.main"
-        color="#ffffff"
+        bgcolor={isMobile ? "#FFFFFF" : "primary.main"}
+        color={isMobile ? "primary.main" : "#ffffff"}
         display="flex"
         alignItems="center"
         justifyContent="center"
