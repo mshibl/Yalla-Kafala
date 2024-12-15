@@ -62,7 +62,6 @@ const AiAssistant = () => {
           onClose={handleClose}
           TransitionComponent={isMobile ? Transition : undefined}
           keepMounted={true}
-          mountOnEnter={true}
         >
           <AIChat locale={locale} userInfo={userInfo} onClose={handleClose} />
         </Dialog>
