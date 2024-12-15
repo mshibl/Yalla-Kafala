@@ -20,7 +20,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Chat = () => {
+const AiAssistant = () => {
   const locale = useLocale();
   const isMobile = !useResponsiveBreakpoint("md");
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
@@ -112,4 +112,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default AiAssistant;
