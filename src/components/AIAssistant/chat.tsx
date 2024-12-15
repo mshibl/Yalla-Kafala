@@ -24,7 +24,7 @@ export const AIChat = ({
   onClose,
 }: {
   userInfo?: UserInfo | null;
-  locale: "ar" | "en";
+  locale: string;
   onClose: () => void;
 }) => {
   const [showNameForm, setShowNameForm] = useState(false);
@@ -32,7 +32,6 @@ export const AIChat = ({
     null
   );
   const [chatId] = useState(generateId(10));
-  const id = open ? "chatbot-popover" : undefined;
 
   const { messages, input, setInput, handleInputChange, append, handleSubmit } =
     useChat({

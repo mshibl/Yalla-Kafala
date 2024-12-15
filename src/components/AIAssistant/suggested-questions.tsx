@@ -16,7 +16,7 @@ export const SuggestedQuestions = ({
   locale,
   handleSuggestedAction,
 }: {
-  locale: "ar" | "en";
+  locale: string;
   handleSuggestedAction: (action: string) => void;
 }) => {
   const suggestedActions =

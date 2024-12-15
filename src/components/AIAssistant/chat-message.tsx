@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import { Box, Typography, ListItem, ListItemText } from "@mui/material";
 
@@ -6,10 +6,10 @@ export const ChatMessage = ({
   message,
   locale,
 }: {
-  locale: "ar" | "en";
+  locale: string;
   message: {
     id: string;
-    content: string;
+    content: string | ReactNode;
     role: "function" | "user" | "assistant" | "data" | "system" | "tool";
   };
 }) => {

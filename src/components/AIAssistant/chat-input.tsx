@@ -12,7 +12,7 @@ const ChatInput = ({
   onBlur,
   useAsButton,
 }: {
-  locale: "ar" | "en";
+  locale: string;
   handleSubmit?: () => void;
   input?: string;
   handleInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;

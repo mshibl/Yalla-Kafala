@@ -42,9 +42,9 @@ const AiAssistant = () => {
     }
   }, [open, userInfo]);
 
-  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOpen = (event?: React.MouseEvent<HTMLButtonElement>) => {
     if (!isMobile) {
-      setAnchorEl(event.currentTarget);
+      setAnchorEl(event?.currentTarget || null);
     }
     setOpen(true);
   };
@@ -73,7 +73,7 @@ const AiAssistant = () => {
       </>
     );
   }
-  
+
   return (
     <>
       <Fab

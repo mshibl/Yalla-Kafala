@@ -10,7 +10,7 @@ export const UserInfoForm = ({
   locale,
   submitUserInfo,
 }: {
-  locale: "ar" | "en";
+  locale: string;
   submitUserInfo: (userInfo: UserInfo) => void;
 }) => {
   const handleNameSubmit = (event: React.FormEvent<HTMLFormElement>) => {
