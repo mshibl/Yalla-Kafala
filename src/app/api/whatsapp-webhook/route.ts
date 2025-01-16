@@ -11,8 +11,9 @@ export async function GET(request: Request) {
   const token = searchParams.get("hub.verify_token");
   const challenge = searchParams.get("hub.challenge");
 
-  console.log("mode", mode);
+  console.log("verify token", VERIFY_TOKEN);
   console.log("token", token);
+  console.log("mode", mode);
   console.log("challenge", challenge);
   console.log("==========================================");
 
