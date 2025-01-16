@@ -1,8 +1,15 @@
+import { message } from "@/schema";
+import { eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { NextResponse } from "next/server";
+import postgres from "postgres";
 
 const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
+let client = postgres(`${process.env.POSTGRES_URL!}?sslmode=require`);
+let db = drizzle(client);
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
@@ -30,12 +37,44 @@ export async function POST(request: Request) {
 
     // Only process messages
     if (value.messages && value.messages.length > 0) {
-      const message = value.messages[0];
-      const from = message.from;
-      const messageBody = message.text.body;
+      const messageContent = value.messages[0];
+      const name = value.contacts[0].profile.name;
+      const chatId = value.contacts[0].wa_id;
+      const from = messageContent.from;
+      const messageBody = messageContent.text.body;
 
+      // Fetch old messages in the conversation
+      const oldMessages = await db
+        .select({
+          role: message.role,
+          content: message.content,
+        })
+        .from(message)
+        .where(eq(message.chatId, chatId))
+        .limit(10);
+
+      const fullConversation = [
+        ...oldMessages,
+        { role: "user", content: messageBody },
+      ];
+
+      // send a request to the chat endpoint
+      const messageResponse = await fetch(
+        "https://www.yallakafala.org/api/chat",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            id: chatId,
+            messages: fullConversation,
+            authorName: name,
+            authorMobile: from,
+            blockingResponse: true,
+          }),
+        }
+      );
+      const data = await messageResponse.json();
       // Send response back
-      await sendWhatsAppMessage(from, `Received: ${messageBody}`);
+      await sendWhatsAppMessage(from, data.text);
     }
 
     return new NextResponse("OK", { status: 200 });
