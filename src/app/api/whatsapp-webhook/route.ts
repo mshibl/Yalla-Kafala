@@ -11,12 +11,6 @@ export async function GET(request: Request) {
   const token = searchParams.get("hub.verify_token");
   const challenge = searchParams.get("hub.challenge");
 
-  console.log("verify token", VERIFY_TOKEN);
-  console.log("token", token);
-  console.log("mode", mode);
-  console.log("challenge", challenge);
-  console.log("==========================================");
-
   if (mode === "subscribe" && token === VERIFY_TOKEN) {
     return new NextResponse(challenge, { status: 200 });
   }
@@ -27,12 +21,12 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    console.log("body", body);
 
     // Extract the message details
     const entry = body.entry[0];
     const changes = entry.changes[0];
     const value = changes.value;
+    console.log("value", JSON.stringify(value, null, 2));
 
     // Only process messages
     if (value.messages && value.messages.length > 0) {
