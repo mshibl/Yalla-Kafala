@@ -1,34 +1,13 @@
 import { chat, message } from "@/schema";
 import { customModel } from "@/src/ai";
-import { convertToCoreMessages, streamText } from "ai";
+import { convertToCoreMessages, generateText, streamText } from "ai";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
 let client = postgres(`${process.env.POSTGRES_URL!}?sslmode=require`);
 let db = drizzle(client);
 
-export async function POST(request: Request) {
-  const { id, messages, selectedFilePathnames, authorName, authorMobile } =
-    await request.json();
-
-  // if this is the first message, create a chat entry
-  if (messages.length === 1) {
-    await db.insert(chat).values({
-      id,
-    });
-  }
-  await db.insert(message).values({
-    chatId: id,
-    role: "user",
-    content: messages[messages.length - 1].content,
-    authorName,
-    authorMobile,
-  });
-
-  const result = await streamText({
-    model: customModel,
-    temperature: 0,
-    system: `You are a friendly assistant who knows English and Arabic and works at YallaKafala! Yalla Kafala is a pioneering NGO founded in 2020, dedicated to reshaping child welfare in Egypt through alternative care options and Kafala (guardianship/adoption).
+const systemMessage = `You are a friendly assistant who knows English and Arabic and works at YallaKafala! Yalla Kafala is a pioneering NGO founded in 2020, dedicated to reshaping child welfare in Egypt through alternative care options and Kafala (guardianship/adoption).
 
 Inspired by our founder Rasha Mekky's personal journey and her Kafala of her son Mostafa, we launched Egypt's first Kafala-dedicated website and established Yalla Kafala.
 
@@ -649,25 +628,74 @@ For information on how to apply and related conditions, please use the following
 ---
 
 
-`,
-    messages: convertToCoreMessages(messages),
-    experimental_providerMetadata: {
-      files: {
-        selection: selectedFilePathnames,
-      },
-    },
-    onFinish: async ({ text }) => {
-      await db.insert(message).values({
-        chatId: id,
-        role: "assistant",
-        content: text,
-      });
-    },
-    experimental_telemetry: {
-      isEnabled: true,
-      functionId: "stream-text",
-    },
+`;
+
+export async function POST(request: Request) {
+  const {
+    id,
+    messages,
+    selectedFilePathnames,
+    authorName,
+    authorMobile,
+    blockingResponse,
+  } = await request.json();
+
+  // if this is the first message, create a chat entry
+  if (messages.length === 1) {
+    await db.insert(chat).values({
+      id,
+    });
+  }
+  await db.insert(message).values({
+    chatId: id,
+    role: "user",
+    content: messages[messages.length - 1].content,
+    authorName,
+    authorMobile,
   });
 
-  return result.toDataStreamResponse({});
+  if (!blockingResponse) {
+    const result = await streamText({
+      model: customModel,
+      temperature: 0,
+      system: systemMessage,
+      messages: convertToCoreMessages(messages),
+      experimental_providerMetadata: {
+        files: {
+          selection: selectedFilePathnames,
+        },
+      },
+      onFinish: async ({ text }) => {
+        await db.insert(message).values({
+          chatId: id,
+          role: "assistant",
+          content: text,
+        });
+      },
+      experimental_telemetry: {
+        isEnabled: true,
+        functionId: "stream-text",
+      },
+    });
+
+    return result.toDataStreamResponse({});
+  } else {
+    const result = await generateText({
+      model: customModel,
+      temperature: 0,
+      system: systemMessage,
+      messages: convertToCoreMessages(messages),
+      experimental_providerMetadata: {
+        files: {
+          selection: selectedFilePathnames,
+        },
+      },
+    });
+    await db.insert(message).values({
+      chatId: id,
+      role: "assistant",
+      content: result.text,
+    });
+    return new Response(JSON.stringify({ text: result.text }));
+  }
 }
