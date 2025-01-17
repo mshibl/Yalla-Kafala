@@ -1,8 +1,8 @@
 import { drizzle } from "drizzle-orm/postgres-js";
-import { desc, eq, inArray } from "drizzle-orm/sql";
+import { eq, inArray } from "drizzle-orm/sql";
 import postgres from "postgres";
 import { genSaltSync, hashSync } from "bcrypt-ts";
-import { chat, chunk, user } from "@/schema";
+import { chat, chunk, message, user } from "@/schema";
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
@@ -22,19 +22,42 @@ export async function createUser(email: string, password: string) {
 }
 
 export async function createMessage({
-  id,
-  messages,
-  author,
+  chatId,
+  content,
+  authorName,
+  authorMobile,
+  role,
 }: {
-  id: string;
-  messages: any;
-  author: string;
+  chatId: string;
+  content: string;
+  authorName?: string;
+  authorMobile?: string;
+  role: string;
 }) {
-  const selectedChats = await db.select().from(chat).where(eq(chat.id, id));
+  await db.insert(message).values({
+    chatId,
+    role,
+    content,
+    authorName,
+    authorMobile,
+  });
+}
 
+export async function getMessagesByChatId({ chatId }: { chatId: string }) {
+  const result = await db
+    .select({
+      role: message.role,
+      content: message.content,
+    })
+    .from(message)
+    .where(eq(message.chatId, chatId))
+    .limit(10);
+  return result;
+}
+
+export async function createChat({ id }: { id: string }) {
   return await db.insert(chat).values({
     id,
-    createdAt: new Date(),
   });
 }
 
