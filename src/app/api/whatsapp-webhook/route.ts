@@ -1,14 +1,9 @@
-import { message } from "@/schema";
-import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/postgres-js";
+import { getMessagesByChatId } from "@/src/db";
 import { NextResponse } from "next/server";
-import postgres from "postgres";
 
 const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
-let client = postgres(`${process.env.POSTGRES_URL!}?sslmode=require`);
-let db = drizzle(client);
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -44,14 +39,7 @@ export async function POST(request: Request) {
       const messageBody = messageContent.text.body;
 
       // Fetch old messages in the conversation
-      const oldMessages = await db
-        .select({
-          role: message.role,
-          content: message.content,
-        })
-        .from(message)
-        .where(eq(message.chatId, chatId))
-        .limit(10);
+      const oldMessages = await getMessagesByChatId({ chatId });
 
       const fullConversation = [
         ...oldMessages,

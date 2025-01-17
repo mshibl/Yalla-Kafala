@@ -7,7 +7,7 @@ import {
   generateText,
 } from "ai";
 import { z } from "zod";
-import { getChunksByFilePaths } from "../app/db";
+import { getChunksByFilePaths } from "../db";
 
 // schema for validating the custom provider metadata
 const selectionSchema = z.object({
