@@ -7,8 +7,8 @@ import useSWR from "swr";
 import Link from "next/link";
 import cx from "classnames";
 import { useParams, usePathname } from "next/navigation";
-import { Chat } from "@/src/db/schema";
 import { fetcher } from "@/src/utils/functions";
+import { Chat } from "@/schema";
 
 export const History = () => {
   const { id } = useParams();
