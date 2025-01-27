@@ -6,8 +6,8 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { CssBaseline } from "@mui/material";
 
 export const metadata: Metadata = {
-  title: "تطبيق نكست",
-  description: "تم إنشاؤه بواسطة create next app",
+  title: "Yalla Kafala Quiz",
+  description: "Yalla Kafala Quiz",
 };
 
 export default function GamesLayout({

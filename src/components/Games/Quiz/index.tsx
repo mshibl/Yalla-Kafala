@@ -3,13 +3,17 @@ import React, { useEffect, useState } from "react";
 import { Box, Container } from "@mui/material";
 import { LoadingSpinner } from "./LoadingSpinner";
 import { QuestionCard } from "./QuestionCard";
-import { questions } from "./questions";
+import { QuizQuestion } from "@/src/types";
 
-const Quiz = () => {
+type QuizProps = {
+  questions: QuizQuestion[];
+};
+
+const Quiz = ({ questions }: QuizProps) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [currentQuestion, setCurrentQuestion] = useState<
-    (typeof questions)[0] | null
-  >(null);
+  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(
+    null
+  );
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * questions.length);
