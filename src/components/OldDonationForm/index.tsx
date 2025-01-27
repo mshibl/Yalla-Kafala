@@ -1,4 +1,16 @@
 "use client";
+
+import { useCallback } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  EmbeddedCheckoutProvider,
+  EmbeddedCheckout,
+} from "@stripe/react-stripe-js";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
+
 import useResponsiveBreakpoint from "@/src/utils/mui-utils";
 import { useLocationData } from "@/src/utils/useLocationData";
 import { Box, Typography, Button } from "@mui/material";
@@ -9,6 +21,17 @@ import ETapestryDonationForm from "../ETapestryDonationForm";
 import PublicIcon from "@mui/icons-material/Public";
 
 const OldDonationForm = ({ locale }: { locale: "ar" | "en" }) => {
+  const fetchClientSecret = useCallback(() => {
+    // Create a Checkout Session
+    return fetch("/api/checkout_sessions", {
+      method: "POST",
+    })
+      .then((res) => res.json())
+      .then((data) => data.clientSecret);
+  }, []);
+
+  const options = { fetchClientSecret };
+
   const isMD = useResponsiveBreakpoint("md");
   const { locationData, loading, error } = useLocationData();
   const [showEtapestry, setShowEtapestry] = useState(false);
@@ -57,7 +80,10 @@ const OldDonationForm = ({ locale }: { locale: "ar" | "en" }) => {
             <EgyptDonationOptions locale={locale} />
           </Box>
         ) : (
-          <ETapestryDonationForm locale={locale} show={true} />
+          // <ETapestryDonationForm locale={locale} show={true} />
+          <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
+            <EmbeddedCheckout />
+          </EmbeddedCheckoutProvider>
         )}
       </Box>
     </ErrorBoundary>
