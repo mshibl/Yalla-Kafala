@@ -10,6 +10,10 @@ export const BOARD_MEMBERS_SHEET_NAME = "Sheet1";
 export const BOARD_MEMBERS_SPREADSHEET_ID =
   "1HfdYszrs0aDR-45vCl6szSq3XP98hWXeXpmoK2FO5O0";
 
+export const QUIZ_SHEET_NAME = "Sheet1";
+export const QUIZ_SPREADSHEET_ID =
+  "1Re-BFO4BlCeeCcXFQDuFqdtoJjnTgVwX0TXSyQAG3lE";
+
 export const DATA_SOURCES = {
   STORIES: {
     STORIES_SPREADSHEET_ID,
@@ -22,5 +26,11 @@ export const DATA_SOURCES = {
   BOARD_MEMBERS: {
     BOARD_MEMBERS_SPREADSHEET_ID,
     BOARD_MEMBERS_SHEET_NAME,
+  },
+  GAMES: {
+    QUIZ: {
+      QUIZ_SPREADSHEET_ID,
+      QUIZ_SHEET_NAME,
+    },
   },
 };
