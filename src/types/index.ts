@@ -7,3 +7,13 @@ export interface LocationData {
   latitude?: string;
   longitude?: string;
 }
+
+export interface QuizQuestion {
+  id: string;
+  text: string;
+  answers: {
+    id: string;
+    text: string;
+    outcome: string;
+  }[];
+}

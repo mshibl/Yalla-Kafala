@@ -3,7 +3,7 @@ import QuickLinksList from "./quickLinks/QuickLinksList";
 import ContactList from "./contact/ContactList";
 import CopyrightStatement from "./CopyrightStatement";
 import SocialMediaList from "./newsletter/SocialMediaList";
-import SilverBadge from "./newsletter/SilverBadge";
+import GuideStarBadge from "./newsletter/GuideStarBadge";
 
 const AppFooter: React.FC = () => {
   return (
@@ -29,7 +29,7 @@ const AppFooter: React.FC = () => {
       >
         {/* <NewsletterList /> */}
         <SocialMediaList />
-        <SilverBadge />
+        <GuideStarBadge />
       </Grid>
       <CopyrightStatement />
     </Grid>

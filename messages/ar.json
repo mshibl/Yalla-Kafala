@@ -123,11 +123,11 @@
       "socialMediaList": {
         "title": "تابعنا على "
       },
-      "silverBadge": {
+      "guideStarBadge": {
         "description": {
           "lineOne": "يلا كفالة أحد المشاركين في ",
           "lineTwo": "برنامج GuideStar ذو المستوى ",
-          "lineThree": "الفضي، مما يدل على التزامه ",
+          "lineThree": "البلاتيني، مما يدل على التزامه ",
           "lineFour": "بالشفافية"
         }
       }
