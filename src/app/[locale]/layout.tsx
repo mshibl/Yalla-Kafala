@@ -8,6 +8,7 @@ import { NextIntlClientProvider, useMessages } from "next-intl";
 import Navbar from "@/src/components/Navbar";
 import AppFooter from "@/src/components/AppFooter";
 import AiAssistant from "@/src/components/AIAssistant/ai-assistant";
+import { PostHogProvider } from "../providers";
 
 export async function generateMetadata({
   params: { locale },
@@ -192,10 +193,12 @@ const LocaleLayout = ({
                     width: "100%",
                   }}
                 >
-                  <Box sx={{ width: "100%", maxWidth: "xl" }}>
-                    {children}
-                    <AiAssistant />
-                  </Box>
+                  <PostHogProvider>
+                    <Box sx={{ width: "100%", maxWidth: "xl" }}>
+                      {children}
+                      <AiAssistant />
+                    </Box>
+                  </PostHogProvider>
                 </Box>
                 <AppFooter />
               </Container>
