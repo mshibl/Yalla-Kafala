@@ -62,7 +62,7 @@ export function QuestionCard({
               color="text.secondary"
               sx={{ mt: 2 }}
             >
-              اختر الخيار الذي يصفك بشكل أفضل
+              اختار الاجابة المناسبة ليك
             </Typography>
           }
         />
@@ -88,7 +88,7 @@ export function QuestionCard({
                     }
                     fullWidth
                     sx={{
-                      minHeight: "120px",
+                      height: "150px",
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
@@ -107,7 +107,20 @@ export function QuestionCard({
                       selectedAnswer && selectedAnswer !== answer.id
                     )}
                   >
-                    <Typography align="center">{answer.text}</Typography>
+                    <Typography
+                      align="center"
+                      sx={{
+                        maxHeight: "100%",
+                        width: "100%",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 4,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {answer.text}
+                    </Typography>
                   </Button>
                 </motion.div>
               </Grid>
