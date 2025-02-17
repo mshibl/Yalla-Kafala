@@ -1,5 +1,6 @@
 import OldDonationForm from "@/src/components/OldDonationForm";
 import { Metadata } from "next";
+
 export async function generateMetadata({
   params: { locale },
 }: {
@@ -166,11 +167,7 @@ const DonatePage = ({
 }: {
   params: { locale: "ar" | "en" };
 }) => {
-  return (
-    <OldDonationForm
-    // locale={locale}
-    />
-  );
+  return <OldDonationForm locale={locale} />;
 };
 
 export default DonatePage;

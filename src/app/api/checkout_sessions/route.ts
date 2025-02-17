@@ -4,56 +4,34 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-// {
-//   price: "price_1QlgkJAIShzl6ZspKAWyJwNl",
-//   quantity: 1,
-// },
-// {
-//   price: "price_1QlgkJAIShzl6ZspbYPwLGEi",
-//   quantity: 1,
-// },
-// {
-//   price: "price_1QlgkJAIShzl6Zsp70JtvBHU",
-//   quantity: 1,
-// },
-// {
-//   price: "price_1QlgkJAIShzl6ZspoSfAdNTZ",
-//   quantity: 1,
-// },
-// {
-//   price: "price_1QlgkJAIShzl6ZspwpLS0Z5l",
-//   quantity: 1,
-// },
-// {
-//   price: "price_1QlgkJAIShzl6ZspRQAJ0hGq",
-//   quantity: 1,
-// },
-// {
-//   price: "price_1QlgkJAIShzl6ZspW7rYYpyi",
-//   quantity: 1,
-// },
-// {
-//   price: "price_1QlgkJAIShzl6ZsptWnN8UBc",
-//   quantity: 1,
-// },
-
 export async function POST(req: NextRequest) {
   try {
-    console.log("process.env.STRIPE_SECRET_KEY", process.env.STRIPE_SECRET_KEY);
+    const reqBody = await req.json();
+    const { amount, frequency } = reqBody as {
+      amount: keyof typeof PRICE_LIST;
+      frequency: "once" | "monthly";
+    };
 
     const referer = req.headers.get("referer");
     const locale = referer?.includes("en") ? "en" : "ar";
 
+    let priceId =
+      frequency === "once"
+        ? PRICE_LIST[amount]?.once
+        : PRICE_LIST[amount]?.monthly;
+
+    if (!priceId) {
+      priceId = CUSTOM_AMOUNT_PRICE_ID;
+    }
+
+    const mode = frequency === "once" ? "payment" : "subscription";
+
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
       ui_mode: "embedded",
-      line_items: [
-        {
-          price: "price_1QlhbtAIShzl6ZspOBjsjJB3",
-          quantity: 1,
-        },
-      ],
-      mode: "payment",
+      line_items: [{ price: priceId, quantity: 1 }],
+      mode: mode,
+      submit_type: "donate",
       return_url: `${req.headers.get(
         "origin"
       )}/${locale}/donate/return?session_id={CHECKOUT_SESSION_ID}`,
@@ -93,3 +71,40 @@ export async function GET(req: NextRequest) {
     });
   }
 }
+
+const PRICE_LIST = {
+  10: {
+    once: "price_1QlgjKAIShzl6ZspskaVHtuI",
+    monthly: "price_1QlgjKAIShzl6Zsp2CYpY3bP",
+  },
+  25: {
+    once: "price_1QlgjKAIShzl6ZspoAFmqGTk",
+    monthly: "price_1QlgjKAIShzl6Zsp4llTKHgH",
+  },
+  50: {
+    once: "price_1QlgjKAIShzl6Zsp5ILtsjgo",
+    monthly: "price_1QlgjKAIShzl6ZspNetmX2FO",
+  },
+  100: {
+    once: "price_1QlgjKAIShzl6ZspxaVwnMVi",
+    monthly: "price_1QlgjKAIShzl6ZspAtaytION",
+  },
+  200: {
+    once: "price_1QtLh2AIShzl6ZspsILSSzXb",
+    monthly: "price_1QtM0zAIShzl6Zspd7oa3GpZ",
+  },
+  400: {
+    once: "price_1QtLhTAIShzl6ZspgygIgHPc",
+    monthly: "price_1QtM1IAIShzl6Zspy3PS4qbK",
+  },
+  800: {
+    once: "price_1QtLhoAIShzl6Zspuf829hjP",
+    monthly: "price_1QtM1WAIShzl6Zspk1MaqCNW",
+  },
+  1000: {
+    once: "price_1QtLiBAIShzl6ZsprtROHvlt",
+    monthly: "price_1QtM1jAIShzl6ZspdtxpDibO",
+  },
+};
+
+const CUSTOM_AMOUNT_PRICE_ID = "price_1QlhbtAIShzl6ZspOBjsjJB3";
