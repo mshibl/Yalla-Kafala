@@ -6,9 +6,7 @@ import DonationForm from "@/src/components/DonationForm";
 import EgyptDonationOptions from "@/src/components/EgyptDonationOptionsNew";
 import React from "react";
 import { Metadata } from "next";
-import StripeDonationForm from "@/src/components/StripeDonationForm";
-import DonationPageIntro from "@/src/components/DonationPageIntro";
-import PhotosSlideShow from "@/src/components/PhotosSlideShow";
+
 export async function generateMetadata({
   params: { locale },
 }: {
@@ -166,25 +164,69 @@ const DonatePage = ({
 }) => {
   return (
     <ErrorBoundary locale={locale}>
-      {/* <HeroImage src="/images/donation_page_hero.png" /> */}
-      {/* <DonationPageIntro locale={locale} /> */}
-      <StripeDonationForm locale={locale} />
-      {/* <EgyptDonationOptions locale={locale} /> */}
-      {/* <Box>
-        <PhotosSlideShow
-          images={[
-            "/images/476598188_1120799712754347_8529389894471728561_n.jpg",
-            "/images/476642447_1120799336087718_5443804990686442859_n.jpg",
-            "/images/476670895_1120799742754344_8442787079364097001_n.jpg",
-            "/images/476895948_1120799396087712_3949764338558615426_n.jpg",
-            "/images/476900129_1120799482754370_8369214657783236781_n.jpg",
-            "/images/477023793_1120798942754424_1897357425914242591_n.jpg",
-            "/images/477080899_1120799502754368_6018991150586689101_n.jpg",
-            "/images/477341506_1120799566087695_4181902918588609679_n.jpg",
-            "/images/477561230_1120799692754349_5058321338284411279_n.jpg",
-          ]}
-        />
-      </Box> */}
+      <HeroImage src="/images/donation_page_hero.png" />
+      <Box
+        sx={{
+          marginX: { xs: "10%", md: "25%" },
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: { xs: "24px", md: "45px" },
+            fontWeight: "bold",
+            marginTop: { xs: "20px", md: "20px" },
+            lineHeight: { xs: "32px", md: "61px" },
+            color: "primary.main",
+          }}
+          variant="h2"
+        >
+          {locale === "en" ? "Transform Lives:" : "تغيير الحياة:"}
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: { xs: "24px", md: "45px" },
+            fontWeight: "bold",
+            marginBottom: { xs: "10px", md: "20px" },
+            lineHeight: { xs: "32px", md: "61px" },
+            color: "secondary.main",
+          }}
+          variant="h2"
+        >
+          {locale === "en" ? "Your Donations, Their Hope" : "تبرعاتكم، أملهم"}
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: { xs: "16px", md: "24px" },
+            lineHeight: { xs: "25px", md: "32px" },
+          }}
+          variant="body1"
+        >
+          {locale === "en" ? (
+            <>
+              Every child deserves a chance to dream, to thrive, to be loved.
+              Your donation has the power to make this come true. It&apos;s more
+              than a gift; it&apos;s a lifeline. It&apos;s a chance to provide
+              food, shelter, education, and hope. It&apos;s a chance to rewrite
+              the story of a child&apos;s life.
+            </>
+          ) : (
+            <>
+              يلا كفالة هي منظمة غير حكومية رائدة تأسست في عام 2020، مكرسة
+              لإعادة تشكيل رعاية الأطفال في مصر من خلال خيارات الرعاية البديلة
+              والكفالة (الوصاية / التبني). <br /> <br /> إلهامًا من رحلة مؤسسنا
+              رشا مكي الشخصية وكفالتها لابنها مصطفى، أطلقنا أول موقع ويب مخصص
+              للكفالة في مصر وأسسنا يلا كفالة. <br /> <br /> بمقرات رئيسية في
+              مصر وسان فرانسيسكو، نحن نسعى لتوفير بيئات منزلية مغذية للأيتام من
+              خلال بدائل الرعاية الابتكارية وخدمات الدعم والدعوة.
+            </>
+          )}
+        </Typography>
+        <DonationForm locale={locale} />
+      </Box>
+      <EgyptDonationOptions locale={locale} />
     </ErrorBoundary>
   );
 };
