@@ -53,27 +53,6 @@ const AiAssistant = () => {
     setOpen(false);
   };
 
-  if (isMobile) {
-    return (
-      <>
-        <Dialog
-          open={open}
-          fullScreen={isMobile}
-          onClose={handleClose}
-          TransitionComponent={isMobile ? Transition : undefined}
-          keepMounted={true}
-        >
-          <AIChat locale={locale} userInfo={userInfo} onClose={handleClose} />
-        </Dialog>
-        <ChatInput
-          useAsButton={true}
-          locale={locale}
-          handleInputClick={handleOpen}
-        />
-      </>
-    );
-  }
-
   return (
     <>
       <Fab
@@ -89,29 +68,36 @@ const AiAssistant = () => {
       >
         <Box fontSize="30px">👩🏻‍🏫</Box>
       </Fab>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-      >
-        <Box
-          sx={{
-            width: "40vw",
-            height: "70vh",
-          }}
+      {isMobile ? (
+        <Dialog
+          open={open}
+          fullScreen={isMobile}
+          onClose={handleClose}
+          TransitionComponent={isMobile ? Transition : undefined}
+          keepMounted={true}
         >
           <AIChat locale={locale} userInfo={userInfo} onClose={handleClose} />
-        </Box>
-      </Popover>
+        </Dialog>
+      ) : (
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+        >
+          <Box sx={{ width: "40vw", height: "70vh" }}>
+            <AIChat locale={locale} userInfo={userInfo} onClose={handleClose} />
+          </Box>
+        </Popover>
+      )}
     </>
   );
 };

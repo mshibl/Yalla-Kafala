@@ -40,7 +40,7 @@ export const UserInfoForm = ({
       <Box sx={{ fontSize: "16px", lineHeight: "1.5", mb: "8px" }}>
         {locale === "ar"
           ? "مرحباً 👋 من فضلك أدخل بياناتك للبدء في المحادثة"
-          : "Hello 👋 Please enter your details to start chatting"}
+          : "Hello 👋 Please enter your details to start the conversation"}
       </Box>
       <TextField
         autoFocus={true}
@@ -85,9 +85,14 @@ export const UserInfoForm = ({
         variant="contained"
         color="secondary"
         fullWidth
-        sx={{ mt: "16px", borderRadius: "8px", fontSize: "20px", textTransform: "none" }}
+        sx={{
+          mt: "16px",
+          borderRadius: "8px",
+          fontSize: "20px",
+          textTransform: "none",
+        }}
       >
-        {locale === "ar" ? "بدء المحادثة" : "Start Chatting"}
+        {locale === "ar" ? "بدء المحادثة" : "Start the conversation"}
       </Button>
     </Box>
   );

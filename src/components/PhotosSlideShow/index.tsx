@@ -7,14 +7,14 @@ import Image from "next/image";
 interface PhotosSlideShowProps {
   images: string[];
   interval?: number; // Time in milliseconds between transitions
-  height?: number | string;
+  height?: number | string | { xs: number; sm: number; md: number };
   width?: number | string;
 }
 
 const PhotosSlideShow = ({
   images,
-  interval = 8000, // Default 8 seconds
-  height = 400,
+  interval = 5000,
+  height = { xs: 400, sm: 500, md: 500 },
   width = "100%",
 }: PhotosSlideShowProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

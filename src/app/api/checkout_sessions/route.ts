@@ -74,37 +74,72 @@ export async function GET(req: NextRequest) {
 
 const PRICE_LIST = {
   10: {
-    once: "price_1QlgjKAIShzl6ZspskaVHtuI",
-    monthly: "price_1QlgjKAIShzl6Zsp2CYpY3bP",
+    once: "price_1QtN5PAIShzl6Zsp2Z1d8hwI",
+    monthly: "price_1QtN5PAIShzl6ZspV6Yy8w9e",
   },
   25: {
-    once: "price_1QlgjKAIShzl6ZspoAFmqGTk",
-    monthly: "price_1QlgjKAIShzl6Zsp4llTKHgH",
+    once: "price_1QtN5PAIShzl6ZspwaMqQ2zn",
+    monthly: "price_1QtN5PAIShzl6ZsphcgIafbN",
   },
   50: {
-    once: "price_1QlgjKAIShzl6Zsp5ILtsjgo",
-    monthly: "price_1QlgjKAIShzl6ZspNetmX2FO",
+    once: "price_1QtN5PAIShzl6ZspHBqP3iYz",
+    monthly: "price_1QtN5PAIShzl6ZspWO4sKLxx",
   },
   100: {
-    once: "price_1QlgjKAIShzl6ZspxaVwnMVi",
-    monthly: "price_1QlgjKAIShzl6ZspAtaytION",
+    once: "price_1QtN5PAIShzl6Zsp3RSFpUnZ",
+    monthly: "price_1QtN5PAIShzl6ZspIHg8nZAe",
   },
   200: {
-    once: "price_1QtLh2AIShzl6ZspsILSSzXb",
-    monthly: "price_1QtM0zAIShzl6Zspd7oa3GpZ",
+    once: "price_1QtN5PAIShzl6ZspTN4cg6Ms",
+    monthly: "price_1QtN5OAIShzl6ZspobQFFINs",
   },
   400: {
-    once: "price_1QtLhTAIShzl6ZspgygIgHPc",
-    monthly: "price_1QtM1IAIShzl6Zspy3PS4qbK",
+    once: "price_1QtN5PAIShzl6ZspcgaJk4zI",
+    monthly: "price_1QtN5OAIShzl6Zspa2Zm56mY",
   },
   800: {
-    once: "price_1QtLhoAIShzl6Zspuf829hjP",
-    monthly: "price_1QtM1WAIShzl6Zspk1MaqCNW",
+    once: "price_1QtN5PAIShzl6ZspSU8Aq2jP",
+    monthly: "price_1QtN5OAIShzl6ZspB64eIfg6",
   },
   1000: {
-    once: "price_1QtLiBAIShzl6ZsprtROHvlt",
-    monthly: "price_1QtM1jAIShzl6ZspdtxpDibO",
+    once: "price_1QtN5PAIShzl6ZspiW4hoysC",
+    monthly: "price_1QtN5OAIShzl6ZspPPqS82aK",
   },
 };
 
 const CUSTOM_AMOUNT_PRICE_ID = "price_1QlhbtAIShzl6ZspOBjsjJB3";
+
+// const TEST_PRICE_LIST = {
+//   10: {
+//     once: "price_1QlgjKAIShzl6ZspskaVHtuI",
+//     monthly: "price_1QlgjKAIShzl6Zsp2CYpY3bP",
+//   },
+//   25: {
+//     once: "price_1QlgjKAIShzl6ZspoAFmqGTk",
+//     monthly: "price_1QlgjKAIShzl6Zsp4llTKHgH",
+//   },
+//   50: {
+//     once: "price_1QlgjKAIShzl6Zsp5ILtsjgo",
+//     monthly: "price_1QlgjKAIShzl6ZspNetmX2FO",
+//   },
+//   100: {
+//     once: "price_1QlgjKAIShzl6ZspxaVwnMVi",
+//     monthly: "price_1QlgjKAIShzl6ZspAtaytION",
+//   },
+//   200: {
+//     once: "price_1QtLh2AIShzl6ZspsILSSzXb",
+//     monthly: "price_1QtM0zAIShzl6Zspd7oa3GpZ",
+//   },
+//   400: {
+//     once: "price_1QtLhTAIShzl6ZspgygIgHPc",
+//     monthly: "price_1QtM1IAIShzl6Zspy3PS4qbK",
+//   },
+//   800: {
+//     once: "price_1QtLhoAIShzl6Zspuf829hjP",
+//     monthly: "price_1QtM1WAIShzl6Zspk1MaqCNW",
+//   },
+//   1000: {
+//     once: "price_1QtLiBAIShzl6ZsprtROHvlt",
+//     monthly: "price_1QtM1jAIShzl6ZspdtxpDibO",
+//   },
+// };

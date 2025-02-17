@@ -1,11 +1,5 @@
 "use client";
 
-import { loadStripe } from "@stripe/stripe-js";
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
-
 import useResponsiveBreakpoint from "@/src/utils/mui-utils";
 import { useLocationData } from "@/src/utils/useLocationData";
 import { Box, Typography, Button } from "@mui/material";

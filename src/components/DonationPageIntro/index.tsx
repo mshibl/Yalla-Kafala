@@ -12,18 +12,6 @@ const DonationPageIntro = ({ locale }: { locale: "ar" | "en" }) => {
         justifyContent: "center",
       }}
     >
-      <Box
-        width="100%"
-        display="flex"
-        justifyContent="center"
-        mb="20px"
-        mt="20px"
-      >
-        <Typography variant="h4" color="primary.main" fontWeight={500}>
-          {locale === "ar" ? "التبرع" : "Donation"}
-        </Typography>
-      </Box>
-
       <Box width="100%" display="flex" justifyContent="center" mb="20px">
         <Box
           sx={{
