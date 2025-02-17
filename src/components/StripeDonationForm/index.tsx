@@ -77,7 +77,7 @@ const StripeDonationForm = ({ locale }: { locale: "ar" | "en" }) => {
           window.history.back();
         }}
       >
-        <Box sx={{ p: 2, mb: 50, minWidth: "412px" }}>
+        <Box sx={{ p: 2, mb: 50, minWidth: "412px", direction: "ltr" }}>
           <Button
             onClick={() => {
               window.history.back();

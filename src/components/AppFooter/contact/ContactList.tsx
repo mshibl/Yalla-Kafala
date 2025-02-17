@@ -61,7 +61,9 @@ const ContactList = () => {
     country !== "eg" ? (locale === "ar" ? " فى مصر" : " in Egypt") : "";
 
   const USAddressTitle =
-    locale === "ar" ? "العنوان فى امريكا" : "Address in USA";
+    locale === "ar"
+      ? "العنوان فى الولايات المتحدة الأمريكية"
+      : "Address in USA";
 
   return (
     <Grid
