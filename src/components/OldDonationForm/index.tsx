@@ -1,12 +1,13 @@
 "use client";
+
 import useResponsiveBreakpoint from "@/src/utils/mui-utils";
 import { useLocationData } from "@/src/utils/useLocationData";
 import { Box, Typography, Button } from "@mui/material";
 import React, { useState } from "react";
 import EgyptDonationOptions from "../EgyptDonationOptions";
 import ErrorBoundary from "../ErrorBoundary";
-import ETapestryDonationForm from "../ETapestryDonationForm";
 import PublicIcon from "@mui/icons-material/Public";
+import StripeDonationForm from "../StripeDonationForm";
 
 const OldDonationForm = ({ locale }: { locale: "ar" | "en" }) => {
   const isMD = useResponsiveBreakpoint("md");
@@ -57,7 +58,7 @@ const OldDonationForm = ({ locale }: { locale: "ar" | "en" }) => {
             <EgyptDonationOptions locale={locale} />
           </Box>
         ) : (
-          <ETapestryDonationForm locale={locale} show={true} />
+          <StripeDonationForm locale={locale} />
         )}
       </Box>
     </ErrorBoundary>
