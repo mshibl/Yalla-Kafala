@@ -62,7 +62,7 @@ export function QuestionCard({
               color="text.secondary"
               sx={{ mt: 2 }}
             >
-              اختر الخيار الذي يصفك بشكل أفضل
+              اختار الاجابة المناسبة ليك
             </Typography>
           }
         />
