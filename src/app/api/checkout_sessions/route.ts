@@ -74,7 +74,7 @@ export async function GET(req: NextRequest) {
 
 const PRICE_LIST = {
   10: {
-    once: "price_1QtN5PAIShzl6Zsp2Z1d8hwI",
+    once: "price_1QtNOyAIShzl6ZspZLdolkUG",
     monthly: "price_1QtN5PAIShzl6ZspV6Yy8w9e",
   },
   25: {
