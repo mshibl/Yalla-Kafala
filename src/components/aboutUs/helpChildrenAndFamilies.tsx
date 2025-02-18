@@ -53,7 +53,7 @@ const HelpChildrenAndFamilies = ({ locale }: { locale: string }) => {
         />
         <ActionButton
           link="volunteer"
-          text={locale === "en" ? "Volunteer" : "تطوع"}
+          text={locale === "en" ? "Volunteer" : "تطوع معنا"}
         />
       </Box>
     </Box>

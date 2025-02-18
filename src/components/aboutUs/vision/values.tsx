@@ -25,21 +25,22 @@ const Values = ({ locale }: { locale: string }) => {
       </Typography>
       <Grid spacing={7} container>
         <ValueCard
-          title={locale === "en" ? "Inclusion" : "الشمول"}
+          title={locale === "en" ? "Inclusion" : "الجميع سواء"}
           description={
             locale === "en"
               ? "We condemn all forms of discrimination. Everyone deserves equal access to opportunities and resources."
               : `
-          ندين جميع أشكال التمييز. الجميع يستحق الوصول المتساوي إلى الفرص والموارد.`
+        ندين كافة أشكال التمييز. يحق للجميع الحصول على فرص وموارد متساوية.
+`
           }
           image="/images/inclusion.svg"
         />
         <ValueCard
-          title={locale === "en" ? "Community" : "المجتمع"}
+          title={locale === "en" ? "Community" : "الأسرة أولًا"}
           description={
             locale === "en"
               ? "Family comes first. We empower and provide high-quality services to our teams, partners, orphans, and kafala families."
-              : ` العائلة تأتي أولاً. نمكن ونقدم خدمات عالية الجودة لفرقنا وشركائنا والأيتام وعائلات الكفالة. `
+              : ` نضع الأسرة على قمة أولوياتنا. نُمكن فرقنا وشركائنا والأطفال فاقدي الرعاية الأسرية والأسر الكافلة ونقدم خدمات عالية الجودة لهم. `
           }
           image="/images/community.svg"
         />
@@ -48,7 +49,7 @@ const Values = ({ locale }: { locale: string }) => {
           description={
             locale === "en"
               ? "Everyone adds value to our journey. We act as liaisons between our staff and stakeholders to ensure a better future for our beneficiaries."
-              : ` الجميع يضيف قيمة لرحلتنا. نعمل كوسطاء بين موظفينا وأصحاب المصلحة لضمان مستقبل أفضل لمستفيدينا.`
+              : ` كل فرد يضيف قيمة لرحلتنا. نعمل كحلقة وصل بين موظفينا وأصحاب المصلحة لضمان مستقبل أفضل لمستفيدينا.`
           }
           image="/images/collaboration.svg"
         />
@@ -57,7 +58,7 @@ const Values = ({ locale }: { locale: string }) => {
           description={
             locale === "en"
               ? "We reach our beneficiaries with empathy, kindness, understanding, and respect, providing solutions for their challenges."
-              : ` نصل إلى مستفيدينا بالتعاطف واللطف والفهم والاحترام، ونقدم حلولًا لتحدياتهم.`
+              : ` نتواصل مع مستفيدينا من خلال التعاطف واللطف والتفاهم والاحترام، ونقدم حلولًا لتحدياتهم.`
           }
           image="/images/compassion.svg"
         />
