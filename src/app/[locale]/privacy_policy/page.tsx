@@ -54,14 +54,15 @@ const PrivacyPolicyPage = ({
               <p>
                 <strong>Affiliate:</strong> means an entity that controls, is
                 controlled by or is under common control with a party, where
-                "control" means ownership of 50% or more of the shares, equity
-                interest or other securities entitled to vote for election of
-                directors or other managing authority.
+                &quot;control&quot; means ownership of 50% or more of the
+                shares, equity interest or other securities entitled to vote for
+                election of directors or other managing authority.
               </p>
               <p>
-                <strong>Company:</strong> (referred to as either "the Company",
-                "We", "Us" or "Our" in this Agreement) refers to Yalla Kafala,
-                15 Onondaga Ave, San Francisco, California.
+                <strong>Company:</strong> (referred to as either &quot;the
+                Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot;
+                in this Agreement) refers to Yalla Kafala, 15 Onondaga Ave, San
+                Francisco, California.
               </p>
               <p>
                 <strong>Cookies:</strong> are small files that are placed on
@@ -143,7 +144,8 @@ const PrivacyPolicyPage = ({
                 </p>
                 <ul className="list-disc list-inside ml-4 mt-2">
                   <li>
-                    Your Device's Internet Protocol address (e.g. IP address)
+                    Your Device&apos;s Internet Protocol address (e.g. IP
+                    address)
                   </li>
                   <li>Browser type and version</li>
                   <li>Pages of our Service that You visit</li>
@@ -230,7 +232,7 @@ const PrivacyPolicyPage = ({
           <h2 className="text-2xl font-semibold text-gray-900">Contact Us</h2>
           <p>
             If you have any questions about this Privacy Policy, You can contact
-            us by visiting this page on our website:{" "}
+            us by visiting this page on our website:
             <a
               href="https://www.yallakafala.org/en/contact_us"
               className="text-blue-600 hover:text-blue-800"
