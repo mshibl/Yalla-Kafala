@@ -14,16 +14,28 @@ const VolunteerForm = ({ locale }: { locale: "ar" | "en" }) => {
       <Box mb="100px" px={{ xs: "16px", md: "100px" }}>
         <Box
           sx={{
-            textAlign: { xs: "center", md: "center" },
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
             py: "40px",
           }}
         >
           <Typography variant="h4" color="primary.main" fontWeight={500}>
             {locale === "ar" ? "تطوع معنا" : "Volunteer with us"}
           </Typography>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ maxWidth: "600px", mt: "40px" }}
+            >
+              {locale === "ar"
+             ? "  تواصل معنا لأي استفسارات أو معلومات حول يلا كفالة عبر 'Info@yallakafala.org'. نحن هنا لمساعدتك!"
+              : "Reach out to us for any inquiries or information about Yalla Kafala through this email 'Info@yallakafala.org' . We are here to help!"}
+                    </Typography>
+                  
         </Box>
-        <ETapestryVolunteerForm locale={locale} show={true} />
-      </Box>
+        </Box>
     </ErrorBoundary>
   );
 };
