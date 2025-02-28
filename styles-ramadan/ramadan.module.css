@@ -1,0 +1,32 @@
+// Container for all Ramadan decorations
+ .ramadanDecor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+ /* String Light Effect: Lanterns in a row  */
+.lanternString {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding: 10px 0;
+}
+
+
+/*  Individual lantern wrapper for animation  */
+.lanternWrapper {
+    animation: floatLanterns 3s ease-in-out infinite alternate;
+}
+
+/*  Floating animation  */
+@keyframes floatLanterns {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-8px); }
+} 

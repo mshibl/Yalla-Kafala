@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import HeroDonateButton from "@/src/components/Home/HeroSection/HeroDonateButton";
 import useResponsiveBreakpoint from "@/src/utils/mui-utils";
+import LanternString from "../../Ramadan/Lanterns";
 
 const HeroSection = ({ locale }: { locale: "ar" | "en" }) => {
   const isMobile = useResponsiveBreakpoint("sm", true);
@@ -15,7 +16,10 @@ const HeroSection = ({ locale }: { locale: "ar" | "en" }) => {
       bgcolor="primary.main"
       flexDirection={{ xs: "column-reverse", md: "row" }}
     >
-      <Box
+      <Box> 
+        <LanternString />
+      </Box>
+      {/* <Box
         flex={1}
         bgcolor={isMobile ? "#FFFFFF" : "primary.main"}
         color={isMobile ? "primary.main" : "#ffffff"}
@@ -32,7 +36,7 @@ const HeroSection = ({ locale }: { locale: "ar" | "en" }) => {
         >
           {locale === "ar"
             ? "شاركنا فى بناء مستقبل أفضل لفاقدي الرعاية الأسرية والأسر الكافلة"
-            : "Join us in building a better future for orphans and Kafala families"}
+            : "Join us in building an even better future for orphans and Kafala families"}
         </Typography>
         <HeroDonateButton locale={locale} />
       </Box>
@@ -54,7 +58,7 @@ const HeroSection = ({ locale }: { locale: "ar" | "en" }) => {
           fill={true}
           sizes="100% 100%"
         />
-      </Box>
+      </Box> */}
     </Box>
   );
 };
