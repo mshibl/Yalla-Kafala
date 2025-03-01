@@ -1,5 +1,5 @@
 import AppTheme from "@/src/utils/AppTheme";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
@@ -177,6 +177,7 @@ const LocaleLayout = ({
 
   return (
     <html dir={locale === "en" ? "ltr" : "rtl"} lang={locale}>
+      <GoogleTagManager gtmId="G-DXKW33HT8F" />
       <body>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <NextIntlClientProvider messages={messages}>

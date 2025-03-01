@@ -34,6 +34,7 @@
     "embla-carousel": "^8.1.5",
     "embla-carousel-react": "^8.1.5",
     "framer-motion": "^11.3.19",
+    "google": "link:@next/third-parties/google",
     "googleapis": "^131.0.0",
     "next": "15.0.0-canary.152",
     "next-auth": "5.0.0-beta.21",
