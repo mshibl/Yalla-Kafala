@@ -1,5 +1,5 @@
 import { drizzle } from "drizzle-orm/postgres-js";
-import { eq, inArray, and } from "drizzle-orm/sql";
+import { eq, inArray, and, desc } from "drizzle-orm/sql";
 import postgres from "postgres";
 import { chat, chunk, message, user } from "@/drizzle/schema";
 
@@ -95,6 +95,7 @@ export async function getMessagesByChatId({ chatId }: { chatId: string }) {
     })
     .from(message)
     .where(eq(message.chatId, chatId))
+    .orderBy(desc(message.createdAt))
     .limit(10);
   return result;
 }
