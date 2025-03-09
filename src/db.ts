@@ -1,8 +1,7 @@
 import { drizzle } from "drizzle-orm/postgres-js";
-import { eq, inArray } from "drizzle-orm/sql";
+import { eq, inArray, and, desc } from "drizzle-orm/sql";
 import postgres from "postgres";
-import { genSaltSync, hashSync } from "bcrypt-ts";
-import { chat, chunk, message, user } from "@/schema";
+import { chat, chunk, message, user } from "@/drizzle/schema";
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
@@ -10,37 +9,82 @@ import { chat, chunk, message, user } from "@/schema";
 let client = postgres(`${process.env.POSTGRES_URL!}?sslmode=require`);
 let db = drizzle(client);
 
-export async function getUser(email: string) {
-  return await db.select().from(user).where(eq(user.email, email));
-}
+// 🧍🏽‍♂️ "USER" TABLE DB FUNCTIONS
+// ------------------------------------------------------------
 
-export async function createUser(email: string, password: string) {
-  let salt = genSaltSync(10);
-  let hash = hashSync(password, salt);
-
-  return await db.insert(user).values({ email, password: hash });
-}
-
-export async function createMessage({
-  chatId,
-  content,
-  authorName,
-  authorMobile,
-  role,
-}: {
-  chatId: string;
-  content: string;
-  authorName?: string;
-  authorMobile?: string;
-  role: string;
-}) {
-  await db.insert(message).values({
-    chatId,
-    role,
-    content,
-    authorName,
-    authorMobile,
+export async function createUser(userData: typeof user.$inferInsert) {
+  const result = await db.insert(user).values({
+    email: userData.email,
+    phone: userData.phone,
+    name: userData.name,
+    signupMethod: userData.signupMethod,
+    createdAt: userData.createdAt,
+    updatedAt: userData.updatedAt,
+    whatsappProfileName: userData.whatsappProfileName,
+    whatsappWaId: userData.whatsappWaId,
   });
+
+  return result[0];
+}
+
+export async function updateUser(
+  id: string,
+  userData: typeof user.$inferInsert
+) {
+  const result = await db
+    .update(user)
+    .set(userData)
+    .where(eq(user.id, id))
+    .returning();
+  return result[0];
+}
+
+export async function getUserByEmail({ email }: { email: string }) {
+  const result = await db.select().from(user).where(eq(user.email, email));
+  return result[0];
+}
+
+export async function getUserByPhoneNumber({
+  phoneNumber,
+}: {
+  phoneNumber: string;
+}) {
+  const result = await db
+    .select()
+    .from(user)
+    .where(eq(user.phone, phoneNumber));
+  return result[0];
+}
+
+export async function getUserByWhatsappWaId({
+  whatsappWaId,
+}: {
+  whatsappWaId: string;
+}) {
+  const result = await db
+    .select()
+    .from(user)
+    .where(eq(user.whatsappWaId, whatsappWaId));
+  return result[0];
+}
+
+// 💬 "MESSAGE" TABLE DB FUNCTIONS
+// ------------------------------------------------------------
+export async function createMessage(messageData: typeof message.$inferInsert) {
+  const result = await db.insert(message).values(messageData).returning();
+  return result[0];
+}
+
+export async function getMessageByWhatsappMessageSid({
+  whatsappMessageSid,
+}: {
+  whatsappMessageSid: string;
+}) {
+  const result = await db
+    .select()
+    .from(message)
+    .where(eq(message.whatsappMessageSid, whatsappMessageSid));
+  return result[0];
 }
 
 export async function getMessagesByChatId({ chatId }: { chatId: string }) {
@@ -51,23 +95,33 @@ export async function getMessagesByChatId({ chatId }: { chatId: string }) {
     })
     .from(message)
     .where(eq(message.chatId, chatId))
+    .orderBy(desc(message.createdAt))
     .limit(10);
   return result;
 }
 
-export async function createChat({ id }: { id: string }) {
-  return await db.insert(chat).values({
-    id,
-  });
+// 💬"CHAT" TABLE DB FUNCTIONS
+// ------------------------------------------------------------
+export async function createChat(chatData: typeof chat.$inferInsert) {
+  const result = await db.insert(chat).values(chatData).returning();
+  return result[0];
 }
 
 export async function getChatById({ id }: { id: string }) {
-  const [selectedChat] = await db.select().from(chat).where(eq(chat.id, id));
-  return selectedChat;
+  const result = await db.select().from(chat).where(eq(chat.id, id));
+  return result[0];
 }
 
+export async function getChatByUserId({ userId }: { userId: string }) {
+  const result = await db.select().from(chat).where(eq(chat.userId, userId));
+  return result[0];
+}
+
+// <🛑 NOT USED YET 🛑> 📄"CHUNK" TABLE DB FUNCTIONS
+// ------------------------------------------------------------
 export async function insertChunks({ chunks }: { chunks: any[] }) {
-  return await db.insert(chunk).values(chunks);
+  const result = await db.insert(chunk).values(chunks).returning();
+  return result;
 }
 
 export async function getChunksByFilePaths({
@@ -75,10 +129,11 @@ export async function getChunksByFilePaths({
 }: {
   filePaths: Array<string>;
 }) {
-  return await db
+  const result = await db
     .select()
     .from(chunk)
     .where(inArray(chunk.filePath, filePaths));
+  return result;
 }
 
 export async function deleteChunksByFilePath({
@@ -86,5 +141,9 @@ export async function deleteChunksByFilePath({
 }: {
   filePath: string;
 }) {
-  return await db.delete(chunk).where(eq(chunk.filePath, filePath));
+  const result = await db
+    .delete(chunk)
+    .where(eq(chunk.filePath, filePath))
+    .returning();
+  return result;
 }
