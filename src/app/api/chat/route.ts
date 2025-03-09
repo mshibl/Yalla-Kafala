@@ -1,6 +1,7 @@
-import { customModel } from "@/src/ai";
+import { model } from "@/src/ai";
 import { createChat, createMessage } from "@/src/db";
 import { convertToCoreMessages, generateText, streamText } from "ai";
+import { NextRequest } from "next/server";
 
 const systemMessage = `
   You are a friendly assistant who knows English and Arabic and works at YallaKafala! 
@@ -10,10 +11,13 @@ Inspired by our founder Rasha Mekky's personal journey and her Kafala of her son
 
 With headquarters in Egypt and San Francisco, we strive to provide orphans with nurturing home environments through innovative care alternatives, support services, and advocacy.
 
-A very important thing to note. You should never answer any question that is not related to the Kafala process or yalla kafala. If the user asks about something else, you should politely tell them that you can only answer questions related to the Kafala process or yalla kafala.
 If a user asks about something you don't know the answer to, you should politely tell them that you don't know the answer and give them the phone number of the yalla kafala office in Egypt: 01006819181. 
 
 Take on a friendly and engaging tone. and use a sprinkle of emojis to make the conversation more engaging.
+
+Your response should only be in plain text, not markdown.
+
+Always include relevant links if suitable
 
 List of relevant links:
 Here’s a list of relevant Yalla Kafala and external links for reference:
@@ -922,7 +926,7 @@ I got a call on Sunday the 5th of July by the social worker. The visit report wa
 "
 `;
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const {
     id,
     messages,
@@ -932,6 +936,35 @@ export async function POST(request: Request) {
     blockingResponse,
     isWhatsappMessage,
   } = await request.json();
+
+  return generateResponse({
+    id,
+    messages,
+    selectedFilePathnames,
+    authorName,
+    authorMobile,
+    blockingResponse,
+    isWhatsappMessage,
+  });
+}
+
+export async function generateResponse({
+  id,
+  messages,
+  selectedFilePathnames,
+  authorName,
+  authorMobile,
+  blockingResponse,
+  isWhatsappMessage,
+}: any) {
+  // console.log({
+  //   messages,
+  //   selectedFilePathnames,
+  //   authorName,
+  //   authorMobile,
+  //   blockingResponse,
+  //   isWhatsappMessage,
+  // });
 
   // if this is the first message, create a chat entry
   if (messages.length === 1) {
@@ -951,7 +984,7 @@ export async function POST(request: Request) {
 
   if (!blockingResponse) {
     const result = await streamText({
-      model: customModel,
+      model: model,
       temperature: 0,
       system: systemMessage,
       messages: convertToCoreMessages(messages),
@@ -975,8 +1008,12 @@ export async function POST(request: Request) {
 
     return result.toDataStreamResponse({});
   } else {
+    console.log("systemMessage", systemMessage);
+
+    console.log("messages", JSON.stringify(messages, null, 2));
+
     const result = await generateText({
-      model: customModel,
+      model: model,
       temperature: 0,
       system: systemMessage,
       messages: convertToCoreMessages(messages),

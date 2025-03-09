@@ -10,6 +10,7 @@ import {
   getUserByWhatsappWaId,
 } from "@/src/db";
 import { NextResponse } from "next/server";
+import { generateResponse } from "../chat/route";
 
 const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
@@ -173,20 +174,29 @@ export async function POST(request: Request) {
     const fullConversation = [...oldMessages, message];
 
     // send a request to the chat endpoint
-    const messageResponse = await fetch(
-      "https://www.yallakafala.org/api/chat",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          id: chat.id,
-          messages: fullConversation,
-          authorName: user.name,
-          authorMobile: from,
-          blockingResponse: true,
-          isWhatsappMessage: true,
-        }),
-      }
-    );
+    // const messageResponse = await fetch(
+    //   "https://www.yallakafala.org/api/chat",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       id: chat.id,
+    //       messages: fullConversation,
+    //       authorName: user.name,
+    //       authorMobile: from,
+    //       blockingResponse: true,
+    //       isWhatsappMessage: true,
+    //     }),
+    //   }
+    // );
+
+    const messageResponse = await generateResponse({
+      id: chat.id,
+      messages: fullConversation,
+      authorName: user.name,
+      authorMobile: from,
+      blockingResponse: true,
+      isWhatsappMessage: true,
+    });
 
     const data = await messageResponse.json();
 
