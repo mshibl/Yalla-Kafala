@@ -183,6 +183,7 @@ export async function POST(request: Request) {
           authorName: user.name,
           authorMobile: from,
           blockingResponse: true,
+          isWhatsappMessage: true,
         }),
       }
     );
