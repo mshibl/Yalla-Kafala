@@ -13,16 +13,19 @@ let db = drizzle(client);
 // ------------------------------------------------------------
 
 export async function createUser(userData: typeof user.$inferInsert) {
-  const result = await db.insert(user).values({
-    email: userData.email,
-    phone: userData.phone,
-    name: userData.name,
-    signupMethod: userData.signupMethod,
-    createdAt: userData.createdAt,
-    updatedAt: userData.updatedAt,
-    whatsappProfileName: userData.whatsappProfileName,
-    whatsappWaId: userData.whatsappWaId,
-  });
+  const result = await db
+    .insert(user)
+    .values({
+      email: userData.email,
+      phone: userData.phone,
+      name: userData.name,
+      signupMethod: userData.signupMethod,
+      createdAt: userData.createdAt,
+      updatedAt: userData.updatedAt,
+      whatsappProfileName: userData.whatsappProfileName,
+      whatsappWaId: userData.whatsappWaId,
+    })
+    .returning();
 
   return result[0];
 }
