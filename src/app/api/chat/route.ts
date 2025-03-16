@@ -1028,6 +1028,7 @@ export async function generateResponse({
       chatId: id,
       role: "assistant",
       content: result.text,
+      channel: isWhatsappMessage ? "whatsapp" : "web",
     });
 
     return new Response(JSON.stringify({ text: result.text }));

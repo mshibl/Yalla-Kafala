@@ -141,6 +141,7 @@ export async function POST(request: Request) {
       content: body ?? "<Empty Message>",
       authorName: profileName,
       authorMobile: from,
+      channel: "whatsapp",
       whatsappMessageSid: smsMessageSid,
       whatsappAccountSid: apiVersion,
       whatsappMessagingServiceSid: PHONE_NUMBER_ID,

@@ -9,6 +9,8 @@ import Navbar from "@/src/components/Navbar";
 import AppFooter from "@/src/components/AppFooter";
 import AiAssistant from "@/src/components/AIAssistant/ai-assistant";
 import { PostHogProvider } from "../providers";
+import Script from "next/script";
+import Head from "next/head";
 
 export async function generateMetadata({
   params: { locale },
@@ -177,6 +179,10 @@ const LocaleLayout = ({
 
   return (
     <html dir={locale === "en" ? "ltr" : "rtl"} lang={locale}>
+      <Script
+        src="https://secure.givelively.org/widgets/branded_donation/yalla-kafala.js"
+        strategy="beforeInteractive"
+      />
       <GoogleTagManager gtmId="G-DXKW33HT8F" />
       <body>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
