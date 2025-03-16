@@ -1,9 +1,8 @@
 "use client";
 import { Box, Typography } from "@mui/material";
-import Image from "next/image";
-import HeroDonateButton from "@/src/components/Home/HeroSection/HeroDonateButton";
 import useResponsiveBreakpoint from "@/src/utils/mui-utils";
 import PhotosSlideShow from "../../PhotosSlideShow";
+import SubmitDonationButton from "./HeroDonateButton/SubmitDonationButton";
 
 const HeroSection = ({ locale }: { locale: "ar" | "en" }) => {
   const isMobile = useResponsiveBreakpoint("sm", true);
@@ -35,7 +34,7 @@ const HeroSection = ({ locale }: { locale: "ar" | "en" }) => {
             ? "شاركنا فى بناء مستقبل أفضل لفاقدي الرعاية الأسرية والأسر الكافلة"
             : "Join us in building a better future for orphans and Kafala families"}
         </Typography>
-        <HeroDonateButton locale={locale} />
+        <SubmitDonationButton locale={locale} />
       </Box>
 
       <Box
