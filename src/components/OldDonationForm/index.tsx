@@ -59,17 +59,11 @@ const OldDonationForm = ({ locale }: { locale: "ar" | "en" }) => {
             <EgyptDonationOptions locale={locale} />
           </Box>
         ) : (
-          <>
-            <Script
-              src="https://secure.givelively.org/widgets/branded_donation/yalla-kafala.js"
-              // strategy="beforeInteractive"
-            />
-            <div
-              data-widget-src="https://secure.givelively.org/donate/yalla-kafala?ref=sd_widget"
-              id="give-lively-widget"
-              className="gl-branded-donation-widget"
-            />
-          </>
+          <div
+            data-widget-src="https://secure.givelively.org/donate/yalla-kafala?ref=sd_widget"
+            id="give-lively-widget"
+            className="gl-branded-donation-widget"
+          />
 
           //           <!-- Begin Give Lively Fundraising Widget -->
           // <script>gl=document.createElement('script');gl.src='https://secure.givelively.org/widgets/branded_donation/yalla-kafala.js';document.getElementsByTagName('head')[0].appendChild(gl);</script><div data-widget-src='https://secure.givelively.org/donate/yalla-kafala?ref=sd_widget' id="give-lively-widget" class="gl-branded-donation-widget"></div>
