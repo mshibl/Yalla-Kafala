@@ -183,7 +183,7 @@ const LocaleLayout = ({
         src="https://secure.givelively.org/widgets/branded_donation/yalla-kafala.js"
         strategy="beforeInteractive"
       />
-      <GoogleTagManager gtmId="G-DXKW33HT8F" />
+      <GoogleTagManager gtmId="GTM-W8P5HTS6" />
       <body>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <NextIntlClientProvider messages={messages}>
@@ -213,7 +213,7 @@ const LocaleLayout = ({
           </NextIntlClientProvider>
         </AppRouterCacheProvider>
       </body>
-      <GoogleAnalytics gaId="G-DXKW33HT8F" />
+      <GoogleAnalytics gaId="GTM-W8P5HTS6" />
     </html>
   );
 };
