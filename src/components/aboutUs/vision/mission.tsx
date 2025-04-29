@@ -30,19 +30,13 @@ const Mission = ({ locale }: { locale: string }) => {
       >
         {locale === "en" ? (
           <>
-            Advancing quality care for orphans and growing families by
-            advocating, educating, and developing resources. <br />
-            <br /> Our mission also extends to developing care arrangements for
-            non-Egyptian children, including migrants and refugees, focusing on
-            community-based solutions that uphold dignity and security.
+            Advancing for equal right, educating for awareness, and delivering
+            the highest standard of care for every child and kafala family
           </>
         ) : (
           <>
-            تقديم الرعاية ذات الجودة للأيتام وتوسيع الأسر من خلال الترويج
-            والتثقيف وتطوير الموارد. <br /> <br /> تمتد مهمتنا أيضًا إلى تطوير
-            ترتيبات الرعاية للأطفال غير المصريين، بما في ذلك المهاجرين
-            واللاجئين، مع التركيز على الحلول القائمة على المجتمع التي تحافظ على
-            الكرامة والأمان.
+            نتقدم نحو المساواة في الحقوق، ونُثقف لزيادة الوعي، ونُقدّم أعلى
+            معايير الرعاية لكل طفل ولكل أسرة كفالة.
           </>
         )}
       </Typography>
