@@ -8,6 +8,16 @@ import { NextIntlClientProvider, useMessages } from "next-intl";
 import Navbar from "@/src/components/Navbar";
 import AppFooter from "@/src/components/AppFooter";
 import AiAssistant from "@/src/components/AIAssistant/ai-assistant";
+import TheSmallHouse from "@/components/the_small_house"
+import {
+  merriweather,
+  lora,
+  nunitoSans,
+  quicksand,
+  bebasNeue,
+  josefinSans
+} from '@/src/fonts/google'
+
 
 export async function generateMetadata({
   params: { locale },
@@ -208,3 +218,4 @@ const LocaleLayout = ({
   );
 };
 export default LocaleLayout;
+
