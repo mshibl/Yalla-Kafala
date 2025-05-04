@@ -47,7 +47,6 @@ function Navbar({ locale }: { locale: "ar" | "en" }) {
         position: "sticky",
         zIndex: 1000,
         boxShadow: "none",
-        // borderBottom: "1px solid #D1D1D1",
       }}
     >
       <Toolbar

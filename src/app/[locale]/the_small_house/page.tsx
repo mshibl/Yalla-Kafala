@@ -29,13 +29,13 @@
 //   People,
 //   FavoriteBorder,
 // } from "@mui/icons-material"
-// import { 
+// import {
 //   merriweather,
-//   lora, 
+//   lora,
 //   nunitoSans,
 //   quicksand,
 //   bebasNeue,
-//   josefinSans 
+//   josefinSans
 // } from '@/src/fonts/google'
 
 // import { alpha } from "@mui/material/styles"
@@ -168,7 +168,6 @@
 //                     "&:hover": {
 //                       bgcolor: alpha("#ffffff", 0.9),
 //                       borderRadius: "1000000000px",
-                      
 
 //                     },
 //                   }}
@@ -1275,11 +1274,6 @@
 //   )
 // }
 
-
-
-
-
-
 //  "use client"
 
 // import { useState, useRef, RefObject } from "react"
@@ -1320,9 +1314,6 @@
 //   Handshake,
 //   CheckCircle,
 // } from "@mui/icons-material"
-
-
-
 
 // import Image from "next/image" // Add Image import
 // import { merriweather } from "@/src/fonts/google"
@@ -1502,9 +1493,7 @@
 //               </Box>
 //             </Grid>
 //             <Grid item xs={12} md={6}>
-             
-                
-                
+
 //                 <Container maxWidth="lg">
 //                 <Box
 //                 sx={{
@@ -1527,8 +1516,8 @@
 //                     alt="The Small House Facility"
 //                     width={500}
 //                     height={400}
-//                     style={{ 
-//                       borderRadius: "8px", 
+//                     style={{
+//                       borderRadius: "8px",
 //                       objectFit: "cover",
 //                       margin: 'auto', // Centers the image
 //                     }}
@@ -1536,7 +1525,7 @@
 //                 </Box>
 //               </Box>
 //                           </Container>
-                        
+
 //                       </Grid>
 //                     </Grid>
 //                   </Container>
@@ -1612,7 +1601,6 @@
 //         </Container>
 //       </Box>
 
-
 // {/* About Section */}
 // <Box ref={aboutSectionRef} sx={{ py: { xs: 8, md: 12 } }}>
 //   <Container maxWidth="lg">
@@ -1637,8 +1625,8 @@
 //           alt="The Small House Facility"
 //           width={570}
 //           height={400}
-//           style={{ 
-//             borderRadius: "8px", 
+//           style={{
+//             borderRadius: "8px",
 //             objectFit: "cover",
 //             margin: 'auto', // Centers the image
 //           }}
@@ -2030,756 +2018,1007 @@
 //   )
 // }
 
-// //start at inserting pics 
-"use client"
+// //start at inserting pics
+"use client";
 
-import { useState, useEffect, useRef, SetStateAction } from "react"
-import Link from "next/link"
+import { useState, useEffect, useRef, SetStateAction } from "react";
+import Link from "next/link";
 
 // Material UI Components
 import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Tabs,
-  Tab,
-  Stack,
-  Chip,
-  useMediaQuery,
-  useTheme,
-  alpha,
-  Paper,
-} from "@mui/material"
+	Box,
+	Container,
+	Typography,
+	Button,
+	Grid,
+	Tabs,
+	Tab,
+	Stack,
+	Chip,
+	useMediaQuery,
+	useTheme,
+	alpha,
+	Paper,
+} from "@mui/material";
 import {
-  merriweather,
-  lora,
-  nunitoSans,
-  quicksand,
-  bebasNeue,
-  josefinSans
-} from '@/src/fonts/google';
-import Image from "next/image"
+	merriweather,
+	lora,
+	nunitoSans,
+	quicksand,
+	bebasNeue,
+	josefinSans,
+} from "@/src/fonts/google";
+import Image from "next/image";
 
 // Material UI Icons
-import { School, Favorite, LocalHospital, Security, Home, FamilyRestroom } from "@mui/icons-material"
+import {
+	School,
+	Favorite,
+	LocalHospital,
+	Security,
+	Home,
+	FamilyRestroom,
+} from "@mui/icons-material";
 
-export default function TheSmallHouse() {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"))
-  const [activeTab, setActiveTab] = useState("about")
-  const [scrollY, setScrollY] = useState(0)
+export default function TheSmallHouse({
+	params: { locale },
+}: { params: { locale: string } }) {
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+	const [activeTab, setActiveTab] = useState("about");
+	const [scrollY, setScrollY] = useState(0);
+	const isArabic = locale === "ar";
 
-  // Animation refs
-  const aboutRef = useRef(null)
-  const servicesRef = useRef(null)
-  const donationsRef = useRef(null)
-  const impactRef = useRef(null)
+	// Animation refs
+	const aboutRef = useRef(null);
+	const servicesRef = useRef(null);
+	const donationsRef = useRef(null);
+	const impactRef = useRef(null);
 
-  // References for scrolling
-  const aboutSectionRef = useRef<HTMLDivElement>(null)
-  const servicesSectionRef = useRef<HTMLDivElement>(null)
-  const donationsSectionRef = useRef<HTMLDivElement>(null)
-  const impactSectionRef = useRef<HTMLDivElement>(null)
+	// References for scrolling
+	const aboutSectionRef = useRef<HTMLDivElement>(null);
+	const servicesSectionRef = useRef<HTMLDivElement>(null);
+	const donationsSectionRef = useRef<HTMLDivElement>(null);
+	const impactSectionRef = useRef<HTMLDivElement>(null);
 
-  // Handle scroll for effects
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
+	// Handle scroll for effects
+	useEffect(() => {
+		const handleScroll = () => {
+			setScrollY(window.scrollY);
+		};
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
-  const handleTabChange = (_event: any, newValue: 'about' | 'services' | 'donations') => {
-    setActiveTab(newValue)
+	const handleTabChange = (
+		_event: any,
+		newValue: "about" | "services" | "donations",
+	) => {
+		setActiveTab(newValue);
 
-    // Scroll to the appropriate section
-    const sectionMap = {
-      about: aboutSectionRef,
-      services: servicesSectionRef,
-      donations: donationsSectionRef,
-    }
+		// Scroll to the appropriate section
+		const sectionMap = {
+			about: aboutSectionRef,
+			services: servicesSectionRef,
+			donations: donationsSectionRef,
+		};
 
-    const targetRef = sectionMap[newValue]
-    if (targetRef && targetRef.current) {
-      targetRef.current.scrollIntoView({ behavior: "smooth" })
-    }
-  }
+		const targetRef = sectionMap[newValue];
+		if (targetRef && targetRef.current) {
+			targetRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	};
 
-  return (
-    <Box sx={{ bgcolor: "background.default", color: "text.primary" }}>
-      {/* Sticky Navigation */}
-      <Box
-        sx={{
-          position: "sticky",
-          top: 0,
-          zIndex: 1100,
-          bgcolor: alpha(theme.palette.primary.main, 0.9),
-          backdropFilter: "blur(8px)",
-          borderBottom: 1,
-          borderColor: alpha("#ffffff", 0.1),
-        }}
-      >
-        <Container maxWidth="lg">
-          <Tabs
-            value={activeTab}
-            onChange={handleTabChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            allowScrollButtonsMobile
-            centered={!isMobile}
-            sx={{
-              py: 1,
-              "& .MuiTab-root": {
-                color: "rgba(255, 255, 255, 0.7)",
-                "&.Mui-selected": {
-                  color: "#ffffff",
-                },
-              },
-              "& .MuiTabs-indicator": {
-                backgroundColor: "#ffffff",
-              },
-            }}
-          >
-            <Tab label="About" value="about" />
-            <Tab label="What We Provide" value="services" />
-            <Tab label="Your Donations" value="donations" />
-          </Tabs>
-        </Container>
-      </Box>
+	return (
+		<Box sx={{ bgcolor: "background.default", color: "text.primary" }}>
+			{/* Sticky Navigation */}
+			<Box
+				sx={{
+					position: "sticky",
+					top: 0,
+					zIndex: 1100,
+					bgcolor: alpha(theme.palette.primary.main, 0.9),
+					backdropFilter: "blur(8px)",
+					borderBottom: 1,
+					borderColor: alpha("#ffffff", 0.1),
+				}}
+			>
+				<Container maxWidth="lg">
+					<Tabs
+						value={activeTab}
+						onChange={handleTabChange}
+						variant="scrollable"
+						scrollButtons="auto"
+						allowScrollButtonsMobile
+						centered={!isMobile}
+						sx={{
+							py: 1,
+							"& .MuiTab-root": {
+								color: "rgba(255, 255, 255, 0.7)",
+								"&.Mui-selected": {
+									color: "#ffffff",
+								},
+							},
+							"& .MuiTabs-indicator": {
+								backgroundColor: "#ffffff",
+							},
+						}}
+					>
+						<Tab label="About" value="about" />
+						<Tab label="What We Provide" value="services" />
+						<Tab label="Your Donations" value="donations" />
+					</Tabs>
+				</Container>
+			</Box>
 
-      {/* Hero Section */}
-      <Box
-        sx={{
-          position: "relative",
-          overflow: "hidden",
-          bgcolor: "#ffffff",
-          color: "text.primary",
-          pt: { xs: 8, md: 12 },
-          pb: { xs: 8, md: 12 },
-          mt:-40
-        }}
-      >
+			{/* Hero Section */}
+			<Box
+				sx={{
+					position: "relative",
+					overflow: "hidden",
+					bgcolor: "#ffffff",
+					color: "text.primary",
+					pt: { xs: 8, md: 12 },
+					pb: { xs: 8, md: 12 },
+					pl: isMobile ? 10 : 0,
+					pr: isMobile ? 10 : 0,
+					mt: -40,
+				}}
+			>
+				<Container maxWidth="lg">
+					<Grid container spacing={6} alignItems="center">
+						<Grid item xs={12} md={6}>
+							<Box sx={{ position: "relative", zIndex: 2 }}>
+								<Chip
+									label="The Small House • Al Bayt Al Sagheer"
+									sx={{
+										bgcolor: alpha(theme.palette.primary.main, 0.1),
+										color: theme.palette.primary.main,
+										mb: 3,
+										fontSize: "1.2rem",
+									}}
+								/>
+								<Typography
+									variant="h1"
+									component="h1"
+									sx={{
+										fontSize: { xs: "2.5rem", md: "3.5rem", lg: "4rem" },
+										fontFamily: merriweather.style.fontFamily,
+										fontWeight: 700,
+										mb: 30,
+										lineHeight: 1.2,
+									}}
+								>
+									A Loving Home for{" "}
+									<Box
+										component="span"
+										sx={{ color: theme.palette.primary.main }}
+									>
+										Every Child
+									</Box>
+								</Typography>
 
+								<Typography
+									variant="h6"
+									sx={{
+										mb: 15,
+										maxWidth: 600,
+										color: "#212121",
+										fontFamily: quicksand.style.fontFamily,
+										fontWeight: 550,
+									}}
+								>
+									The Small House provides family-based care and nurturing for
+									orphaned children not eligible for kafala who need a safe
+									place to grow, learn, and thrive in a supportive environment
+									that prepares them for a bright future.
+								</Typography>
 
-        <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={6}>
-              <Box sx={{ position: "relative", zIndex: 2 }}>
-                <Chip
-                  label="The Small House • Al Bayt Al Sagheer"
-                  sx={{
-                    bgcolor: alpha(theme.palette.primary.main, 0.1),
-                    color: theme.palette.primary.main,
-                    mb: 3,
-                    fontSize: "1.2rem"
-                  }}
-                />
-                <Typography
-                  variant="h1"
-                  component="h1"
-                  sx={{
-                    fontSize: { xs: "2.5rem", md: "3.5rem", lg: "4rem" },
-                    fontFamily: merriweather.style.fontFamily,
-                    fontWeight: 700,
-                    mb: 30,
-                    lineHeight: 1.2,
-                  }}
-                >
-                  A Loving Home for{" "}
-                  <Box component="span" sx={{ color: theme.palette.primary.main }}>
-                    Every Child
-                  </Box>
-                </Typography>
+								<Stack direction={{ xs: "column", sm: "row" }} spacing={9}>
+									<Button
+										variant="outlined"
+										color="primary"
+										size="large"
+										sx={{
+											borderWidth: 2,
+											color: theme.palette.primary.main,
+											fontWeight: 600,
+											borderRadius: 50,
+											fontSize: "1.2rem",
+										}}
+									>
+										Learn More
+									</Button>
+									<Button
+										variant="outlined"
+										color="primary"
+										size="large"
+										sx={{
+											borderWidth: 2,
+											color: theme.palette.primary.main,
+											fontWeight: 600,
+											borderRadius: 50,
+											fontSize: "1.2rem",
+										}}
+									>
+										Donate Now
+									</Button>
+								</Stack>
+							</Box>
+						</Grid>
 
-                <Typography
-                  variant="h6"
-                  sx={{
-                    mb: 15,
-                    maxWidth: 600,
-                    color: "#212121",
-                    fontFamily:  quicksand.style.fontFamily,
-                    fontWeight: 550,
-                  }}
-                >
-                  The Small House provides family-based care and nurturing for orphaned children not eligible for kafala who need a safe place to
-                  grow, learn, and thrive in a supportive environment that prepares them for a bright future.
-                </Typography>
+						<Grid item xs={12} md={6}>
+							<Box
+								sx={{
+									position: "relative",
+									height: { xs: "300px", md: "500px" }, // Responsive height
+									width: "100%",
+									overflow: "hidden",
+									borderRadius: 1,
+									ml: 70,
+									transform: "scale(1.4)",
+									mt: 120,
+								}}
+							>
+								<Image
+									src="/images/Rashaandchild.png"
+									alt="The Small House Facility"
+									width={500}
+									height={300}
+									style={{ borderRadius: "8px", objectFit: "cover" }}
+								/>
+							</Box>
+						</Grid>
+					</Grid>
+				</Container>
+			</Box>
 
-                <Stack direction={{ xs: "column", sm: "row" }} spacing={9}>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    size="large"
-                    sx={{borderWidth: 2,
-                      color:theme.palette.primary.main,
-                      fontWeight: 600,
-                      borderRadius: 50,
-                      fontSize: "1.2rem",
-                    }}
-                    
-                  >
-                    Learn More
-                  </Button>
-                  <Button variant="outlined"
-                    color="primary"
-                    size="large"
-                    sx={{borderWidth: 2,
-                      color:theme.palette.primary.main,
-                      fontWeight: 600,
-                      borderRadius: 50,
-                      fontSize: "1.2rem",
-                    }}
-                    
-                  >
-                    Donate Now 
-                  </Button>
-                </Stack>
-              </Box>
-            </Grid>
+			{/* About Section */}
+			<Box
+				ref={aboutSectionRef}
+				sx={{ py: { xs: 60, md: 60 }, bgcolor: theme.palette.primary.main }}
+			>
+				<Container maxWidth="lg">
+					<Grid container spacing={8} alignItems="center">
+						<Box>
+							<Typography
+								variant="h2"
+								sx={{
+									mt: 30,
+									mb: 20,
+									color: "#ffffff",
+									position: "relative",
+									fontWeight: 550,
+									fontFamily: merriweather.style.fontFamily,
+									pb: 1,
+									"&:after": {
+										content: '""',
+										position: "absolute",
+										bottom: 0,
+										left: 0,
+										width: 80,
+										height: 3,
+										bgcolor: theme.palette.primary.main,
+									},
+								}}
+							>
+								About{" "}
+								<Box
+									component="span"
+									sx={{ color: theme.palette.primary.main, color: "#000000" }}
+								>
+									The Small House
+								</Box>
+							</Typography>
+							<Typography
+								variant="body1"
+								sx={{
+									mb: 2,
+									color: "#ffffff",
+									fontFamily: quicksand.style.fontFamily,
+									fontWeight: 500,
+								}}
+							>
+								{locale === "en"
+									? `The Small House is a specialized care facility designed to
+								provide orphaned children with a family-like environment that
+								fosters their physical, emotional, and intellectual development.`
+									: `المنزل الصغير هو منشأة خدمات جوهرية تصمم لتقديم بيئة منزلية مشابهة للأطفال الأيتام اللاجئين ذوي الأصول المختلفة، مما يحفز تطورهم الجسدي والعاطفي والفكري.`}
+							</Typography>
+							<Typography
+								variant="body1"
+								sx={{
+									mb: 2,
+									color: "#ffffff",
+									fontFamily: quicksand.style.fontFamily,
+									fontWeight: 500,
+								}}
+							>
+								Unlike traditional orphanages, The Small House operates on a
+								model that prioritizes individualized care, emotional bonding,
+								and preparation for future family life through the Kafala
+								system.
+							</Typography>
+							<Typography
+								variant="body1"
+								sx={{
+									mb: 90,
+									color: "#ffffff",
+									fontFamily: quicksand.style.fontFamily,
+									fontWeight: 500,
+								}}
+							>
+								Our dedicated team of caregivers, educators, and healthcare
+								professionals work together to ensure each child receives the
+								attention and support they need to overcome past traumas and
+								develop into confident, capable young women.
+							</Typography>
 
-            <Grid item xs={12} md={6}>
-            <Box
-    sx={{
-      position: 'relative',
-      height: { xs: '300px', md: '500px' }, // Responsive height
-      width: '100%',
-      overflow: 'hidden',
-      borderRadius: 1,
-      ml: 70,
-      transform: 'scale(1.4)',
-      mt: 120
-    }}
-  >
-    <Image
-                  src="/images/Rashaandchild.png"
-                  alt="The Small House Facility"
-                  width={500}
-                  height={300}
-                  style={{ borderRadius: "8px", objectFit: "cover", }}
-                />
-  </Box>
-            </Grid>
-            
-          </Grid>
-        </Container>
-      </Box>
+							<Stack
+								direction={{ xs: "column", sm: "row" }}
+								spacing={9}
+								sx={{ mt: 10 }}
+							>
+								<Link href={`/${locale}/who_we_are`}>
+									<Button
+										variant="outlined"
+										color="primary"
+										size="large"
+										sx={{
+											borderWidth: 2,
+											color: "#ffffff", // Change this to white
+											borderColor: "#ffffff", // Change border to white
+											fontWeight: 600,
+											borderRadius: 50,
+											fontSize: "1.2rem",
+											fontFamily: quicksand.style.fontFamily,
+											"&:hover": {
+												color: "#ffffff",
+												borderColor: "#ffffff",
+												bgcolor: alpha("#ffffff", 0.1),
+											},
+										}}
+									>
+										Read Our Story
+									</Button>
+								</Link>
+								<Button
+									variant="outlined"
+									color="primary"
+									size="large"
+									sx={{
+										borderWidth: 2,
+										color: "#ffffff",
+										borderColor: "#ffffff",
+										fontWeight: 600,
+										borderRadius: 50,
+										fontSize: "1.2rem",
+										fontFamily: quicksand.style.fontFamily,
+										"&:hover": {
+											color: "#ffffff",
+											borderColor: "#ffffff",
+											bgcolor: alpha("#ffffff", 0.1),
+										},
+									}}
+								>
+									Learn About Kafala
+								</Button>
+							</Stack>
+						</Box>
+					</Grid>
+				</Container>
+			</Box>
 
-      {/* About Section */}
-      <Box ref={aboutSectionRef} sx={{ py: { xs: 60, md: 60 }, bgcolor: theme.palette.primary.main }}>
-        <Container maxWidth="lg">
-          <Grid container spacing={8} alignItems="center">
-            
-              <Box>
-                
-                <Typography
-                  variant="h2"
-                  sx={{
-                    mt: 30,
-                    mb: 20,
-                    color: "#ffffff",
-                    position: "relative",
-                    fontWeight: 550,
-                    fontFamily: merriweather.style.fontFamily,
-                    pb: 1,
-                    "&:after": {
-                      content: '""',
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      width: 80,
-                      height: 3,
-                      bgcolor: theme.palette.primary.main,
-                    },
-                  }}
-                >
-                  About{" "}
-                  <Box component="span" sx={{ color: theme.palette.primary.main, color: "#000000" }}>
-                    The Small House
-                  </Box>
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 2 ,color:"#ffffff",fontFamily: quicksand.style.fontFamily, fontWeight:500}}>
-                  The Small House is a specialized care facility designed to provide orphaned children with a family-like
-                  environment that fosters their physical, emotional, and intellectual development.
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 2 ,color:"#ffffff", fontFamily:  quicksand.style.fontFamily,fontWeight:500 }}>
-                  Unlike traditional orphanages, The Small House operates on a model that prioritizes individualized
-                  care, emotional bonding, and preparation for future family life through the Kafala system.
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 90 ,color:"#ffffff", fontFamily:  quicksand.style.fontFamily,fontWeight:500}}>
-                  Our dedicated team of caregivers, educators, and healthcare professionals work together to ensure each
-                  child receives the attention and support they need to overcome past traumas and develop into
-                  confident, capable young women.
-                </Typography>
+			{/* What is Yalla Family House Section */}
+			<Box
+				ref={impactSectionRef}
+				sx={{
+					py: { xs: 8, md: 12 },
 
-                <Stack direction={{ xs: "column", sm: "row" }} spacing={9} sx={{ mt: 10 }} >
-                    <Button
-                    variant="outlined"
-                    color="primary"
-                    size="large"
-                    sx={{
-                      borderWidth: 2,
-                      color: "#ffffff", // Change this to white
-                      borderColor: "#ffffff", // Change border to white
-                      fontWeight: 600,
-                      borderRadius: 50,
-                      fontSize: "1.2rem",
-                      fontFamily: quicksand.style.fontFamily,
-                      "&:hover": {
-                      color: "#ffffff",
-                      borderColor: "#ffffff", 
-                      bgcolor: alpha("#ffffff", 0.1), 
-                      },
-                    }}
-                    >
-                    Read Our Story
-                    </Button>
-                    <Button
-                    variant="outlined"
-                    color="primary"
-                    size="large"
-                    sx={{
-                      borderWidth: 2,
-                      color: "#ffffff", 
-                      borderColor: "#ffffff", 
-                      fontWeight: 600,
-                      borderRadius: 50,
-                      fontSize: "1.2rem",
-                      fontFamily: quicksand.style.fontFamily,
-                      "&:hover": {
-                      color: "#ffffff", 
-                      borderColor: "#ffffff", 
-                      bgcolor: alpha("#ffffff", 0.1), 
-                      },
-                    }}
-                    >
-                    Learn About Kafala
-                    </Button>
-                </Stack>
-              </Box>
-            </Grid>
-        </Container>
-      </Box>
+					color: "#ffffff",
+					position: "relative",
+					overflow: "hidden",
+				}}
+			>
+				<Container maxWidth="lg">
+					<Grid container spacing={6} alignItems="center">
+						<Grid item xs={12} md={6} ref={impactRef}>
+							<Typography
+								variant="h2"
+								sx={{
+									mt: 30,
+									mb: 20,
+									position: "relative",
+									pb: 2,
+									color: "#000000",
+									fontFamily: merriweather.style.fontFamily,
+									fontWeight: 700,
 
-      {/* What is Yalla Family House Section */}
-      <Box
-        ref={impactSectionRef}
-        sx={{
-          py: { xs: 8, md: 12 },
-          
-          color: "#ffffff",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={6} ref={impactRef}>
-              <Typography
-                variant="h2"
-                sx={{
-                  mt: 30,
-                  mb: 20,
-                  position: "relative",
-                  pb: 2,
-                  color:"#000000",
-                  fontFamily: merriweather.style.fontFamily,
-                  fontWeight: 700,
-                  
-                  "&:after": {
-                    content: '""',
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    width: 80,
-                    height: 3,
-                    bgcolor: "#ffffff",
-                    
-                  },
-                }}
-              >
-                What is Yalla Family House?
-              </Typography>
-              <Box sx={{ mb: 25}}>
-                <Box sx={{ display: "flex", alignItems: "flex-start", mb: 2, color:"#000000"}}>
-                  <Box
-                    sx={{
-                      minWidth: 24,
-                      height: 24,
-                      borderRadius: "50%",
-                      bgcolor: alpha("#ffffff", 0.2),
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      mr: 2,
-                      mt: 0.5,
-                      color:"#000000"
-                    }}
-                  >
-                    •
-                  </Box>
-                  <Typography variant="body1" sx={{color:"#000000", fontFamily:  quicksand.style.fontFamily}}>
-                    <strong>Children without families</strong> suffer from a lack of stability, emotional support, and
-                    security.
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "flex-start", mb: 2 }}>
-                  <Box
-                    sx={{
-                      minWidth: 24,
-                      height: 24,
-                      borderRadius: "50%",
-                      bgcolor: alpha("#ffffff", 0.2),
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      mr: 2,
-                      mt: 0.5,
-                      color:"#000000"
-                    }}
-                  >
-                    •
-                  </Box>
-                  <Typography variant="body1" sx={{color:"#000000", fontFamily:  quicksand.style.fontFamily}}>
-                    <strong>Orphanages do not replace a home</strong> - children deserve love, care, and dignity.
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "flex-start", mb: 2 }}>
-                  <Box
-                    sx={{
-                      minWidth: 24,
-                      height: 24,
-                      borderRadius: "50%",
-                      bgcolor: alpha("#ffffff", 0.2),
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      mr: 2,
-                      mt: 0.5,
-                      color:"#000000"
-                    }}
-                  >
-                    •
-                  </Box>
-                  <Typography variant="body1" sx={{color:"#000000", fontFamily:  quicksand.style.fontFamily}}>
-                    <strong>We are breaking the cycle</strong> by ensuring girls grow up in a safe, nurturing
-                    environment.
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "flex-start", mb: 20 }}>
-                  <Box
-                    sx={{
-                      minWidth: 24,
-                      height: 24,
-                      borderRadius: "50%",
-                      bgcolor: alpha("#ffffff", 0.2),
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      mr: 2,
-                      mt: 0.5,
-                      color:"#000000"
-                    }}
-                  >
-                    •
-                  </Box>
-                  <Typography variant="body1" sx={{color:"#000000", fontFamily: quicksand.style.fontFamily}}>
-                    <strong>At The Small House</strong>, they receive:
-                  </Typography>
-                </Box>
-                <Box sx={{ pl: 6 }}>
-                  <Grid container spacing={2}>
-                    {[
-                      { icon: <School />, text: "Quality education" },
-                      { icon: <Favorite />, text: "Nutritious food" },
-                      { icon: <LocalHospital />, text: "Proper healthcare" },
-                      { icon: <Security />, text: "Privacy & safety" },
-                    ].map((item, index) => (
-                      <Grid item xs={6} key={index}>
-                        <Box sx={{ display: "flex", alignItems: "center", mb: 10 }}>
-                          <Box
-                            sx={{
-                              minWidth: 32,
-                              height: 32,
-                              borderRadius: "50%",
-                              bgcolor: "#000000",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              mr: 5,
-                              color:"#ffffff",
-                              
-                              
-                            }}
-                          >
-                            {item.icon}
-                          </Box>
-                          <Typography variant="body2" sx={{color:"#000000", 
-                            fontFamily:quicksand.style.fontFamily,
-                            fontWeight: 700
-                            }}>{item.text}</Typography>
-                        </Box>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              
-            
-            <Box
-              sx={{
-                position: 'relative',
-                height: { xs: '300px', md: '500px' }, // Responsive height
-                width: '100%',
-                overflow: 'hidden',
-                borderRadius: 1,
-                ml: 70,
-                transform: 'scale(1.4)',
-                mt: 120,
-              }}
-            >
-              <Image
-                src="/images/ThesmallhouseBeds.png"
-                alt="The Small House Facility"
-                width={500}
-                height={300}
-                style={{ borderRadius: "8px", objectFit: "cover" }}
-              />
-            </Box>
-            
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+									"&:after": {
+										content: '""',
+										position: "absolute",
+										bottom: 0,
+										left: 0,
+										width: 80,
+										height: 3,
+										bgcolor: "#ffffff",
+									},
+								}}
+							>
+								What is Yalla Family House?
+							</Typography>
+							<Box sx={{ mb: 25 }}>
+								<Box
+									sx={{
+										display: "flex",
+										alignItems: "flex-start",
+										mb: 2,
+										color: "#000000",
+									}}
+								>
+									<Box
+										sx={{
+											minWidth: 24,
+											height: 24,
+											borderRadius: "50%",
+											bgcolor: alpha("#ffffff", 0.2),
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+											mr: 2,
+											mt: 0.5,
+											color: "#000000",
+										}}
+									>
+										•
+									</Box>
+									<Typography
+										variant="body1"
+										sx={{
+											color: "#000000",
+											fontFamily: quicksand.style.fontFamily,
+										}}
+									>
+										<strong>Children without families</strong> suffer from a
+										lack of stability, emotional support, and security.
+									</Typography>
+								</Box>
+								<Box sx={{ display: "flex", alignItems: "flex-start", mb: 2 }}>
+									<Box
+										sx={{
+											minWidth: 24,
+											height: 24,
+											borderRadius: "50%",
+											bgcolor: alpha("#ffffff", 0.2),
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+											mr: 2,
+											mt: 0.5,
+											color: "#000000",
+										}}
+									>
+										•
+									</Box>
+									<Typography
+										variant="body1"
+										sx={{
+											color: "#000000",
+											fontFamily: quicksand.style.fontFamily,
+										}}
+									>
+										<strong>Orphanages do not replace a home</strong> - children
+										deserve love, care, and dignity.
+									</Typography>
+								</Box>
+								<Box sx={{ display: "flex", alignItems: "flex-start", mb: 2 }}>
+									<Box
+										sx={{
+											minWidth: 24,
+											height: 24,
+											borderRadius: "50%",
+											bgcolor: alpha("#ffffff", 0.2),
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+											mr: 2,
+											mt: 0.5,
+											color: "#000000",
+										}}
+									>
+										•
+									</Box>
+									<Typography
+										variant="body1"
+										sx={{
+											color: "#000000",
+											fontFamily: quicksand.style.fontFamily,
+										}}
+									>
+										<strong>We are breaking the cycle</strong> by ensuring girls
+										grow up in a safe, nurturing environment.
+									</Typography>
+								</Box>
+								<Box sx={{ display: "flex", alignItems: "flex-start", mb: 20 }}>
+									<Box
+										sx={{
+											minWidth: 24,
+											height: 24,
+											borderRadius: "50%",
+											bgcolor: alpha("#ffffff", 0.2),
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+											mr: 2,
+											mt: 0.5,
+											color: "#000000",
+										}}
+									>
+										•
+									</Box>
+									<Typography
+										variant="body1"
+										sx={{
+											color: "#000000",
+											fontFamily: quicksand.style.fontFamily,
+										}}
+									>
+										<strong>At The Small House</strong>, they receive:
+									</Typography>
+								</Box>
+								<Box sx={{ pl: 6 }}>
+									<Grid container spacing={2}>
+										{[
+											{ icon: <School />, text: "Quality education" },
+											{ icon: <Favorite />, text: "Nutritious food" },
+											{ icon: <LocalHospital />, text: "Proper healthcare" },
+											{ icon: <Security />, text: "Privacy & safety" },
+										].map((item, index) => (
+											<Grid item xs={6} key={index}>
+												<Box
+													sx={{
+														display: "flex",
+														alignItems: "center",
+														mb: 10,
+													}}
+												>
+													<Box
+														sx={{
+															minWidth: 32,
+															height: 32,
+															borderRadius: "50%",
+															bgcolor: "#000000",
+															display: "flex",
+															alignItems: "center",
+															justifyContent: "center",
+															mr: 5,
+															color: "#ffffff",
+														}}
+													>
+														{item.icon}
+													</Box>
+													<Typography
+														variant="body2"
+														sx={{
+															color: "#000000",
+															fontFamily: quicksand.style.fontFamily,
+															fontWeight: 700,
+														}}
+													>
+														{item.text}
+													</Typography>
+												</Box>
+											</Grid>
+										))}
+									</Grid>
+								</Box>
+							</Box>
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<Box
+								sx={{
+									position: "relative",
+									height: { xs: "300px", md: "500px" }, // Responsive height
+									width: "100%",
+									overflow: "hidden",
+									borderRadius: 1,
+									ml: 70,
+									transform: "scale(1.4)",
+									mt: 120,
+								}}
+							>
+								<Image
+									src="/images/ThesmallhouseBeds.png"
+									alt="The Small House Facility"
+									width={500}
+									height={300}
+									style={{ borderRadius: "8px", objectFit: "cover" }}
+								/>
+							</Box>
+						</Grid>
+					</Grid>
+				</Container>
+			</Box>
 
-      {/* What We Provide Section */}
-      <Box
-        ref={servicesSectionRef}
-        sx={{
-          py: { xs: 8, md: 12 },
-          bgcolor: "#2194BC",
-          mt:5,
-          
-        }}
-      >
-        <Container maxWidth="lg" sx= {{ mb: 80, mt: 20 }}>
-          <Box sx={{ textAlign: "center", mt: 30, mb: 30 , alignItems: 'center', }} ref={servicesRef}>
-            
-            <Typography variant="h2" sx={{ mb: 7 , mt: 10, fontFamily: merriweather.style.fontFamily, fontWeight: 700, color:"#ffffff"}}>
-              What We Provide
-            </Typography>
-            <Typography variant="body1" sx={{ mb:2, fontFamily: quicksand.style.fontFamily, fontWeight: 700,fontSize: 25, color:"#ffffff" }}>
-              At The Small House, we ensure each child receives the care and support they need to thrive.
-            </Typography>
-          </Box>
+			{/* What We Provide Section */}
+			<Box
+				ref={servicesSectionRef}
+				sx={{
+					py: { xs: 8, md: 12 },
+					bgcolor: "#2194BC",
+					mt: 5,
+				}}
+			>
+				<Container maxWidth="lg" sx={{ mb: 80, mt: 20 }}>
+					<Box
+						sx={{ textAlign: "center", mt: 30, mb: 30, alignItems: "center" }}
+						ref={servicesRef}
+					>
+						<Typography
+							variant="h2"
+							sx={{
+								mb: 7,
+								mt: 10,
+								fontFamily: merriweather.style.fontFamily,
+								fontWeight: 700,
+								color: "#ffffff",
+							}}
+						>
+							What We Provide
+						</Typography>
+						<Typography
+							variant="body1"
+							sx={{
+								mb: 2,
+								fontFamily: quicksand.style.fontFamily,
+								fontWeight: 700,
+								fontSize: 25,
+								color: "#ffffff",
+							}}
+						>
+							At The Small House, we ensure each child receives the care and
+							support they need to thrive.
+						</Typography>
+					</Box>
 
-          <Grid container spacing={30} sx={{ mt: 30 }}>
-            {[
-              {
-                icon: <School fontSize="large" />,
-                title: "Quality Education",
-                description:
-                  "Access to quality schools and educational resources to help each girl reach her full academic potential.",
-              },
-              {
-                icon: <Favorite fontSize="large" />,
-                title: "Nutritious Food",
-                description:
-                  "Balanced, healthy meals prepared with care to support physical growth and overall wellbeing.",
-              },
-              {
-                icon: <LocalHospital fontSize="large" />,
-                title: "Proper Healthcare",
-                description: "Regular medical check-ups, preventive care, and immediate attention to health concerns.",
-              },
-              {
-                icon: <Security fontSize="large" />,
-                title: "Privacy & Safety",
-                description: "A secure environment where each girl has personal space and feels protected.",
-              },
-            ].map((service, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index} >
-                <Paper
-                  elevation={2}
-                  sx={{
-                    
-                    height: "100%",
-                    overflow: "hidden",
-                    transition: "transform 0.3s",
-                    borderRadius: 7,
-                    border: 2,
-                    borderColor: "#ffffff",
-                    "&:hover": {
-                      transform: "scale(1.03)",
-                      boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-                    },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      p: 2,
-                      bgcolor: "#2194BC",
-                      color: "#ffffff",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      height: 80,
-                      mb:5,
+					<Grid container spacing={30} sx={{ mt: 30 }}>
+						{[
+							{
+								icon: <School fontSize="large" />,
+								title: "Quality Education",
+								description:
+									"Access to quality schools and educational resources to help each girl reach her full academic potential.",
+							},
+							{
+								icon: <Favorite fontSize="large" />,
+								title: "Nutritious Food",
+								description:
+									"Balanced, healthy meals prepared with care to support physical growth and overall wellbeing.",
+							},
+							{
+								icon: <LocalHospital fontSize="large" />,
+								title: "Proper Healthcare",
+								description:
+									"Regular medical check-ups, preventive care, and immediate attention to health concerns.",
+							},
+							{
+								icon: <Security fontSize="large" />,
+								title: "Privacy & Safety",
+								description:
+									"A secure environment where each girl has personal space and feels protected.",
+							},
+						].map((service, index) => (
+							<Grid item xs={12} sm={6} md={3} key={index}>
+								<Paper
+									elevation={2}
+									sx={{
+										height: "100%",
+										overflow: "hidden",
+										transition: "transform 0.3s",
+										borderRadius: 7,
+										border: 2,
+										borderColor: "#ffffff",
+										"&:hover": {
+											transform: "scale(1.03)",
+											boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+										},
+									}}
+								>
+									<Box
+										sx={{
+											p: 2,
+											bgcolor: "#2194BC",
+											color: "#ffffff",
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+											height: 80,
+											mb: 5,
+										}}
+									>
+										{service.icon}
+									</Box>
+									<Box sx={{ p: 3, textAlign: "center", mb: 20 }}>
+										<Typography
+											variant="h6"
+											sx={{
+												fontWeight: 800,
+												fontSize: 22,
+												mb: 10,
+												fontFamily: quicksand.style.fontFamily,
+											}}
+										>
+											{service.title}
+										</Typography>
+										<Typography
+											variant="body2"
+											sx={{
+												color: "#000000",
+												fontFamily: quicksand.style.fontFamily,
+												fontWeight: 500,
+												fontSize: 16,
+											}}
+										>
+											{service.description}
+										</Typography>
+									</Box>
+								</Paper>
+							</Grid>
+						))}
+					</Grid>
+				</Container>
+			</Box>
 
+			{/* Your Donations Section */}
+			<Box
+				ref={donationsSectionRef}
+				sx={{
+					py: { xs: 8, md: 50 },
+					bgcolor: alpha(theme.palette.grey[100], 0.5),
+				}}
+			>
+				<Container maxWidth="lg">
+					<Box sx={{ textAlign: "center", width: "100%" }} ref={donationsRef}>
+						<Typography
+							variant="h2"
+							sx={{
+								mt: 30,
+								mb: 10,
+								fontFamily: merriweather.style.fontFamily,
+								fontWeight: 700,
+							}}
+						>
+							Your Donations Go To
+						</Typography>
+						<Typography
+							variant="body1"
+							sx={{
+								mx: "auto",
+								mb: 70,
+								fontFamily: quicksand.style.fontFamily,
+								fontWeight: 700,
+								fontSize: 25,
+							}}
+						>
+							The Small House (Yalla Family House) provides essential care for
+							children who need it most.
+						</Typography>
+					</Box>
 
-                     
-                      
-                    }}
-                  >
-                    {service.icon}
-                  </Box>
-                  <Box sx={{ p: 3, textAlign: "center" , mb:20}}>
-                    <Typography variant="h6" sx={{ fontWeight: 800, fontSize: 22, mb: 10, fontFamily: quicksand.style.fontFamily,  }}>
-                      {service.title}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: "#000000", fontFamily: quicksand.style.fontFamily, fontWeight: 500 , fontSize: 16}}>
-                      {service.description}
-                    </Typography>
-                  </Box>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+					<Grid container spacing={6} sx={{ mb: 50, mt: 50 }}>
+						<Grid item xs={12} md={6}>
+							<Paper
+								elevation={3}
+								sx={{
+									p: 12,
+									height: "100%",
+									borderRadius: 5,
+									borderColor: "#ffffff",
+									border: 2,
+								}}
+							>
+								<Typography
+									variant="h4"
+									sx={{
+										mb: 3,
+										fontWeight: 800,
+										fontSize: 35,
+										fontFamily: quicksand.style.fontFamily,
+									}}
+								>
+									Providing a Safe Home
+								</Typography>
+								<Typography
+									variant="body1"
+									sx={{
+										mb: 3,
+										fontFamily: quicksand.style.fontFamily,
+										fontWeight: 550,
+										fontSize: 17,
+									}}
+								>
+									For children not eligible for kafala, we create a stable and
+									secure environment where they can grow and develop.
+								</Typography>
+								<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+									<Home sx={{ mr: 5 }} />
+									<Typography
+										variant="body1"
+										sx={{
+											fontFamily: quicksand.style.fontFamily,
+											fontWeight: 550,
+											fontSize: 20,
+										}}
+									>
+										A dedicated facility designed to feel like a real home
+									</Typography>
+								</Box>
+								<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+									<Security sx={{ mr: 5 }} />
+									<Typography
+										variant="body1"
+										sx={{
+											fontFamily: quicksand.style.fontFamily,
+											fontWeight: 550,
+											fontSize: 20,
+										}}
+									>
+										Safe spaces that provide security and stability
+									</Typography>
+								</Box>
+							</Paper>
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<Paper
+								elevation={3}
+								sx={{
+									p: 12,
+									height: "100%",
+									borderRadius: 5,
+									borderColor: "#ffffff",
+									border: 2,
+								}}
+							>
+								<Typography
+									variant="h4"
+									sx={{
+										mb: 3,
+										fontWeight: 800,
+										fontSize: 30,
+										fontFamily: quicksand.style.fontFamily,
+									}}
+								>
+									A Nurturing Environment
+								</Typography>
+								<Typography
+									variant="body1"
+									sx={{
+										mb: 3,
+										fontFamily: quicksand.style.fontFamily,
+										fontWeight: 550,
+										fontSize: 17,
+									}}
+								>
+									With a caregiver in a family-based setting, children receive
+									the individual attention they need.
+								</Typography>
+								<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+									<FamilyRestroom sx={{ mr: 5 }} />
+									<Typography
+										variant="body1"
+										sx={{
+											fontFamily: quicksand.style.fontFamily,
+											fontWeight: 550,
+											fontSize: 20,
+										}}
+									>
+										Dedicated caregivers providing consistent support
+									</Typography>
+								</Box>
+								<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+									<Favorite sx={{ mr: 5 }} />
+									<Typography
+										variant="body1"
+										sx={{
+											fontFamily: quicksand.style.fontFamily,
+											fontWeight: 550,
+											fontSize: 20,
+										}}
+									>
+										Family-style care that fosters emotional bonds
+									</Typography>
+								</Box>
+							</Paper>
+						</Grid>
+					</Grid>
+				</Container>
+			</Box>
 
-      {/* Your Donations Section */}
-      <Box
-        ref={donationsSectionRef}
-        sx={{
-          py: { xs: 8, md: 50 },
-          bgcolor: alpha(theme.palette.grey[100], 0.5),
-          
-        }}
-      >
-         
-          <Container maxWidth="lg">
-          <Box sx={{ textAlign: "center",width: '100%' }} ref={donationsRef}>
-            
-            <Typography variant="h2" sx={{ mt:30,mb: 10,fontFamily: merriweather.style.fontFamily, fontWeight: 700 }}>
-              Your Donations Go To
-            </Typography>
-            <Typography variant="body1" sx={{  mx: "auto",mb: 70, fontFamily: quicksand.style.fontFamily, fontWeight: 700,fontSize: 25 }}>
-              The Small House (Yalla Family House) provides essential care for children who need it most.
-            </Typography>
-          </Box>
-
-          <Grid container spacing={6} sx={{ mb: 50, mt:50 }}>
-            <Grid item xs={12} md={6}>
-              <Paper elevation={3} sx={{ p: 12, height: "100%", borderRadius: 5, borderColor: "#ffffff", border: 2 }}>
-                <Typography variant="h4" sx={{ mb: 3, fontWeight: 800, fontSize: 35, fontFamily: quicksand.style.fontFamily }}>
-                  Providing a Safe Home
-                </Typography>
-                <Typography variant="body1" sx={{ mb:3,fontFamily: quicksand.style.fontFamily, fontWeight: 550 , fontSize: 17}}>
-                  For children not eligible for kafala, we create a stable and secure environment where they can grow
-                  and develop.
-                </Typography>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2}}>
-                  <Home sx={{  mr: 5 }} />
-                  <Typography variant="body1" sx ={{fontFamily: quicksand.style.fontFamily, fontWeight: 550 , fontSize: 20}}>A dedicated facility designed to feel like a real home</Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  <Security sx={{mr: 5 }} />
-                  <Typography variant="body1" sx ={{fontFamily: quicksand.style.fontFamily, fontWeight: 550 , fontSize: 20}}>Safe spaces that provide security and stability</Typography>
-                </Box>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Paper elevation={3} sx={{ p: 12, height: "100%", borderRadius: 5, borderColor: "#ffffff", border: 2 }}>
-                <Typography variant="h4" sx={{ mb:3, fontWeight: 800, fontSize: 30, fontFamily: quicksand.style.fontFamily}}>
-                  A Nurturing Environment
-                </Typography>
-                <Typography variant="body1" sx={{ mb:3, fontFamily: quicksand.style.fontFamily, fontWeight: 550 , fontSize: 17 }}>
-                  With a caregiver in a family-based setting, children receive the individual attention they need.
-                </Typography>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  <FamilyRestroom sx={{ mr: 5 }} />
-                  <Typography variant="body1" sx ={{fontFamily: quicksand.style.fontFamily, fontWeight: 550 , fontSize: 20}}>Dedicated caregivers providing consistent support</Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  <Favorite sx={{ mr: 5 }} />
-                  <Typography variant="body1" sx ={{fontFamily: quicksand.style.fontFamily, fontWeight: 550 , fontSize: 20}}>Family-style care that fosters emotional bonds</Typography>
-                </Box>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* CTA Banner */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 100 },
-          bgcolor: theme.palette.secondary.main,
-          color: "#ffffff",
-          position: "relative",
-          overflow: "hidden",
-          textAlign: "center",
-          mb: 90
-        }}
-      >
-        
-        <Container maxWidth="md" sx={{ position: "relative", zIndex: 1 }}>
-          <Typography variant="h2" sx={{ mt:10, mb: 10,fontFamily: merriweather.style.fontFamily, fontWeight: 700  }}>
-            Ready to Make a Difference?
-          </Typography>
-          <Typography variant="h6" sx={{ mx: "auto", mb: 50, fontFamily: quicksand.style.fontFamily, fontWeight: 700, fontSize: 25, }}>
-            Join us in our mission to provide loving homes and bright futures for orphaned children.
-          </Typography>
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={8} justifyContent="center">
-            <Button
-              variant="contained"
-              size="large"
-              component={Link}
-              href="/apply-for-kafala"
-              sx={{
-                bgcolor:theme.palette.primary.main,
-                borderColor: "#ffffff",
-                px: 20,
-                py: 3,
-                fontSize: 15,
-              fontFamily: quicksand.style.fontFamily,
-                "&:hover": {
-                  bgcolor: alpha("#ffffff", 0.9),
-                },
-              }}
-            >
-              Apply for Kafala
-            </Button>
-            <Button
-              variant="outlined"
-              size="large"
-              component={Link}
-              href="/donate"
-              sx={{
-                
-                bgcolor:theme.palette.primary.main,
-                fontFamily: quicksand.style.fontFamily,
-                color: "#ffffff",
-                px: 20,
-                py: 3,
-                fontSize: 15,
-                "&:hover": {
-                  borderColor: "#ffffff",
-                  bgcolor: alpha("#ffffff", 0.1),
-                },
-              }}
-            >
-              Donate Now
-            </Button>
-          </Stack>
-        </Container>
-      </Box>
-    </Box>
-  )
+			{/* CTA Banner */}
+			<Box
+				sx={{
+					py: { xs: 8, md: 100 },
+					bgcolor: theme.palette.secondary.main,
+					color: "#ffffff",
+					position: "relative",
+					overflow: "hidden",
+					textAlign: "center",
+					mb: 90,
+				}}
+			>
+				<Container maxWidth="md" sx={{ position: "relative", zIndex: 1 }}>
+					<Typography
+						variant="h2"
+						sx={{
+							mt: 10,
+							mb: 10,
+							fontFamily: merriweather.style.fontFamily,
+							fontWeight: 700,
+						}}
+					>
+						Ready to Make a Difference?
+					</Typography>
+					<Typography
+						variant="h6"
+						sx={{
+							mx: "auto",
+							mb: 50,
+							fontFamily: quicksand.style.fontFamily,
+							fontWeight: 700,
+							fontSize: 25,
+						}}
+					>
+						Join us in our mission to provide loving homes and bright futures
+						for orphaned children.
+					</Typography>
+					<Stack
+						direction={{ xs: "column", sm: "row" }}
+						spacing={8}
+						justifyContent="center"
+					>
+						<Button
+							variant="contained"
+							size="large"
+							component={Link}
+							href="/apply-for-kafala"
+							sx={{
+								bgcolor: theme.palette.primary.main,
+								borderColor: "#ffffff",
+								px: 20,
+								py: 3,
+								fontSize: 15,
+								fontFamily: quicksand.style.fontFamily,
+								"&:hover": {
+									bgcolor: alpha("#ffffff", 0.9),
+								},
+							}}
+						>
+							Apply for Kafala
+						</Button>
+						<Button
+							variant="outlined"
+							size="large"
+							component={Link}
+							href="/donate"
+							sx={{
+								bgcolor: theme.palette.primary.main,
+								fontFamily: quicksand.style.fontFamily,
+								color: "#ffffff",
+								px: 20,
+								py: 3,
+								fontSize: 15,
+								"&:hover": {
+									borderColor: "#ffffff",
+									bgcolor: alpha("#ffffff", 0.1),
+								},
+							}}
+						>
+							Donate Now
+						</Button>
+					</Stack>
+				</Container>
+			</Box>
+		</Box>
+	);
 }

@@ -18,16 +18,16 @@ function parseQuizQuestion(data: any[]) {
     outcome3Text,
   ] = data;
 
-  if (!questionText) {
-    throw new Error("Quiz question is missing");
-  }
-
-  if (!answer1Text || !answer2Text || !answer3Text) {
-    throw new Error("Quiz answers are incomplete");
-  }
-
-  if (!outcome1Text || !outcome2Text || !outcome3Text) {
-    throw new Error("Quiz outcomes are incomplete");
+  if (
+    !questionText ||
+    !answer1Text ||
+    !answer2Text ||
+    !answer3Text ||
+    !outcome1Text ||
+    !outcome2Text ||
+    !outcome3Text
+  ) {
+    return null;
   }
 
   return {
@@ -62,9 +62,12 @@ export const fetchQuizQuestions = async () => {
 
     const rawQuestions = response.slice(1); // Skip header row
 
-    const questions = rawQuestions.map((question) => {
-      return parseQuizQuestion(question);
-    });
+    const questions = rawQuestions
+      .map((question) => parseQuizQuestion(question))
+      .filter(
+        (question): question is NonNullable<typeof question> =>
+          question !== null
+      );
 
     return questions;
   } catch (error) {
