@@ -38,8 +38,8 @@ const Vision = ({ locale }: { locale: string }) => {
           variant="body1"
         >
           {locale === "en"
-            ? "Building the best possible future for orphans and kafala families."
-            : "بناء أفضل مستقبل ممكن للأيتام وأسر الكفالة."}
+            ? "Shaping the world with a home for every child and hope for every family."
+            : "إعادة تشكيل العالم من خلال توفير منزل لكل طفل وأمل لكل أسرة"}
         </Typography>
       </Box>
       <Box

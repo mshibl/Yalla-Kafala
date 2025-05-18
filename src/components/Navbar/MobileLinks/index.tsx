@@ -19,6 +19,7 @@ import {
 } from "@/src/constants/pages";
 import Link from "next/link";
 import DonateButton from "../NavbarDonateButton";
+import { usePathname } from "next/navigation";
 
 const MOBILE_LINKS_PAGES = [
   HOME_PAGE,
@@ -45,18 +46,22 @@ function MobileLinks({
 }) {
   const t = useTranslations("Navbar");
   const locale = useLocale();
+  const pathname = usePathname();
+  const isDonateRoute = pathname.includes(PAGE_PATHNAMES[DONATE_PAGE]);
 
   return (
     <Box sx={{ display: { xs: "flex", lg: "none" } }}>
       <Box display="flex" alignItems="center">
-        <DonateButton
-          sx={{
-            height: "56px",
-            borderRadius: "0",
-            ml: locale === "ar" ? "10px" : "0",
-            mr: locale === "ar" ? "0" : "10px",
-          }}
-        />
+        {!isDonateRoute && (
+          <DonateButton
+            sx={{
+              height: "56px",
+              borderRadius: "0",
+              ml: locale === "ar" ? "10px" : "0",
+              mr: locale === "ar" ? "0" : "10px",
+            }}
+          />
+        )}
         <IconButton
           size="large"
           aria-label="account of current user"

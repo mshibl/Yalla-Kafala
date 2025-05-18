@@ -1,17 +1,19 @@
 "use client";
+
 import useResponsiveBreakpoint from "@/src/utils/mui-utils";
 import { useLocationData } from "@/src/utils/useLocationData";
 import { Box, Typography, Button } from "@mui/material";
 import React, { useState } from "react";
 import EgyptDonationOptions from "../EgyptDonationOptions";
 import ErrorBoundary from "../ErrorBoundary";
-import ETapestryDonationForm from "../ETapestryDonationForm";
 import PublicIcon from "@mui/icons-material/Public";
+import StripeDonationForm from "../StripeDonationForm";
+import Script from "next/script";
 
 const OldDonationForm = ({ locale }: { locale: "ar" | "en" }) => {
   const isMD = useResponsiveBreakpoint("md");
   const { locationData, loading, error } = useLocationData();
-  const [showEtapestry, setShowEtapestry] = useState(false);
+  const [showUSPaymentForm, setShowUSPaymentForm] = useState(false);
 
   if (loading || error || !locationData) return <Box height="500px" />;
 
@@ -30,7 +32,7 @@ const OldDonationForm = ({ locale }: { locale: "ar" | "en" }) => {
             {locale === "ar" ? "التبرع" : "Donation"}
           </Typography>
         </Box>
-        {country === "eg" && !showEtapestry ? (
+        {country === "eg" && !showUSPaymentForm ? (
           <Box>
             <Box mb="20px" mx={isMD ? 0 : "22px"}>
               <Button
@@ -46,7 +48,7 @@ const OldDonationForm = ({ locale }: { locale: "ar" | "en" }) => {
                   </Box>
                 }
                 onClick={() => {
-                  setShowEtapestry(true);
+                  setShowUSPaymentForm(true);
                 }}
               >
                 {locale === "en"
@@ -57,7 +59,16 @@ const OldDonationForm = ({ locale }: { locale: "ar" | "en" }) => {
             <EgyptDonationOptions locale={locale} />
           </Box>
         ) : (
-          <ETapestryDonationForm locale={locale} show={true} />
+          <div
+            data-widget-src="https://secure.givelively.org/donate/yalla-kafala?ref=sd_widget"
+            id="give-lively-widget"
+            className="gl-branded-donation-widget"
+          />
+
+          //           <!-- Begin Give Lively Fundraising Widget -->
+          // <script>gl=document.createElement('script');gl.src='https://secure.givelively.org/widgets/branded_donation/yalla-kafala.js';document.getElementsByTagName('head')[0].appendChild(gl);</script><div data-widget-src='https://secure.givelively.org/donate/yalla-kafala?ref=sd_widget' id="give-lively-widget" class="gl-branded-donation-widget"></div>
+          // <!-- End Give Lively Fundraising Widget -->
+          // <StripeDonationForm locale={locale} />
         )}
       </Box>
     </ErrorBoundary>

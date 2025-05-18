@@ -8,7 +8,7 @@ import Link from "next/link";
 import cx from "classnames";
 import { useParams, usePathname } from "next/navigation";
 import { fetcher } from "@/src/utils/functions";
-import { Chat } from "@/schema";
+import { chat } from "@/drizzle/schema";
 
 export const History = () => {
   const { id } = useParams();
@@ -20,7 +20,7 @@ export const History = () => {
     error,
     isLoading,
     mutate,
-  } = useSWR<Array<Chat>>("/api/history", fetcher, {
+  } = useSWR<Array<typeof chat.$inferSelect>>("/api/history", fetcher, {
     fallbackData: [],
   });
 
@@ -108,7 +108,7 @@ export const History = () => {
                   </div>
                 ) : null}
 
-                {history &&
+                {/* {history &&
                   history.map((chat) => (
                     <Link
                       href={`/${chat.id}`}
@@ -122,7 +122,7 @@ export const History = () => {
                     >
                       {chat.messages[0].content as string}
                     </Link>
-                  ))}
+                  ))} */}
               </div>
             </motion.div>
           </>

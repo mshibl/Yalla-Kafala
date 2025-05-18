@@ -18,6 +18,8 @@ const selectionSchema = z.object({
 
 export const ragMiddleware: Experimental_LanguageModelV1Middleware = {
   transformParams: async ({ params }) => {
+    console.log("[ragMiddleware] params", params);
+
     const { prompt: messages, providerMetadata } = params;
 
     // validate the provider metadata with Zod:
