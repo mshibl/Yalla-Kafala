@@ -4,8 +4,11 @@ import {
     Nunito_Sans,
     Quicksand,
     Bebas_Neue,
-    Josefin_Sans 
-  } from 'next/font/google'
+    Josefin_Sans,
+    Cairo,
+    Noto_Sans_Arabic,
+    Readex_Pro
+    } from 'next/font/google'
   
   export const merriweather = Merriweather({
     subsets: ['latin'],
@@ -38,3 +41,20 @@ import {
     subsets: ['latin'],
     display: 'swap',
   })
+
+  export const notoSansArabic = Noto_Sans_Arabic({
+    subsets: ['arabic'],
+    display: 'swap',
+  })
+
+export const cairo = Cairo({
+  weight: ['400', '500', '600', '700', '800', '900'],
+  subsets: ['arabic', 'latin'],
+  display: 'swap',
+});
+
+export const readexPro = Readex_Pro({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['arabic', 'latin'],
+  display: 'swap',
+});
