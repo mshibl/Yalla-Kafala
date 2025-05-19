@@ -12,10 +12,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const isArabic = locale === "ar";
 
-  const title = isArabic ? "الأسئلة الشائعة" : "FAQs";
+  const title = isArabic
+    ? "الأسئلة الشائعة"
+    : "Kafala FAQs | Name Change, Legal Rights & Guardianship Rules";
   const description = isArabic
-    ? "تجد هنا إجابات عن الأسئلة الشائعة حول الكفالة، الإجراءات، المتطلبات، والدعم الذي تقدمه يلا كفالة للأسر الكافلة."
-    : "Find answers to frequently asked questions about kafala, the process, requirements, and the support Yalla Kafala provides to kafala families.";
+    ? "تجد هنا إجابات عن الأسئلة الشائعة حول الكفالة، الإجراءات، المتطلبات، والدعم الذي تقدمه يلا ك`فالة للأسر الكافلة."
+    : "Get answers to common Kafala questions—name changes, legal rights, and the guardianship process in Egypt. Learn how Islamic Kafala works for families and children.";
 
   const url = `https://yallakafala.org/${locale}/faqs`;
   const imageUrl = "https://yallakafala.org/images/faqs.jpg";

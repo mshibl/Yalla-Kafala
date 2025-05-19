@@ -11,10 +11,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const isArabic = locale === "ar";
 
-  const title = isArabic ? "خطوات الكفالة" : "Kafala Steps";
+  const title = isArabic
+    ? "خطوات الكفالة"
+    : "Kafala Process in Egypt | Step-by-Step Guide to Islamic Guardianship";
   const description = isArabic
     ? "تعرف على خطوات الكفالة في مصر، من تقديم الطلب إلى استلام الطفل. يلا كفالة تقدم دليلاً شاملاً لتسهيل عملية الكفالة للأسرة المصرية."
-    : "Learn about the steps of kafala in Egypt, from applying to welcoming a child into your family. Yalla Kafala offers a comprehensive guide to streamline the kafala process for Egyptian families.";
+    : "Learn the full Kafala process in Egypt—from application to placement. Discover steps to legally care for an orphan with compassion and Islamic values.";
 
   const url = `https://yallakafala.org/${locale}/kafala-steps`;
   const imageUrl = "https://yallakafala.org/images/kafala-steps.jpg";
