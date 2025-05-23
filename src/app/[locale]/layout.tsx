@@ -11,7 +11,6 @@ import AiAssistant from "@/src/components/AIAssistant/ai-assistant";
 
 import { PostHogProvider } from "../providers";
 import Script from "next/script";
-import Head from "next/head";
 
 export async function generateMetadata({
 	params: { locale },
@@ -20,10 +19,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 	const isArabic = locale === "ar";
 
-	const title = isArabic ? "يلا كفالة" : "Yalla Kafala";
-	const description = isArabic
-		? "يلا كفالة هي منظمة غير حكومية تحول حالة الطفل في مصر من خلال الكفالة (الحماية/التبني). مع مكاتب في مصر وسان فرانسيسكو ، نحن نقدم خيارات الرعاية المبتكرة ، خدمات الدعم ، والدعم المتطوع للأيتام."
-		: "Yalla Kafala is an NGO transforming child welfare in Egypt through Kafala (guardianship/adoption). With offices in Egypt and San Francisco, we offer innovative care alternatives, support services, and advocacy for orphans.";
+  const title = isArabic
+    ? "يلا كفالة"
+    : "What Is Kafala? | Islamic Guardianship & Orphan Support";
+  const description = isArabic
+    ? "يلا كفالة هي منظمة غير حكومية تحول حالة الطفل في مصر من خلال الكفالة (الحماية/التبني). مع مكاتب في مصر وسان فرانسيسكو ، نحن نقدم خيارات الرعاية المبتكرة ، خدمات الدعم ، والدعم المتطوع للأيتام."
+    : "Learn how Islamic Kafala differs from adoption. Discover its religious roots, legal framework, and why it offers loving homes to orphans without changing identity.";
 
 	const url = `https://yallakafala.org/${locale}`;
 	const imageUrl = "https://yallakafala.org/images/yk-team-1.jpg";

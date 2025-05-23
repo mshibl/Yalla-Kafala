@@ -8,10 +8,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const isArabic = locale === "ar";
 
-  const title = isArabic ? "تبرع الآن" : "Donate Now";
+  const title = isArabic
+    ? "تبرع الآن"
+    : "Donate to Zakat Eligible Organization | Yalla Kafala";
   const description = isArabic
     ? "ساعد في تغيير حياة الأيتام في مصر من خلال دعم يلا كفالة. تبرعك يمكن أن يوفر لهم الرعاية، التعليم، والدعم الذي يحتاجونه."
-    : "Help transform the lives of orphans in Egypt by supporting Yalla Kafala. Your donation can provide them with care, education, and the support they need.";
+    : "Make a meaningful impact by donating to support orphans through Islamic Kafala. Help provide loving homes and brighter futures with Yalla Kafala today.";
 
   const url = `https://yallakafala.org/${locale}/donate`;
   const imageUrl = "https://yallakafala.org/images/donate.jpg";
