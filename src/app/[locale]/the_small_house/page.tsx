@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, SetStateAction } from "react";
 import Link from "next/link";
 
-// Material UI Components
+
 import {
   Box,
   Container,
@@ -46,46 +46,6 @@ export default function TheSmallHouse() {
 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
-  const [activeTab, setActiveTab] = useState("about")
-  const [scrollY, setScrollY] = useState(0)
-
-  // Animation refs
-  const aboutRef = useRef(null)
-  const servicesRef = useRef(null)
-  const donationsRef = useRef(null)
-  const impactRef = useRef(null)
-
-  // References for scrolling
-  const aboutSectionRef = useRef<HTMLDivElement>(null)
-  const servicesSectionRef = useRef<HTMLDivElement>(null)
-  const donationsSectionRef = useRef<HTMLDivElement>(null)
-  const impactSectionRef = useRef<HTMLDivElement>(null)
-
-  // Handle scroll for effects
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const handleTabChange = (_event: any, newValue: 'about' | 'services' | 'donations') => {
-    setActiveTab(newValue)
-
-    // Scroll to the appropriate section
-    const sectionMap = {
-      about: aboutSectionRef,
-      services: servicesSectionRef,
-      donations: donationsSectionRef,
-    }
-
-    const targetRef = sectionMap[newValue]
-    if (targetRef && targetRef.current) {
-      targetRef.current.scrollIntoView({ behavior: "smooth" })
-    }
-  }
 
   return (
     <Box sx={{ bgcolor: "background.default", color: "text.primary",overflow: "hidden", }}>
@@ -102,8 +62,11 @@ export default function TheSmallHouse() {
 
         }}
       >
-        <Container maxWidth="lg"  sx={{ mb: isMobile ? 30: 35, overflow: 'visible' 
-          
+        <Container maxWidth="lg"  sx={{
+         mb: isMobile ? 40: 35, 
+        overflow: 'visible', 
+         px: { xs: 15} 
+    
         }}>
           <Grid container spacing={9} alignItems="center">
             <Grid item xs={12} md={5}>
@@ -204,7 +167,7 @@ export default function TheSmallHouse() {
 
 
       {/* About Section */}
-      <Box ref={aboutSectionRef} sx={{ py: { xs: 60, md: 60 }, bgcolor: theme.palette.primary.main }}>
+      <Box  sx={{ py: { xs: 60, md: 60 }, bgcolor: theme.palette.primary.main, px: { xs: 15} }}>
         <Container maxWidth="lg">
           <Grid container spacing={isMobile ? 0: 8} alignItems="center">
             
@@ -214,7 +177,6 @@ export default function TheSmallHouse() {
                   variant="h2"
                   sx={{
                     mt: 10,
-                  
                     mb: 15,
                     color: "#ffffff",
                     position: "relative",
@@ -229,6 +191,7 @@ export default function TheSmallHouse() {
                       width: 80,
                       height: 3,
                       bgcolor: theme.palette.primary.main,
+                      fontSize: isRTL? (isMobile ? "2.5rem" : "5rem") :{ xs: "2.3rem", md: "3.5rem", lg: "4rem" } ,
                     },
                   }}
                 >
@@ -238,7 +201,7 @@ export default function TheSmallHouse() {
                   </Box>
                 </Typography>
 
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 4, md: 6 } }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 20, md: 6 } }}>
                 <Typography variant="body1" sx={{ color:"#ffffff",fontFamily: quicksand.style.fontFamily, fontWeight: isRTL ? 560 : 550,
                     fontSize: isRTL ? "1.7rem" : "1.2rem", lineHeight: isMobile ? 1.4 : 1.5  }}>
                   {locale === 'en' ? " The Small House is a specialized care facility designed to provide orphaned children with a family-like environment that fosters their physical, emotional, and intellectual development.": "البيت الصغير هو منشأة رعاية متخصصة تهدف إلى توفير بيئة شبيهة بالعائلة للأطفال اليتامى، مما يعزز نموهم البدني والعاطفي والفكري."} 
@@ -310,9 +273,10 @@ export default function TheSmallHouse() {
       {/* What is Yalla Family House Section */}
       <Box
       dir={locale === 'en' ? 'ltr' : 'rtl'} 
-        ref={impactSectionRef}
+        
         sx={{
           py: { xs: 8, md: 12 },
+          px: { xs: 19},
           
           color: "#ffffff",
           position: "relative",
@@ -324,7 +288,7 @@ export default function TheSmallHouse() {
       >
         <Container maxWidth="lg">
           <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={6} ref={impactRef}>
+            <Grid item xs={12} md={6} >
               <Typography
                 variant="h2"
                 sx={{
@@ -350,7 +314,7 @@ export default function TheSmallHouse() {
               >
                  {locale === 'en' ? "What is Yalla Family House?" : "ما هو بيت عائلة يلا؟"} 
               </Typography>
-              <Box sx={{ mb: 25}}>
+              <Box sx={{ mb: 25, mr: isRTL ? -17 : 0, ml: isRTL ? 0 : -10 }}>
                 <Box sx={{ display: "flex", alignItems: "flex-start", color:"#000000"}}>
                   <Box
                     sx={{
@@ -564,16 +528,17 @@ export default function TheSmallHouse() {
 
       {/* What We Provide Section */}
       <Box
-        ref={servicesSectionRef}
+      
         sx={{
           py: { xs: 8, md: 12 },
+          px: { xs: 19},
           bgcolor: "#2194BC",
           mt:5,
           
         }}
       >
         <Container maxWidth="lg" sx= {{ mb: 80, mt: 60 }}>
-          <Box sx={{ textAlign: "center", alignItems: 'center',mt: 20 }} ref={servicesRef}>
+          <Box sx={{ textAlign: "center", alignItems: 'center',mt: 20 }} >
             
             <Typography variant="h2" sx={{  fontFamily:isRTL? notoSansArabic.style.fontFamily : merriweather.style.fontFamily, fontWeight: 700, color: "#ffffff" }}>
               {locale === 'en' ? "What We Provide" : "ماذا نقدم"}
@@ -585,7 +550,7 @@ export default function TheSmallHouse() {
             </Typography>
           </Box>
 
-          <Grid container spacing={30} sx={{ mt: 1 }}>
+          <Grid container spacing={30} sx={{ mt: 1,fontFamily: quicksand.style.fontFamily, color: "#ffffff" }}>
             {[
               {
               icon: <School fontSize="large" />,
@@ -656,7 +621,7 @@ export default function TheSmallHouse() {
                     <Typography variant="h6" sx={{ fontWeight: isRTL ? 600 : 800, fontSize: 25, mb: 10, fontFamily: isRTL ? readexPro.style.fontFamily : quicksand.style.fontFamily,  }}>
                       {service.title}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "#000000", fontFamily: quicksand.style.fontFamily, fontWeight: 550 , fontSize: 20}}>
+                    <Typography variant="body2" sx={{ color: "#000000", fontFamily: quicksand.style.fontFamily, fontWeight: 550 , fontSize:isMobile?22: 20}}>
                       {service.description}
                     </Typography>
                   </Box>
@@ -669,14 +634,15 @@ export default function TheSmallHouse() {
 
       {/* Your Donations Section */}
       <Box
-        ref={donationsSectionRef}
+        
         sx={{
           py: { xs: 8, md: 50 },
+          px: { xs: 15},
           bgcolor: alpha(theme.palette.grey[100], 0.5),
         }}
       >
         <Container maxWidth="lg">
-          <Box sx={{ textAlign: "center", width: '100%' }} ref={donationsRef}>
+          <Box sx={{ textAlign: "center", width: '100%' }} >
         <Typography variant="h2" sx={{ mt: 30, fontFamily:isRTL? notoSansArabic.style.fontFamily : merriweather.style.fontFamily, fontWeight: 700 }}>
           {locale === 'en' ? "Your Donations Go To" : "تبرعاتكم تذهب إلى"}
         </Typography>
@@ -689,18 +655,18 @@ export default function TheSmallHouse() {
 
           <Grid container spacing={6} sx={{ mb: 10, mt: 20 }}>
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ p: isRTL ?25:12, height: "100%", borderRadius: 5, borderColor: "#ffffff", border: 2 }}>
+          <Paper elevation={3} sx={{ p: isRTL ?25:12, height: "100%", borderRadius: 5, borderColor: "#ffffff", border: 2}}>
             <Typography variant="h4" sx={{ mb: 3, fontWeight: 800, fontSize: 35, fontFamily: quicksand.style.fontFamily }}>
           {locale === 'en' ? "Providing a Safe Home" : "توفير منزل آمن"}
             </Typography>
-            <Typography variant="body1" sx={{ mb: 3, fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: 20 }}>
+            <Typography variant="body1" sx={{ lineHeight:isMobile ? 1.4 : 1.6, fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: isMobile?22:20 }}>
           {locale === 'en'
             ? "For children not eligible for kafala, we create a stable and secure environment where they can grow and develop."
             : "للأطفال غير المؤهلين للكفالة، نوفر بيئة مستقرة وآمنة تمكنهم من النمو والتطور."}
             </Typography>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: isMobile?12:2 }}>
           <Home sx={{  mr: isRTL ? 0 : 5, ml: isRTL ? 5 : 0  }} />
-          <Typography variant="body1" sx={{ fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: 20 }}>
+          <Typography variant="body1" sx={{ lineHeight:isMobile ? 1.4 : 1.7,fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: isMobile?22:20 }}>
             {locale === 'en'
               ? "A dedicated facility designed to feel like a real home"
               : "منشأة مخصصة مصممة لتشعر وكأنها منزل حقيقي"}
@@ -708,7 +674,7 @@ export default function TheSmallHouse() {
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
           <Security sx={{  mr: isRTL ? 0 : 5, ml: isRTL ? 5 : 0  }} />
-          <Typography variant="body1" sx={{ fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: 20 }}>
+          <Typography variant="body1" sx={{ lineHeight:isMobile ? 1.4 : 1.7,fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: isMobile?22:20 }}>
             {locale === 'en'
               ? "Safe spaces that provide security and stability"
               : "مساحات آمنة توفر الأمان والاستقرار"}
@@ -718,17 +684,17 @@ export default function TheSmallHouse() {
         </Grid>
         <Grid item xs={12} md={6} >
           <Paper elevation={3} sx={{ p: isRTL ? 25 : 17, height: "100%", borderRadius: 5, borderColor: "#ffffff", border: 2 }}>
-            <Typography variant="h4" sx={{ mb: 3, fontWeight: 800, fontSize: 35, fontFamily: quicksand.style.fontFamily }}>
+            <Typography variant="h4" sx={{lineHeight:isMobile ? 1.4 : 1.6, mb: 3, fontWeight: 800, fontSize: 35, fontFamily: quicksand.style.fontFamily }}>
           {locale === 'en' ? "A Nurturing Environment" : "بيئة حاضنة"}
             </Typography>
-            <Typography variant="body1" sx={{ mb: 3, fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: 20 }}>
+            <Typography variant="body1" sx={{ lineHeight:isMobile ? 1.4 : 1.5,mb: 3, fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: isMobile?22:20}}>
           {locale === 'en'
             ? "With a caregiver in a family-based setting, children receive the individual attention they need."
             : "مع مقدم رعاية في بيئة أسرية، يحصل الأطفال على الاهتمام الفردي الذي يحتاجونه."}
             </Typography>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: isMobile?12:2 }}>
           <FamilyRestroom sx={{  mr: isRTL ? 0 : 5, ml: isRTL ? 5 : 0 }} />
-          <Typography variant="body1" sx={{ fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: 20 }}>
+          <Typography variant="body1" sx={{ lineHeight:isMobile ? 1.4 : 1.7,fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: isMobile?22:20 }}>
             {locale === 'en'
               ? "Dedicated caregivers providing consistent support"
               : "مقدمو رعاية مخصصون يقدمون دعمًا مستمرًا"}
@@ -736,7 +702,7 @@ export default function TheSmallHouse() {
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
               <Favorite sx={{ mr: isRTL ? 0 : 5, ml: isRTL ? 5 : 0 }} />
-              <Typography variant="body1" sx={{ fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: 20 }}>
+              <Typography variant="body1" sx={{ lineHeight:isMobile ? 1.4 :1.7 ,fontFamily: quicksand.style.fontFamily, fontWeight: 600, fontSize: isMobile?22:20 }}>
               {locale === 'en'
                 ? "Family-style care that fosters emotional bonds"
                 : "رعاية بأسلوب عائلي تعزز الروابط العاطفية"}
@@ -752,6 +718,7 @@ export default function TheSmallHouse() {
       <Box
         sx={{
           py: { xs: 8, md: 100 },
+          px: { xs: 19},
           bgcolor: theme.palette.secondary.main,
           color: "#ffffff",
           position: "relative",
