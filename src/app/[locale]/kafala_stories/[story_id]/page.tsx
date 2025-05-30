@@ -151,14 +151,14 @@ export async function generateMetadata({
   };
 }
 
-const StoryPage = ({
+const StoryPage = ({ // main react component for story page 
   params: { locale, story_id },
 }: {
   params: { locale: string; story_id: string };
 }) => {
   return (
-    <ErrorBoundary locale={locale}>
-      <Suspense fallback={<LoadingFallback />}>
+    <ErrorBoundary locale={locale}> 
+      <Suspense fallback={<LoadingFallback />}> 
         <Story story_id={story_id} locale={locale} />
         <Box sx={{ p: "16px" }}>
           <Typography variant="h6" fontWeight={700}>
@@ -174,9 +174,12 @@ const StoryPage = ({
             />
           </Suspense>
         </Box>
-      </Suspense>
+      </Suspense> 
     </ErrorBoundary>
   );
 };
 
+// ErrorBoundary Wraps everything in error protection if a story fails to load, it shows a friendly error instead of crashing the whole app.
+// Suspense is for showing fallback until the data is loaded
+//
 export default StoryPage;

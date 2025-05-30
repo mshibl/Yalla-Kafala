@@ -12,6 +12,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const isArabic = locale === "ar";
 
+
+// This  top function runs automatically for every page that uses this layout. It receives the locale from the URL (like /en or /ar)
+// It returns an object containing the metadata (title, description, image, etc.)
+
   const title = isArabic ? "يلا كفالة" : "Yalla Kafala";
   const description = isArabic
     ? "يلا كفالة هي منظمة غير حكومية تحول حالة الطفل في مصر من خلال الكفالة (الحماية/التبني). مع مكاتب في مصر وسان فرانسيسكو ، نحن نقدم خيارات الرعاية المبتكرة ، خدمات الدعم ، والدعم المتطوع للأيتام."
@@ -29,6 +33,8 @@ export async function generateMetadata({
         ar: "/ar",
       },
     },
+    // alternates is to tell search engines en and ar versions exist
+    // keywords are to help google understand your content
     keywords: isArabic
       ? [
           "كفالة",
@@ -109,6 +115,7 @@ export async function generateMetadata({
       initialScale: 1,
       maximumScale: 1,
     },
+    // viewport makes page responsive on phones
     openGraph: {
       title,
       description,
@@ -127,6 +134,8 @@ export async function generateMetadata({
       locale: isArabic ? "ar_EG" : "en_US",
       type: "website",
     },
+    // Open Graph is for social preview 
+    // shows preview card with image, title and description
     twitter: {
       card: "summary_large_image",
       title,
@@ -134,6 +143,7 @@ export async function generateMetadata({
       images: [imageUrl],
       creator: "@YallaKafala",
     },
+    // controls how link looks on twitter 
     other: {
       "og:image:width": "1200",
       "og:image:height": "630",
@@ -146,7 +156,7 @@ export async function generateMetadata({
 
       // Facebook specific (in addition to the facebook object above)
       "fb:pages": "469771757195549", // Replace with your Facebook Page ID
-    },
+    }, // other metadata (social + search bots)
     robots: {
       index: true,
       follow: true,
