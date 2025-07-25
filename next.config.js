@@ -1,41 +1,23 @@
-const withNextIntl = require("next-intl/plugin")();
-/** @type {import('next').NextConfig} */
+/**
+ * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
+ * for Docker builds.
+ */
+import "./src/env.js";
 
-const nextConfig = {
+/** @type {import("next").NextConfig} */
+const config = {
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "drive.google.com",
-        port: "",
+        hostname: "**.utfs.io",
+      },
+      {
+        protocol: "https",
+        hostname: "**.ufs.sh",
       },
     ],
   },
-  serverExternalPackages: ["pdf-parse"],
-  async redirects() {
-    return [
-      {
-        source: "/donate-en",
-        destination: "/ar/donate",
-        permanent: true,
-      },
-      {
-        source: "/donate-ar",
-        destination: "/ar/donate",
-        permanent: true,
-      },
-      {
-        source: "/faqs",
-        destination: "/ar/faqs",
-        permanent: true,
-      },
-      {
-        source: "/kafala-stories",
-        destination: "/ar/kafala_stories",
-        permanent: true,
-      },
-    ];
-  },
 };
 
-module.exports = withNextIntl(nextConfig);
+export default config;

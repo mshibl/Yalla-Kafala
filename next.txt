@@ -1,0 +1,1 @@
+- Revise the stories components to make sure everything is fine. All of the components need features are created

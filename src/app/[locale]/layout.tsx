@@ -1,29 +1,39 @@
-import AppTheme from "@/src/utils/AppTheme";
+import "@/styles/globals.css";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
-import type { Metadata } from "next";
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import { Box, Container, CssBaseline } from "@mui/material";
-import { NextIntlClientProvider, useMessages } from "next-intl";
-import Navbar from "@/src/components/Navbar";
-import AppFooter from "@/src/components/AppFooter";
-import AiAssistant from "@/src/components/AIAssistant/ai-assistant";
-import { PostHogProvider } from "../providers";
+import type { Metadata, Viewport } from "next";
+// import Navbar from "@/src/components/Navbar";
+// import AppFooter from "@/src/components/AppFooter";
 import Script from "next/script";
+import { PostHogProvider } from "@/components/Providers/PostHogProvider";
+import Navbar from "@/components/AppHeader";
+import Footer from "@/components/AppFooter";
+import { Toaster } from "@/components/ui/sonner";
+import { LocaleProvider } from "@/components/Providers/LocaleProvider";
+import type { Locale } from "@/components/Providers/LocaleProvider";
+export async function generateViewport({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Viewport> {
+  return {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  };
+}
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
+  const { locale } = await params;
   const isArabic = locale === "ar";
 
-  const title = isArabic
-    ? "يلا كفالة"
-    : "What Is Kafala? | Islamic Guardianship & Orphan Support";
+  const title = isArabic ? "يلا كفالة" : "Yalla Kafala";
   const description = isArabic
     ? "يلا كفالة هي منظمة غير حكومية تحول حالة الطفل في مصر من خلال الكفالة (الحماية/التبني). مع مكاتب في مصر وسان فرانسيسكو ، نحن نقدم خيارات الرعاية المبتكرة ، خدمات الدعم ، والدعم المتطوع للأيتام."
-    : "Learn how Islamic Kafala differs from adoption. Discover its religious roots, legal framework, and why it offers loving homes to orphans without changing identity.";
+    : "Yalla Kafala is an NGO transforming child welfare in Egypt through Kafala (guardianship/adoption). With offices in Egypt and San Francisco, we offer innovative care alternatives, support services, and advocacy for orphans.";
 
   const url = `https://yallakafala.org/${locale}`;
   const imageUrl = "https://yallakafala.org/images/yk-team-1.jpg";
@@ -112,11 +122,6 @@ export async function generateMetadata({
           "sustainable child care",
           "international adoption in Egypt",
         ],
-    viewport: {
-      width: "device-width",
-      initialScale: 1,
-      maximumScale: 1,
-    },
     openGraph: {
       title,
       description,
@@ -169,53 +174,48 @@ export async function generateMetadata({
   };
 }
 
-const LocaleLayout = ({
+export default async function RootLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode;
-  params: { locale: "ar" | "en" };
-}) => {
-  const messages = useMessages();
-
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
   return (
     <html dir={locale === "en" ? "ltr" : "rtl"} lang={locale}>
-      <Script
-        src="https://secure.givelively.org/widgets/branded_donation/yalla-kafala.js"
-        strategy="beforeInteractive"
-      />
+      <head>
+        <Script
+          src="https://secure.givelively.org/widgets/branded_donation/yalla-kafala.js"
+          strategy="lazyOnload"
+          async={true}
+        />
+      </head>
       <GoogleTagManager gtmId="GTM-W8P5HTS6" />
       <body>
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <NextIntlClientProvider messages={messages}>
-            <ThemeProvider theme={AppTheme}>
-              <CssBaseline />
-              <Container disableGutters={true} maxWidth={false}>
-                <Navbar locale={locale} />
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                >
-                  <PostHogProvider>
-                    <Box sx={{ width: "100%", maxWidth: "xl" }}>
-                      {children}
-                      <AiAssistant />
-                    </Box>
-                  </PostHogProvider>
-                </Box>
-                <AppFooter />
-              </Container>
-            </ThemeProvider>
-          </NextIntlClientProvider>
-        </AppRouterCacheProvider>
+        <PostHogProvider>
+          <LocaleProvider locale={locale}>
+            <div className="min-h-screen flex flex-col">
+              <Navbar />
+              <main className="flex-grow">{children}</main>
+              <Footer locale={locale} />
+            </div>
+          </LocaleProvider>
+          <Toaster
+            toastOptions={{
+              style: {
+                background: "white",
+              },
+            }}
+          />
+        </PostHogProvider>
       </body>
       <GoogleAnalytics gaId="GTM-W8P5HTS6" />
     </html>
   );
-};
-export default LocaleLayout;
+}
+
+export async function generateStaticParams() {
+  // Putting this here means all pages will be generated for both locales. If this function is put in the page, it will only statically generate that page
+  return [{ locale: "en" }, { locale: "ar" }];
+}
