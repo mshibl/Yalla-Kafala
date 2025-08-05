@@ -10,7 +10,6 @@ const KafalaStories = ({ locale }: { locale: Locale }) => {
 
       <main className="flex-grow">
         <StoriesSection locale={locale} />
-        <MakeDifference locale={locale} />
       </main>
     </div>
   );

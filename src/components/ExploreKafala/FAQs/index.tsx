@@ -16,7 +16,6 @@ const FAQs = ({ locale }: { locale: Locale }) => {
             <FAQsAccordion locale={locale} />
           </div>
         </section>
-        <MakeDifference locale={locale} />
       </main>
     </div>
   );

@@ -126,8 +126,6 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
         </div>
       </section>
 
-      <MakeDifference locale={locale} />
-
       <BackToTopButton />
     </div>
   );

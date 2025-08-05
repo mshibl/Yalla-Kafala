@@ -34,7 +34,6 @@ export default function StoryDetails({
         <Suspense fallback={<LoadingState />}>
           <StoryDetailsFetch id={id} locale={locale} />
         </Suspense>
-        <MakeDifference locale={locale} />
       </main>
     </div>
   );
