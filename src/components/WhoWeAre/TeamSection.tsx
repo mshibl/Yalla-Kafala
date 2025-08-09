@@ -4,9 +4,35 @@ import { User } from "lucide-react";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
 import { BoardMemberCard } from "./BoardMemberCard";
-import { egyptTeamMembers, usaTeamMembers } from "./teamData";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../convex/_generated/api";
 
-export const TeamSection = ({ locale }: { locale: Locale }) => {
+export const TeamSection = async ({ locale }: { locale: Locale }) => {
+  const boardMembers = await fetchQuery(
+    api.boardMembers.queries.getBoardMembers,
+  );
+
+  const egyptBoardMembers = (boardMembers ?? []).filter(
+    (member) =>
+      member.type === "board" &&
+      (member.country === "egypt" || member.country === "all"),
+  );
+  const egyptAdvisors = (boardMembers ?? []).filter(
+    (member) =>
+      member.type === "advisor" &&
+      (member.country === "egypt" || member.country === "all"),
+  );
+  const usaBoardMembers = (boardMembers ?? []).filter(
+    (member) =>
+      member.type === "board" &&
+      (member.country === "usa" || member.country === "all"),
+  );
+  const usaAdvisors = (boardMembers ?? []).filter(
+    (member) =>
+      member.type === "advisor" &&
+      (member.country === "usa" || member.country === "all"),
+  );
+
   return (
     <section
       id="our-team"
@@ -38,77 +64,77 @@ export const TeamSection = ({ locale }: { locale: Locale }) => {
           </div>
 
           <TabsContent value="egypt" className="mt-6">
-            <div className="mb-10">
-              <h3 className="text-xl font-semibold text-primary mb-4 flex items-center">
-                <User className="w-5 h-5 me-2" />
-                {translations.team.sections.boardMembers[locale]}
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {egyptTeamMembers
-                  .filter((member) => member.type === "board")
-                  .map((member, index) => (
+            {egyptBoardMembers.length > 0 && (
+              <div className="mb-10">
+                <h3 className="text-xl font-semibold text-primary mb-4 flex items-center">
+                  <User className="w-5 h-5 me-2" />
+                  {translations.team.sections.boardMembers[locale]}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {egyptBoardMembers.map((member, index) => (
                     <BoardMemberCard
                       key={index}
                       member={member}
                       locale={locale}
                     />
                   ))}
+                </div>
               </div>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold text-primary mb-4 flex items-center">
-                <User className="w-5 h-5 me-2" />
-                {translations.team.sections.advisoryCommittee[locale]}
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {egyptTeamMembers
-                  .filter((member) => member.type === "advisory")
-                  .map((member, index) => (
+            )}
+            {egyptAdvisors.length > 0 && (
+              <div>
+                <h3 className="text-xl font-semibold text-primary mb-4 flex items-center">
+                  <User className="w-5 h-5 me-2" />
+                  {translations.team.sections.advisoryCommittee[locale]}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {egyptAdvisors.map((member, index) => (
                     <BoardMemberCard
                       key={index}
                       member={member}
                       locale={locale}
                     />
                   ))}
+                </div>
               </div>
-            </div>
+            )}
           </TabsContent>
 
           <TabsContent value="usa" className="mt-6">
-            <div className="mb-10">
-              <h3 className="text-xl font-semibold text-primary mb-4 flex items-center">
-                <User className="w-5 h-5 me-2" />
-                {translations.team.sections.boardMembers[locale]}
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {usaTeamMembers
-                  .filter((member) => member.type === "board")
-                  .map((member, index) => (
+            {usaBoardMembers.length > 0 && (
+              <div className="mb-10">
+                <h3 className="text-xl font-semibold text-primary mb-4 flex items-center">
+                  <User className="w-5 h-5 me-2" />
+                  {translations.team.sections.boardMembers[locale]}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {usaBoardMembers.map((member, index) => (
                     <BoardMemberCard
                       key={index}
                       member={member}
                       locale={locale}
                     />
                   ))}
+                </div>
               </div>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold text-primary mb-4 flex items-center">
-                <User className="w-5 h-5 me-2" />
-                {translations.team.sections.advisoryCommittee[locale]}
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {usaTeamMembers
-                  .filter((member) => member.type === "advisory")
-                  .map((member, index) => (
+            )}
+            {usaAdvisors.length > 0 && (
+              <div>
+                <h3 className="text-xl font-semibold text-primary mb-4 flex items-center">
+                  <User className="w-5 h-5 me-2" />
+                  {translations.team.sections.advisoryCommittee[locale]}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {usaAdvisors.map((member, index) => (
                     <BoardMemberCard
                       key={index}
                       member={member}
                       locale={locale}
                     />
                   ))}
+                </div>
               </div>
-            </div>
+            )}
           </TabsContent>
         </Tabs>
       </div>

@@ -43,3 +43,15 @@ export interface FacebookPostType {
   shares: number;
   permalink: string;
 }
+
+export interface BoardMember {
+  id: string;
+  nameEn: string;
+  nameAr: string;
+  imageUrl?: string;
+  imageKey?: string;
+  bioEn: string;
+  bioAr: string;
+  type: "board" | "advisor";
+  country: "egypt" | "usa" | "all";
+}

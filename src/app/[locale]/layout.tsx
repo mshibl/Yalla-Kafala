@@ -10,6 +10,7 @@ import Footer from "@/components/AppFooter";
 import { Toaster } from "@/components/ui/sonner";
 import { LocaleProvider } from "@/components/Providers/LocaleProvider";
 import type { Locale } from "@/components/Providers/LocaleProvider";
+import { Providers } from "@/components/Providers";
 export async function generateViewport({
   params,
 }: {
@@ -193,14 +194,12 @@ export default async function RootLayout({
       </head>
       <GoogleTagManager gtmId="GTM-W8P5HTS6" />
       <body>
-        <PostHogProvider>
-          <LocaleProvider locale={locale}>
-            <div className="min-h-screen flex flex-col">
-              <Navbar />
-              <main className="flex-grow">{children}</main>
-              <Footer locale={locale} />
-            </div>
-          </LocaleProvider>
+        <Providers locale={locale}>
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-grow">{children}</main>
+            <Footer locale={locale} />
+          </div>
           <Toaster
             toastOptions={{
               style: {
@@ -208,7 +207,7 @@ export default async function RootLayout({
               },
             }}
           />
-        </PostHogProvider>
+        </Providers>
       </body>
       <GoogleAnalytics gaId="GTM-W8P5HTS6" />
     </html>

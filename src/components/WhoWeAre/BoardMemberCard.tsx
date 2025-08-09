@@ -9,13 +9,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import type { Locale } from "@/components/Providers/LocaleProvider";
-import type { TeamMember } from "./types";
+import type { BoardMember } from "@/lib/types";
 
 export const BoardMemberCard = ({
   member,
   locale,
 }: {
-  member: TeamMember;
+  member: BoardMember;
   locale: Locale;
 }) => {
   const name = locale === "ar" ? member.nameAr : member.nameEn;
@@ -28,7 +28,7 @@ export const BoardMemberCard = ({
           <div className="relative pt-[100%] bg-gray-100">
             <Avatar className="absolute inset-0 w-full h-full rounded-none">
               <AvatarImage
-                src={member.image}
+                src={member.imageUrl}
                 alt={name}
                 className="object-cover"
               />
@@ -42,7 +42,6 @@ export const BoardMemberCard = ({
           </div>
           <CardContent className="p-4 bg-white">
             <h3 className="font-semibold text-lg text-primary mb-1">{name}</h3>
-            <p className="text-sm text-gray-700 line-clamp-3">{bio}</p>
           </CardContent>
         </Card>
       </DialogTrigger>
@@ -55,7 +54,7 @@ export const BoardMemberCard = ({
         <div className="mt-4 space-y-6">
           <div className="flex items-start gap-4">
             <Avatar className="w-24 h-24">
-              <AvatarImage src={member.image} alt={name} />
+              <AvatarImage src={member.imageUrl} alt={name} />
               <AvatarFallback className="text-2xl">
                 {name
                   .split(" ")
@@ -63,9 +62,10 @@ export const BoardMemberCard = ({
                   .join("")}
               </AvatarFallback>
             </Avatar>
-            <div className="flex-1">
-              <p className="text-gray-700">{bio}</p>
-            </div>
+            <div
+              dangerouslySetInnerHTML={{ __html: bio }}
+              className="text-gray-700 flex-1"
+            />
           </div>
         </div>
       </DialogContent>
