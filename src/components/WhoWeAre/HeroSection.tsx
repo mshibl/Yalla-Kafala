@@ -25,7 +25,7 @@ export const HeroSection = ({ locale }: { locale: Locale }) => {
           <div className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             {translations.hero.badge[locale]}
           </div>
-          <h1 className="text-3xl md:text-5xl font-serif font-bold text-primary mb-6">
+          <h1 className="text-3xl md:text-5xl font-bold text-primary mb-6">
             {translations.hero.title.part1[locale]}{" "}
             <span className="text-secondary">
               {translations.hero.title.part2[locale]}
