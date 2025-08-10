@@ -2,6 +2,7 @@ import AdminLayout from "@/components/Admin/AdminLayout";
 import CarouselManagement from "@/components/Admin/Carousel/index";
 import { fetchCarouselImages } from "@/server/actions/carouselImages/fetchCarouselImages";
 
+export const dynamic = "force-dynamic";
 export default async function CarouselPage() {
   const carouselImages = await fetchCarouselImages();
   if (!carouselImages.success || !carouselImages.data) {
