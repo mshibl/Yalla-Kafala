@@ -2,6 +2,7 @@ import { fetchStories } from "@/server/actions/stories/fetchStories";
 import StoriesManagement from "@/components/Admin/Stories/index";
 import AdminLayout from "@/components/Admin/AdminLayout";
 
+export const dynamic = "force-dynamic";
 export default async function StoriesPage() {
   const stories = await fetchStories({ publishedOnly: false });
   if (!stories.success || !stories.data) {
