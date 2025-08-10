@@ -23,7 +23,7 @@ const HomePage = async ({
       <Stories />
       <FAQs locale={locale} />
       <FacebookPosts locale={locale} />
-      {/* <Donate /> */}
+      <Donate />
     </>
   );
 };
