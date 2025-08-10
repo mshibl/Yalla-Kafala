@@ -113,7 +113,8 @@ export const EditCarouselImageDialog: React.FC<
         <DialogHeader>
           <DialogTitle>Edit Carousel Image</DialogTitle>
           <DialogDescription>
-            Make changes to the carousel image. Click save when you're done.
+            Make changes to the carousel image. Click save when you&apos;re
+            done.
           </DialogDescription>
         </DialogHeader>
 

@@ -15,7 +15,6 @@ const LinksList = ({
       <h4
         className="font-semibold text-gray-300 mb-2 flex items-center cursor-pointer select-none"
         onClick={() => setExpand((prev) => !prev)}
-        aria-expanded={expand}
         tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") setExpand((prev) => !prev);

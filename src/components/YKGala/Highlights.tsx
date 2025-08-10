@@ -24,7 +24,7 @@ export default function Highlights() {
                   1
                 </div>
                 <div className="text-lg font-luxury pt-2">
-                  <strong>Small Home:</strong> Launch of Yalla Kafala's
+                  <strong>Small Home:</strong> Launch of Yalla Kafala&apos;s
                   Permanent Campus in Egypt
                 </div>
               </CardContent>

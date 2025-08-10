@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Link from "next/link";
 import { HeroCarousel } from "./carousel";
 import { fetchCarouselImages } from "@/server/actions/carouselImages/fetchCarouselImages";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -69,9 +70,9 @@ const Hero = ({ locale }: { locale: Locale }) => {
               <a href="#donate" className="primary-button">
                 {translations.hero.donateButton[locale]}
               </a>
-              <a href="/vision-mission" className="outline-button">
+              <Link href="/vision-mission" className="outline-button">
                 {translations.hero.learnMoreButton[locale]}
-              </a>
+              </Link>
             </div>
           </div>
 

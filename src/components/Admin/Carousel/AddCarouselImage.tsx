@@ -111,7 +111,7 @@ export const AddCarouselImageDialog: React.FC<AddCarouselImageDialogProps> = ({
           <DialogTitle>Add New Carousel Image</DialogTitle>
           <DialogDescription>
             Add a new image to the homepage carousel. Fill in all fields and
-            click save when you're done.
+            click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
 

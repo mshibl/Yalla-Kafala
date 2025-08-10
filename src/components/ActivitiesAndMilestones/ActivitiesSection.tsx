@@ -18,11 +18,11 @@ interface ActivitiesSectionProps {
 
 const ActivitiesSection = ({ locale }: ActivitiesSectionProps) => {
   const activityIcons = [
-    <Users className="w-5 h-5 text-primary" />,
-    <Book className="w-5 h-5 text-primary" />,
-    <Globe className="w-5 h-5 text-primary" />,
-    <Shield className="w-5 h-5 text-primary" />,
-    <Heart className="w-5 h-5 text-primary" />,
+    <Users key="users" className="w-5 h-5 text-primary" />,
+    <Book key="book" className="w-5 h-5 text-primary" />,
+    <Globe key="globe" className="w-5 h-5 text-primary" />,
+    <Shield key="shield" className="w-5 h-5 text-primary" />,
+    <Heart key="heart" className="w-5 h-5 text-primary" />,
   ];
 
   const activities = translations.activities.map((activity, index) => ({

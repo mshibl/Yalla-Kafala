@@ -8,7 +8,7 @@ export default function AboutEvent() {
   return (
     <Section id="about">
       <h2 className="text-2xl font-elegant font-semibold tracking-wide leading-tight">
-        Yalla Kafala's First Annual Fundraising Gala
+        Yalla Kafala&apos;s First Annual Fundraising Gala
       </h2>
       <p className="max-w-3xl text-lg font-luxury leading-relaxed text-muted-foreground">
         Join us for an evening of connection and inspiration. Enjoy a gourmet
