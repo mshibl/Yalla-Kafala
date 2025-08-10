@@ -127,6 +127,8 @@ export default {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
         serif: ["Playfair Display", "serif"],
+        elegant: ["Cormorant Garamond", "serif"],
+        luxury: ["Crimson Text", "serif"],
       },
       typography: {
         DEFAULT: {

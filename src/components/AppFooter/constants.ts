@@ -49,6 +49,7 @@ export const socials = [
 
 // Shared navigation links for header and footer
 export const navigationLinks = [
+  { href: "/yk-gala", text: { en: "YK Gala", ar: "احتفال يلا كفالة" } },
   {
     group: { en: "Explore Kafala", ar: "استكشف الكفالة" },
     links: [
