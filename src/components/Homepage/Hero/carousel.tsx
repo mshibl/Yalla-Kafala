@@ -41,14 +41,14 @@ export const HeroCarousel = ({
       <CarouselContent>
         {carouselImages.map((image, index) => (
           <CarouselItem key={index}>
-            <div className="relative aspect-square w-full h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative aspect-square h-[300px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
               <Image
                 fill
                 priority
                 src={image.src}
                 alt={image.altDescription}
-                className="w-full h-full object-fill bg-gray-50 transition-transform duration-700 hover:scale-105"
+                className="bg-gray-50 transition-transform duration-700 hover:scale-105"
               />
               {((locale === "en" && image.captionEn) ||
                 (locale !== "en" && image.captionAr)) && (

@@ -37,7 +37,7 @@ const Hero = ({ locale }: { locale: Locale }) => {
       </div>
 
       <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="flex flex-col md:flex-row gap-16 items-center">
           <div className="space-y-6 max-w-xl">
             <div
               className="chip purple-gradient text-white animate-fade-in opacity-0 translate-y-10"
