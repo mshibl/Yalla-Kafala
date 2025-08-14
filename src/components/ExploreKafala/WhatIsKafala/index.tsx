@@ -33,7 +33,7 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                 <p>
                   From Sahl bin Sa&apos;ad (may Allah be pleased with him), he
                   said: &ldquo;The Messenger of Allah sallallaahu &apos;alaihi
-                  wa sallamsaid: &ldquo;I and the one who looks after an orphan
+                  wa sallam said: &ldquo;I and the one who looks after an orphan
                   will be like this in Paradise,&rdquo; showing his middle and
                   index fingers and separating them.&rdquo; [Sahih al-Bukhari]
                 </p>

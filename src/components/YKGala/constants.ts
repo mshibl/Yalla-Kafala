@@ -24,9 +24,9 @@ export const panelists: Person[] = [
   },
   {
     name: "Mona Orady, MD",
-    title: "Founder, Orady Women&apos;s Clinic",
+    title: "Founder, Orady Women's Clinic",
     description:
-      "Dr Dr. Orady is an award-winning OB-GYN and pioneer in minimally invasive gynecologic surgery.  She has worked tirelessly to Advance gynecology, with a focus on Menstrual Disorders, Endometriosis, and Fibroids and founded The Orady Women's Clinic located in Walnut Creek, California. Beyond clinical care, she advocates for women&apos;s health access and equity.",
+      "Dr Dr. Orady is an award-winning OB-GYN and pioneer in minimally invasive gynecologic surgery.  She has worked tirelessly to Advance gynecology, with a focus on Menstrual Disorders, Endometriosis, and Fibroids and founded The Orady Women's Clinic located in Walnut Creek, California. Beyond clinical care, she advocates for women's health access and equity.",
     image:
       "https://assets.ppassets.com/p-3SHVhsSTK7zAClQI0CV6uv/flyer/speaker_block_image/base",
   },
@@ -69,7 +69,7 @@ export const team: Person[] = [
     name: "Safaa Ibrahim",
     title: "VICE PRESIDENT",
     description:
-      "Safaa Ibrahim is a visionary leader with 20+ years in community organizing and nonprofit development. She has led six nonprofits, advancing strategy, governance, and community mobilization. Formerly a tech project manager, she shifted to civic causes out of a passion for service. Safaa now serves as the inaugural Vice President of Yalla Kafala&apos;s USA Board and has held leadership roles at CAIR, GiveLight, Averroes Institute, and co-founded the American Muslim Community Foundation.",
+      "Safaa Ibrahim is a visionary leader with 20+ years in community organizing and nonprofit development. She has led six nonprofits, advancing strategy, governance, and community mobilization. Formerly a tech project manager, she shifted to civic causes out of a passion for service. Safaa now serves as the inaugural Vice President of Yalla Kafala's USA Board and has held leadership roles at CAIR, GiveLight, Averroes Institute, and co-founded the American Muslim Community Foundation.",
     image:
       "https://assets.ppassets.com/p-4HsCzH38Vyl3AnY2ervdao/flyer/speaker_block_image/base",
   },
@@ -77,7 +77,7 @@ export const team: Person[] = [
     name: "Logain Asfour",
     title: "YK GALA COMMITTEE LEAD",
     description:
-      "Logain Asfour is the Gala Committee Lead for Yalla Kafala&apos;s first inaugural fundraising event. With a background in engineering, program management and a passion for community impact, she brings vision and execution together to celebrate Egyptian changemakers and advance social entrepreneurship through meaningful philanthropy and storytelling.",
+      "Logain Asfour is the Gala Committee Lead for Yalla Kafala's first inaugural fundraising event. With a background in engineering, program management and a passion for community impact, she brings vision and execution together to celebrate Egyptian changemakers and advance social entrepreneurship through meaningful philanthropy and storytelling.",
     image:
       "https://assets.ppassets.com/p-6udJpMd3BJ0MJuj69wdm6x/flyer/speaker_block_image/base",
   },
