@@ -156,7 +156,7 @@ const Donate = () => {
                   <Heart className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                   <p className="text-gray-600">
                     <span className="font-medium">$500</span> provides
-                    comprehensive support for a child&apos;s transition to a new
+                    comprehensive support for a child's transition to a new
                     home
                   </p>
                 </li>

@@ -4,7 +4,7 @@ export const translations = {
     ar: "ما هي الكفالة",
   },
   firstParagraph: {
-    en: `Adoption is the formal, permanent transfer of parental rights to a family other than a child&apos;s own and the formal assumption by that family of all parenting duties for the child. In some Islamic countries; including Egypt, the term "Kafala" of Islamic law is used to describe a situation similar to adoption, but not necessarily with the transference of inheritance rights, or the change of the child&apos;s full name.`,
+    en: `Adoption is the formal, permanent transfer of parental rights to a family other than a child's own and the formal assumption by that family of all parenting duties for the child. In some Islamic countries; including Egypt, the term "Kafala" of Islamic law is used to describe a situation similar to adoption, but not necessarily with the transference of inheritance rights, or the change of the child's full name.`,
     ar: "التبني هو النقل الرسمي والدائم لحقوق الوالدين إلى أسرة بخلاف أسرة الطفل، وقيام تلك العائلة رسميًا بجميع واجبات الأبوة للطفل. في بعض الدول الإسلامية. بما في ذلك مصر، يستخدم مصطلح الكفالة في الشريعة الإسلامية لوصف علاقة مشابهة للتبني، بدون حقوق الميراث، أو تغيير الاسم الكامل للطفل.",
   },
   secondParagraph: {
@@ -26,7 +26,7 @@ export const translations = {
           "The meaning of this hadith: the person who sponsors the orphans worldly concerns will occupy a high position in the heaven close to the position of the Prophet sallallaahu alaihi w sallam [1] .",
           "The meaning of “caring for the orphans” is to take care of and support all their worldly interests, such as feeding (food and drink), clothing, nurturing and guiding them with proper Islamic education. [2]",
           "The meaning of an orphan is a person who has lost his father or both his parents before the age of maturity. [3]",
-          "The virtue in this hadith applies to the person who sponsors the orphans from his own property or the orphan&apos;s property if the person is truly the one to whom he is sponsored. [4]",
+          "The virtue in this hadith applies to the person who sponsors the orphans from his own property or the orphan's property if the person is truly the one to whom he is sponsored. [4]",
           "Similarly, this excellence applies to people who sponsor an orphan having kin relationship with him or with an orphan who has no kinship ties with them. [5]",
         ],
         ar: [
