@@ -17,7 +17,7 @@ export default function Program() {
                   6:30 PM
                 </div>
                 <div className="text-lg font-luxury text-muted-foreground">
-                  Welcome Reception
+                  Welcome Reception & Classical Arabic Performance
                 </div>
               </div>
 
