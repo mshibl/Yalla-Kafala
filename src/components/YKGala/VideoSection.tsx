@@ -21,7 +21,7 @@ export default function VideoSection() {
             <div className="aspect-video">
               <iframe
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/SdZ15R9ya2U?si=5zGLbW-jLZXA9g4w"
+                src="https://drive.google.com/file/d/1K7x32apyUhdw5SK6Mb5dhjH_WpADTfPl/preview"
                 title="YallaKafala Gala teaser"
                 loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
