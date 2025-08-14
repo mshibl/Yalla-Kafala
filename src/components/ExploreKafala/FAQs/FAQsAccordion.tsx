@@ -25,12 +25,13 @@ const FAQsContent = async ({ locale }: { locale: Locale }) => {
           className="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm"
         >
           <AccordionTrigger className="px-6 py-4 hover:bg-gray-50 transition-colors">
-            <span className="text-left text-gray-800 font-medium">
+            <span className="text-left text-gray-800 font-medium text-base">
               {locale === "en" ? faq.questionEn : faq.questionAr}
             </span>
           </AccordionTrigger>
           <AccordionContent className="px-6 pb-4 pt-2 text-gray-600">
             <div
+              className="text-base"
               dangerouslySetInnerHTML={{
                 __html: locale === "en" ? faq.answerEn : faq.answerAr,
               }}
