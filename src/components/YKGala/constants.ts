@@ -50,7 +50,7 @@ export const panelists: Person[] = [
     name: "Mohamed El-Geish",
     title: "Co-Founder & CTO, Monta AI",
     description:
-      "Mohamed is CTO and Co-founder of Monta AI, a product studio for Global AI solutions. He previously led Alexa Speaker Recognition at Amazon, led AI at Cisco after co-founding Voicea, and built large-scale AI systems at LinkedIn and Microsoft. A former Stanford ML/AI instructor and co-author of two AI books, he is passionate about empowering people around the globe to collaborate more effectively using software that provides great experiences.",
+      "Mohamed is CTO and Co-founder of Monta AI, a product studio for Global AI solutions. He previously led Alexa Speaker Recognition at Amazon, led AI at Cisco after co-founding Voicea, and built large-scale AI systems at LinkedIn and Microsoft.",
     image:
       "https://assets.ppassets.com/p-1MpRO36HQ98kSOO5QPaokQ/flyer/speaker_block_image/base",
   },
