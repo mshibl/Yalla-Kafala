@@ -74,36 +74,34 @@ const BeitSagheer = ({ locale }: { locale: Locale }) => {
   // Dummy impact statistics
   const impactStats = [
     {
-      number: "12",
-      label: "Children Currently Housed",
-      labelAr: "عدد الأطفال المقيمين حاليًا",
+      number: "7",
+      label: "Girls",
+      labelAr: "فتيات",
       description:
-        "Girls who have found a loving home in our Small House initiative.",
-      descriptionAr: "فتيات وجدن منزلًا محبًا في مبادرة البيت الصغير.",
+        "secured in Yalla Kafala's first safe & nurturing Small Home",
+      descriptionAr: "أمنت في أول بيت صغير آمن وحاضن في يلا كفالة",
     },
     {
-      number: "4",
-      label: "Dedicated Caregivers",
-      labelAr: "مقدمو رعاية مكرسون",
-      description:
-        "Trained professionals providing round-the-clock care and support.",
-      descriptionAr: "محترفون مدربون يقدمون رعاية ودعمًا على مدار الساعة.",
+      number: "100%",
+      label: "Education Access",
+      labelAr: "الوصول إلى التعليم",
+      description: "to quality schools for children in Yalla Family House",
+      descriptionAr:
+        "للأطفال في بيت العائلة اليلا وصول إلى التعليم عالي الجودة",
     },
     {
-      number: "3",
-      label: "Small Homes Established",
-      labelAr: "عدد البيوت الصغيرة المنشأة",
-      description:
-        "Warm, nurturing environments that replicate family settings.",
-      descriptionAr: "بيئات دافئة وحاضنة تحاكي الأجواء الأسرية.",
+      number: "24/7",
+      label: "Care",
+      labelAr: "رعاية",
+      description: "Provided by trained caregivers in our Small Home",
+      descriptionAr: "مقدمي رعاية مدربون في بيتنا الصغير",
     },
     {
-      number: "95%",
-      label: "Academic Improvement",
-      labelAr: "تحسن أكاديمي",
-      description:
-        "Children showing significant progress in their educational journey.",
-      descriptionAr: "أطفال يظهرون تقدمًا ملحوظًا في رحلتهم التعليمية.",
+      number: "0",
+      label: "Children",
+      labelAr: "أطفال",
+      description: "Returned to institutional care",
+      descriptionAr: "يعودون إلى الرعاية المؤسسية",
     },
   ];
 

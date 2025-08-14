@@ -84,6 +84,7 @@ const BoardMembersManagement = () => {
         imageKey: imageKey,
         type: newBoardMember.type,
         country: newBoardMember.country,
+        publish: newBoardMember.publish,
       });
 
       toast.success("Board member added successfully");
@@ -119,6 +120,7 @@ const BoardMembersManagement = () => {
         bioAr: updatedBoardMember.bioAr,
         type: updatedBoardMember.type,
         country: updatedBoardMember.country,
+        publish: updatedBoardMember.publish,
       });
 
       toast.success("Board member updated successfully");

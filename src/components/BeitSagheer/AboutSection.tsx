@@ -25,21 +25,28 @@ const AboutSection = ({ locale }: { locale: string }) => (
                 ? translations.about.whyTitle.ar
                 : translations.about.whyTitle.en}
             </h3>
-            <p className="text-gray-600">
-              {locale === "ar"
-                ? translations.about.whyDescription1.ar
-                : translations.about.whyDescription1.en}
-            </p>
-            <p className="text-gray-600">
-              {locale === "ar"
-                ? translations.about.whyDescription2.ar
-                : translations.about.whyDescription2.en}
-            </p>
-            <p className="text-gray-600">
-              {locale === "ar"
-                ? translations.about.whyDescription3.ar
-                : translations.about.whyDescription3.en}
-            </p>
+            <ul className="text-gray-600 list-disc list-inside space-y-2">
+              <li>
+                {locale === "ar"
+                  ? translations.about.whyDescription1.ar
+                  : translations.about.whyDescription1.en}
+              </li>
+              <li>
+                {locale === "ar"
+                  ? translations.about.whyDescription2.ar
+                  : translations.about.whyDescription2.en}
+              </li>
+              <li>
+                {locale === "ar"
+                  ? translations.about.whyDescription3.ar
+                  : translations.about.whyDescription3.en}
+              </li>
+              <li>
+                {locale === "ar"
+                  ? translations.about.whyDescription4.ar
+                  : translations.about.whyDescription4.en}
+              </li>
+            </ul>
           </div>
         </div>
         <div className="order-1 md:order-2">

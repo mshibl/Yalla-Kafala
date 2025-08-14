@@ -11,8 +11,8 @@ export const translations = {
       ar: "الرؤية",
     },
     description: {
-      en: "Building the best possible future for orphans and kafala families.",
-      ar: "بناء أفضل مستقبل ممكن للأيتام وعائلات الكفالة.",
+      en: "Shaping a world with a home for every child and hope for every family.",
+      ar: "بناء عالم مع منزل لكل طفل وأمل لكل أسرة.",
     },
   },
   mission: {
@@ -21,12 +21,8 @@ export const translations = {
       ar: "الرسالة",
     },
     description1: {
-      en: "Advancing quality care for orphans and growing families by advocating, educating, and developing resources.",
-      ar: "تعزيز جودة الرعاية للأيتام والعائلات المتنامية من خلال المناصرة والتعليم وتطوير الموارد.",
-    },
-    description2: {
-      en: "Our mission also extends to developing care arrangements for non-Egyptian children, including migrants and refugees, focusing on community-based solutions that uphold dignity and security.",
-      ar: "تمتد رسالتنا أيضاً إلى تطوير ترتيبات الرعاية للأطفال غير المصريين، بما في ذلك المهاجرين واللاجئين، مع التركيز على الحلول المجتمعية التي تحافظ على الكرامة والأمان.",
+      en: "Advocating for equal rights, educating for awareness, and delivering the highest standard of care for every child and Kafala families",
+      ar: "الدعم لحقوق الأيتام والأسر الكافلة، التعليم للوعي، وتقديم أعلى معايير الرعاية لكل طفل وأسرة كافلة",
     },
   },
   values: {

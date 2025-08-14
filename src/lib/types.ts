@@ -54,4 +54,5 @@ export interface BoardMember {
   bioAr: string;
   type: "board" | "advisor";
   country: "egypt" | "usa" | "all";
+  publish: boolean;
 }

@@ -1,4 +1,3 @@
-import NourStory from "./NourStory";
 import { translations } from "./translations";
 
 type ImpactStat = {
@@ -45,7 +44,6 @@ const ImpactSection = ({
           </div>
         ))}
       </div>
-      <NourStory locale={locale} />
     </div>
   </section>
 );

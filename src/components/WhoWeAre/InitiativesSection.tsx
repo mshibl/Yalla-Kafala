@@ -23,9 +23,6 @@ export const InitiativesSection = ({ locale }: { locale: Locale }) => {
                       <h3 className="font-semibold text-xl text-primary">
                         {initiative.title[locale]}
                       </h3>
-                      <span className="ms-2 text-sm px-2 py-1 rounded-full bg-secondary/10 text-secondary">
-                        {initiative.year}
-                      </span>
                     </div>
                     <p className="text-gray-700">
                       {initiative.description[locale]}

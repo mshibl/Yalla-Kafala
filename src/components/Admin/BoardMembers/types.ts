@@ -13,6 +13,7 @@ export const addBoardMemberFormSchema = z.object({
   file: z.instanceof(File, { message: "Image is required" }),
   type: z.enum(["board", "advisor"]),
   country: z.enum(["egypt", "usa", "all"]),
+  publish: z.boolean(),
 });
 
 export type AddBoardMembersFormValues = z.infer<

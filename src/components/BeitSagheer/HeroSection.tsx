@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { translations } from "./translations";
+import Link from "next/link";
 
 const HeroSection = ({ locale }: { locale: string }) => (
   <section className="relative overflow-hidden pt-32 pb-16 md:py-32 bg-gradient-to-b from-primary/5 to-white">
@@ -33,36 +34,34 @@ const HeroSection = ({ locale }: { locale: string }) => (
               : translations.hero.description.en}
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
-            <Button className="bg-primary hover:bg-primary/90 text-white">
-              {locale === "ar"
-                ? translations.hero.supportButton.ar
-                : translations.hero.supportButton.en}
-            </Button>
-            <Button
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary/10"
-            >
-              {locale === "ar"
-                ? translations.hero.learnMoreButton.ar
-                : translations.hero.learnMoreButton.en}
-            </Button>
+            <Link href="/donate">
+              <Button className="bg-primary hover:bg-primary/90 text-white">
+                {locale === "ar"
+                  ? translations.hero.supportButton.ar
+                  : translations.hero.supportButton.en}
+              </Button>
+            </Link>
+            <Link href="/what-is-kafala">
+              <Button
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary/10"
+              >
+                {locale === "ar"
+                  ? translations.hero.learnMoreButton.ar
+                  : translations.hero.learnMoreButton.en}
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="lg:w-1/2 relative">
           <div className="relative overflow-hidden rounded-2xl shadow-xl">
             <img
-              src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              src="/images/child-main.webp"
               alt={"Children in a nurturing home environment"}
               className="w-full h-[350px] md:h-[450px] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            <div className="absolute bottom-8 left-8 right-8 text-white">
-              <p className="font-medium">
-                {locale === "ar"
-                  ? translations.hero.quote.ar
-                  : translations.hero.quote.en}
-              </p>
-            </div>
+            <div className="absolute bottom-8 left-8 right-8 text-white"></div>
           </div>
         </div>
       </div>

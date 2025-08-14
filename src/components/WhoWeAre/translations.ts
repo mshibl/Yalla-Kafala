@@ -41,16 +41,16 @@ export const translations = {
     },
     paragraphs: [
       {
-        en: "Yalla Kafala was founded in 2018 with a clear mission: to ensure every orphaned child in Egypt has the opportunity to grow up in a loving, permanent family. Our journey began when a group of passionate individuals recognized the critical need for a more effective approach to orphan care beyond the traditional institutional model.",
-        ar: "تأسست يلا كفالة في عام 2018 برؤية واضحة: ضمان حصول كل طفل فاقد للرعاية الأسرية في مصر على فرصة للنشأة داخل أسرة محبة ودائمة. بدأت رحلتنا عندما أدركت مجموعة من الأفراد الشغوفين الحاجة الملحّة إلى نهج أكثر فاعلية لرعاية الأيتام بعيدًا عن النمط المؤسسي التقليدي.",
+        en: "Yalla Kafala is a pioneering NGO founded in 2020, dedicated to reshaping child welfare in Egypt through alternative care options and Kafala (guardianship/adoption).",
+        ar: "يلا كفالة هي منظمة غير حكومية رائدة تأسست في عام 2020، مكرسة لإعادة تشكيل رعاية الأطفال في مصر من خلال خيارات الرعاية البديلة والكفالة (الوصاية / التبني).",
       },
       {
-        en: "We believe that family-based care through Kafala is the most nurturing environment for a child's development. Through our programs, we work to raise awareness about Kafala, support prospective families, and advocate for policies that facilitate the placement of orphaned children in permanent homes.",
-        ar: "نؤمن بأن الرعاية الأسرية عبر الكفالة هي البيئة الأكثر دعمًا لنمو الطفل. ومن خلال برامجنا، نعمل على نشر الوعي بالكفالة، ودعم الأسر الراغبة، والمناصرة لسياسات تُيسّر إلحاق الأطفال فاقدي الرعاية الأسرية بأسر دائمة.",
+        en: "Inspired by our founder Rasha Mekky's personal journey and her Kafala of her son Mostafa, we launched Egypt's first Kafala-dedicated website and established Yalla Kafala.",
+        ar: "إلهامًا من رحلة مؤسسنا رشا مكي الشخصية وكفالتها لابنها مصطفى، أطلقنا أول موقع ويب مخصص للكفالة في مصر وأسسنا يلا كفالة.",
       },
       {
-        en: "Today, Yalla Kafala has grown into a respected organization with operations in both Egypt and the USA, united by our commitment to transform the lives of orphaned children and the families who open their hearts and homes to them.",
-        ar: "اليوم، أصبحت يلا كفالة منظمة موثوقة تعمل في كلٍ من مصر والولايات المتحدة، تجمعنا رسالة واحدة: تغيير حياة الأطفال فاقدي الرعاية الأسرية ودعم الأسر التي تفتح لهم قلوبها وبيوتها.",
+        en: "With headquarters in Egypt and San Francisco, we strive to provide orphans with nurturing home environments through innovative care alternatives, support services, and advocacy.",
+        ar: "بمقرات رئيسية في مصر وسان فرانسيسكو، نحن نسعى لتوفير بيئات منزلية مغذية للأيتام من خلال بدائل الرعاية الابتكارية وخدمات الدعم والدعوة.",
       },
     ],
   },
@@ -61,8 +61,8 @@ export const translations = {
       ar: "مؤسِّستنا",
     },
     name: {
-      en: "Nermeen Mouftah",
-      ar: "نرمين مفتاح",
+      en: "Rasha Mekky",
+      ar: "رشا مكي",
     },
     role: {
       en: "Founder & Executive Director",
@@ -70,15 +70,11 @@ export const translations = {
     },
     bio: [
       {
-        en: "Nermeen founded Yalla Kafala after witnessing firsthand the challenges faced by orphaned children in Egypt and the families wanting to provide them with permanent homes. With a background in social work and child psychology, she has dedicated her career to transforming the orphan care system.",
-        ar: "أسست نرمين يلا كفالة بعد أن شاهدت عن قرب التحديات التي يواجهها الأطفال فاقدو الرعاية الأسرية في مصر والأسر الراغبة في توفير منازل دائمة لهم. وبخبرتها في العمل الاجتماعي وعلم نفس الطفل، كرّست مسيرتها المهنية لتحويل نظام رعاية الأيتام.",
-      },
-      {
-        en: "Her vision for Yalla Kafala emerged from her belief that every child deserves the love, security, and sense of belonging that only a permanent family can provide. Under her leadership, the organization has helped hundreds of children find loving homes through Kafala.",
-        ar: "انبثقت رؤيتها ليلا كفالة من إيمانها بأن كل طفل يستحق الحب والأمان والانتماء الذي لا توفره سوى أسرة دائمة. وبفضل قيادتها، ساعدت المنظمة مئات الأطفال على إيجاد منازل محبة عبر الكفالة.",
+        en: "Rasha Mekky has over 25 years of experience in Child Development, Child Assessment, and Positive Discipline. Her journey began with the Kafala of her son Mostafa eight years ago, which inspired her to launch Yalla Kafala. Rasha also established Little Pharaohs daycare in the San Francisco Bay Area in 2015.",
+        ar: "رشا مكي لديها أكثر من 25 عامًا من الخبرة في تطوير الطفل، تقييم الطفل، والانضباط الإيجابي. بدأت رحلتها مع الكفالة لابنها مصطفى قبل ثماني سنوات، مما ألهمها لإطلاق يلا كفالة. أسست رشا أيضًا حضانة Little Pharaohs في منطقة خليج سان فرانسيسكو في عام 2015.",
       },
     ],
-    image: "/placeholder.svg",
+    image: "/images/founder.png",
   },
 
   team: {
@@ -113,14 +109,6 @@ export const translations = {
       en: "The Beginning of Yalla Kafala",
       ar: "بداية يلا كفالة",
     },
-    thumbnailTitle: {
-      en: "Our Journey to Transform Orphan Care in Egypt",
-      ar: "رحلتنا لتحويل رعاية الأيتام في مصر",
-    },
-    watchLabel: {
-      en: "Watch our story (5:32)",
-      ar: "شاهد قصتنا (5:32)",
-    },
   },
 
   initiatives: {
@@ -130,69 +118,53 @@ export const translations = {
     },
     items: [
       {
-        year: "2018",
         title: {
-          en: "Founding of Yalla Kafala",
-          ar: "تأسيس يلا كفالة",
+          en: "Yalla Family House",
+          ar: "دار عائلة يلا",
         },
         description: {
-          en: "Established as a grassroots movement to promote family-based care through Kafala for orphaned children in Egypt.",
-          ar: "تأسست كحركة مجتمعية لتعزيز الرعاية الأسرية عبر الكفالة للأطفال فاقدي الرعاية الأسرية في مصر.",
+          en: "A haven for vulnerable Egyptian children, providing a nurturing home environment with high-standard education and vocational skills.",
+          ar: "ملاذ للأطفال المصريين المعرّضين للخطر، يوفر بيئة منزلية حانية مع تعليم عالي المستوى ومهارات مهنية.",
         },
       },
       {
-        year: "2019",
         title: {
-          en: "Launch of Family Preparation Program",
-          ar: "إطلاق برنامج إعداد الأسر",
+          en: "Safe Independent Future",
+          ar: "مستقبل مستقل آمن",
         },
         description: {
-          en: "Developed comprehensive training for prospective Kafala families to ensure successful placements and transitions.",
-          ar: "تطوير تدريب شامل للأسر الراغبة في الكفالة لضمان نجاح الإلحاق والانتقال السلس.",
+          en: "A haven for vulnerable Egyptian children, providing a nurturing home environment with high-standard education and vocational skills.",
+          ar: "ملاذ للأطفال المصريين المعرّضين للخطر، يوفر بيئة منزلية حانية مع تعليم عالي المستوى ومهارات مهنية.",
         },
       },
       {
-        year: "2020",
         title: {
-          en: "Beit Sagheer (Small House) Initiative",
-          ar: "مبادرة بيت صغير",
+          en: "Safe Family Guidelines",
+          ar: "إرشادات الأسرة الآمنة",
         },
         description: {
-          en: "Launched our flagship transition homes where children prepare for family life in small, nurturing environments.",
-          ar: "إطلاق بيوت انتقالية رائدة حيث يستعد الأطفال للحياة الأسرية في بيئات صغيرة وداعمة.",
+          en: "Comprehensive guidelines for orphans and kafala families, ensuring safety and well-being.",
+          ar: "إرشادات شاملة للأيتام وأسر الكفالة تضمن السلامة والرفاه.",
         },
       },
       {
-        year: "2021",
         title: {
-          en: "Advocacy Campaign for Kafala Reform",
-          ar: "حملة مناصرة لإصلاح نظام الكفالة",
+          en: "Safe Family Placement",
+          ar: "إلحاق الأسرة الآمنة",
         },
         description: {
-          en: "Successfully advocated for changes to streamline the Kafala process, reducing waiting times for families.",
-          ar: "المناصرة بنجاح لإحداث تغييرات تُبسّط عملية الكفالة وتُقلِل فترات الانتظار للأسر.",
+          en: "Matching orphans, migrants, and refugees with loving Kafala families for long-term stability.",
+          ar: "مواءمة الأيتام والمهاجرين واللاجئين مع أسر كفالة محبة لتحقيق الاستقرار طويل الأمد.",
         },
       },
       {
-        year: "2022",
         title: {
-          en: "Digital Resource Platform",
-          ar: "منصة رقمية للموارد",
+          en: "Safe Little Home",
+          ar: "البيت الصغير الآمن",
         },
         description: {
-          en: "Created an online hub of resources for families, social workers, and orphanage staff to access training and support.",
-          ar: "إنشاء مركز إلكتروني للموارد يُتيح للأسر والأخصائيين الاجتماعيين وموظفي دور الرعاية الوصول إلى التدريب والدعم.",
-        },
-      },
-      {
-        year: "2023",
-        title: {
-          en: "International Partnerships",
-          ar: "شراكات دولية",
-        },
-        description: {
-          en: "Established collaborations with international organizations to share best practices in family-based care.",
-          ar: "إبرام شراكات مع منظمات دولية لتبادل أفضل الممارسات في الرعاية الأسرية.",
+          en: "Providing a safe, nurturing home environment for refugee and migrant children, facilitating placement with families.",
+          ar: "توفير بيئة منزلية آمنة وحانية للأطفال اللاجئين والمهاجرين، تسهّل إلحاقهم بالأسر.",
         },
       },
     ],

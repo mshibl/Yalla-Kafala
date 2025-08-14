@@ -4,6 +4,7 @@ import { v } from "convex/values";
 
 export const createBoardMember = mutation({
   args: {
+    publish: v.boolean(),
     nameEn: v.string(),
     nameAr: v.string(),
     imageUrl: v.string(),
@@ -22,6 +23,7 @@ export const createBoardMember = mutation({
 export const updateBoardMember = mutation({
   args: {
     id: v.string(),
+    publish: v.boolean(),
     nameEn: v.string(),
     nameAr: v.string(),
     bioEn: v.string(),

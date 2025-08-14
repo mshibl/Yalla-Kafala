@@ -113,9 +113,6 @@ const VisionMission = ({ locale }: { locale: Locale }) => {
                   <p className="text-lg text-gray-700 mb-4">
                     {translations.mission.description1[locale]}
                   </p>
-                  <p className="text-lg text-gray-700">
-                    {translations.mission.description2[locale]}
-                  </p>
                 </div>
               </div>
             </div>

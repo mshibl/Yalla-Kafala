@@ -9,60 +9,60 @@ export const translations = {
       ar: "بيت صغير",
     },
     subtitle: {
-      en: "A Place to Call Home",
-      ar: "مكان للانتماء والدفء",
+      en: "Every Child Deserves a Forever Home.",
+      ar: "كل طفل يستحق بيتًا دائمًا.",
     },
     description: {
-      en: "An alternative care solution providing a safe, nurturing family environment for children not eligible for kafala. Because every child deserves love, care, and dignity.",
-      ar: "حل رعاية بديل يوفر بيئة أسرية آمنة وداعمة للأطفال غير المؤهلين للكفالة. لأن كل طفل يستحق الحب والرعاية والكرامة.",
+      en: "The Small Home initiative is an alternative care solution providing a safe, nurturing  family environment for children not eligible for kafala. Because every child deserves love, care, and dignity.",
+      ar: "مبادرة البيت الصغير هي حل للرعاية البديلة يوفر بيئة أسرية آمنة وداعمة للأطفال غير المؤهلين للكفالة. لأن كل طفل يستحق الحب والرعاية والكرامة.",
     },
     supportButton: {
-      en: "Support Our Cause",
-      ar: "ادعم قضيتنا",
+      en: "Donate Now",
+      ar: "تبرع الآن",
     },
     learnMoreButton: {
       en: "Learn More",
       ar: "اعرف المزيد",
     },
-    quote: {
-      en: "Every child deserves to grow up in a loving environment that feels like home.",
-      ar: "كل طفل يستحق أن ينشأ في بيئة محبة تشعره بأنه في منزله.",
-    },
   },
   about: {
     title: {
-      en: "Breaking the Cycle",
-      ar: "كسر الحلقة المفرغة",
+      en: "Why It Matters",
+      ar: "لماذا هذا مهم",
     },
     description: {
-      en: "Children without families suffer from a lack of stability, emotional support, and security. Traditional orphanages cannot replace a home. At Beit Sagheer, we believe all children deserve love, care, and dignity in a family-like environment.",
-      ar: "الأطفال بدون عائلات يعانون من نقص الاستقرار والدعم العاطفي والأمان. لا يمكن لدور الأيتام التقليدية أن تحل محل المنزل. في بيت صغير، نؤمن أن جميع الأطفال يستحقون الحب والرعاية والكرامة في بيئة تشبه الأسرة.",
+      en: "Children without families often suffer from a lack of stability, emotional support, and security. Orphanages, while providing shelter, can never replicate the love, care, dignity and sense of stability that every child deserves.",
+      ar: "الأطفال بلا أسر غالبًا ما يعانون من نقص الاستقرار والدعم العاطفي والأمان. وعلى الرغم من أن دور الأيتام توفر المأوى، إلا أنها لا يمكنها أبدًا أن تعوّض الحب والرعاية والكرامة والشعور بالاستقرار الذي يستحقه كل طفل.",
     },
     whyTitle: {
       en: "Why We Started Beit Sagheer",
       ar: "لماذا بدأنا بيت صغير",
     },
     whyDescription1: {
-      en: "We recognized that some children are not eligible for traditional kafala but still deserve the warmth and stability of a home. Beit Sagheer provides exactly that—a small, family-based setting where children receive personalized care and attention.",
-      ar: "أدركنا أن بعض الأطفال غير مؤهلين للكفالة التقليدية لكنهم لا يزالون يستحقون دفء واستقرار المنزل. بيت صغير يوفر ذلك بالضبط - بيئة أسرية صغيرة حيث يتلقى الأطفال رعاية واهتمامًا شخصيًا.",
+      en: "A safe haven: Stable, long-term housing in a warm, family-like setting.",
+      ar: "ملاذ آمن: سكن مستقر وطويل الأمد في أجواء دافئة تشبه العائلة.",
     },
     whyDescription2: {
-      en: "Each home houses a small number of children with dedicated caregivers who provide not just physical care, but emotional support and guidance. This creates bonds of trust and security that are essential for healthy development.",
-      ar: "كل منزل يضم عددًا قليلاً من الأطفال مع مقدمي رعاية مكرسين يقدمون ليس فقط الرعاية الجسدية، بل الدعم العاطفي والإرشاد أيضًا. هذا يخلق روابط من الثقة والأمان الضرورية للنمو الصحي.",
+      en: "A nurturing environment: Care from a trained & qualified mother in a family-based structure rather than an institution.",
+      ar: "بيئة حاضنة: رعاية من أم مدرَّبة ومؤهَّلة في إطار أسري بدلاً من مؤسسة.",
     },
     whyDescription3: {
-      en: "Our approach ensures these children grow up in an environment that nurtures their unique abilities and personalities, preparing them for a successful future.",
-      ar: "نهجنا يضمن أن ينشأ هؤلاء الأطفال في بيئة ترعى قدراتهم وشخصياتهم الفريدة، وتعدهم لمستقبل ناجح.",
+      en: "Personalized Care: Each child receives attention, affection and the space to thrive.",
+      ar: "رعاية مخصصة: يحصل كل طفل على الاهتمام والمودة والمساحة التي يحتاجها لينمو.",
+    },
+    whyDescription4: {
+      en: "A quality life: Access to good education, nutritious food, proper healthcare, and opportunities to grow socially and emotionally.",
+      ar: "حياة ذات جودة: الوصول إلى تعليم جيد وغذاء مغذٍ ورعاية صحية مناسبة وفرص للنمو الاجتماعي والعاطفي.",
     },
   },
   servicesSection: {
     title: {
-      en: "What We Provide",
-      ar: "ما نقدمه",
+      en: "Life in the Small Home",
+      ar: "الحياة في البيت الصغير",
     },
     description: {
-      en: "At The Small House, we ensure every child receives comprehensive care that addresses their physical, emotional, educational, and social needs.",
-      ar: "في البيت الصغير، نضمن أن يتلقى كل طفل رعاية شاملة تلبي احتياجاته الجسدية والعاطفية والتعليمية والاجتماعية.",
+      en: "Our homes are designed to be as close to a real family as possible, with no more than 6-7 children per home.",
+      ar: "تم تصميم بيوتنا لتكون أقرب ما تكون إلى الأسرة الحقيقية، بحيث لا يزيد عدد الأطفال في البيت الواحد عن 6–7 أطفال.",
     },
   },
   impactSection: {
@@ -73,20 +73,6 @@ export const translations = {
     description: {
       en: "Since launching Beit Sagheer, we've made a significant difference in the lives of children who previously had limited options for care. Here's what we've achieved so far.",
       ar: "منذ إطلاق بيت صغير، أحدثنا فرقًا كبيرًا في حياة الأطفال الذين كانت خياراتهم محدودة للرعاية. إليك ما حققناه حتى الآن.",
-    },
-  },
-  nourStory: {
-    title: {
-      en: "Nour's Story",
-      ar: "قصة نور",
-    },
-    description1: {
-      en: "When Nour came to our Small House at age 7, she was withdrawn and struggling academically. Today, three years later, she's thriving in school, has developed close bonds with her caregivers and housemates, and shows remarkable talent in art.",
-      ar: "عندما جاءت نور إلى بيتنا الصغير في سن السابعة، كانت منطوية وتعاني أكاديميًا. اليوم، بعد ثلاث سنوات، تزدهر في المدرسة، وكونت علاقات وثيقة مع مقدمي الرعاية وزميلاتها، وتظهر موهبة رائعة في الفن.",
-    },
-    description2: {
-      en: '"Beit Sagheer gave me a family when I thought I would never have one again. I love my home and the people in it." - Nour, age 10',
-      ar: '"بيت صغير منحني عائلة عندما ظننت أنني لن أحظى بها مرة أخرى. أحب منزلي ومن فيه." - نور، 10 سنوات',
     },
   },
 };

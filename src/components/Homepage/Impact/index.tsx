@@ -1,4 +1,3 @@
-import { ImpactStat } from "./ImpactStat";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
 import { impactStats } from "./constants";
@@ -23,16 +22,22 @@ const Impact = ({ locale }: { locale: Locale }) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {impactStats.map((stat, idx) => (
-              <ImpactStat
-                key={stat.title.en}
-                title={stat.title[locale]}
-                value={stat.value}
-                description={stat.description[locale]}
-                target={stat.target}
-                delay={stat.delay}
-              />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {impactStats.map((stat, index) => (
+              <div
+                key={index}
+                className="text-center p-6 rounded-lg bg-white shadow-md"
+              >
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
+                  {stat.number}
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                  {locale === "ar" ? stat.labelAr : stat.label}
+                </h3>
+                <p className="text-gray-600">
+                  {locale === "ar" ? stat.descriptionAr : stat.description}
+                </p>
+              </div>
             ))}
           </div>
         </div>

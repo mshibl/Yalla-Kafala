@@ -5,8 +5,8 @@ export const translations = {
       ar: "مهمتنا",
     },
     description: {
-      en: "Advance quality care for orphans by advocating, educating, and developing resources for Kafala families",
-      ar: "تقديم الرعاية الجيدة للأيتام من خلال الدعوة والتثقيف و تطوير الموارد للعائلات الكافلة",
+      en: "Advocating for equal rights, educating for awareness, and delivering the highest standard of care for every child and Kafala families",
+      ar: "الدعم لحقوق الأيتام والأسر الكافلة، التعليم للوعي، وتقديم أعلى معايير الرعاية لكل طفل وأسرة كافلة",
     },
   },
 };

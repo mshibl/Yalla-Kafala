@@ -15,8 +15,8 @@ export const translations = {
       },
     },
     description: {
-      en: "Join us in building a better future for orphans and Kafala families",
-      ar: "شاركنا فى بناء مستقبل أفضل لفاقدي الرعاية الأسرية والأسر الكافلة",
+      en: "Home for every child, hope for every family",
+      ar: "منزل لكل طفل، أمل لكل أسرة",
     },
     donateButton: {
       en: "Donate Now",

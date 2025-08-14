@@ -23,13 +23,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Plus, Loader2, Sparkles } from "lucide-react";
+import { Plus, Loader2 } from "lucide-react";
 import type { AddBoardMembersFormValues, AddNewBoardMember } from "./types";
 import { addBoardMemberFormSchema } from "./types";
 import { TipTapEditor } from "@/components/TiptapEditor";
-import { improveText } from "@/server/actions/ai/improveText";
-import { toast } from "sonner";
 import Image from "next/image";
 import {
   Select,
@@ -38,6 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 
 export function AddBoardMemberDialog({
   onAddBoardMember,
@@ -59,6 +57,7 @@ export function AddBoardMemberDialog({
       file: undefined,
       type: "board",
       country: "all",
+      publish: true,
     },
   });
 
@@ -174,6 +173,22 @@ export function AddBoardMemberDialog({
                         content={field.value || ""}
                         onChange={field.onChange}
                         placeholder="Enter the bio in Arabic"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="publish"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Publish</FormLabel>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
                       />
                     </FormControl>
                     <FormMessage />

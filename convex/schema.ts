@@ -3,6 +3,7 @@ import { v } from "convex/values";
 
 export default defineSchema({
   boardMembers: defineTable({
+    publish: v.boolean(),
     nameEn: v.string(),
     nameAr: v.string(),
     imageUrl: v.optional(v.string()),

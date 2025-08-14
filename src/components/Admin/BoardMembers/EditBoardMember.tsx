@@ -66,6 +66,7 @@ export function EditBoardMemberDialog({
       type: boardMember.type,
       file: undefined,
       country: boardMember.country,
+      publish: boardMember.publish,
     },
   });
   // Update form values when FAQ prop changes
@@ -78,6 +79,7 @@ export function EditBoardMemberDialog({
       type: boardMember.type,
       file: undefined,
       country: boardMember.country,
+      publish: boardMember.publish,
     });
   }, [boardMember, form]);
   useEffect(() => {
@@ -197,7 +199,22 @@ export function EditBoardMemberDialog({
                   </FormItem>
                 )}
               />
-
+              <FormField
+                control={form.control}
+                name="publish"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Publish</FormLabel>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="file"
