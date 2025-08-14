@@ -1,15 +1,12 @@
-import { defineConfig } from "drizzle-kit";
-import dotenv from "dotenv";
+import { type Config } from "drizzle-kit";
 
-dotenv.config({
-  path: ".env.local",
-});
+import { env } from "@/env";
 
-export default defineConfig({
-  schema: "./drizzle/schema.ts",
-  out: "./drizzle",
+export default {
+  schema: "./src/server/db/schema.ts",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.POSTGRES_URL!,
+    url: env.DATABASE_URL,
   },
-});
+  tablesFilter: ["yallakafala-new_*"],
+} satisfies Config;
