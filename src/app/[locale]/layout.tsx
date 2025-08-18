@@ -37,7 +37,7 @@ export async function generateMetadata({
     : "Yalla Kafala is an NGO transforming child welfare in Egypt through Kafala (guardianship/adoption). With offices in Egypt and San Francisco, we offer innovative care alternatives, support services, and advocacy for orphans.";
 
   const url = `https://yallakafala.org/${locale}`;
-  const imageUrl = "https://yallakafala.org/images/yk-team-1.jpg";
+  const imageUrl = "https://yallakafala.org/images/yk-team-1.webp";
 
   return {
     title,
