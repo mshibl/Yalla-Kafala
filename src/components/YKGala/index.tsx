@@ -7,6 +7,7 @@ import ReserveCallout from "./ReserveCallout";
 import Panelists from "./Panelists";
 import Moderator from "./Moderator";
 import Program from "./Program";
+import ClassicalArabicBand from "./ClassicalArabicBand";
 import Team from "./Team";
 import Tickets from "./Tickets";
 import Sponsorships from "./Sponsorships";
@@ -24,6 +25,7 @@ const YallaKafalaGala = ({ locale }: { locale: Locale }) => {
       <Panelists />
       <Moderator />
       <Program />
+      <ClassicalArabicBand />
       <Team />
       <Tickets />
       <Sponsorships />
