@@ -54,7 +54,7 @@ const AboutSection = ({ locale }: { locale: string }) => (
             <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-lg"></div>
             <div className="relative z-10 overflow-hidden rounded-lg shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="/images/child-playing.webp"
                 alt={"Children playing together"}
                 className="w-full h-[400px] object-cover"
               />
