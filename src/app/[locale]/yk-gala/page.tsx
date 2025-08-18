@@ -25,7 +25,7 @@ export async function generateMetadata({
           : "Join us for the annual YK Gala to support Kafala children",
       images: [
         {
-          url: "/images/invitation.webp",
+          url: "https://yallakafala.org/images/invitation.webp",
           width: 1200,
           height: 630,
           alt: locale === "ar" ? "YK Gala دعوة" : "YK Gala Invitation",
