@@ -25,6 +25,14 @@ export async function middleware(request: NextRequest) {
   // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl;
 
+  // Handle URLs with underscores by converting them to dashes
+  if (pathname.includes("_")) {
+    const normalizedPathname = pathname.replace(/_/g, "-");
+    const newUrl = new URL(request.url);
+    newUrl.pathname = normalizedPathname;
+    return NextResponse.redirect(newUrl);
+  }
+
   if (pathname.startsWith("/admin/login")) {
     const sessionCookie = getSessionCookie(request);
 
