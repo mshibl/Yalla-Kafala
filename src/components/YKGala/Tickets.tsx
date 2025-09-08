@@ -20,7 +20,7 @@ export default function Tickets() {
             <CardContent className="p-8 flex flex-col items-center gap-4">
               <Button asChild size="lg" className="text-lg font-luxury">
                 <Link
-                  href="https://givebutter.com/c/YKgala2025"
+                  href="https://givebutter.com/YKgala2025"
                   aria-label="Book tickets"
                 >
                   Book Tickets
