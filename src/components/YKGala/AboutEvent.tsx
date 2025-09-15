@@ -58,7 +58,7 @@ export default function AboutEvent() {
                     Date
                   </div>
                   <div className="text-md md:text-lg font-semibold font-luxury text-[#333333]">
-                    Saturday, October 18 6:30PM PDT
+                    Saturday, October 18 5:30PM PDT
                   </div>
                 </div>
               </CardContent>
