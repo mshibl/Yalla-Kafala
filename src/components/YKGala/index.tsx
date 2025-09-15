@@ -25,7 +25,6 @@ const YallaKafalaGala = ({ locale }: { locale: Locale }) => {
       <Panelists />
       <Moderator />
       <ClassicalArabicBand />
-      <Program />
       <Team />
       <Tickets />
       <Sponsorships />
