@@ -15,7 +15,7 @@ export default function Hero() {
           <div className="relative overflow-hidden rounded-[1rem] bg-background">
             {/* Image */}
             <img
-              src="/images/invitation.webp"
+              src="/images/invitation.jpeg"
               alt="YallaKafala Gala invitation card"
               loading="eager"
               className="h-full w-full object-cover "
