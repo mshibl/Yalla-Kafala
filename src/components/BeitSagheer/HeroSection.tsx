@@ -34,7 +34,7 @@ const HeroSection = ({ locale }: { locale: string }) => (
               : translations.hero.description.en}
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
-            <Link href="/donate">
+            <Link href="https://givebutter.com/c/YKgala2025" target="_blank">
               <Button className="bg-primary hover:bg-primary/90 text-white">
                 {locale === "ar"
                   ? translations.hero.supportButton.ar
