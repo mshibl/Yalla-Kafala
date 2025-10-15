@@ -15,7 +15,7 @@ export const donationMethods = [
       en: "Your financial support helps orphaned children.",
       ar: "دعمكم المالي يساعد الأطفال الأيتام.",
     },
-    link: "/donate",
+    link: "https://givebutter.com/c/YKgala2025",
     color: "#7b2082", // primary
   },
   {

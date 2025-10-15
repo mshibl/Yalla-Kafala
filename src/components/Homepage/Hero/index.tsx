@@ -67,7 +67,11 @@ const Hero = ({ locale }: { locale: Locale }) => {
               className="flex flex-wrap gap-4 pt-4 animate-fade-in opacity-0 translate-y-10"
               style={{ transitionDelay: "500ms" }}
             >
-              <a href="#donate" className="primary-button">
+              <a
+                href="https://givebutter.com/c/YKgala2025"
+                target="_blank"
+                className="primary-button"
+              >
                 {translations.hero.donateButton[locale]}
               </a>
               <Link href="/vision-mission" className="outline-button">

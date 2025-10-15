@@ -35,7 +35,8 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
         ) : (
           <Link
             key={item.href}
-            href={`/${locale}${item.href}`}
+            target={`${item.href.includes("http") ? "_blank" : ""}`}
+            href={`${item.href.includes("http") ? item.href : `/${locale}${item.href}`}`}
             className="text-gray-700 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
           >
             {item.text[locale]}
