@@ -68,7 +68,7 @@ const Hero = ({ locale }: { locale: Locale }) => {
               style={{ transitionDelay: "500ms" }}
             >
               <a
-                href="https://givebutter.com/c/YKgala2025"
+                href="https://givebutter.com/yallakafaladonations"
                 target="_blank"
                 className="primary-button"
               >

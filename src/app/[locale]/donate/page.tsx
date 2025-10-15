@@ -7,5 +7,5 @@ export default async function DonatePage({
 }: {
   params: Promise<{ locale: Locale }>;
 }) {
-  redirect("https://givebutter.com/c/YKgala2025");
+  redirect("https://givebutter.com/yallakafaladonations");
 }

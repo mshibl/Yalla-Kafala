@@ -86,7 +86,7 @@ export const navigationLinks = [
     ],
   },
   {
-    href: "https://givebutter.com/c/YKgala2025",
+    href: "https://givebutter.com/yallakafaladonations",
     text: { en: "Donate Now", ar: "تبرع الآن" },
   },
 ];
