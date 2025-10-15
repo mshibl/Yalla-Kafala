@@ -170,7 +170,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
 
           <Link
             target="_blank"
-            href={`https://givebutter.com/c/YKgala2025`}
+            href={`https://givebutter.com/yallakafaladonations`}
             className={cn(
               "primary-button mt-4",
               "transform transition-all duration-300",

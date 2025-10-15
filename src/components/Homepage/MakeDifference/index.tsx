@@ -78,7 +78,10 @@ export const MakeDifference = ({ locale }: { locale: Locale }) => {
 
         <div className="mt-6 text-center">
           <Button className="bg-primary hover:bg-primary/90 px-6" asChild>
-            <Link href="https://givebutter.com/c/YKgala2025" target="_blank">
+            <Link
+              href="https://givebutter.com/yallakafaladonations"
+              target="_blank"
+            >
               {translations.getInvolvedButton[locale]}
             </Link>
           </Button>
