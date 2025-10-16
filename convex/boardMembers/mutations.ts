@@ -26,6 +26,8 @@ export const updateBoardMember = mutation({
     publish: v.boolean(),
     nameEn: v.string(),
     nameAr: v.string(),
+    imageUrl: v.optional(v.string()),
+    imageKey: v.optional(v.string()),
     bioEn: v.string(),
     bioAr: v.string(),
     type: v.union(v.literal("board"), v.literal("advisor")),
