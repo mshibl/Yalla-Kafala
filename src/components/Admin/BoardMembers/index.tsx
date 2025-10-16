@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { AddBoardMemberDialog } from "./AddBoardMember";
 import { toast } from "sonner";
-import type { AddNewBoardMember } from "./types";
+import type { AddNewBoardMember, EditNewBoardMember } from "./types";
 import type { OurFileRouter } from "@/app/api/uploadthing/core";
 import { generateReactHelpers } from "@uploadthing/react";
 import { useMutation, useQuery } from "convex/react";
@@ -96,7 +96,7 @@ const BoardMembersManagement = () => {
 
   const handleUpdateBoardMember = async (
     id: string,
-    updatedBoardMember: AddNewBoardMember,
+    updatedBoardMember: EditNewBoardMember,
   ) => {
     try {
       let imageUrl = undefined;
@@ -121,6 +121,8 @@ const BoardMembersManagement = () => {
         type: updatedBoardMember.type,
         country: updatedBoardMember.country,
         publish: updatedBoardMember.publish,
+        imageKey: uploadthingKey,
+        imageUrl: imageUrl,
       });
 
       toast.success("Board member updated successfully");
@@ -204,8 +206,8 @@ const BoardMembersManagement = () => {
                       />
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button variant="destructive" size="icon">
-                            <Trash2 className="h-4 w-4" />
+                          <Button variant="outline" size="icon">
+                            <Trash2 className="h-4 w-4 text-red-500" />
                           </Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>

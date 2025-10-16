@@ -27,8 +27,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Pencil, Loader2, Sparkles } from "lucide-react";
 import {
   addBoardMemberFormSchema,
-  type AddBoardMembersFormValues,
+  type EditBoardMembersFormValues,
   type AddNewBoardMember,
+  editBoardMemberFormSchema,
+  type EditNewBoardMember,
 } from "./types";
 import { Switch } from "@/components/ui/switch";
 import { TipTapEditor } from "@/components/TiptapEditor";
@@ -47,7 +49,7 @@ export function EditBoardMemberDialog({
   onUpdate,
 }: {
   boardMember: BoardMember;
-  onUpdate: (id: string, boardMember: AddNewBoardMember) => Promise<void>;
+  onUpdate: (id: string, boardMember: EditNewBoardMember) => Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,8 +58,8 @@ export function EditBoardMemberDialog({
   );
   const [objectUrl, setObjectUrl] = useState<string | null>(null);
   const [fileChanged, setFileChanged] = useState(false);
-  const form = useForm<AddBoardMembersFormValues>({
-    resolver: zodResolver(addBoardMemberFormSchema),
+  const form = useForm<EditBoardMembersFormValues>({
+    resolver: zodResolver(editBoardMemberFormSchema),
     defaultValues: {
       nameEn: boardMember.nameEn,
       nameAr: boardMember.nameAr,
@@ -104,11 +106,17 @@ export function EditBoardMemberDialog({
     }
   };
 
-  async function onSubmit(values: AddBoardMembersFormValues) {
+  async function onSubmit(values: EditBoardMembersFormValues) {
     try {
       setIsLoading(true);
       await onUpdate(boardMember.id, {
-        ...values,
+        nameEn: values.nameEn || boardMember.nameEn,
+        nameAr: values.nameAr || boardMember.nameAr,
+        bioEn: values.bioEn || boardMember.bioEn,
+        bioAr: values.bioAr || boardMember.bioAr,
+        type: values.type || boardMember.type,
+        country: values.country || boardMember.country,
+        publish: values.publish || boardMember.publish,
         file: values.file,
       });
       setOpen(false);
