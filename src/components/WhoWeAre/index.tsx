@@ -13,7 +13,7 @@ const WhoWeAre = ({ locale }: { locale: Locale }) => {
         <HeroSection locale={locale} />
         <OurStorySection locale={locale} />
         <FounderSection locale={locale} />
-        {/* <TeamSection locale={locale} /> */}
+        <TeamSection locale={locale} />
         <VideoSection locale={locale} />
         <InitiativesSection locale={locale} />
       </main>
