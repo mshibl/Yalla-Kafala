@@ -25,7 +25,8 @@ const QuickLinks = ({ locale }: { locale: Locale }) => {
           ) : (
             <li key={`${item.href}-${idx}`}>
               <Link
-                href={`/${locale}${item.href}`}
+                target={`${item.href.includes("http") ? "_blank" : ""}`}
+                href={`${item.href.includes("http") ? item.href : `/${locale}${item.href}`}`}
                 className="text-gray-400 hover:text-white transition-colors duration-300 inline-block"
               >
                 {item.text[locale]}
