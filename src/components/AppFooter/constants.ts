@@ -55,6 +55,10 @@ export const navigationLinks = [
     group: { en: "Explore Kafala", ar: "استكشف الكفالة" },
     links: [
       {
+        href: "/fatwa",
+        text: { en: "Azhar Fatwa", ar: "فتوى الأزهر" },
+      },
+      {
         href: "/what-is-kafala",
         text: { en: "What is Kafala", ar: "ما هي الكفالة" },
       },
