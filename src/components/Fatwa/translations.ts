@@ -4,7 +4,7 @@ export const translations = {
     ar: "فتوى الأزهر: يلا كفالة مستحقة للزكاة",
   },
   fatwaIntro: {
-    en: "Al-Azhar, Egypt’s highest Islamic authority, has officially confirmed that Zakat donations can be rightfully directed to Yalla Kafala.",
+    en: "Al-Azhar, Egypt's highest Islamic authority, has officially confirmed that Zakat donations can be rightfully directed to Yalla Kafala.",
     ar: "أعلنت مشيخة الأزهر الشريف رسميًا أن التبرعات بالزكاة يمكن توجيهها إلى مؤسسة يلا كفالة.",
   },
   summaryTitle: {
@@ -12,7 +12,7 @@ export const translations = {
     ar: "ملخص الفتوى",
   },
   summaryBody: {
-    en: "Yalla Kafala’s programs qualify for Zakat under the categories of 'the needy' (al-masakeen) and 'in the cause of Allah' (fi sabilillah), providing care and support for orphaned children and Kafala families.",
+    en: "Yalla Kafala's programs qualify for Zakat under the categories of 'the needy' (al-masakeen) and 'in the cause of Allah' (fi sabilillah), providing care and support for orphaned children and Kafala families.",
     ar: "تندرج برامج يلا كفالة ضمن مصارف الزكاة وفقاً لفئتي 'المساكين' و'في سبيل الله'، بدعمها للأطفال الأيتام والأسر الكافلة.",
   },
   keyPointsTitle: {
@@ -24,7 +24,7 @@ export const translations = {
       "Yalla Kafala is recognized as Zakat-eligible.",
       "Zakat donations may be allocated to support orphaned children.",
       "Funds help provide food, shelter, education, and healthcare.",
-      "Yalla Kafala’s work aligns with the Shari’ah objectives for social welfare.",
+      "Yalla Kafala's work aligns with the Shari'ah objectives for social welfare.",
     ],
     ar: [
       "مؤسسة يلا كفالة مستحقة للزكاة.",
