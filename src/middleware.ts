@@ -66,7 +66,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     // Skip all internal paths (_next) and API routes
-    "/((?!_next|api|.*\\.(?:png|jpg|jpeg|gif|webp|svg)).*)",
+    "/((?!_next|api|docs|.*\\.(?:png|jpg|jpeg|gif|webp|svg|pdf)).*)",
     // Optional: only run on root (/) URL
     // '/'
   ],
