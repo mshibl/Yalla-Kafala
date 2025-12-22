@@ -25,65 +25,46 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Pencil, Loader2, Sparkles } from "lucide-react";
-import {
-  addBoardMemberFormSchema,
-  type EditBoardMembersFormValues,
-  type AddNewBoardMember,
-  editBoardMemberFormSchema,
-  type EditNewBoardMember,
-} from "./types";
+import type { EditBlogDialogProps } from "./types";
+import { editBlogFormSchema, type EditBlogFormValues } from "./types";
 import { Switch } from "@/components/ui/switch";
 import { TipTapEditor } from "@/components/TiptapEditor";
 import Image from "next/image";
-import type { BoardMember } from "@/lib/types";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
-export function EditBoardMemberDialog({
-  boardMember,
-  onUpdate,
-}: {
-  boardMember: BoardMember;
-  onUpdate: (id: string, boardMember: EditNewBoardMember) => Promise<void>;
-}) {
+export function EditBlogDialog({ blog, onUpdate }: EditBlogDialogProps) {
   const [open, setOpen] = useState(false);
+  const [preview, setPreview] = useState<string | null>(blog.imageUrl);
   const [isLoading, setIsLoading] = useState(false);
-  const [preview, setPreview] = useState<string | null>(
-    boardMember.imageUrl || null,
-  );
   const [objectUrl, setObjectUrl] = useState<string | null>(null);
   const [fileChanged, setFileChanged] = useState(false);
-  const form = useForm<EditBoardMembersFormValues>({
-    resolver: zodResolver(editBoardMemberFormSchema),
+  const [isGenerating, setIsGenerating] = useState(false);
+  const form = useForm<EditBlogFormValues>({
+    resolver: zodResolver(editBlogFormSchema),
     defaultValues: {
-      nameEn: boardMember.nameEn,
-      nameAr: boardMember.nameAr,
-      bioEn: boardMember.bioEn,
-      bioAr: boardMember.bioAr,
-      type: boardMember.type,
+      titleEn: blog.titleEn,
+      titleAr: blog.titleAr,
+      contentEn: blog.contentEn,
+      contentAr: blog.contentAr,
+      descriptionEn: blog.descriptionEn,
+      descriptionAr: blog.descriptionAr,
+      publish: blog.publish,
+      featured: blog.featured,
       file: undefined,
-      country: boardMember.country,
-      publish: boardMember.publish,
     },
   });
   // Update form values when FAQ prop changes
   useEffect(() => {
     form.reset({
-      nameEn: boardMember.nameEn,
-      nameAr: boardMember.nameAr,
-      bioEn: boardMember.bioEn,
-      bioAr: boardMember.bioAr,
-      type: boardMember.type,
-      file: undefined,
-      country: boardMember.country,
-      publish: boardMember.publish,
+      titleEn: blog.titleEn,
+      titleAr: blog.titleAr,
+      contentEn: blog.contentEn,
+      contentAr: blog.contentAr,
+      descriptionEn: blog.descriptionEn,
+      descriptionAr: blog.descriptionAr,
+      publish: blog.publish,
+      featured: blog.featured,
     });
-  }, [boardMember, form]);
+  }, [blog, form]);
   useEffect(() => {
     return () => {
       if (objectUrl) {
@@ -106,22 +87,17 @@ export function EditBoardMemberDialog({
     }
   };
 
-  async function onSubmit(values: EditBoardMembersFormValues) {
+  async function onSubmit(values: EditBlogFormValues) {
     try {
       setIsLoading(true);
-      await onUpdate(boardMember.id, {
-        nameEn: values.nameEn || boardMember.nameEn,
-        nameAr: values.nameAr || boardMember.nameAr,
-        bioEn: values.bioEn || boardMember.bioEn,
-        bioAr: values.bioAr || boardMember.bioAr,
-        type: values.type || boardMember.type,
-        country: values.country || boardMember.country,
-        publish: values.publish || boardMember.publish,
+      await onUpdate({
+        ...values,
+        id: blog.id,
         file: values.file,
       });
       setOpen(false);
     } catch (error) {
-      console.error("Failed to update board member:", error);
+      console.error("Failed to update blog:", error);
     } finally {
       setIsLoading(false);
     }
@@ -136,9 +112,9 @@ export function EditBoardMemberDialog({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Edit Board Member</DialogTitle>
+          <DialogTitle>Edit Blog</DialogTitle>
           <DialogDescription>
-            Make changes to the board member information below.
+            Make changes to the blog information below.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -146,12 +122,12 @@ export function EditBoardMemberDialog({
             <div className="space-y-6">
               <FormField
                 control={form.control}
-                name="nameEn"
+                name="titleEn"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter name" {...field} />
+                      <Input placeholder="Enter title" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -160,12 +136,12 @@ export function EditBoardMemberDialog({
 
               <FormField
                 control={form.control}
-                name="nameAr"
+                name="titleAr"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name (Ar)</FormLabel>
+                    <FormLabel>Title (Ar)</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter Arabic name" {...field} />
+                      <Input placeholder="Enter Arabic title" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -174,15 +150,15 @@ export function EditBoardMemberDialog({
 
               <FormField
                 control={form.control}
-                name="bioEn"
+                name="contentEn"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>English Bio</FormLabel>
+                    <FormLabel>English Content</FormLabel>
                     <FormControl>
                       <TipTapEditor
                         content={field.value || ""}
                         onChange={field.onChange}
-                        placeholder="Enter the bio in English"
+                        placeholder="Enter the content in English"
                       />
                     </FormControl>
                     <FormMessage />
@@ -192,15 +168,15 @@ export function EditBoardMemberDialog({
 
               <FormField
                 control={form.control}
-                name="bioAr"
+                name="contentAr"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Arabic Bio</FormLabel>
+                    <FormLabel>Arabic Content</FormLabel>
                     <FormControl>
                       <TipTapEditor
                         content={field.value || ""}
                         onChange={field.onChange}
-                        placeholder="Enter the bio in Arabic"
+                        placeholder="Enter the blog content in Arabic"
                       />
                     </FormControl>
                     <FormMessage />
@@ -209,14 +185,55 @@ export function EditBoardMemberDialog({
               />
               <FormField
                 control={form.control}
-                name="publish"
+                name="descriptionEn"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Publish</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Description</FormLabel>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {}}
+                        className="ml-auto bg-purple-500 text-white transition-colors hover:bg-purple-600 dark:bg-purple-600 dark:text-white dark:hover:bg-purple-700"
+                      >
+                        <Sparkles className="mr-2 h-4 w-4" />
+                        {isGenerating ? "Generating..." : "Generate with AI"}
+                      </Button>
+                    </div>
                     <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
+                      <Textarea
+                        placeholder="Enter short description"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="descriptionAr"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Description (Ar)</FormLabel>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {}}
+                        className="ml-auto bg-purple-500 text-white transition-colors hover:bg-purple-600 dark:bg-purple-600 dark:text-white dark:hover:bg-purple-700"
+                      >
+                        <Sparkles className="mr-2 h-4 w-4" />
+                        {isGenerating ? "Generating..." : "Generate with AI"}
+                      </Button>
+                    </div>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Enter Arabic description"
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage />
@@ -266,57 +283,41 @@ export function EditBoardMemberDialog({
               <div className="flex flex-col gap-4">
                 <FormField
                   control={form.control}
-                  name="type"
+                  name="publish"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
                       <div className="space-y-0.5">
-                        <FormLabel>Type</FormLabel>
+                        <FormLabel>Publish</FormLabel>
                         <FormDescription>
-                          Select the type of board member
+                          Make this blog visible on the website
                         </FormDescription>
                       </div>
                       <FormControl>
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select type" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="board">Board</SelectItem>
-                            <SelectItem value="advisor">Advisor</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
                       </FormControl>
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
-                  name="country"
+                  name="featured"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
                       <div className="space-y-0.5">
-                        <FormLabel>Country</FormLabel>
+                        <FormLabel>Featured</FormLabel>
                         <FormDescription>
-                          Select the country of the board member
+                          Show this blog in featured sections
                         </FormDescription>
                       </div>
                       <FormControl>
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select country" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="egypt">Egypt</SelectItem>
-                            <SelectItem value="usa">USA</SelectItem>
-                            <SelectItem value="all">All</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
                       </FormControl>
                     </FormItem>
                   )}

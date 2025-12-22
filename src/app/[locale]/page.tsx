@@ -1,7 +1,7 @@
 import Hero from "@/components/Homepage/Hero";
 import Mission from "@/components/Homepage/Mission";
 import Impact from "@/components/Homepage/Impact/index";
-import Stories from "@/components/Homepage/Stories/index";
+import Blogs from "@/components/Homepage/Blog/index";
 import FacebookPosts from "@/components/Homepage/FacebookPosts/index";
 import { MakeDifference } from "@/components/Homepage/MakeDifference";
 import Donate from "@/components/Homepage/Donate";
@@ -20,7 +20,7 @@ const HomePage = async ({
       <Hero locale={locale} />
       <Mission />
       <Impact locale={locale} />
-      <Stories />
+      <Blogs />
       <FAQs locale={locale} />
       <FacebookPosts locale={locale} />
       {/* <Donate /> */}

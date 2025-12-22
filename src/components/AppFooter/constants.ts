@@ -67,8 +67,8 @@ export const navigationLinks = [
         text: { en: "Kafala Steps", ar: "خطوات الكفالة" },
       },
       {
-        href: "/kafala-stories",
-        text: { en: "Kafala Stories", ar: "قصص الكفالة" },
+        href: "/kafala-blogs",
+        text: { en: "Kafala Blogs", ar: "مدونات الكفالة" },
       },
       { href: "/faqs", text: { en: "FAQs", ar: "الأسئلة الشائعة" } },
     ],

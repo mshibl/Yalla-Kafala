@@ -1,4 +1,4 @@
-import type { BoardMember, Story } from "@/lib/types";
+import type { BoardMember } from "@/lib/types";
 import { z } from "zod";
 
 export interface AddNewBoardMember extends Omit<BoardMember, "id"> {

@@ -23,41 +23,37 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Plus, Loader2 } from "lucide-react";
-import type { AddBoardMembersFormValues, AddNewBoardMember } from "./types";
-import { addBoardMemberFormSchema } from "./types";
-import { TipTapEditor } from "@/components/TiptapEditor";
-import Image from "next/image";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Plus, Loader2, Sparkles } from "lucide-react";
+import type { AddBlogDialogProps } from "./types";
+import { addBlogFormSchema, type AddBlogFormValues } from "./types";
 import { Switch } from "@/components/ui/switch";
-
-export function AddBoardMemberDialog({
-  onAddBoardMember,
-}: {
-  onAddBoardMember: (boardMember: AddNewBoardMember) => Promise<void>;
-}) {
+import { TipTapEditor } from "@/components/TiptapEditor";
+import { improveText } from "@/server/actions/ai/improveText";
+import { toast } from "sonner";
+import Image from "next/image";
+export function AddBlogDialog({ onAddBlog }: AddBlogDialogProps) {
   const [open, setOpen] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [objectUrl, setObjectUrl] = useState<string | null>(null);
+  const [isGeneratingEnDescription, setIsGeneratingEnDescription] =
+    useState(false);
+  const [isGeneratingArDescription, setIsGeneratingArDescription] =
+    useState(false);
 
-  const form = useForm<AddBoardMembersFormValues>({
-    resolver: zodResolver(addBoardMemberFormSchema),
+  const form = useForm<AddBlogFormValues>({
+    resolver: zodResolver(addBlogFormSchema),
     defaultValues: {
-      nameEn: "",
-      nameAr: "",
-      bioEn: "",
-      bioAr: "",
+      titleEn: "",
+      titleAr: "",
+      contentEn: "",
+      contentAr: "",
+      descriptionEn: "",
+      descriptionAr: "",
+      publish: false,
+      featured: false,
       file: undefined,
-      type: "board",
-      country: "all",
-      publish: true,
     },
   });
 
@@ -83,34 +79,76 @@ export function AddBoardMemberDialog({
     }
   };
 
-  async function onSubmit(values: AddBoardMembersFormValues) {
+  async function onSubmit(values: AddBlogFormValues) {
     try {
       setIsLoading(true);
-      await onAddBoardMember({
+      await onAddBlog({
         ...values,
+        file: values.file,
       });
       form.reset();
       setPreview(null);
       setOpen(false);
     } catch (error) {
-      console.error("Failed to add board member:", error);
+      console.error("Failed to add blog:", error);
     } finally {
       setIsLoading(false);
     }
+  }
+
+  async function generateDescriptionWithAI(
+    value: string,
+    field: "descriptionEn" | "descriptionAr",
+  ): Promise<void> {
+    if (field === "descriptionEn") {
+      setIsGeneratingEnDescription(true);
+    } else {
+      setIsGeneratingArDescription(true);
+    }
+    if (value === "") {
+      toast.error("Please enter the blog content first");
+      setIsGeneratingEnDescription(false);
+      setIsGeneratingArDescription(false);
+      return;
+    }
+    const description = await improveText({
+      text: value,
+      system: `You are an expert writer. You will be given a blog in English or Arabic. You will need to generate a short description for the blog. The description should be short around 20 words. If the text is in English, the description should be in English. If the text is in Arabic, the description should be in Arabic.
+        
+
+      Guidlines:
+      - Use postive words
+      - Use hopeful words and focus on the positive side of the blog
+      - The description should be about the child and the parent
+      - Only describe the family but not the blog. Don't say "Beautiful blog" for example
+
+      A good description should like this for example:
+      "The blog of Rasha and Mustafa and their journey to find a new home"
+
+        `,
+    });
+    if (!description) {
+      toast.error("Failed to generate description");
+    } else {
+      form.setValue(field, description);
+    }
+
+    setIsGeneratingEnDescription(false);
+    setIsGeneratingArDescription(false);
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="flex items-center gap-2">
-          <Plus className="h-4 w-4" /> Add Board Member
+          <Plus className="h-4 w-4" /> Add Blog
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Add New Board Member</DialogTitle>
+          <DialogTitle>Add New Blog</DialogTitle>
           <DialogDescription>
-            Create a new board member to be displayed on the website.
+            Create a new blog to be displayed on the website.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -118,12 +156,12 @@ export function AddBoardMemberDialog({
             <div className="space-y-6">
               <FormField
                 control={form.control}
-                name="nameEn"
+                name="titleEn"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter name" {...field} />
+                      <Input placeholder="Enter title" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -132,10 +170,10 @@ export function AddBoardMemberDialog({
 
               <FormField
                 control={form.control}
-                name="nameAr"
+                name="titleAr"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name (Ar)</FormLabel>
+                    <FormLabel>Title (Ar)</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter Arabic title" {...field} />
                     </FormControl>
@@ -146,15 +184,15 @@ export function AddBoardMemberDialog({
 
               <FormField
                 control={form.control}
-                name="bioEn"
+                name="contentEn"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>English Bio</FormLabel>
+                    <FormLabel>English Content</FormLabel>
                     <FormControl>
                       <TipTapEditor
                         content={field.value || ""}
                         onChange={field.onChange}
-                        placeholder="Enter the bio in English"
+                        placeholder="Enter the content in English"
                       />
                     </FormControl>
                     <FormMessage />
@@ -164,15 +202,15 @@ export function AddBoardMemberDialog({
 
               <FormField
                 control={form.control}
-                name="bioAr"
+                name="contentAr"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Arabic Bio</FormLabel>
+                    <FormLabel>Arabic Content</FormLabel>
                     <FormControl>
                       <TipTapEditor
                         content={field.value || ""}
                         onChange={field.onChange}
-                        placeholder="Enter the bio in Arabic"
+                        placeholder="Enter the blog content in Arabic"
                       />
                     </FormControl>
                     <FormMessage />
@@ -181,14 +219,69 @@ export function AddBoardMemberDialog({
               />
               <FormField
                 control={form.control}
-                name="publish"
+                name="descriptionEn"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Publish</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Description</FormLabel>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                          generateDescriptionWithAI(
+                            form.getValues("contentEn"),
+                            "descriptionEn",
+                          )
+                        }
+                        className="ml-auto bg-purple-500 text-white transition-colors hover:bg-purple-600 dark:bg-purple-600 dark:text-white dark:hover:bg-purple-700"
+                      >
+                        <Sparkles className="mr-2 h-4 w-4" />
+                        {isGeneratingEnDescription
+                          ? "Generating..."
+                          : "Generate with AI"}
+                      </Button>
+                    </div>
                     <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
+                      <Textarea
+                        placeholder="Enter short description"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="descriptionAr"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Description (Ar)</FormLabel>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                          generateDescriptionWithAI(
+                            form.getValues("contentAr"),
+                            "descriptionAr",
+                          )
+                        }
+                        className="ml-auto bg-purple-500 text-white transition-colors hover:bg-purple-600 dark:bg-purple-600 dark:text-white dark:hover:bg-purple-700"
+                      >
+                        <Sparkles className="mr-2 h-4 w-4" />
+                        {isGeneratingArDescription
+                          ? "Generating..."
+                          : "Generate with AI"}
+                      </Button>
+                    </div>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Enter Arabic description"
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage />
@@ -227,7 +320,7 @@ export function AddBoardMemberDialog({
                       </div>
                     </FormControl>
                     <FormDescription>
-                      Upload an image for this board member
+                      Upload an image for this blog
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -237,57 +330,41 @@ export function AddBoardMemberDialog({
               <div className="flex flex-col gap-4">
                 <FormField
                   control={form.control}
-                  name="type"
+                  name="publish"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
                       <div className="space-y-0.5">
-                        <FormLabel>Type</FormLabel>
+                        <FormLabel>Publish</FormLabel>
                         <FormDescription>
-                          Select the type of board member
+                          Make this blog visible on the website
                         </FormDescription>
                       </div>
                       <FormControl>
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select type" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="board">Board</SelectItem>
-                            <SelectItem value="advisor">Advisor</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
                       </FormControl>
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
-                  name="country"
+                  name="featured"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
                       <div className="space-y-0.5">
-                        <FormLabel>Country</FormLabel>
+                        <FormLabel>Featured</FormLabel>
                         <FormDescription>
-                          Select the country of the board member
+                          Show this blog in featured sections
                         </FormDescription>
                       </div>
                       <FormControl>
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select country" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="egypt">Egypt</SelectItem>
-                            <SelectItem value="usa">USA</SelectItem>
-                            <SelectItem value="all">All</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
                       </FormControl>
                     </FormItem>
                   )}
@@ -303,7 +380,7 @@ export function AddBoardMemberDialog({
                     Uploading...
                   </>
                 ) : (
-                  "Add Board Member"
+                  "Add Blog"
                 )}
               </Button>
             </DialogFooter>
