@@ -37,8 +37,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       icon: Image,
     },
     {
-      title: "Stories",
-      path: "/admin/stories",
+      title: "Blogs",
+      path: "/admin/blogs",
       icon: Book,
     },
     {

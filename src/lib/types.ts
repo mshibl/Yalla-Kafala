@@ -8,7 +8,7 @@ export interface FAQ {
   featured: boolean;
 }
 
-export interface Story {
+export interface Blog {
   id: number;
   titleEn: string;
   titleAr: string;
