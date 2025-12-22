@@ -180,7 +180,7 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   return (
@@ -194,11 +194,11 @@ export default async function RootLayout({
       </head>
       <GoogleTagManager gtmId="GTM-W8P5HTS6" />
       <body>
-        <Providers locale={locale}>
+        <Providers locale={locale as Locale}>
           <div className="min-h-screen flex flex-col">
             <Navbar />
             <main className="flex-grow">{children}</main>
-            <Footer locale={locale} />
+            <Footer locale={locale as Locale} />
           </div>
           <Toaster
             toastOptions={{
