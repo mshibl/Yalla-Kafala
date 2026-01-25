@@ -196,7 +196,7 @@ export default async function RootLayout({
       <body>
         <Providers locale={locale as Locale}>
           <div className="min-h-screen flex flex-col">
-            <Navbar />
+            <Navbar locale={locale as Locale} />
             <main className="flex-grow">{children}</main>
             <Footer locale={locale as Locale} />
           </div>

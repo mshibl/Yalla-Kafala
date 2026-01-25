@@ -2,13 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useRouter, usePathname } from "next/navigation";
-import { useLocale } from "@/components/Providers/LocaleProvider";
+import type { Locale } from "@/components/Providers/LocaleProvider";
 import Logo from "./Logo";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 
-const Navbar = () => {
-  const locale = useLocale();
+const Navbar = ({ locale }: { locale: Locale }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
