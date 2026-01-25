@@ -130,7 +130,17 @@ export const MobileNav: React.FC<MobileNavProps> = ({
             ) : (
               <Link
                 key={item.href}
-                href={`/${locale}${item.href}`}
+                href={
+                  item.href.startsWith("http")
+                    ? item.href
+                    : `/${locale}${item.href}`
+                }
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={
+                  item.href.startsWith("http")
+                    ? "noopener noreferrer"
+                    : undefined
+                }
                 className={cn(
                   "text-xl text-gray-800 font-medium hover:text-primary transition-all duration-300",
                   "transform transition-all duration-300",
