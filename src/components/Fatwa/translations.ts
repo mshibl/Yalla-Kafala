@@ -1,11 +1,11 @@
 export const translations = {
   fatwaTitle: {
-    en: "Al-Azhar Fatwa: Yalla Kafala is Zakat Eligible",
-    ar: "فتوى الأزهر: يلا كفالة مستحقة للزكاة",
+    en: "Dar Ifta Fatwa: Yalla Kafala is Zakat Eligible",
+    ar: "فتوى دار الإفتاء: يلا كفالة مستحقة للزكاة",
   },
   fatwaIntro: {
-    en: "Al-Azhar, Egypt's highest Islamic authority, has officially confirmed that Zakat donations can be rightfully directed to Yalla Kafala.",
-    ar: "أعلنت مشيخة الأزهر الشريف رسميًا أن التبرعات بالزكاة يمكن توجيهها إلى مؤسسة يلا كفالة.",
+    en: "Dar Ifta, Egypt's highest Islamic authority, has officially confirmed that Zakat donations can be rightfully directed to Yalla Kafala.",
+    ar: "أعلنت دار الإفتاء الشريف رسميًا أن التبرعات بالزكاة يمكن توجيهها إلى مؤسسة يلا كفالة.",
   },
   summaryTitle: {
     en: "Summary of the Fatwa",
@@ -56,8 +56,8 @@ export const translations = {
     ar: "المرجع الرسمي",
   },
   referenceDescription: {
-    en: "View or download the original certified fatwa document issued by Al-Azhar Al-Sharif (Fatwa No. 1056, August 21, 2023).",
-    ar: "شاهد أو قم بتنزيل الفتوى الأصلية المعتمدة الصادرة عن الأزهر الشريف (رقم 1056 بتاريخ 21 أغسطس 2023).",
+    en: "View or download the original certified fatwa document issued by Dar Ifta Al-Sharif (Fatwa No. 1056, August 21, 2023).",
+    ar: "شاهد أو قم بتنزيل الفتوى الأصلية المعتمدة الصادرة عن دار الإفتاء الشريف (رقم 1056 بتاريخ 21 أغسطس 2023).",
   },
   downloadPDFButton: {
     en: "View Official PDF",
