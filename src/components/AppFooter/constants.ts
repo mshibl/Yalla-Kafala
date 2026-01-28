@@ -8,7 +8,7 @@ export const contactItems = [
   {
     icon: Heart,
     text: { en: "Volunteer", ar: "التطوع" },
-    href: "/volunteer",
+    href: "https://docs.google.com/forms/d/1MR37SE8uVQEcnkTEpkHzjh7LgX0LNHifJKIbjN-csIM/preview?edit_requested=true",
   },
   {
     icon: MapPin,
