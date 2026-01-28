@@ -56,7 +56,7 @@ export const navigationLinks = [
     links: [
       {
         href: "/fatwa",
-        text: { en: "Azhar Fatwa", ar: "فتوى الأزهر" },
+        text: { en: "Dar Ifta Fatwa", ar: "فتوى دار الإفتاء" },
       },
       {
         href: "/what-is-kafala",
