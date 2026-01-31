@@ -3,12 +3,13 @@ import { Heart } from "lucide-react";
 import { MapPin } from "lucide-react";
 
 import { Mail } from "lucide-react";
+import { volunteerFormUrl } from "@/constants/links";
 
 export const contactItems = [
   {
     icon: Heart,
     text: { en: "Volunteer", ar: "التطوع" },
-    href: "https://docs.google.com/forms/d/1MR37SE8uVQEcnkTEpkHzjh7LgX0LNHifJKIbjN-csIM/preview?edit_requested=true",
+    href: volunteerFormUrl,
   },
   {
     icon: MapPin,
