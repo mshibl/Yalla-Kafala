@@ -11,7 +11,14 @@ import {
   SidebarTrigger,
   SidebarInset,
 } from "@/components/ui/sidebar";
-import { MessageSquare, Book, Settings, Image, Users } from "lucide-react";
+import {
+  MessageSquare,
+  Book,
+  Settings,
+  Image,
+  Users,
+  FileText,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 interface AdminLayoutProps {
@@ -50,6 +57,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       title: "Board Members",
       path: "/admin/board-members",
       icon: Users,
+    },
+    {
+      title: "Resources",
+      path: "/admin/resources",
+      icon: FileText,
     },
   ];
 

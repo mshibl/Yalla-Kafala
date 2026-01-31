@@ -13,4 +13,11 @@ export default defineSchema({
     type: v.union(v.literal("board"), v.literal("advisor")),
     country: v.union(v.literal("egypt"), v.literal("usa"), v.literal("all")),
   }),
+  resources: defineTable({
+    nameEn: v.string(),
+    nameAr: v.string(),
+    slug: v.string(),
+    link: v.string(),
+    uploadthingKey: v.string(),
+  }).index("by_slug", ["slug"]),
 });

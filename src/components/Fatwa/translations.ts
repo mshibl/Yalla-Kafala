@@ -63,8 +63,4 @@ export const translations = {
     en: "View Official PDF",
     ar: "عرض الفتوى الرسمية",
   },
-  fatwaPDFUrl: {
-    en: "/docs/fatwa-source.pdf",
-    ar: "/docs/fatwa-source.pdf",
-  },
 };
