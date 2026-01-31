@@ -6,6 +6,7 @@ import type { Locale } from "@/components/Providers/LocaleProvider";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ExploreKafalaHero from "../ExploreKafala/ExploreKafalaHero";
+import { fatwaPdfUrl } from "@/constants/links";
 
 const Fatwa = ({ locale }: { locale: Locale }) => {
   return (
@@ -86,7 +87,7 @@ const Fatwa = ({ locale }: { locale: Locale }) => {
             </p>
 
             <Link
-              href={`${translations.fatwaPDFUrl[locale]}`}
+              href={`${fatwaPdfUrl}`}
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -16,13 +16,29 @@ export const ourFileRouter = {
       maxFileSize: "4MB",
       maxFileCount: 1,
     },
-  })
+    })
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       return {};
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
+      return { url: file.ufsUrl };
+    }),
+  resourceUploader: f({
+    blob: {
+      /**
+       * For full list of options and defaults, see the File Route API reference
+       * @see https://docs.uploadthing.com/file-routes#route-config
+       */
+      maxFileSize: "16MB",
+      maxFileCount: 1,
+    },
+  })
+    .middleware(async ({ req }) => {
+      return {};
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
       return { url: file.ufsUrl };
     }),
 } satisfies FileRouter;

@@ -56,3 +56,12 @@ export interface BoardMember {
   country: "egypt" | "usa" | "all";
   publish: boolean;
 }
+
+export interface Resource {
+  id: string;
+  nameEn: string;
+  nameAr: string;
+  slug: string;
+  link: string;
+  uploadthingKey: string;
+}
