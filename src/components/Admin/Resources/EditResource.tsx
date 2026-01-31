@@ -72,6 +72,7 @@ export function EditResourceDialog({
     try {
       setIsLoading(true);
       await onUpdate(resource.id, {
+        slug: resource.slug,
         nameEn: values.nameEn,
         nameAr: values.nameAr,
         file: values.file,
@@ -142,7 +143,9 @@ export function EditResourceDialog({
                     Upload a new file to replace the current resource file.
                   </FormDescription>
                   {selectedFileName ? (
-                    <FormDescription>Selected: {selectedFileName}</FormDescription>
+                    <FormDescription>
+                      Selected: {selectedFileName}
+                    </FormDescription>
                   ) : null}
                   <FormMessage />
                 </FormItem>

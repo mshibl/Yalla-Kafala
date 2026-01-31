@@ -1,6 +1,6 @@
 "use client";
 import { useLocale } from "@/components/Providers/LocaleProvider";
-import { api } from "convex/_generated/api";
+import { api } from "@/../convex/_generated/api";
 import { useQuery } from "convex/react";
 import { ExternalLink, FileText } from "lucide-react";
 import React from "react";
