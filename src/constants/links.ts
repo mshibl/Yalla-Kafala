@@ -3,3 +3,6 @@ export const volunteerFormUrl =
 
 export const fatwaPdfUrl =
   "https://lo318rdvh3.ufs.sh/f/osHxTQ6vFbehrLlEMLQl9RVDQib70AUwvHFx2uoIZOpJeYzd";
+
+export const brochurePdfUrl =
+  "https://lo318rdvh3.ufs.sh/f/osHxTQ6vFbeh1zdwwukSrLNlg0PyzVep3RsK9a1DTfZBktAv";

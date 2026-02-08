@@ -1,20 +1,20 @@
 export const impactStats = [
   {
-    number: "3000+",
+    number: "5000+",
     label: "Kafala families supported",
     description: "",
     labelAr: "أُسَر الكفالة التي تم دعمها",
     descriptionAr: "",
   },
   {
-    number: "1500+",
+    number: "3000+",
     label: "Individuals received training and support",
     description: "",
     labelAr: "أفراد تلقّوا التدريب والدعم",
     descriptionAr: "",
   },
   {
-    number: "350",
+    number: "1000+",
     label: "Mothers and families received psychological and social support",
     description: "",
     labelAr: "أمهات وأُسَر تلقَّين الدعم النفسي والاجتماعي",
