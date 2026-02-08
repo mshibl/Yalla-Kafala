@@ -1,14 +1,10 @@
 import "@/styles/globals.css";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
-// import Navbar from "@/src/components/Navbar";
-// import AppFooter from "@/src/components/AppFooter";
 import Script from "next/script";
-import { PostHogProvider } from "@/components/Providers/PostHogProvider";
 import Navbar from "@/components/AppHeader";
 import Footer from "@/components/AppFooter";
 import { Toaster } from "@/components/ui/sonner";
-import { LocaleProvider } from "@/components/Providers/LocaleProvider";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { Providers } from "@/components/Providers";
 export async function generateViewport({
@@ -192,7 +188,7 @@ export default async function RootLayout({
           async={true}
         />
       </head>
-      <GoogleTagManager gtmId="GTM-W8P5HTS6" />
+      <GoogleTagManager gtmId="GTM-TV63ZJT2" />
       <body>
         <Providers locale={locale as Locale}>
           <div className="min-h-screen flex flex-col">
@@ -209,7 +205,6 @@ export default async function RootLayout({
           />
         </Providers>
       </body>
-      <GoogleAnalytics gaId="GTM-W8P5HTS6" />
     </html>
   );
 }
