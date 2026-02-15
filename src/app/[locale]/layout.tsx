@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import Navbar from "@/components/AppHeader";
@@ -187,8 +186,19 @@ export default async function RootLayout({
           strategy="lazyOnload"
           async={true}
         />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16690402452"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-16690402452');
+          `}
+        </Script>
       </head>
-      <GoogleTagManager gtmId="GTM-TV63ZJT2" />
       <body>
         <Providers locale={locale as Locale}>
           <div className="min-h-screen flex flex-col">
