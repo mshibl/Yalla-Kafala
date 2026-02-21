@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
 import { donationMethods } from "./constants";
+import DonateNowModal from "@/components/Donate/DonateNowModal";
 
 type DonationMethodProps = {
   icon: React.ReactNode;
@@ -77,14 +78,11 @@ export const MakeDifference = ({ locale }: { locale: Locale }) => {
         </Card>
 
         <div className="mt-6 text-center">
-          <Button className="bg-primary hover:bg-primary/90 px-6" asChild>
-            <Link
-              href="https://givebutter.com/yallakafaladonations"
-              target="_blank"
-            >
+          <DonateNowModal locale={locale} asChild>
+            <Button className="bg-primary hover:bg-primary/90 px-6">
               {translations.getInvolvedButton[locale]}
-            </Link>
-          </Button>
+            </Button>
+          </DonateNowModal>
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import { MapPin } from "lucide-react";
 
 import { Mail } from "lucide-react";
 import { volunteerFormUrl } from "@/constants/links";
+import { givebutterDonationUrl } from "@/constants/links";
 
 export const contactItems = [
   {
@@ -95,7 +96,7 @@ export const navigationLinks = [
     ],
   },
   {
-    href: "https://givebutter.com/yallakafaladonations",
+    href: givebutterDonationUrl,
     text: { en: "Donate Now", ar: "تبرع الآن" },
   },
 ];

@@ -5,6 +5,7 @@ import { fetchCarouselImages } from "@/server/actions/carouselImages/fetchCarous
 import { Skeleton } from "@/components/ui/skeleton";
 import { translations } from "./translations";
 import type { Locale } from "@/components/Providers/LocaleProvider";
+import DonateNowModal from "@/components/Donate/DonateNowModal";
 
 const CarouselContent = async () => {
   const carouselImages = await fetchCarouselImages();
@@ -67,13 +68,9 @@ const Hero = ({ locale }: { locale: Locale }) => {
               className="flex flex-wrap gap-4 pt-4 animate-fade-in opacity-0 translate-y-10"
               style={{ transitionDelay: "500ms" }}
             >
-              <a
-                href="https://givebutter.com/yallakafaladonations"
-                target="_blank"
-                className="primary-button"
-              >
+              <DonateNowModal locale={locale} className="primary-button">
                 {translations.hero.donateButton[locale]}
-              </a>
+              </DonateNowModal>
               <Link href="/vision-mission" className="outline-button">
                 {translations.hero.learnMoreButton[locale]}
               </Link>

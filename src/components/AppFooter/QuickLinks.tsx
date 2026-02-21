@@ -4,6 +4,8 @@ import LinksList from "./LinksList";
 import { navigationLinks } from "./constants";
 import type { Locale } from "../Providers/LocaleProvider";
 import { translations } from "./translations";
+import DonateNowModal from "@/components/Donate/DonateNowModal";
+import { givebutterDonationUrl } from "@/constants/links";
 const QuickLinks = ({ locale }: { locale: Locale }) => {
   return (
     <div>
@@ -24,13 +26,22 @@ const QuickLinks = ({ locale }: { locale: Locale }) => {
             </li>
           ) : (
             <li key={`${item.href}-${idx}`}>
-              <Link
-                target={`${item.href.includes("http") ? "_blank" : ""}`}
-                href={`${item.href.includes("http") ? item.href : `/${locale}${item.href}`}`}
-                className="text-gray-400 hover:text-white transition-colors duration-300 inline-block"
-              >
-                {item.text[locale]}
-              </Link>
+              {item.href === givebutterDonationUrl ? (
+                <DonateNowModal
+                  locale={locale}
+                  className="text-gray-400 hover:text-white transition-colors duration-300 inline-block"
+                >
+                  {item.text[locale]}
+                </DonateNowModal>
+              ) : (
+                <Link
+                  target={`${item.href.includes("http") ? "_blank" : ""}`}
+                  href={`${item.href.includes("http") ? item.href : `/${locale}${item.href}`}`}
+                  className="text-gray-400 hover:text-white transition-colors duration-300 inline-block"
+                >
+                  {item.text[locale]}
+                </Link>
+              )}
             </li>
           ),
         )}
