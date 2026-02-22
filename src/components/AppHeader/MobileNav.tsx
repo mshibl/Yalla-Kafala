@@ -6,6 +6,7 @@ import { navigationLinks } from "@/components/AppFooter/constants";
 import LanguageSwitcher from "./LanguageSwitcher";
 import type { Locale } from "../Providers/LocaleProvider";
 import DonateNowModal from "@/components/Donate/DonateNowModal";
+import { givebutterDonationUrl } from "@/constants/links";
 
 interface MobileNavProps {
   locale: Locale;
@@ -46,7 +47,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
         <div className="flex flex-col items-center justify-center space-y-6 h-full">
           {/* Navigation Links (Mobile) */}
           {navigationLinks
-            .filter((item) => item.text?.en !== "Donate Now")
+            .filter((item) => item.href !== givebutterDonationUrl)
             .map((item, idx) =>
               item.group ? (
                 <div

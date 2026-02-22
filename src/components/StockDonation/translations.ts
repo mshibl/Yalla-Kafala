@@ -49,7 +49,7 @@ export const translations = {
       'Click on "Donate".',
       'Select "Appreciated Assets".',
       "Complete the form and provide your stock brokerage with the transfer details at the top of the form.",
-      'Answer these questions: "What is your DAF #?" -> Enter END0023. "What is the intended purpose for the gift?" -> Select "Other" and write "Contribution for Yalla Kafala Endown".',
+      'Answer these questions: "What is your DAF #?" -> Enter END0023. "What is the intended purpose for the gift?" -> Select "Other" and write "Contribution for Yalla Kafala Endowment".',
       "Notify us by emailing nonprofitengage@amuslimcf.org once the stock transfer is complete.",
     ],
     ar: [
@@ -57,7 +57,7 @@ export const translations = {
       'اضغط على "Donate".',
       'اختر "Appreciated Assets".',
       "أكمل النموذج وشارك شركة الوساطة بتفاصيل التحويل الموجودة أعلى النموذج.",
-      'أجب عن الأسئلة التالية: "What is your DAF #?" -> أدخل END0023. ثم "What is the intended purpose for the gift?" -> اختر "Other" واكتب "Contribution for Yalla Kafala Endown".',
+      'أجب عن الأسئلة التالية: "What is your DAF #?" -> أدخل END0023. ثم "What is the intended purpose for the gift?" -> اختر "Other" واكتب "Contribution for Yalla Kafala Endowment".',
       "بعد إتمام التحويل، أرسل تأكيدًا إلى nonprofitengage@amuslimcf.org.",
     ],
   },
@@ -106,7 +106,7 @@ export const translations = {
     ar: "الغرض المقصود",
   },
   purposeValue: {
-    en: "Contribution for Yalla Kafala Endown",
-    ar: "Contribution for Yalla Kafala Endown",
+    en: "Contribution for Yalla Kafala Endowment",
+    ar: "Contribution for Yalla Kafala Endowment",
   },
 } as const;
