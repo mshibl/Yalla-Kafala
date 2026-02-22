@@ -10,4 +10,4 @@ export const brochurePdfUrl =
 export const givebutterDonationUrl =
   "https://givebutter.com/yallakafaladonations";
 
-export const stockDonationUrl = "https://amuslimcf.org/";
+export const amcfDonationUrl = "https://amuslimcf.org/";

@@ -3,9 +3,10 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { ExternalLink, Landmark, LineChart } from "lucide-react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { givebutterDonationUrl, stockDonationUrl } from "@/constants/links";
+import { givebutterDonationUrl } from "@/constants/links";
 import {
   Dialog,
   DialogContent,
@@ -41,7 +42,7 @@ const copy = {
     cardBankTitle: "Donate by card or bank",
     cardBankDescription: "Fast online donation on Givebutter.",
     stockTitle: "Donate stock",
-    stockDescription: "Start your stock transfer securely through AMCF.",
+    stockDescription: "Review the stock donation steps on our website.",
     note: "Stock donations are processed through AMCF.",
   },
   ar: {
@@ -51,7 +52,7 @@ const copy = {
     cardBankTitle: "تبرع بالبطاقة أو البنك",
     cardBankDescription: "تبرع إلكتروني سريع عبر Givebutter.",
     stockTitle: "تبرع بالأسهم",
-    stockDescription: "ابدأ تحويل الأسهم بأمان عبر AMCF.",
+    stockDescription: "راجع خطوات التبرع بالأسهم على موقعنا.",
     note: "تتم معالجة تبرعات الأسهم عبر AMCF.",
   },
 };
@@ -98,10 +99,8 @@ export default function DonateNowModal({
         </span>
       </a>
 
-      <a
-        href={stockDonationUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        href={`/${locale}/stock-donation`}
         onClick={() => setOpen(false)}
         className="group flex w-full items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 text-left transition-all hover:border-primary/40 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
       >
@@ -119,7 +118,7 @@ export default function DonateNowModal({
         <span className="mt-1 text-gray-400 transition-colors group-hover:text-primary">
           <ExternalLink className="h-4 w-4" />
         </span>
-      </a>
+      </Link>
 
       <p className="pt-1 text-xs text-gray-500">{t.note}</p>
     </div>
