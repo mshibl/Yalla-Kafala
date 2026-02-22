@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { translations } from "./translations";
 import Link from "next/link";
+import DonateNowModal from "@/components/Donate/DonateNowModal";
 
 const HeroSection = ({ locale }: { locale: string }) => (
   <section className="relative overflow-hidden pt-32 pb-16 md:py-32 bg-gradient-to-b from-primary/5 to-white">
@@ -34,16 +35,13 @@ const HeroSection = ({ locale }: { locale: string }) => (
               : translations.hero.description.en}
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
-            <Link
-              href="https://givebutter.com/yallakafaladonations"
-              target="_blank"
-            >
+            <DonateNowModal locale={locale === "ar" ? "ar" : "en"} asChild>
               <Button className="bg-primary hover:bg-primary/90 text-white">
                 {locale === "ar"
                   ? translations.hero.supportButton.ar
                   : translations.hero.supportButton.en}
               </Button>
-            </Link>
+            </DonateNowModal>
             <Link href="/what-is-kafala">
               <Button
                 variant="outline"

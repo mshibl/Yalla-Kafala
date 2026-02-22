@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { navigationLinks } from "@/components/AppFooter/constants";
 import LanguageSwitcher from "./LanguageSwitcher";
+import DonateNowModal from "@/components/Donate/DonateNowModal";
+import { givebutterDonationUrl } from "@/constants/links";
 
 interface DesktopNavProps {
   locale: "en" | "ar";
@@ -33,14 +35,24 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
             </div>
           </div>
         ) : (
-          <Link
-            key={item.href}
-            target={`${item.href.includes("http") ? "_blank" : ""}`}
-            href={`${item.href.includes("http") ? item.href : `/${locale}${item.href}`}`}
-            className="text-gray-700 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-          >
-            {item.text[locale]}
-          </Link>
+          <React.Fragment key={item.href}>
+            {item.href === givebutterDonationUrl ? (
+              <DonateNowModal
+                locale={locale}
+                className="text-gray-700 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              >
+                {item.text[locale]}
+              </DonateNowModal>
+            ) : (
+              <Link
+                target={`${item.href.includes("http") ? "_blank" : ""}`}
+                href={`${item.href.includes("http") ? item.href : `/${locale}${item.href}`}`}
+                className="text-gray-700 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              >
+                {item.text[locale]}
+              </Link>
+            )}
+          </React.Fragment>
         ),
       )}
 

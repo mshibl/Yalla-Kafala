@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { navigationLinks } from "@/components/AppFooter/constants";
 import LanguageSwitcher from "./LanguageSwitcher";
 import type { Locale } from "../Providers/LocaleProvider";
+import DonateNowModal from "@/components/Donate/DonateNowModal";
+import { givebutterDonationUrl } from "@/constants/links";
 
 interface MobileNavProps {
   locale: Locale;
@@ -44,121 +46,124 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       >
         <div className="flex flex-col items-center justify-center space-y-6 h-full">
           {/* Navigation Links (Mobile) */}
-          {navigationLinks.map((item, idx) =>
-            item.group ? (
-              <div
-                key={item.group.en}
-                className={cn(
-                  "w-full flex flex-col items-center",
-                  "transform transition-all duration-300",
-                  mobileMenuOpen
-                    ? "translate-x-0 opacity-100"
-                    : "translate-x-10 opacity-0",
-                )}
-                style={{
-                  transitionDelay: mobileMenuOpen
-                    ? `${50 + idx * 50}ms`
-                    : "0ms",
-                }}
-              >
-                <button
-                  className="flex items-center gap-2 text-xl text-gray-800 font-medium hover:text-primary transition-all duration-300 focus:outline-none"
-                  onClick={() => {
-                    if (item.group.en === "Explore Kafala")
-                      setExploreKafalaOpen((open) => !open);
-                    if (item.group.en === "About Us")
-                      setAboutUsOpen((open) => !open);
+          {navigationLinks
+            .filter((item) => item.href !== givebutterDonationUrl)
+            .map((item, idx) =>
+              item.group ? (
+                <div
+                  key={item.group.en}
+                  className={cn(
+                    "w-full flex flex-col items-center",
+                    "transform transition-all duration-300",
+                    mobileMenuOpen
+                      ? "translate-x-0 opacity-100"
+                      : "translate-x-10 opacity-0",
+                  )}
+                  style={{
+                    transitionDelay: mobileMenuOpen
+                      ? `${50 + idx * 50}ms`
+                      : "0ms",
                   }}
-                  aria-expanded={
-                    item.group.en === "Explore Kafala"
-                      ? exploreKafalaOpen
-                      : aboutUsOpen
-                  }
-                  aria-controls={`${item.group.en.toLowerCase().replace(/\s/g, "-")}-mobile-links`}
-                  type="button"
                 >
-                  <span className="font-semibold">{item.group[locale]}</span>
-                  <ChevronDown
+                  <button
+                    className="flex items-center gap-2 text-xl text-gray-800 font-medium hover:text-primary transition-all duration-300 focus:outline-none"
+                    onClick={() => {
+                      if (item.group.en === "Explore Kafala")
+                        setExploreKafalaOpen((open) => !open);
+                      if (item.group.en === "About Us")
+                        setAboutUsOpen((open) => !open);
+                    }}
+                    aria-expanded={
+                      item.group.en === "Explore Kafala"
+                        ? exploreKafalaOpen
+                        : aboutUsOpen
+                    }
+                    aria-controls={`${item.group.en.toLowerCase().replace(/\s/g, "-")}-mobile-links`}
+                    type="button"
+                  >
+                    <span className="font-semibold">{item.group[locale]}</span>
+                    <ChevronDown
+                      className={cn(
+                        "h-5 w-5 transition-transform duration-300",
+                        (
+                          item.group.en === "Explore Kafala"
+                            ? exploreKafalaOpen
+                            : aboutUsOpen
+                        )
+                          ? "rotate-180"
+                          : "rotate-0",
+                      )}
+                      aria-hidden="true"
+                    />
+                  </button>
+                  <div
+                    id={`${item.group.en.toLowerCase().replace(/\s/g, "-")}-mobile-links`}
                     className={cn(
-                      "h-5 w-5 transition-transform duration-300",
+                      "flex flex-col items-center space-y-2 overflow-hidden transition-all duration-300",
                       (
                         item.group.en === "Explore Kafala"
                           ? exploreKafalaOpen
                           : aboutUsOpen
                       )
-                        ? "rotate-180"
-                        : "rotate-0",
+                        ? "max-h-60 mt-2 opacity-100"
+                        : "max-h-0 opacity-0",
                     )}
-                    aria-hidden="true"
-                  />
-                </button>
-                <div
-                  id={`${item.group.en.toLowerCase().replace(/\s/g, "-")}-mobile-links`}
-                  className={cn(
-                    "flex flex-col items-center space-y-2 overflow-hidden transition-all duration-300",
-                    (
-                      item.group.en === "Explore Kafala"
+                    aria-hidden={
+                      !(item.group.en === "Explore Kafala"
                         ? exploreKafalaOpen
-                        : aboutUsOpen
-                    )
-                      ? "max-h-60 mt-2 opacity-100"
-                      : "max-h-0 opacity-0",
-                  )}
-                  aria-hidden={
-                    !(item.group.en === "Explore Kafala"
-                      ? exploreKafalaOpen
-                      : aboutUsOpen)
-                  }
-                >
-                  {item.links.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={`/${locale}${link.href}`}
-                      className="text-base text-gray-700 hover:text-primary transition-colors"
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        if (item.group.en === "Explore Kafala")
-                          setExploreKafalaOpen(false);
-                        if (item.group.en === "About Us") setAboutUsOpen(false);
-                      }}
-                    >
-                      {link.text[locale]}
-                    </Link>
-                  ))}
+                        : aboutUsOpen)
+                    }
+                  >
+                    {item.links.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={`/${locale}${link.href}`}
+                        className="text-base text-gray-700 hover:text-primary transition-colors"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          if (item.group.en === "Explore Kafala")
+                            setExploreKafalaOpen(false);
+                          if (item.group.en === "About Us")
+                            setAboutUsOpen(false);
+                        }}
+                      >
+                        {link.text[locale]}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <Link
-                key={item.href}
-                href={
-                  item.href.startsWith("http")
-                    ? item.href
-                    : `/${locale}${item.href}`
-                }
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel={
-                  item.href.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
-                }
-                className={cn(
-                  "text-xl text-gray-800 font-medium hover:text-primary transition-all duration-300",
-                  "transform transition-all duration-300",
-                  mobileMenuOpen
-                    ? "translate-x-0 opacity-100"
-                    : "translate-x-10 opacity-0",
-                )}
-                style={{
-                  transitionDelay: mobileMenuOpen
-                    ? `${125 + idx * 25}ms`
-                    : "0ms",
-                }}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.text[locale]}
-              </Link>
-            ),
-          )}
+              ) : (
+                <Link
+                  key={item.href}
+                  href={
+                    item.href.startsWith("http")
+                      ? item.href
+                      : `/${locale}${item.href}`
+                  }
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    item.href.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  className={cn(
+                    "text-xl text-gray-800 font-medium hover:text-primary transition-all duration-300",
+                    "transform transition-all duration-300",
+                    mobileMenuOpen
+                      ? "translate-x-0 opacity-100"
+                      : "translate-x-10 opacity-0",
+                  )}
+                  style={{
+                    transitionDelay: mobileMenuOpen
+                      ? `${125 + idx * 25}ms`
+                      : "0ms",
+                  }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.text[locale]}
+                </Link>
+              ),
+            )}
 
           {/* Language Switcher for Mobile */}
           <div
@@ -178,9 +183,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
             />
           </div>
 
-          <Link
-            target="_blank"
-            href={`https://givebutter.com/yallakafaladonations`}
+          <DonateNowModal
+            locale={locale}
             className={cn(
               "primary-button mt-4",
               "transform transition-all duration-300",
@@ -189,10 +193,10 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                 : "translate-x-10 opacity-0",
             )}
             style={{ transitionDelay: mobileMenuOpen ? "300ms" : "0ms" }}
-            onClick={() => setMobileMenuOpen(false)}
+            onTriggerClick={() => setMobileMenuOpen(false)}
           >
             {locale === "en" ? "Donate Now" : "تبرع الآن"}
-          </Link>
+          </DonateNowModal>
         </div>
       </div>
     </>

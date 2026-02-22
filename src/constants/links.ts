@@ -6,3 +6,8 @@ export const fatwaPdfUrl =
 
 export const brochurePdfUrl =
   "https://lo318rdvh3.ufs.sh/f/osHxTQ6vFbeh1zdwwukSrLNlg0PyzVep3RsK9a1DTfZBktAv";
+
+export const givebutterDonationUrl =
+  "https://givebutter.com/yallakafaladonations";
+
+export const amcfDonationUrl = "https://amuslimcf.org/";
