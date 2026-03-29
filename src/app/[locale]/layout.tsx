@@ -38,6 +38,9 @@ export async function generateMetadata({
   return {
     title,
     description,
+    icons: {
+      icon: [{ url: "/images/yk_logo.svg", type: "image/svg+xml" }],
+    },
     alternates: {
       languages: {
         en: "/en",

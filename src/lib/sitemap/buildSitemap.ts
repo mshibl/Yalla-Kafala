@@ -1,14 +1,19 @@
+/**
+ * Builds the URL list served at `/sitemap.xml` for search engines (wired in `src/app/sitemap.ts`).
+ * Static paths under `src/app/[locale]` are discovered on disk so most new pages require no change
+ * here. Paths with dynamic segments (e.g. blog post IDs, resource slugs) need a resolver that
+ * loads allowed values from the database or Convex. Canonical URLs use `NEXT_PUBLIC_URL` from env.
+ */
+
 import type { MetadataRoute } from "next";
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
-import { eq } from "drizzle-orm";
 import { fetchQuery } from "convex/nextjs";
 
 import { env } from "@/env";
 import type { Resource } from "@/lib/types";
 import { api } from "../../../convex/_generated/api";
 import { db } from "@/server/db";
-import { stories } from "@/server/db/schema";
 
 const LOCALES = ["ar", "en"] as const;
 
@@ -23,10 +28,10 @@ type DynamicSegmentResolver = () => Promise<string[]>;
  */
 const DYNAMIC_SEGMENT_RESOLVERS: Record<DynamicRouteKey, DynamicSegmentResolver> = {
   "kafala-blogs/[id]": async () => {
-    const rows = await db
-      .select({ id: stories.id })
-      .from(stories)
-      .where(eq(stories.publish, true));
+    const rows = await db.query.stories.findMany({
+      columns: { id: true },
+      where: (stories, { eq }) => eq(stories.publish, true),
+    });
     return rows.map((r) => String(r.id));
   },
   "resources/[slug]": async () => {
@@ -35,17 +40,26 @@ const DYNAMIC_SEGMENT_RESOLVERS: Record<DynamicRouteKey, DynamicSegmentResolver>
   },
 };
 
+/**
+ * Returns true when a path segment is a Next.js dynamic route piece (e.g. `[id]`, `[slug]`).
+ */
 function isDynamicSegment(segment: string): boolean {
   return segment.startsWith("[") && segment.endsWith("]");
 }
 
+/**
+ * Returns true when a directory is a Next.js route group `(name)`, which must not appear in public URLs.
+ */
 function isRouteGroup(segment: string): boolean {
   return segment.startsWith("(") && segment.endsWith(")");
 }
 
 /**
- * Walk `src/app/[locale]` and collect every `page.tsx` route: static paths (no dynamic segments)
- * and dynamic route keys (path under locale with bracket segments preserved).
+ * Recursively scans the App Router tree under `localeRoot` and collects URLs relative to `[locale]`.
+ *
+ * @param localeRoot - Absolute path to `src/app/[locale]`
+ * @returns `staticPaths` for segment lists with no brackets, and `dynamicKeys` like `kafala-blogs/[id]`
+ *     for routes that need resolver-backed values
  */
 function discoverLocaleRoutes(localeRoot: string): {
   staticPaths: string[];
@@ -54,6 +68,13 @@ function discoverLocaleRoutes(localeRoot: string): {
   const staticPaths: string[] = [];
   const dynamicKeys = new Set<string>();
 
+  /**
+   * Depth-first traversal: when a folder contains `page.tsx`, record either a static path or a
+   * dynamic key; recurse into children, omitting route group folders from the URL path.
+   *
+   * @param dir - Directory to read
+   * @param segments - URL path segments under `[locale]` built so far (folder names, not files)
+   */
   function walk(dir: string, segments: string[]): void {
     const entries = readdirSync(dir, { withFileTypes: true });
     const hasPage = entries.some((e) => e.isFile() && e.name === "page.tsx");
@@ -88,17 +109,31 @@ function discoverLocaleRoutes(localeRoot: string): {
   };
 }
 
+/**
+ * Returns the site origin for absolute sitemap URLs, normalizing `NEXT_PUBLIC_URL` (trim, no
+ * trailing slash, default `https` if the env value has no scheme).
+ */
 function getSiteOrigin(): string {
   const raw = env.NEXT_PUBLIC_URL.trim().replace(/\/+$/, "");
   return raw.startsWith("http") ? raw : `https://${raw}`;
 }
 
+/**
+ * Composes one sitemap entry URL: `{origin}/{locale}/{path}` with no duplicate slashes when path is empty.
+ *
+ * @param locale - `ar` or `en`
+ * @param pathWithoutLocale - Path after locale (e.g. `faqs`, `kafala-blogs/12`), or empty string for home
+ */
 function urlFor(locale: string, pathWithoutLocale: string): string {
   const base = getSiteOrigin();
   const suffix = pathWithoutLocale ? `/${pathWithoutLocale}` : "";
   return `${base}/${locale}${suffix}`;
 }
 
+/**
+ * Produces the full sitemap payload for Next.js: every discovered static route per locale, plus
+ * expanded URLs for each dynamic route using `DYNAMIC_SEGMENT_RESOLVERS`.
+ */
 export async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
   const localeRoot = join(process.cwd(), "src", "app", "[locale]");
   const { staticPaths, dynamicKeys } = discoverLocaleRoutes(localeRoot);
