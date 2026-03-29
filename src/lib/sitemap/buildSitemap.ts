@@ -130,6 +130,11 @@ function urlFor(locale: string, pathWithoutLocale: string): string {
   return `${base}/${locale}${suffix}`;
 }
 
+/** Single URL path segment from DB/Convex; not pre-encoded elsewhere before sitemap use. */
+function encodeDynamicSegment(value: string): string {
+  return encodeURIComponent(value);
+}
+
 /**
  * Produces the full sitemap payload for Next.js: every discovered static route per locale, plus
  * expanded URLs for each dynamic route using `DYNAMIC_SEGMENT_RESOLVERS`.
@@ -163,13 +168,24 @@ export async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
       continue;
     }
 
-    const values = await resolver();
     const pathPrefix = key.replace(/\/\[[^\]]+]$/, "");
+
+    let values: string[];
+    try {
+      values = await resolver();
+    } catch (error) {
+      console.error(
+        `[sitemap] Resolver failed for dynamic route "${key}" (pathPrefix "${pathPrefix}"): `,
+        error,
+      );
+      continue;
+    }
 
     for (const locale of LOCALES) {
       for (const value of values) {
+        const segment = encodeDynamicSegment(String(value));
         const path =
-          pathPrefix === "" ? `${value}` : `${pathPrefix}/${value}`;
+          pathPrefix === "" ? segment : `${pathPrefix}/${segment}`;
         entries.push({
           url: urlFor(locale, path),
           lastModified: now,
