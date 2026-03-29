@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prebuild": "node scripts/generate-locale-route-manifest.mjs",
+    "sitemap:manifest": "node scripts/generate-locale-route-manifest.mjs",
     "build": "next build",
     "check": "next lint && tsc --noEmit",
     "db:generate": "drizzle-kit generate",
