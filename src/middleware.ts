@@ -97,6 +97,33 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Root metadata routes from `app/sitemap.ts` / `app/robots.ts` — not under `/[locale]/`.
+  if (pathname === "/sitemap.xml" || pathname === "/robots.txt") {
+    return NextResponse.next();
+  }
+
+  // Legacy path rename: the public route used to be `kafala-stories` and was renamed to
+  // `kafala-blogs`. Search Console, Google Tag coverage, and old inbound links may still use the
+  // former URL. Permanent redirects send users and crawlers to the real page (where analytics
+  // tags run) without listing obsolete URLs in the sitemap.
+  const kafalaStoriesWithLocale = /^\/(en|ar)\/kafala-stories(\/.*)?$/;
+  const legacyWithLocale = pathname.match(kafalaStoriesWithLocale);
+  if (legacyWithLocale) {
+    const [, locale, suffix] = legacyWithLocale;
+    const newUrl = new URL(request.url);
+    newUrl.pathname = `/${locale}/kafala-blogs${suffix ?? ""}`;
+    return NextResponse.redirect(newUrl, 308);
+  }
+
+  const kafalaStoriesNoLocale = /^\/kafala-stories(\/.*)?$/;
+  if (kafalaStoriesNoLocale.test(pathname)) {
+    const suffix = pathname.slice("/kafala-stories".length);
+    const locale = getLocale(request);
+    const newUrl = new URL(request.url);
+    newUrl.pathname = `/${locale}/kafala-blogs${suffix}`;
+    return NextResponse.redirect(newUrl, 308);
+  }
+
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );

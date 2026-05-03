@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { GoogleTagManager } from "@next/third-parties/google";
 import Navbar from "@/components/AppHeader";
 import Footer from "@/components/AppFooter";
 import { Toaster } from "@/components/ui/sonner";
@@ -37,6 +38,9 @@ export async function generateMetadata({
   return {
     title,
     description,
+    icons: {
+      icon: [{ url: "/images/yk_logo.svg", type: "image/svg+xml" }],
+    },
     alternates: {
       languages: {
         en: "/en",
@@ -186,20 +190,9 @@ export default async function RootLayout({
           strategy="lazyOnload"
           async={true}
         />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-16690402452"
-          strategy="afterInteractive"
-        />
-        <Script id="google-ads-gtag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-16690402452');
-          `}
-        </Script>
       </head>
       <body>
+        <GoogleTagManager gtmId="GTM-TV63ZJT2" />
         <Providers locale={locale as Locale}>
           <div className="min-h-screen flex flex-col">
             <Navbar locale={locale as Locale} />
