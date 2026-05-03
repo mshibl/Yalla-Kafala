@@ -21,6 +21,35 @@ function getLocale(request: NextRequest) {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  const legacyRedirects: Record<string, string> = {
+    "/about_us": "/who-we-are",
+    "/about-us": "/who-we-are",
+    "/adoption_steps": "/kafala-steps",
+    "/adoption-steps": "/kafala-steps",
+    "/adoption_stories": "/kafala-blogs",
+    "/adoption-stories": "/kafala-blogs",
+    "/contact_us": "/",
+    "/contact-us": "/",
+    "/kafala-stories": "/kafala-blogs",
+  };
+
+  for (const locale of locales) {
+    legacyRedirects[`/${locale}/about_us`] = `/${locale}/who-we-are`;
+    legacyRedirects[`/${locale}/about-us`] = `/${locale}/who-we-are`;
+    legacyRedirects[`/${locale}/adoption_steps`] = `/${locale}/kafala-steps`;
+    legacyRedirects[`/${locale}/adoption-steps`] = `/${locale}/kafala-steps`;
+    legacyRedirects[`/${locale}/adoption_stories`] = `/${locale}/kafala-blogs`;
+    legacyRedirects[`/${locale}/adoption-stories`] = `/${locale}/kafala-blogs`;
+    legacyRedirects[`/${locale}/contact_us`] = `/${locale}`;
+    legacyRedirects[`/${locale}/contact-us`] = `/${locale}`;
+    legacyRedirects[`/${locale}/kafala-stories`] = `/${locale}/kafala-blogs`;
+  }
+
+  const legacyDestination = legacyRedirects[pathname];
+  if (legacyDestination) {
+    return NextResponse.redirect(new URL(legacyDestination, request.url), 308);
+  }
+
   // 1) Redirect brochure page to the PDF
   const isBrochurePath =
     pathname === "/adoption-process/brochure" ||
@@ -80,5 +109,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|docs|.*\\.(?:png|jpg|jpeg|gif|webp|svg|pdf)).*)"],
+  matcher: [
+    "/((?!_next|api|docs|robots\\.txt|sitemap\\.xml|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|pdf|txt|xml|ico)).*)",
+  ],
 };
