@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { translations } from "./translations";
-import Link from "next/link";
 import DonateNowModal from "@/components/Donate/DonateNowModal";
 
 const HeroSection = ({ locale }: { locale: string }) => (
@@ -42,16 +41,6 @@ const HeroSection = ({ locale }: { locale: string }) => (
                   : translations.hero.supportButton.en}
               </Button>
             </DonateNowModal>
-            <Link href="/what-is-kafala">
-              <Button
-                variant="outline"
-                className="border-primary text-primary hover:bg-primary/10"
-              >
-                {locale === "ar"
-                  ? translations.hero.learnMoreButton.ar
-                  : translations.hero.learnMoreButton.en}
-              </Button>
-            </Link>
           </div>
         </div>
         <div className="lg:w-1/2 relative">
