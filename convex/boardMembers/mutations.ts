@@ -15,6 +15,10 @@ export const createBoardMember = mutation({
     country: v.union(v.literal("egypt"), v.literal("usa"), v.literal("all")),
   },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (identity === null) {
+      throw new Error("Not authenticated");
+    }
     const boardMemberId = await ctx.db.insert("boardMembers", args);
     return boardMemberId;
   },
@@ -34,6 +38,10 @@ export const updateBoardMember = mutation({
     country: v.union(v.literal("egypt"), v.literal("usa"), v.literal("all")),
   },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (identity === null) {
+      throw new Error("Not authenticated");
+    }
     const { id, ...rest } = args;
     await ctx.db.patch(id as Id<"boardMembers">, rest);
   },
@@ -44,6 +52,10 @@ export const deleteBoardMember = mutation({
     id: v.string(),
   },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (identity === null) {
+      throw new Error("Not authenticated");
+    }
     await ctx.db.delete(args.id as Id<"boardMembers">);
   },
 });
