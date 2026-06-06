@@ -11,13 +11,13 @@ export interface AddNewFaq {
 }
 
 export interface UpdateFaq extends AddNewFaq {
-  id: number;
+  id: string;
 }
 
 export interface FaqCardProps {
   faq: FAQ;
   onUpdate: (updatedFaq: UpdateFaq) => Promise<void>;
-  onDelete: (faqId: number) => Promise<void>;
+  onDelete: (faqId: string) => Promise<void>;
   showArabic: boolean;
 }
 

@@ -1,7 +1,7 @@
 import BlogDetails from "@/components/ExploreKafala/KafalaBlogs/BlogDetails";
-import BlogNotFound from "@/components/ExploreKafala/KafalaBlogs/BlogDetails/BlogNotFound";
 import type { Locale } from "@/components/Providers/LocaleProvider";
-import { fetchBlogsIds } from "@/server/actions/blogs/fetchBlogs";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../../convex/_generated/api";
 
 export default async function KafalaBlogPage({
   params,
@@ -9,16 +9,13 @@ export default async function KafalaBlogPage({
   params: Promise<{ id: string; locale: Locale }>;
 }) {
   const { locale, id } = await params;
-  if (isNaN(parseInt(id))) {
-    return <BlogNotFound />;
-  }
-  return <BlogDetails id={parseInt(id)} locale={locale} />;
+  return <BlogDetails id={id} locale={locale} />;
 }
 
 export async function generateStaticParams() {
-  const blogsIds = await fetchBlogsIds();
-  if (!blogsIds.success || !blogsIds.data) {
+  const blogsIds = await fetchQuery(api.stories.queries.getStoryIds);
+  if (!blogsIds) {
     return [];
   }
-  return blogsIds.data;
+  return blogsIds;
 }

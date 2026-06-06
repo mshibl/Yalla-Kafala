@@ -1,5 +1,6 @@
 import BlogsClient from "./BlogsClient";
-import { fetchBlogs } from "@/server/actions/blogs/fetchBlogs";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -33,9 +34,9 @@ const LoadingSkeleton = () => (
 );
 
 const BlogsContent = async () => {
-  const blogs = await fetchBlogs({ featuredOnly: true });
-  if (!blogs.success || !blogs.data) return null;
-  return <BlogsClient blogs={blogs.data} />;
+  const blogs = await fetchQuery(api.stories.queries.getStories, { featuredOnly: true });
+  if (!blogs || blogs.length === 0) return null;
+  return <BlogsClient blogs={blogs} />;
 };
 
 const Blogs = () => {

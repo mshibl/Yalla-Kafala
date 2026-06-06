@@ -10,6 +10,7 @@ import { api } from "../../../convex/_generated/api";
 export const TeamSection = async ({ locale }: { locale: Locale }) => {
   const boardMembers = await fetchQuery(
     api.boardMembers.queries.getBoardMembers,
+    { publishedOnly: true },
   );
 
   const egyptBoardMembers = (boardMembers ?? []).filter(

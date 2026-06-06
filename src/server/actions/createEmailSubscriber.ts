@@ -1,9 +1,9 @@
 "use server";
 
 import { env } from "@/env";
-import { db } from "@/server/db";
-import { emailSubscribers } from "@/server/db/schema";
-import { eq } from "drizzle-orm";
+import { fetchMutation } from "convex/nextjs";
+import { api } from "../../../convex/_generated/api";
+
 export async function createEmailSubscriber(data: {
   name: string;
   email: string;
@@ -13,26 +13,18 @@ export async function createEmailSubscriber(data: {
 }> {
   const [firstName, lastName] = data.name.split(" ");
 
-  const existingUser = await db
-    .select()
-    .from(emailSubscribers)
-    .where(eq(emailSubscribers.email, data.email));
+  const convexResult = await fetchMutation(api.emailSubscribers.mutations.addSubscriber, {
+    firstName: firstName || "",
+    lastName: lastName || "",
+    email: data.email,
+  });
 
-  if (existingUser.length > 0) {
+  if (!convexResult.success) {
     return {
       success: true,
-      message: "Email subscriber already exists",
+      message: convexResult.message || "Email subscriber already exists",
     };
   }
-
-  await db
-    .insert(emailSubscribers)
-    .values({
-      firstName,
-      lastName,
-      email: data.email,
-    })
-    .returning();
 
   // Add to EmailOctopus list
   try {

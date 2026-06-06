@@ -1,19 +1,24 @@
-import { fetchBlogs } from "@/server/actions/blogs/fetchBlogs";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
 import AnimatedContainer from "./AnimatedContainer";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Locale } from "@/components/Providers/LocaleProvider";
+
 const BlogsContent = async () => {
-  const blogs = await fetchBlogs();
-  if (!blogs.success || !blogs.data) {
+  const blogs = await fetchQuery(api.stories.queries.getStories, {
+    publishedOnly: true,
+  });
+
+  if (!blogs || blogs.length === 0) {
     return (
       <div className="flex justify-center items-center h-full">
-        <p className="text-2xl font-bold">Error fetching blogs</p>
+        <p className="text-2xl font-bold">No blogs found</p>
       </div>
     );
   }
 
-  return <AnimatedContainer blogs={blogs.data} />;
+  return <AnimatedContainer blogs={blogs} />;
 };
 
 const BlogsSection = ({ locale }: { locale: Locale }) => {

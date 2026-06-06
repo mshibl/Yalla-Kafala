@@ -27,10 +27,7 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "better-auth/cookies": [
-        "./node_modules/better-auth/dist/cookies/index.d.ts"
-      ]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
@@ -41,5 +38,5 @@
     "**/*.js",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "scripts"]
 }
