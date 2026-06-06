@@ -21,6 +21,8 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
+
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
@@ -107,6 +109,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                     <h1 className="text-2xl font-semibold text-gray-800">
                       Admin Dashboard
                     </h1>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <UserButton />
                   </div>
                 </div>
               </header>

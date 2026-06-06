@@ -36,6 +36,10 @@ export const createResource = mutation({
     uploadthingKey: v.string(),
   },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (identity === null) {
+      throw new Error("Not authenticated");
+    }
     const baseSlug = slugify(args.nameEn);
     const slug = await getUniqueSlug(ctx, baseSlug);
     const resourceId = await ctx.db.insert("resources", {
@@ -55,6 +59,10 @@ export const updateResource = mutation({
     uploadthingKey: v.string(),
   },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (identity === null) {
+      throw new Error("Not authenticated");
+    }
     const { id, ...rest } = args;
     const existing = await ctx.db.get(id as Id<"resources">);
 
@@ -80,6 +88,10 @@ export const deleteResource = mutation({
     id: v.string(),
   },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (identity === null) {
+      throw new Error("Not authenticated");
+    }
     await ctx.db.delete(args.id as Id<"resources">);
   },
 });

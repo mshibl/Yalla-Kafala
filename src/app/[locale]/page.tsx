@@ -29,4 +29,3 @@ const HomePage = async ({
 };
 
 export default HomePage;
-export const revalidate = 86400; // Revalidates the cache every 24 hours to get the latest posts. The first request after 24 hours will trigger the revalidation.

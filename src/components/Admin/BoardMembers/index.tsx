@@ -40,7 +40,7 @@ import {
 import { Trash2 } from "lucide-react";
 
 const BoardMembersManagement = () => {
-  const boardMembers = useQuery(api.boardMembers.queries.getBoardMembers);
+  const boardMembers = useQuery(api.boardMembers.queries.getBoardMembers, {});
   const createBoardMember = useMutation(
     api.boardMembers.mutations.createBoardMember,
   );

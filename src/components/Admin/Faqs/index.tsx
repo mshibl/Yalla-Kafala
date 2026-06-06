@@ -10,48 +10,70 @@ import {
 } from "@/components/ui/card";
 import { AddFaqDialog } from "./AddFaq";
 import { FaqCard } from "./FaqCard";
-import { type FAQ } from "@/lib/types";
 import { toast } from "sonner";
-import { createFaq } from "@/server/actions/faqs/createFaq";
-import { deleteFaq } from "@/server/actions/faqs/deleteFaq";
-import { updateFaq } from "@/server/actions/faqs/updateFaq";
+import { useQuery, useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
 import type { AddNewFaq, UpdateFaq } from "./types";
 import { Button } from "@/components/ui/button";
-import { Languages } from "lucide-react";
+import { Languages, Loader2 } from "lucide-react";
+import { revalidateFaqs } from "@/server/actions/revalidate";
 
-const FaqsManagement = ({ faqs: initialFaqs }: { faqs: FAQ[] }) => {
-  const [faqs, setFaqs] = useState<FAQ[]>(initialFaqs);
+const FaqsManagement = () => {
+  const faqs = useQuery(api.faqs.queries.getFaqs, { publishedOnly: false });
   const [showArabic, setShowArabic] = useState(false);
 
+  const createFaq = useMutation(api.faqs.mutations.createFaq);
+  const updateFaq = useMutation(api.faqs.mutations.updateFaq);
+  const deleteFaq = useMutation(api.faqs.mutations.deleteFaq);
+
   const handleCreateFaq = async (newFaq: AddNewFaq) => {
-    const result = await createFaq(newFaq);
-    if (!result.success || !result.data) {
+    try {
+      await createFaq(newFaq);
+      await revalidateFaqs();
+      toast.success("FAQ added successfully");
+    } catch (error) {
+      console.error("Error creating FAQ:", error);
       toast.error("Failed to add FAQ");
-      return;
     }
-    setFaqs([...faqs, result.data]);
-    toast.success("FAQ added successfully");
   };
 
   const handleUpdateFaq = async (updatedFaq: UpdateFaq) => {
-    const result = await updateFaq(updatedFaq);
-    if (!result.success || !result.data) {
+    try {
+      await updateFaq({
+        id: updatedFaq.id,
+        questionEn: updatedFaq.questionEn,
+        questionAr: updatedFaq.questionAr,
+        answerEn: updatedFaq.answerEn,
+        answerAr: updatedFaq.answerAr,
+        publish: updatedFaq.publish,
+        featured: updatedFaq.featured,
+      });
+      await revalidateFaqs();
+      toast.success("FAQ updated successfully");
+    } catch (error) {
+      console.error("Error updating FAQ:", error);
       toast.error("Failed to update FAQ");
-      return;
     }
-    setFaqs(faqs.map((faq) => (faq.id === updatedFaq.id ? result.data! : faq)));
-    toast.success("FAQ updated successfully");
   };
 
-  const handleDeleteFaq = async (faqId: number) => {
-    const result = await deleteFaq(faqId);
-    if (!result.success) {
+  const handleDeleteFaq = async (faqId: string) => {
+    try {
+      await deleteFaq({ id: faqId });
+      await revalidateFaqs();
+      toast.success("FAQ deleted successfully");
+    } catch (error) {
+      console.error("Error deleting FAQ:", error);
       toast.error("Failed to delete FAQ");
-      return;
     }
-    setFaqs(faqs.filter((faq) => faq.id !== faqId));
-    toast.success("FAQ deleted successfully");
   };
+
+  if (!faqs) {
+    return (
+      <div className="flex h-48 items-center justify-center">
+        <Loader2 className="animate-spin h-8 w-8 text-primary" />
+      </div>
+    );
+  }
 
   return (
     <Card>

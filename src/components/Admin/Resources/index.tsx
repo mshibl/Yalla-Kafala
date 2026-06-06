@@ -37,12 +37,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { ExternalLink, Trash2 } from "lucide-react";
-import { deleteResource as deleteResourceAction } from "@/server/actions/resources/deleteResource";
+import { revalidateResources } from "@/server/actions/revalidate";
 
 const ResourcesManagement = () => {
   const resources = useQuery(api.resources.queries.getResources);
   const createResource = useMutation(api.resources.mutations.createResource);
   const updateResource = useMutation(api.resources.mutations.updateResource);
+
+  const deleteResource = useMutation(api.resources.mutations.deleteResource);
 
   const { useUploadThing } = generateReactHelpers<OurFileRouter>();
   const { startUpload } = useUploadThing("resourceUploader", {
@@ -69,6 +71,7 @@ const ResourcesManagement = () => {
         uploadthingKey,
       });
 
+      await revalidateResources();
       toast.success("Resource added successfully");
     } catch (error) {
       console.error("Error creating resource:", error);
@@ -107,6 +110,7 @@ const ResourcesManagement = () => {
         uploadthingKey,
       });
 
+      await revalidateResources();
       toast.success("Resource updated successfully");
     } catch (error) {
       console.error("Error updating resource:", error);
@@ -114,16 +118,15 @@ const ResourcesManagement = () => {
     }
   };
 
-  const handleDeleteResource = async (
-    resourceId: string,
-    uploadthingKey: string,
-  ) => {
-    const result = await deleteResourceAction(resourceId, uploadthingKey);
-    if (!result.success) {
-      toast.error(result.message);
-      return;
+  const handleDeleteResource = async (resourceId: string) => {
+    try {
+      await deleteResource({ id: resourceId });
+      await revalidateResources();
+      toast.success("Resource deleted successfully");
+    } catch (error) {
+      console.error("Error deleting resource:", error);
+      toast.error("Failed to delete resource");
     }
-    toast.success(result.message);
   };
 
   return (
@@ -196,10 +199,7 @@ const ResourcesManagement = () => {
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                             <AlertDialogAction
                               onClick={() =>
-                                handleDeleteResource(
-                                  resource.id,
-                                  resource.uploadthingKey,
-                                )
+                                handleDeleteResource(resource.id)
                               }
                             >
                               Delete

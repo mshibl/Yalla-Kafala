@@ -1,7 +1,7 @@
 import { MakeDifference } from "@/components/Homepage/MakeDifference";
 import type { Locale } from "@/components/Providers/LocaleProvider";
-
-import { fetchBlogById } from "@/server/actions/blogs/fetchBlogs";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../../convex/_generated/api";
 import { Suspense } from "react";
 import LoadingState from "./LoadingState";
 import BlogContent from "./BlogContent";
@@ -11,22 +11,22 @@ const BlogDetailsFetch = async ({
   id,
   locale,
 }: {
-  id: number;
+  id: string;
   locale: Locale;
 }) => {
-  const blog = await fetchBlogById(id);
-  if (!blog.success || !blog.data) {
+  const blog = await fetchQuery(api.stories.queries.getStoryById, { id });
+  if (!blog) {
     return <BlogNotFound />;
   }
 
-  return <BlogContent blog={blog.data} locale={locale} />;
+  return <BlogContent blog={blog} locale={locale} />;
 };
 
 export default function BlogDetails({
   id,
   locale,
 }: {
-  id: number;
+  id: string;
   locale: Locale;
 }) {
   return (

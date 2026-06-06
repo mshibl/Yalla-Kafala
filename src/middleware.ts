@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
-import { getSessionCookie } from "better-auth/cookies";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 import { volunteerFormUrl, brochurePdfUrl } from "@/constants/links";
 
 // Define the locales we support
@@ -18,7 +18,7 @@ function getLocale(request: NextRequest) {
   return match(languages, locales, defaultLocale);
 }
 
-export async function middleware(request: NextRequest) {
+export default clerkMiddleware(async (auth, request) => {
   const { pathname } = request.nextUrl;
 
   const legacyRedirects: Record<string, string> = {
@@ -82,16 +82,16 @@ export async function middleware(request: NextRequest) {
   }
 
   if (pathname.startsWith("/admin/login")) {
-    const sessionCookie = getSessionCookie(request);
-    if (sessionCookie) {
+    const { userId } = await auth();
+    if (userId) {
       return NextResponse.redirect(new URL("/admin", request.url));
     }
     return NextResponse.next();
   }
 
   if (pathname.startsWith("/admin")) {
-    const sessionCookie = getSessionCookie(request);
-    if (!sessionCookie) {
+    const { userId } = await auth();
+    if (!userId) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
     return NextResponse.next();
@@ -133,10 +133,11 @@ export async function middleware(request: NextRequest) {
   const locale = getLocale(request);
   request.nextUrl.pathname = `/${locale}${pathname}`;
   return NextResponse.redirect(request.nextUrl);
-}
+});
 
 export const config = {
   matcher: [
     "/((?!_next|api|docs|robots\\.txt|sitemap\\.xml|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|pdf|txt|xml|ico)).*)",
+    "/__clerk/:path*",
   ],
 };

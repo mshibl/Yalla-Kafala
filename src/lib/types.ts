@@ -1,5 +1,5 @@
 export interface FAQ {
-  id: number;
+  id: string;
   questionEn: string;
   questionAr: string;
   answerEn: string;
@@ -9,7 +9,7 @@ export interface FAQ {
 }
 
 export interface Blog {
-  id: number;
+  id: string;
   titleEn: string;
   titleAr: string;
   contentEn: string;
@@ -23,7 +23,7 @@ export interface Blog {
 }
 
 export interface CarouselImage {
-  id: number;
+  id: string;
   uploadthingKey: string;
   src: string;
   captionEn?: string | null;

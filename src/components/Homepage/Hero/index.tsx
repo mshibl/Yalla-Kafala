@@ -1,18 +1,19 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { HeroCarousel } from "./carousel";
-import { fetchCarouselImages } from "@/server/actions/carouselImages/fetchCarouselImages";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { translations } from "./translations";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import DonateNowModal from "@/components/Donate/DonateNowModal";
 
 const CarouselContent = async () => {
-  const carouselImages = await fetchCarouselImages();
-  if (!carouselImages.success || !carouselImages.data) {
-    return <div>Error fetching carousel images</div>;
+  const carouselImages = await fetchQuery(api.carouselImages.queries.getCarouselImages);
+  if (!carouselImages || carouselImages.length === 0) {
+    return <div>No carousel images found</div>;
   }
-  return <HeroCarousel carouselImages={carouselImages.data} />;
+  return <HeroCarousel carouselImages={carouselImages} />;
 };
 
 const Hero = ({ locale }: { locale: Locale }) => {

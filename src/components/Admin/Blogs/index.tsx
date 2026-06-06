@@ -9,22 +9,26 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { type Blog } from "@/lib/types";
+import { useQuery, useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
 import { toast } from "sonner";
-import { createBlog } from "@/server/actions/blogs/createBlog";
-import { deleteBlog } from "@/server/actions/blogs/deleteBlog";
-import { updateBlog } from "@/server/actions/blogs/updateBlog";
 import type { AddNewBlog, UpdateBlog } from "./types";
 import type { OurFileRouter } from "@/app/api/uploadthing/core";
 import { generateReactHelpers } from "@uploadthing/react";
 import { Button } from "@/components/ui/button";
-import { Languages } from "lucide-react";
+import { Languages, Loader2 } from "lucide-react";
 import { AddBlogDialog } from "./AddBlog";
 import { BlogCard } from "./BlogCard";
+import { revalidateBlog } from "@/server/actions/revalidate";
 
-const BlogsManagement = ({ blogs: initialBlogs }: { blogs: Blog[] }) => {
-  const [blogs, setBlogs] = useState<Blog[]>(initialBlogs);
+const BlogsManagement = () => {
+  const blogs = useQuery(api.stories.queries.getStories, { publishedOnly: false });
   const [showArabic, setShowArabic] = useState(false);
+
+  const createStory = useMutation(api.stories.mutations.createStory);
+  const updateStory = useMutation(api.stories.mutations.updateStory);
+  const deleteStory = useMutation(api.stories.mutations.deleteStory);
+
   // Setup uploadthing
   const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
@@ -50,7 +54,7 @@ const BlogsManagement = ({ blogs: initialBlogs }: { blogs: Blog[] }) => {
       const imageUrl = imageResult[0].ufsUrl;
       const imageKey = imageResult[0].key;
 
-      const result = await createBlog({
+      await createStory({
         titleEn: newBlog.titleEn,
         titleAr: newBlog.titleAr,
         contentEn: newBlog.contentEn,
@@ -63,11 +67,7 @@ const BlogsManagement = ({ blogs: initialBlogs }: { blogs: Blog[] }) => {
         featured: newBlog.featured,
       });
 
-      if (!result.success || !result.data) {
-        toast.error("Failed to add blog");
-        return;
-      }
-      setBlogs([...blogs, result.data]);
+      await revalidateBlog();
       toast.success("Blog added successfully");
     } catch (error) {
       console.error("Error creating blog:", error);
@@ -77,8 +77,8 @@ const BlogsManagement = ({ blogs: initialBlogs }: { blogs: Blog[] }) => {
 
   const handleUpdateBlog = async (updatedBlog: UpdateBlog) => {
     try {
-      let imageUrl = undefined;
-      let uploadthingKey = undefined;
+      let imageUrl: string | undefined = undefined;
+      let uploadthingKey: string | undefined = undefined;
 
       if (updatedBlog.file) {
         const imageResult = await startUpload([updatedBlog.file]);
@@ -90,7 +90,14 @@ const BlogsManagement = ({ blogs: initialBlogs }: { blogs: Blog[] }) => {
         uploadthingKey = imageResult[0].key;
       }
 
-      const result = await updateBlog({
+      // Read current blog properties
+      const existingBlog = blogs?.find(b => b.id === updatedBlog.id);
+      if (!existingBlog) {
+        toast.error("Blog not found");
+        return;
+      }
+
+      await updateStory({
         id: updatedBlog.id,
         titleEn: updatedBlog.titleEn,
         titleAr: updatedBlog.titleAr,
@@ -98,19 +105,13 @@ const BlogsManagement = ({ blogs: initialBlogs }: { blogs: Blog[] }) => {
         contentAr: updatedBlog.contentAr,
         descriptionEn: updatedBlog.descriptionEn,
         descriptionAr: updatedBlog.descriptionAr,
-        imageUrl: imageUrl,
-        imageKey: uploadthingKey,
+        imageUrl: imageUrl ?? existingBlog.imageUrl,
+        imageKey: uploadthingKey ?? existingBlog.imageKey,
         publish: updatedBlog.publish,
         featured: updatedBlog.featured,
       });
 
-      if (!result.success || !result.data) {
-        toast.error("Failed to update blog");
-        return;
-      }
-      setBlogs(
-        blogs.map((blog) => (blog.id === updatedBlog.id ? result.data! : blog)),
-      );
+      await revalidateBlog(updatedBlog.id);
       toast.success("Blog updated successfully");
     } catch (error) {
       console.error("Error updating blog:", error);
@@ -118,15 +119,24 @@ const BlogsManagement = ({ blogs: initialBlogs }: { blogs: Blog[] }) => {
     }
   };
 
-  const handleDeleteBlog = async (blogId: number) => {
-    const result = await deleteBlog(blogId);
-    if (!result.success) {
+  const handleDeleteBlog = async (blogId: string) => {
+    try {
+      await deleteStory({ id: blogId });
+      await revalidateBlog(blogId);
+      toast.success("Blog deleted successfully");
+    } catch (error) {
+      console.error("Error deleting blog:", error);
       toast.error("Failed to delete blog");
-      return;
     }
-    setBlogs(blogs.filter((blog) => blog.id !== blogId));
-    toast.success("Blog deleted successfully");
   };
+
+  if (!blogs) {
+    return (
+      <div className="flex h-48 items-center justify-center">
+        <Loader2 className="animate-spin h-8 w-8 text-primary" />
+      </div>
+    );
+  }
 
   return (
     <Card>

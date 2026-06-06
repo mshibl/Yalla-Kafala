@@ -1,7 +1,9 @@
 "use client";
 import { LocaleProvider, type Locale } from "./LocaleProvider";
 import { PostHogProvider } from "./PostHogProvider";
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { ClerkProvider, useAuth } from "@clerk/nextjs";
+import { ConvexProviderWithClerk } from "convex/react-clerk";
+import { ConvexReactClient } from "convex/react";
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 export const Providers = ({
@@ -12,10 +14,12 @@ export const Providers = ({
   locale: Locale;
 }) => {
   return (
-    <ConvexProvider client={convex}>
-      <LocaleProvider locale={locale}>
-        <PostHogProvider>{children}</PostHogProvider>
-      </LocaleProvider>
-    </ConvexProvider>
+    <ClerkProvider>
+      <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+        <LocaleProvider locale={locale}>
+          <PostHogProvider>{children}</PostHogProvider>
+        </LocaleProvider>
+      </ConvexProviderWithClerk>
+    </ClerkProvider>
   );
 };

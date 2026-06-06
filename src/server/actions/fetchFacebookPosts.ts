@@ -1,9 +1,10 @@
 "use server";
 import type { FacebookPostType } from "@/lib/types";
 import { generateTranslatedText } from "./ai/generateTranslatedText";
-import { db } from "../db";
-import { facebookPosts } from "../db/schema";
-import { eq } from "drizzle-orm";
+import { fetchQuery, fetchMutation } from "convex/nextjs";
+import { api } from "../../../convex/_generated/api";
+import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 
 interface FacebookPagingCursors {
   before: string;
@@ -19,6 +20,7 @@ interface FacebookResponse {
   data: any[];
   paging: FacebookPaging;
 }
+
 const translationSystemPrompt = `You are a translator. You will be given a facebook post and will return the following format: {
             arabic: string,
             english: string
@@ -35,14 +37,14 @@ const translationSystemPrompt = `You are a translator. You will be given a faceb
 function mapFacebookPost(post: any): FacebookPostType {
   return {
     id: post.id,
-    image: post.full_picture,
-    contentEn: post.message, // Will be translated if needed
-    contentAr: post.message, // Will be translated if needed
+    image: post.full_picture || "",
+    contentEn: post.message || "", // Will be translated if needed
+    contentAr: post.message || "", // Will be translated if needed
     date: post.created_time,
     likes: post.reactions?.summary?.total_count || 0,
     comments: post.comments?.summary?.total_count || 0,
     shares: post.shares?.count || 0,
-    permalink: post.permalink_url,
+    permalink: post.permalink_url || "",
   };
 }
 
@@ -99,29 +101,43 @@ async function translatePosts(
 
 // Helper to sync DB with Facebook posts
 async function syncDatabaseWithFacebook(
-  dbPosts: any[],
+  dbPosts: FacebookPostType[],
   latestPosts: FacebookPostType[],
 ) {
-  const dbPostIds = new Set(dbPosts.map((post: any) => String(post.id)));
+  const dbPostIds = new Set(dbPosts.map((post) => String(post.id)));
   const latestPostIds = new Set(latestPosts.map((post) => String(post.id)));
   const newPosts = latestPosts.filter((post) => !dbPostIds.has(post.id));
   const removedPosts = dbPosts.filter((post) => !latestPostIds.has(post.id));
 
-  // Remove all removedPosts from the db
-  if (removedPosts.length > 0) {
-    await Promise.all(
-      removedPosts.map((post) =>
-        db.delete(facebookPosts).where(eq(facebookPosts.id, post.id)),
-      ),
-    );
+  const idsToRemove = removedPosts.map((post) => post.id);
+
+  // Check for changed images in kept posts
+  const keptPosts = dbPosts.filter((post) => latestPostIds.has(post.id));
+  const latestPostsMap = new Map(latestPosts.map((post) => [String(post.id), post]));
+  const imagesToUpdate: { id: string; image: string }[] = [];
+
+  for (const dbPost of keptPosts) {
+    const latestPost = latestPostsMap.get(String(dbPost.id));
+    if (latestPost && dbPost.image !== latestPost.image) {
+      imagesToUpdate.push({ id: dbPost.id, image: latestPost.image });
+      dbPost.image = latestPost.image; // sync locally in memory
+    }
   }
-  // Insert all newPosts into the db
+
+  let translatedNewPosts: FacebookPostType[] = [];
   if (newPosts.length > 0) {
-    const translatedNewPosts = await translatePosts(newPosts);
-    await db.insert(facebookPosts).values(translatedNewPosts);
-    return { translatedNewPosts, removedPosts };
+    translatedNewPosts = await translatePosts(newPosts);
   }
-  return { translatedNewPosts: [], removedPosts };
+
+  // Call the single sync mutation in Convex
+  await fetchMutation(api.facebookPosts.mutations.syncFacebookPosts, {
+    secret: process.env.INTERNAL_SYNC_SECRET || "yallakafala-default-secret-2026",
+    postsToInsert: translatedNewPosts,
+    idsToRemove,
+    imagesToUpdate,
+  });
+
+  return { translatedNewPosts, removedPosts };
 }
 
 // Helper to sort and limit posts
@@ -140,66 +156,56 @@ function getSortedLimitedPosts(
  * This module defines the fetchFacebookPosts server action, which is responsible for:
  *   - Fetching the latest posts from a specific Facebook page using the Facebook Graph API.
  *   - Translating post content between Arabic and English as needed.
- *   - Synchronizing the latest posts with a local database (adding new posts, removing outdated ones).
- *   - Returning the most recent 4 posts, sorted by date (descending), with both Arabic and English content fields.
- *
- * Key Steps:
- *   1. Fetch all posts currently stored in the local database.
- *   2. Fetch the latest posts from the Facebook API, paginating as needed to get at least 4 posts.
- *   3. For each new post (not in the DB), translate its content to ensure both Arabic and English fields are populated.
- *   4. Remove posts from the DB that are no longer present in the latest Facebook data.
- *   5. Insert new/translated posts into the DB.
- *   6. Return the 4 most recent posts, sorted by date.
- *   7. Update the image links in the database if they have changed. Facebook invalidates the images links after a few days.
- *
- * Translation Logic:
- *   - If a post is in English, only the Arabic field is translated.
- *   - If a post is in Arabic, only the English field is translated.
- *   - If a post contains both languages, no translation is performed; the text is split accordingly.
+ *   - Synchronizing the latest posts with Convex (adding new posts, removing outdated ones).
+ *   - Returning the most recent 4 posts, sorted by date (descending).
  */
 export const fetchFacebookPosts: () => Promise<
   FacebookPostType[]
 > = async () => {
   try {
-    // Fetch all posts currently stored in the local database
-    const dbPosts = await db.query.facebookPosts.findMany();
-    // Fetch latest posts from Facebook
-    const latestFacebookPosts = await fetchPostsFromFacebook(4);
-    // Sync DB (remove outdated, insert new)
-    const { translatedNewPosts, removedPosts } = await syncDatabaseWithFacebook(
-      dbPosts,
-      latestFacebookPosts,
-    );
-    // Construct the list of posts to return: posts that are now in the DB (dbPosts minus removedPosts) plus translatedNewPosts
-    const removedIds = new Set(removedPosts.map((post) => post.id));
-    const keptDbPosts = dbPosts.filter((post) => !removedIds.has(post.id));
-
-    // Create a map of latest Facebook posts by ID for quick lookup
-    const latestPostsMap = new Map(
-      latestFacebookPosts.map((post) => [String(post.id), post]),
-    );
-
-    // Update image links in the database if they have changed
-    await Promise.all(
-      keptDbPosts.map(async (dbPost) => {
-        const latestPost = latestPostsMap.get(String(dbPost.id));
-        if (latestPost && dbPost.image !== latestPost.image) {
-          await db
-            .update(facebookPosts)
-            .set({ image: latestPost.image })
-            .where(eq(facebookPosts.id, dbPost.id));
-        }
-      }),
-    );
-
-    const allPosts = [...translatedNewPosts, ...keptDbPosts];
-    // Sort and limit
-    return getSortedLimitedPosts(allPosts, 4);
+    // Fetch the stored Facebook posts directly from Convex
+    return await fetchQuery(api.facebookPosts.queries.getFacebookPosts, { limit: 4 });
   } catch (error) {
     console.error("Error fetching Facebook posts:", error);
     if (error instanceof Error) {
       console.error("Error details:", error.message);
     }
     return [];
+  }
+};
+
+export const syncFacebookPostsAction = async (): Promise<{
+  success: boolean;
+  message: string;
+}> => {
+  try {
+    const { userId } = await auth();
+    if (!userId) {
+      return {
+        success: false,
+        message: "Unauthorized: Only authenticated admins can sync Facebook posts.",
+      };
+    }
+
+    // Fetch all posts currently stored in Convex
+    const dbPosts = await fetchQuery(api.facebookPosts.queries.getFacebookPosts, { limit: 100 });
+    // Fetch latest posts from Facebook
+    const latestFacebookPosts = await fetchPostsFromFacebook(4);
+    // Sync DB (remove outdated, insert new, update image URLs)
+    await syncDatabaseWithFacebook(dbPosts, latestFacebookPosts);
+
+    // Revalidate homepage cache on-demand
+    revalidatePath("/[locale]", "page");
+
+    return {
+      success: true,
+      message: "Facebook posts synced successfully.",
+    };
+  } catch (error) {
+    console.error("Error syncing Facebook posts:", error);
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Failed to sync Facebook posts.",
+    };
   }
 };

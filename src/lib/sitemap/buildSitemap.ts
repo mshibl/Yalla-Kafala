@@ -3,7 +3,7 @@
  * Static paths and dynamic route keys come from `locale-route-manifest.generated.ts`, produced at
  * build time (see `prebuild` / `pnpm run sitemap:manifest`) so this module does not read the disk
  * at request time — serverless runtimes (e.g. Vercel) often omit the `src/` tree from the bundle.
- * Values for dynamic segments (blog IDs, resource slugs) still load from Postgres and Convex.
+ * Values for dynamic segments (blog IDs, resource slugs) still load from Convex.
  * Canonical URLs use `NEXT_PUBLIC_URL` from env.
  */
 
@@ -13,7 +13,6 @@ import { fetchQuery } from "convex/nextjs";
 import { env } from "@/env";
 import type { Resource } from "@/lib/types";
 import { api } from "../../../convex/_generated/api";
-import { db } from "@/server/db";
 import {
   LOCALE_DYNAMIC_ROUTE_KEYS,
   LOCALE_STATIC_PATHS,
@@ -32,11 +31,10 @@ type DynamicSegmentResolver = () => Promise<string[]>;
  */
 const DYNAMIC_SEGMENT_RESOLVERS: Record<DynamicRouteKey, DynamicSegmentResolver> = {
   "kafala-blogs/[id]": async () => {
-    const rows = await db.query.stories.findMany({
-      columns: { id: true },
-      where: (stories, { eq }) => eq(stories.publish, true),
+    const stories = await fetchQuery(api.stories.queries.getStories, {
+      publishedOnly: true,
     });
-    return rows.map((r) => String(r.id));
+    return stories.map((s) => s.id);
   },
   "resources/[slug]": async () => {
     const resources = await fetchQuery(api.resources.queries.getResources, {});

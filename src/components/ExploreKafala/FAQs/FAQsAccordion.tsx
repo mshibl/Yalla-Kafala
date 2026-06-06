@@ -6,19 +6,23 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import type { Locale } from "@/components/Providers/LocaleProvider";
-import { fetchFaqs } from "@/server/actions/faqs/fetchFaqs";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const FAQsContent = async ({ locale }: { locale: Locale }) => {
-  const faqs = await fetchFaqs();
-  if (!faqs.success || !faqs.data) {
+  const faqs = await fetchQuery(api.faqs.queries.getFaqs, {
+    publishedOnly: true,
+  });
+
+  if (!faqs || faqs.length === 0) {
     return (
-      <div className="text-center text-gray-500">Unable to fetch FAQs</div>
+      <div className="text-center text-gray-500">No FAQs found</div>
     );
   }
   return (
     <Accordion type="single" collapsible className="w-full space-y-4">
-      {faqs.data.map((faq, index) => (
+      {faqs.map((faq, index) => (
         <AccordionItem
           key={index}
           value={`item-${index}`}

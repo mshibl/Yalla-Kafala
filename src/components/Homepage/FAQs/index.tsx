@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { FaqsList } from "./FaqsList";
-import { fetchFaqs } from "@/server/actions/faqs/fetchFaqs";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
@@ -17,12 +18,13 @@ const LoadingSkeleton = () => (
 );
 
 const FAQsContent = async ({ locale }: { locale: Locale }) => {
-  const faqs = await fetchFaqs({ featured: true });
-  if (!faqs.success || !faqs.data) {
+  const faqs = await fetchQuery(api.faqs.queries.getFaqs, { publishedOnly: true });
+  if (!faqs || faqs.length === 0) {
     return null;
   }
 
-  return <FaqsList locale={locale} faqs={faqs.data} />;
+  const featuredFaqs = faqs.filter((faq) => faq.featured);
+  return <FaqsList locale={locale} faqs={featuredFaqs} />;
 };
 
 const FAQs = ({ locale }: { locale: Locale }) => {

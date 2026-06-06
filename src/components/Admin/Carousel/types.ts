@@ -9,7 +9,7 @@ export interface AddNewCarouselImage {
 }
 
 export interface UpdateCarouselImage {
-  id: number;
+  id: string;
   file?: File;
   captionEn?: string;
   captionAr?: string;

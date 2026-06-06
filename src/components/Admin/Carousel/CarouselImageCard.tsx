@@ -20,7 +20,7 @@ import Image from "next/image";
 interface CarouselImageCardProps {
   image: CarouselImage;
   onUpdate: (updatedImage: UpdateCarouselImage) => Promise<void>;
-  onDelete: (imageId: number) => Promise<void>;
+  onDelete: (imageId: string) => Promise<void>;
 }
 
 export const CarouselImageCard: React.FC<CarouselImageCardProps> = ({

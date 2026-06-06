@@ -14,14 +14,14 @@ export interface AddNewBlog {
 }
 
 export interface UpdateBlog extends Omit<AddNewBlog, "file"> {
-  id: number;
+  id: string;
   file?: File;
 }
 
 export interface BlogCardProps {
   blog: Blog;
   onUpdate: (updatedBlog: UpdateBlog) => Promise<void>;
-  onDelete: (blogId: number) => Promise<void>;
+  onDelete: (blogId: string) => Promise<void>;
   showArabic: boolean;
 }
 
