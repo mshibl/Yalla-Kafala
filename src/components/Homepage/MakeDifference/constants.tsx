@@ -12,8 +12,8 @@ export const donationMethods = [
     icon: <HandCoins className="w-6 h-6" />,
     title: { en: "Make a Donation", ar: "تبرع" },
     description: {
-      en: "Your financial support helps orphaned children.",
-      ar: "دعمكم المالي يساعد الأطفال الأيتام.",
+      en: "Your financial support helps children without parental care.",
+      ar: "دعمكم المالي يساعد الأطفال فاقدي الرعاية الوالدية.",
     },
     link: "https://givebutter.com/yallakafaladonations",
     color: "#7b2082", // primary

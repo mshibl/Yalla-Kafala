@@ -1,7 +1,7 @@
 export const translations = {
   socialsParagraph: {
-    en: "Connecting orphans with loving families and building brighter futures together.",
-    ar: "نربط الأيتام مع العائلات المحبة وبناء مستقبل أكثر إشراقًا معًا.",
+    en: "Connecting children without parental care with loving families and building brighter futures together.",
+    ar: "نربط الأطفال فاقدي الرعاية الوالدية مع العائلات المحبة وبناء مستقبل أكثر إشراقًا معًا.",
   },
   quickLinks: {
     en: "Quick Links",

@@ -22,7 +22,7 @@ export const translations = {
     },
     description1: {
       en: "Advocating for equal rights, educating for awareness, and delivering the highest standard of care for every child and Kafala families",
-      ar: "الدعم لحقوق الأيتام والأسر الكافلة، التعليم للوعي، وتقديم أعلى معايير الرعاية لكل طفل وأسرة كافلة",
+      ar: "الدعم لحقوق الأطفال فاقدي الرعاية الوالدية والأسر الكافلة، التعليم للوعي، وتقديم أعلى معايير الرعاية لكل طفل وأسرة كافلة",
     },
   },
   values: {
@@ -46,8 +46,8 @@ export const translations = {
         ar: "المجتمع",
       },
       description: {
-        en: "Family comes first. We empower and provide high-quality services to our teams, partners, orphans, and kafala families.",
-        ar: "العائلة تأتي أولاً. نحن نمكّن ونقدم خدمات عالية الجودة لفرقنا وشركائنا والأيتام وعائلات الكفالة.",
+        en: "Family comes first. We empower and provide high-quality services to our teams, partners, children without parental care, and kafala families.",
+        ar: "العائلة تأتي أولاً. نحن نمكّن ونقدم خدمات عالية الجودة لفرقنا وشركائنا والأطفال فاقدي الرعاية الوالدية وعائلات الكفالة.",
       },
     },
     collaboration: {

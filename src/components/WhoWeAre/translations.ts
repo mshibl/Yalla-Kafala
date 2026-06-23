@@ -15,8 +15,8 @@ export const translations = {
       },
     },
     description: {
-      en: "Meet the passionate individuals dedicated to transforming orphan care through our Kafala program. Our team brings together expertise, commitment, and a shared vision for building families.",
-      ar: "تعرّف على الأفراد الشغوفين المكرّسين لتحويل رعاية الأيتام من خلال برنامج الكفالة لدينا. يجمع فريقنا بين الخبرة والالتزام ورؤية مشتركة لبناء الأسر.",
+      en: "Meet the passionate individuals dedicated to transforming the care of children without parental care through our Kafala program. Our team brings together expertise, commitment, and a shared vision for building families.",
+      ar: "تعرّف على الأفراد الشغوفين المكرّسين لتحويل رعاية الأطفال فاقدي الرعاية الوالدية من خلال برنامج الكفالة لدينا. يجمع فريقنا بين الخبرة والالتزام ورؤية مشتركة لبناء الأسر.",
     },
     ctas: {
       ourStory: {
@@ -49,8 +49,8 @@ export const translations = {
         ar: "إلهامًا من رحلة مؤسسنا رشا مكي الشخصية وكفالتها لابنها مصطفى، أطلقنا أول موقع ويب مخصص للكفالة في مصر وأسسنا يلا كفالة.",
       },
       {
-        en: "With headquarters in Egypt and San Francisco, we strive to provide orphans with nurturing home environments through innovative care alternatives, support services, and advocacy.",
-        ar: "بمقرات رئيسية في مصر وسان فرانسيسكو، نحن نسعى لتوفير بيئات منزلية مغذية للأيتام من خلال بدائل الرعاية الابتكارية وخدمات الدعم والدعوة.",
+        en: "With headquarters in Egypt and San Francisco, we strive to provide children without parental care with nurturing home environments through innovative care alternatives, support services, and advocacy.",
+        ar: "بمقرات رئيسية في مصر وسان فرانسيسكو، نحن نسعى لتوفير بيئات منزلية مغذية للأطفال فاقدي الرعاية الوالدية من خلال بدائل الرعاية الابتكارية وخدمات الدعم والدعوة.",
       },
     ],
   },
@@ -143,8 +143,8 @@ export const translations = {
           ar: "إرشادات الأسرة الآمنة",
         },
         description: {
-          en: "Comprehensive guidelines for orphans and kafala families, ensuring safety and well-being.",
-          ar: "إرشادات شاملة للأيتام وأسر الكفالة تضمن السلامة والرفاه.",
+          en: "Comprehensive guidelines for children without parental care and kafala families, ensuring safety and well-being.",
+          ar: "إرشادات شاملة للأطفال فاقدي الرعاية الوالدية وأسر الكفالة تضمن السلامة والرفاه.",
         },
       },
       {
@@ -153,8 +153,8 @@ export const translations = {
           ar: "إلحاق الأسرة الآمنة",
         },
         description: {
-          en: "Matching orphans, migrants, and refugees with loving Kafala families for long-term stability.",
-          ar: "مواءمة الأيتام والمهاجرين واللاجئين مع أسر كفالة محبة لتحقيق الاستقرار طويل الأمد.",
+          en: "Matching children without parental care, migrants, and refugees with loving Kafala families for long-term stability.",
+          ar: "مواءمة الأطفال فاقدي الرعاية الوالدية والمهاجرين واللاجئين مع أسر كفالة محبة لتحقيق الاستقرار طويل الأمد.",
         },
       },
       {

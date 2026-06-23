@@ -31,8 +31,8 @@ export const translations = {
       ar: "لماذا هذا مهم",
     },
     description: {
-      en: "Children without families often suffer from a lack of stability, emotional support, and security. Orphanages, while providing shelter, can never replicate the love, care, dignity and sense of stability that every child deserves.",
-      ar: "الأطفال بلا أسر غالبًا ما يعانون من نقص الاستقرار والدعم العاطفي والأمان. وعلى الرغم من أن دور الأيتام توفر المأوى، إلا أنها لا يمكنها أبدًا أن تعوّض الحب والرعاية والكرامة والشعور بالاستقرار الذي يستحقه كل طفل.",
+      en: "Children without families often suffer from a lack of stability, emotional support, and security. Care institutions, while providing shelter, can never replicate the love, care, dignity and sense of stability that every child deserves.",
+      ar: "الأطفال بلا أسر غالبًا ما يعانون من نقص الاستقرار والدعم العاطفي والأمان. وعلى الرغم من أن دور الرعاية توفر المأوى، إلا أنها لا يمكنها أبدًا أن تعوّض الحب والرعاية والكرامة والشعور بالاستقرار الذي يستحقه كل طفل.",
     },
     whyTitle: {
       en: "Why We Started Beit Sagheer",

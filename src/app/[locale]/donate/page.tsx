@@ -13,8 +13,8 @@ export async function generateMetadata({
   return {
     title: isArabic ? "تبرّع الآن | يلا كفالة" : "Donate | Yalla Kafala",
     description: isArabic
-      ? "تبرعك يساعدنا في ربط الأيتام بعائلات محبة. ادعم يلا كفالة اليوم."
-      : "Your donation helps connect orphans with loving families. Support Yalla Kafala today.",
+      ? "تبرعك يساعدنا في ربط الأطفال فاقدي الرعاية الوالدية بعائلات محبة. ادعم يلا كفالة اليوم."
+      : "Your donation helps connect children without parental care with loving families. Support Yalla Kafala today.",
   };
 }
 

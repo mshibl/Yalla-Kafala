@@ -4,7 +4,6 @@ import { OurStorySection } from "./OurStorySection";
 import { FounderSection } from "./FounderSection";
 import { TeamSection } from "./TeamSection";
 import { VideoSection } from "./VideoSection";
-import { InitiativesSection } from "./InitiativesSection";
 
 const WhoWeAre = ({ locale }: { locale: Locale }) => {
   return (
@@ -15,8 +14,8 @@ const WhoWeAre = ({ locale }: { locale: Locale }) => {
         <FounderSection locale={locale} />
         <TeamSection locale={locale} />
         <VideoSection locale={locale} />
-        <InitiativesSection locale={locale} />
       </main>
+
     </div>
   );
 };

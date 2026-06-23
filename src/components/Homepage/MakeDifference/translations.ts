@@ -4,8 +4,8 @@ export const translations = {
     ar: "اصنع تغيير",
   },
   description: {
-    en: "There are many ways you can help orphaned children find loving homes.",
-    ar: "هناك العديد من الطرق التي يمكنك مساعدة الأطفال الأيتام في العثور على أسر محبة.",
+    en: "There are many ways you can help children without parental care find loving homes.",
+    ar: "هناك العديد من الطرق التي يمكنك مساعدة الأطفال فاقدي الرعاية الوالدية في العثور على أسر محبة.",
   },
   getInvolvedButton: {
     en: "Get Involved Today",

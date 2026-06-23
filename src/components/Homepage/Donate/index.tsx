@@ -113,7 +113,7 @@ const Donate = () => {
               Your Donation Changes Lives
             </h2>
             <p className="text-gray-600 text-lg mb-8">
-              Your generous support helps us connect orphans with loving
+              Your generous support helps us connect children without parental care with loving
               families, providing them with the care, stability, and
               opportunities they deserve. Every donation, no matter the size,
               brings a child one step closer to a place they can call home.
