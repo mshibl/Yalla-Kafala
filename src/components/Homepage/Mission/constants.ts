@@ -17,8 +17,8 @@ export const missionCards = [
       ar: "المجتمع",
     },
     description: {
-      en: "Family comes first. We empower and provide high-quality services to our teams, partners, orphans, and kafala families.",
-      ar: "العائلة تأتي أولاً. نمكن ونقدم خدمات عالية الجودة لفرقنا وشركائنا والأيتام وعائلات الكفالة.",
+      en: "Family comes first. We empower and provide high-quality services to our teams, partners, children without parental care, and kafala families.",
+      ar: "العائلة تأتي أولاً. نمكن ونقدم خدمات عالية الجودة لفرقنا وشركائنا والأطفال فاقدي الرعاية الوالدية وعائلات الكفالة.",
     },
   },
   {

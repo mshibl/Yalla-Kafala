@@ -107,47 +107,91 @@ export const translations = {
   ],
   achievements: [
     {
-      count: "500+",
+      count: "5,000+",
       title: {
-        en: "Children Placed",
-        ar: "أطفال تم احتضانهم",
+        en: "Families Supported",
+        ar: "عائلة تم دعمها",
       },
       description: {
-        en: "Successfully placed children in loving kafala homes",
-        ar: "تم احتضان الأطفال بنجاح في بيوت كفالة محبة",
+        en: "Families supported throughout their kafala journey",
+        ar: "عائلات تم دعمها خلال رحلة الكفالة",
       },
     },
     {
-      count: "1,200+",
+      count: "3,100+",
       title: {
-        en: "Families Trained",
-        ar: "عائلات تم تدريبها",
+        en: "Individuals Reached",
+        ar: "فرد تم الوصول إليهم",
       },
       description: {
-        en: "Families prepared for welcoming kafala children",
-        ar: "عائلات مُهيأة لاستقبال أطفال الكفالة",
+        en: "Through our Kafala Bus on-ground awareness campaigns across 5 governorates",
+        ar: "من خلال حملات التوعية الميدانية لباص الكفالة عبر 5 محافظات",
       },
     },
     {
-      count: "50+",
+      count: "3,000+",
       title: {
-        en: "Partnerships",
-        ar: "شراكات",
+        en: "Kafala Families Engaged",
+        ar: "عائلة كفالة شاركت",
       },
       description: {
-        en: "Collaborative relationships with organizations",
-        ar: "علاقات تعاونية مع منظمات",
+        en: "Through our community events and support gatherings",
+        ar: "من خلال فعالياتنا المجتمعية ولقاءات الدعم",
       },
     },
     {
-      count: "24/7",
+      count: "2,250+",
       title: {
-        en: "Family Support",
-        ar: "دعم للأسر",
+        en: "Single Mothers & Families Trained",
+        ar: "أم عزباء وعائلة تم تدريبها",
       },
       description: {
-        en: "Round-the-clock assistance for kafala families",
-        ar: "مساعدة على مدار الساعة لعائلات الكفالة",
+        en: "Completed our pre-kafala mandatory training and positive discipline programs",
+        ar: "أكملوا تدريبنا الإلزامي قبل الكفالة وبرامج التربية الإيجابية",
+      },
+    },
+    {
+      count: "1,000+",
+      title: {
+        en: "Individuals Supported",
+        ar: "فرد تلقى الدعم",
+      },
+      description: {
+        en: "Received psychological and social support through our Family Support Center (launched in 2024)",
+        ar: "تلقوا الدعم النفسي والاجتماعي من خلال مركز دعم الأسرة (تم إطلاقه في 2024)",
+      },
+    },
+    {
+      count: "100s",
+      title: {
+        en: "Breast Pumps Provided",
+        ar: "مضخة حليب تم توفيرها",
+      },
+      description: {
+        en: "Provided free of charge to kafala mothers",
+        ar: "تم توفيرها مجاناً لأمهات الكفالة",
+      },
+    },
+    {
+      count: "65",
+      title: {
+        en: "Scholarships Secured",
+        ar: "منحة دراسية",
+      },
+      description: {
+        en: "For kafala children in private & international schools",
+        ar: "لأطفال الكفالة في المدارس الخاصة والدولية",
+      },
+    },
+    {
+      count: "7",
+      title: {
+        en: "Children in Small Home",
+        ar: "أطفال في البيت الصغير",
+      },
+      description: {
+        en: "Currently cared for through our \"Small Home\" initiative",
+        ar: "يتم رعايتهم حالياً من خلال مبادرة \"البيت الصغير\"",
       },
     },
   ],
@@ -226,8 +270,8 @@ export const translations = {
   onGround: [
     {
       title: {
-        en: "Desert Orphanage Renovation",
-        ar: "تجديد دار أيتام في الصحراء",
+        en: "Care Institution Renovation",
+        ar: "تجديد دار رعاية في الصحراء",
       },
       description: {
         en: "Complete facility upgrade in remote area",
@@ -236,8 +280,8 @@ export const translations = {
       image:
         "https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       fullDescription: {
-        en: "Our team spent three months renovating an orphanage facility in a remote desert region, improving living conditions for 45 children.\n\nThe project included installing new water systems, upgrading dormitories, creating a library and study space, and developing a playground area.\n\nFurniture, educational materials, and medical supplies were also provided as part of this comprehensive renovation effort. The facility now meets international standards for childcare institutions.",
-        ar: "أمضى فريقنا ثلاثة أشهر في تجديد دار أيتام في منطقة صحراوية نائية، مما حسّن ظروف المعيشة لـ 45 طفلًا.\n\nشمل المشروع تركيب أنظمة مياه جديدة، وتطوير المهاجع، وإنشاء مكتبة ومساحة للدراسة، وإقامة منطقة ألعاب.\n\nكما تم توفير الأثاث والمواد التعليمية والإمدادات الطبية كجزء من هذا التجديد الشامل. يفي المرفق الآن بالمعايير الدولية لمؤسسات رعاية الأطفال.",
+        en: "Our team spent three months renovating a care institution in a remote desert region, improving living conditions for 45 children.\n\nThe project included installing new water systems, upgrading dormitories, creating a library and study space, and developing a playground area.\n\nFurniture, educational materials, and medical supplies were also provided as part of this comprehensive renovation effort. The facility now meets international standards for childcare institutions.",
+        ar: "أمضى فريقنا ثلاثة أشهر في تجديد دار رعاية في منطقة صحراوية نائية، مما حسّن ظروف المعيشة لـ 45 طفلًا.\n\nشمل المشروع تركيب أنظمة مياه جديدة، وتطوير المهاجع، وإنشاء مكتبة ومساحة للدراسة، وإقامة منطقة ألعاب.\n\nكما تم توفير الأثاث والمواد التعليمية والإمدادات الطبية كجزء من هذا التجديد الشامل. يفي المرفق الآن بالمعايير الدولية لمؤسسات رعاية الأطفال.",
       },
     },
     {
@@ -268,8 +312,8 @@ export const translations = {
       image:
         "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       fullDescription: {
-        en: "Our annual Back-to-School program provided educational supplies to over 1,000 children from low-income families and orphanages.\n\nEach child received a backpack filled with notebooks, pencils, rulers, calculators, and other grade-appropriate school supplies. Additionally, school uniforms were provided to those in need.\n\nThe program also included educational workshops to help children prepare for the new academic year and develop effective study habits. Teachers volunteered to provide tutoring services for children struggling in specific subjects.",
-        ar: "قدم برنامجنا السنوي للعودة إلى المدرسة مستلزمات تعليمية لأكثر من 1000 طفل من الأسر ذات الدخل المنخفض ودور الأيتام.\n\nحصل كل طفل على حقيبة ظهر مليئة بالدفاتر والأقلام والمساطر والآلات الحاسبة وغيرها من المستلزمات المناسبة للمرحلة الدراسية. بالإضافة إلى ذلك، تم توفير الزي المدرسي لمن يحتاج إليه.\n\nكما شمل البرنامج ورشًا تعليمية لمساعدة الأطفال على الاستعداد للسنة الدراسية الجديدة وتطوير عادات دراسة فعّالة. وتطوع المعلمون لتقديم دروس دعم للأطفال الذين يواجهون صعوبات في مواد محددة.",
+        en: "Our annual Back-to-School program provided educational supplies to over 1,000 children from low-income families and care institutions.\n\nEach child received a backpack filled with notebooks, pencils, rulers, calculators, and other grade-appropriate school supplies. Additionally, school uniforms were provided to those in need.\n\nThe program also included educational workshops to help children prepare for the new academic year and develop effective study habits. Teachers volunteered to provide tutoring services for children struggling in specific subjects.",
+        ar: "قدم برنامجنا السنوي للعودة إلى المدرسة مستلزمات تعليمية لأكثر من 1000 طفل من الأسر ذات الدخل المنخفض ودور الرعاية.\n\nحصل كل طفل على حقيبة ظهر مليئة بالدفاتر والأقلام والمساطر والآلات الحاسبة وغيرها من المستلزمات المناسبة للمرحلة الدراسية. بالإضافة إلى ذلك، تم توفير الزي المدرسي لمن يحتاج إليه.\n\nكما شمل البرنامج ورشًا تعليمية لمساعدة الأطفال على الاستعداد للسنة الدراسية الجديدة وتطوير عادات دراسة فعّالة. وتطوع المعلمون لتقديم دروس دعم للأطفال الذين يواجهون صعوبات في مواد محددة.",
       },
     },
     {
@@ -278,14 +322,14 @@ export const translations = {
         ar: "احتفال عيد",
       },
       description: {
-        en: "Special holiday for orphaned children",
-        ar: "عيد مميز للأطفال الأيتام",
+        en: "Special holiday for children without parental care",
+        ar: "عيد مميز للأطفال فاقدي الرعاية الوالدية",
       },
       image:
         "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       fullDescription: {
-        en: "We organized a special Eid celebration for 200 orphaned children across five orphanages, creating a joyful holiday experience.\n\nThe celebration included traditional foods, games, entertainment, and gifts for each child. Many community members volunteered to participate and spend time with the children.\n\nChildren also participated in arts and crafts activities where they created decorations and greeting cards. The event helped foster a sense of community and belonging during an important holiday season.",
-        ar: "نظمنا احتفال عيد خاصًا لـ 200 طفل يتيم في خمس دور أيتام، مما خلق تجربة عيد مليئة بالفرح.\n\nشمل الاحتفال أطعمة تقليدية وألعابًا وترفيهًا وهدايا لكل طفل. وتطوع العديد من أفراد المجتمع للمشاركة وقضاء الوقت مع الأطفال.\n\nشارك الأطفال أيضًا في أنشطة الفنون والحرف حيث صنعوا الزينة وبطاقات التهنئة. ساعد الحدث في تعزيز الشعور بالمجتمع والانتماء خلال موسم عيد مهم.",
+        en: "We organized a special Eid celebration for 200 children without parental care across five care institutions, creating a joyful holiday experience.\n\nThe celebration included traditional foods, games, entertainment, and gifts for each child. Many community members volunteered to participate and spend time with the children.\n\nChildren also participated in arts and crafts activities where they created decorations and greeting cards. The event helped foster a sense of community and belonging during an important holiday season.",
+        ar: "نظمنا احتفال عيد خاصًا لـ 200 طفل من الأطفال فاقدي الرعاية الوالدية في خمس دور رعاية، مما خلق تجربة عيد مليئة بالفرح.\n\nشمل الاحتفال أطعمة تقليدية وألعابًا وترفيهًا وهدايا لكل طفل. وتطوع العديد من أفراد المجتمع للمشاركة وقضاء الوقت مع الأطفال.\n\nشارك الأطفال أيضًا في أنشطة الفنون والحرف حيث صنعوا الزينة وبطاقات التهنئة. ساعد الحدث في تعزيز الشعور بالمجتمع والانتماء خلال موسم عيد مهم.",
       },
     },
     {
@@ -300,8 +344,8 @@ export const translations = {
       image:
         "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       fullDescription: {
-        en: "Our Youth Mentorship Initiative paired 75 teenagers from kafala families and orphanages with professional mentors to provide guidance on education, career planning, and life skills.\n\nMentors met regularly with their mentees over a 12-month period, developing strong relationships and providing valuable support during crucial developmental stages.\n\nThe program included workshops on university applications, interview skills, financial literacy, and other practical life skills. Several participants secured scholarships and internship opportunities through connections made during the program.",
-        ar: "قامت مبادرتنا للإرشاد للشباب بربط 75 مراهقًا من عائلات كفالة ودور أيتام بمرشدين محترفين لتقديم إرشاد حول التعليم والتخطيط المهني ومهارات الحياة.\n\nاجتمع المرشدون بانتظام مع المستفيدين على مدار 12 شهرًا، مما ساعد على بناء علاقات قوية وتقديم دعم قيّم خلال مراحل نمو حاسمة.\n\nشمل البرنامج ورشًا حول التقديم للجامعات، ومهارات المقابلات، والثقافة المالية، وغيرها من مهارات الحياة العملية. حصل العديد من المشاركين على منح وتدريب عملي عبر العلاقات التي نشأت خلال البرنامج.",
+        en: "Our Youth Mentorship Initiative paired 75 teenagers from kafala families and care institutions with professional mentors to provide guidance on education, career planning, and life skills.\n\nMentors met regularly with their mentees over a 12-month period, developing strong relationships and providing valuable support during crucial developmental stages.\n\nThe program included workshops on university applications, interview skills, financial literacy, and other practical life skills. Several participants secured scholarships and internship opportunities through connections made during the program.",
+        ar: "قامت مبادرتنا للإرشاد للشباب بربط 75 مراهقًا من عائلات كفالة ودور رعاية بمرشدين محترفين لتقديم إرشاد حول التعليم والتخطيط المهني ومهارات الحياة.\n\nاجتمع المرشدون بانتظام مع المستفيدين على مدار 12 شهرًا، مما ساعد على بناء علاقات قوية وتقديم دعم قيّم خلال مراحل نمو حاسمة.\n\nشمل البرنامج ورشًا حول التقديم للجامعات، ومهارات المقابلات، والثقافة المالية، وغيرها من مهارات الحياة العملية. حصل العديد من المشاركين على منح وتدريب عملي عبر العلاقات التي نشأت خلال البرنامج.",
       },
     },
   ],

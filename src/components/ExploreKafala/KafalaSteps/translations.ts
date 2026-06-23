@@ -4,8 +4,8 @@ export const translations = {
     ar: "خطوات الكفالة",
   },
   description: {
-    en: "Kafala is the formal process of legal guardianship, providing care and support to orphaned children. It involves a series of steps aimed at ensuring the well-being and placement of children with caring families.",
-    ar: "الكفالة هي عملية رسمية لتولي الوصاية القانونية، تتضمن تقديم الرعاية والدعم للأطفال اليتامى. وتشمل سلسلة من الخطوات التي تهدف إلى ضمان رفاهية الأطفال ووضعهم في أسر كريمة.",
+    en: "Kafala is the formal process of legal guardianship, providing care and support to children without parental care. It involves a series of steps aimed at ensuring the well-being and placement of children with caring families.",
+    ar: "الكفالة هي عملية رسمية لتولي الوصاية القانونية، تتضمن تقديم الرعاية والدعم للأطفال فاقدي الرعاية الوالدية. وتشمل سلسلة من الخطوات التي تهدف إلى ضمان رفاهية الأطفال ووضعهم في أسر كريمة.",
   },
   kafalaStepsTitle: {
     en: "Kafala Journey",

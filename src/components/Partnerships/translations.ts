@@ -5,8 +5,8 @@ export const translations = {
       ar: "شركاؤنا",
     },
     description: {
-      en: "We are proud to work with these amazing organizations who share our vision of creating better futures for orphaned children.",
-      ar: "نحن سعداء بالعمل مع هذه المؤسسات التي تشارك رؤيتنا في إنشاء حياة مستقبلية أفضل للأطفال الأيتام.",
+      en: "We are proud to work with these amazing organizations who share our vision of creating better futures for children without parental care.",
+      ar: "نحن سعداء بالعمل مع هذه المؤسسات التي تشارك رؤيتنا في إنشاء حياة مستقبلية أفضل للأطفال فاقدي الرعاية الوالدية.",
     },
   },
 };

@@ -8,14 +8,14 @@ const copy = {
   en: {
     title: "Support Yalla Kafala",
     subtitle:
-      "Your generous donation helps connect orphans with loving families in Egypt.",
+      "Your generous donation helps connect children without parental care with loving families in Egypt.",
     button: "Donate Now",
     taxNote:
       "Yalla Kafala is a 501(c)(3) organization. All donations are tax-deductible.",
   },
   ar: {
     title: "ادعم يلا كفالة",
-    subtitle: "تبرعك السخي يساعد في ربط الأيتام بعائلات محبة في مصر.",
+    subtitle: "تبرعك السخي يساعد في ربط الأطفال فاقدي الرعاية الوالدية بعائلات محبة في مصر.",
     button: "تبرّع الآن",
     taxNote:
       "يلا كفالة منظمة 501(c)(3). جميع التبرعات معفاة من الضرائب.",

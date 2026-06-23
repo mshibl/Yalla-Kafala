@@ -19,17 +19,17 @@ export const partners: Partner[] = [
     nameAr: "مبادرة الآفاق المشرقة",
     logo: "/placeholder.svg",
     descriptionEn:
-      "Supporting orphaned children by providing resources, mentoring, and community integration programs.",
+      "Supporting children without parental care by providing resources, mentoring, and community integration programs.",
     descriptionAr:
-      "تدعم الأطفال الأيتام من خلال توفير الموارد والإرشاد وبرامج الاندماج المجتمعي.",
+      "تدعم الأطفال فاقدي الرعاية الوالدية من خلال توفير الموارد والإرشاد وبرامج الاندماج المجتمعي.",
   },
   {
     nameEn: "Sunshine Family Services",
     nameAr: "خدمات عائلة أشعة الشمس",
     logo: "/placeholder.svg",
     descriptionEn:
-      "Specializing in connecting orphaned children with loving and supportive Kafala families.",
-    descriptionAr: "متخصصة في ربط الأطفال الأيتام بعائلات كفالة محبة وداعمة.",
+      "Specializing in connecting children without parental care with loving and supportive Kafala families.",
+    descriptionAr: "متخصصة في ربط الأطفال فاقدي الرعاية الوالدية بعائلات كفالة محبة وداعمة.",
   },
   {
     nameEn: "Hope International",
@@ -54,9 +54,9 @@ export const partners: Partner[] = [
     nameAr: "تحالف الأسرة أولاً",
     logo: "/placeholder.svg",
     descriptionEn:
-      "Advocating for policies that prioritize family-based care for orphaned and vulnerable children.",
+      "Advocating for policies that prioritize family-based care for children without parental care and vulnerable children.",
     descriptionAr:
-      "يدافع عن السياسات التي تعطي الأولوية للرعاية الأسرية للأطفال الأيتام والضعفاء.",
+      "يدافع عن السياسات التي تعطي الأولوية للرعاية الأسرية للأطفال فاقدي الرعاية الوالدية والأطفال الضعفاء.",
   },
 ];
 
