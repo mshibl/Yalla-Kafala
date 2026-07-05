@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { ExternalLink, Landmark, LineChart } from "lucide-react";
+import { ExternalLink, Landmark, LineChart, MapPin } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -38,21 +38,25 @@ const copy = {
     trigger: "Donate Now",
     title: "Choose your donation type",
     description:
-      "Support Yalla Kafala through a regular online donation or a stock donation.",
+      "Support Yalla Kafala through an online donation, stock donation, or donate in Egypt.",
     cardBankTitle: "Donate by card or bank",
     cardBankDescription: "Fast online donation on Givebutter.",
     stockTitle: "Donate stock",
     stockDescription: "Review the stock donation steps on our website.",
+    egyptTitle: "Donate in Egypt",
+    egyptDescription: "Vodafone Cash, Fawry, or bank transfer (CIB).",
     note: "Stock donations are processed through AMCF.",
   },
   ar: {
     trigger: "تبرع الآن",
     title: "اختر نوع التبرع",
-    description: "ادعم يلا كفالة بالتبرع الإلكتروني أو بتبرع الأسهم.",
+    description: "ادعم يلا كفالة بالتبرع الإلكتروني أو بتبرع الأسهم أو التبرع في مصر.",
     cardBankTitle: "تبرع بالبطاقة أو البنك",
     cardBankDescription: "تبرع إلكتروني سريع عبر Givebutter.",
     stockTitle: "تبرع بالأسهم",
     stockDescription: "راجع خطوات التبرع بالأسهم على موقعنا.",
+    egyptTitle: "تبرع في مصر",
+    egyptDescription: "فودافون كاش، فوري، أو تحويل بنكي (CIB).",
     note: "تتم معالجة تبرعات الأسهم عبر AMCF.",
   },
 };
@@ -113,6 +117,27 @@ export default function DonateNowModal({
           </span>
           <span className="mt-1 block text-sm text-gray-600">
             {t.stockDescription}
+          </span>
+        </span>
+        <span className="mt-1 text-gray-400 transition-colors group-hover:text-primary">
+          <ExternalLink className="h-4 w-4" />
+        </span>
+      </Link>
+
+      <Link
+        href={`/${locale}/donate#egypt`}
+        onClick={() => setOpen(false)}
+        className="group flex w-full items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 text-left transition-all hover:border-primary/40 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+      >
+        <span className="mt-0.5 rounded-lg bg-emerald-500/10 p-2 text-emerald-600">
+          <MapPin className="h-4 w-4" />
+        </span>
+        <span className="flex-1">
+          <span className="block text-sm font-semibold text-gray-900">
+            {t.egyptTitle}
+          </span>
+          <span className="mt-1 block text-sm text-gray-600">
+            {t.egyptDescription}
           </span>
         </span>
         <span className="mt-1 text-gray-400 transition-colors group-hover:text-primary">
