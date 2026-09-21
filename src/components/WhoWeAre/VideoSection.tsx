@@ -17,7 +17,7 @@ export const VideoSection = ({ locale }: { locale: Locale }) => {
           <div className="relative aspect-video bg-gray-900 rounded-lg shadow-lg overflow-hidden">
             <div className="w-full h-full flex items-center justify-center bg-gray-800 text-white">
               <iframe
-                src="https://drive.google.com/file/d/1pNG2124NcWwSvV3LuLmlhj8XtwJ2X7w1/preview"
+                src="https://drive.google.com/file/d/10-tEgqmXrlWadpQm_Z4NlZtkmQqcfRIg/preview"
                 width="1065"
                 height="100%"
                 allow="autoplay"
