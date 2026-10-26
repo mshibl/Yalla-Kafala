@@ -33,6 +33,14 @@ const DYNAMIC_SEGMENT_RESOLVERS: Record<DynamicRouteKey, DynamicSegmentResolver>
   "kafala-blogs/[id]": async () => {
     const stories = await fetchQuery(api.stories.queries.getStories, {
       publishedOnly: true,
+      category: "blog",
+    });
+    return stories.map((s) => s.id);
+  },
+  "kafala-articles/[id]": async () => {
+    const stories = await fetchQuery(api.stories.queries.getStories, {
+      publishedOnly: true,
+      category: "article",
     });
     return stories.map((s) => s.id);
   },

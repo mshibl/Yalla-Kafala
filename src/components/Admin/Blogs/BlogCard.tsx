@@ -40,6 +40,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({
               <h3 className="font-medium text-base">
                 {showArabic ? blog.titleAr : blog.titleEn}
               </h3>
+              {blog.category === "article" && (
+                <Badge variant="secondary">Article</Badge>
+              )}
               {blog.featured && (
                 <Badge variant="default" className="bg-amber-500">
                   <Star className="h-3 w-3 mr-1" /> Featured

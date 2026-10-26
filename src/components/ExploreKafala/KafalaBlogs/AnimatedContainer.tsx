@@ -3,13 +3,14 @@
 import React, { useEffect, useRef } from "react";
 import KafalaHeader from "./KafalaHeader";
 import BlogGrid from "./BlogGrid";
-import type { Blog } from "@/lib/types.js";
+import type { Blog, StoryCategory } from "@/lib/types.js";
 
 interface AnimatedContainerProps {
   blogs: Blog[];
+  category: StoryCategory;
 }
 
-const AnimatedContainer = ({ blogs }: AnimatedContainerProps) => {
+const AnimatedContainer = ({ blogs, category }: AnimatedContainerProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const blogsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -41,7 +42,7 @@ const AnimatedContainer = ({ blogs }: AnimatedContainerProps) => {
         ref={headerRef}
         className="opacity-0 translate-y-10 transition-all duration-700 ease-out"
       >
-        <KafalaHeader />
+        <KafalaHeader category={category} />
       </div>
       <BlogGrid blogs={blogs} blogsRef={blogsRef} />
     </div>

@@ -1,6 +1,8 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
+export const storyCategory = v.union(v.literal("blog"), v.literal("article"));
+
 export default defineSchema({
   boardMembers: defineTable({
     publish: v.boolean(),
@@ -56,6 +58,8 @@ export default defineSchema({
     imageKey: v.string(),
     publish: v.boolean(),
     featured: v.boolean(),
+    // Missing means "blog" (stories created before articles existed).
+    category: v.optional(storyCategory),
   }),
 
   facebookPosts: defineTable({

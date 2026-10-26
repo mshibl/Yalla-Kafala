@@ -1,5 +1,6 @@
 import { query } from "../_generated/server";
 import { v } from "convex/values";
+import { storyCategory } from "../schema";
 import type { Id } from "../_generated/dataModel";
 
 export const getStories = query({
@@ -7,6 +8,7 @@ export const getStories = query({
     featuredOnly: v.optional(v.boolean()),
     publishedOnly: v.optional(v.boolean()),
     limit: v.optional(v.number()),
+    category: v.optional(storyCategory),
   },
   handler: async (ctx, args) => {
     let stories = await ctx.db.query("stories").order("desc").collect();
@@ -14,6 +16,9 @@ export const getStories = query({
     let filtered = stories;
     if (args.publishedOnly) {
       filtered = filtered.filter(s => s.publish);
+    }
+    if (args.category) {
+      filtered = filtered.filter(s => (s.category ?? "blog") === args.category);
     }
     if (args.featuredOnly) {
       filtered = filtered.filter(s => s.featured);
@@ -35,6 +40,7 @@ export const getStories = query({
       imageKey: story.imageKey,
       publish: story.publish,
       featured: story.featured,
+      category: story.category ?? "blog",
       createdAt: new Date(story._creationTime).toISOString(),
       updatedAt: new Date(story._creationTime).toISOString(),
     }));
@@ -62,6 +68,7 @@ export const getStoryById = query({
         imageKey: story.imageKey,
         publish: story.publish,
         featured: story.featured,
+        category: story.category ?? "blog",
         createdAt: new Date(story._creationTime).toISOString(),
         updatedAt: new Date(story._creationTime).toISOString(),
       };

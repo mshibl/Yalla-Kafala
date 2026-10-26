@@ -4,24 +4,41 @@ import AnimatedContainer from "./AnimatedContainer";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Locale } from "@/components/Providers/LocaleProvider";
+import type { StoryCategory } from "@/lib/types";
+import { translations } from "./translations";
 
-const BlogsContent = async () => {
+const BlogsContent = async ({
+  locale,
+  category,
+}: {
+  locale: Locale;
+  category: StoryCategory;
+}) => {
   const blogs = await fetchQuery(api.stories.queries.getStories, {
     publishedOnly: true,
+    category,
   });
 
   if (!blogs || blogs.length === 0) {
     return (
       <div className="flex justify-center items-center h-full">
-        <p className="text-2xl font-bold">No blogs found</p>
+        <p className="text-2xl font-bold">
+          {translations.empty[category][locale]}
+        </p>
       </div>
     );
   }
 
-  return <AnimatedContainer blogs={blogs} />;
+  return <AnimatedContainer blogs={blogs} category={category} />;
 };
 
-const BlogsSection = ({ locale }: { locale: Locale }) => {
+const BlogsSection = ({
+  locale,
+  category,
+}: {
+  locale: Locale;
+  category: StoryCategory;
+}) => {
   return (
     <section className="bg-gray-50 pb-24 pt-12 md:pt-16">
       <Suspense
@@ -44,7 +61,7 @@ const BlogsSection = ({ locale }: { locale: Locale }) => {
           </div>
         }
       >
-        <BlogsContent />
+        <BlogsContent locale={locale} category={category} />
       </Suspense>
     </section>
   );

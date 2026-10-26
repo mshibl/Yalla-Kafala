@@ -18,7 +18,7 @@ export default function BlogContent({
             {locale === "en" ? blog.titleEn : blog.titleAr}
           </h1>
           <div className="flex justify-start mb-8">
-            <BackToBlogsButton locale={locale} />
+            <BackToBlogsButton locale={locale} category={blog.category} />
           </div>
           <div className="aspect-video bg-gray-100 overflow-hidden rounded-lg mb-8">
             <ResilientImage

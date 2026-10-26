@@ -28,6 +28,13 @@ import { Pencil, Loader2, Sparkles } from "lucide-react";
 import type { EditBlogDialogProps } from "./types";
 import { editBlogFormSchema, type EditBlogFormValues } from "./types";
 import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { TipTapEditor } from "@/components/TiptapEditor";
 import Image from "next/image";
 
@@ -49,6 +56,7 @@ export function EditBlogDialog({ blog, onUpdate }: EditBlogDialogProps) {
       descriptionAr: blog.descriptionAr,
       publish: blog.publish,
       featured: blog.featured,
+      category: blog.category,
       file: undefined,
     },
   });
@@ -63,6 +71,7 @@ export function EditBlogDialog({ blog, onUpdate }: EditBlogDialogProps) {
       descriptionAr: blog.descriptionAr,
       publish: blog.publish,
       featured: blog.featured,
+      category: blog.category,
     });
   }, [blog, form]);
   useEffect(() => {
@@ -120,6 +129,31 @@ export function EditBlogDialog({ blog, onUpdate }: EditBlogDialogProps) {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-6">
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Type</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="blog">
+                          Blog (Kafala Blogs)
+                        </SelectItem>
+                        <SelectItem value="article">
+                          Article (Research &amp; Educational Articles)
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="titleEn"

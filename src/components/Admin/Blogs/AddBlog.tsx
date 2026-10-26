@@ -28,6 +28,13 @@ import { Plus, Loader2, Sparkles } from "lucide-react";
 import type { AddBlogDialogProps } from "./types";
 import { addBlogFormSchema, type AddBlogFormValues } from "./types";
 import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { TipTapEditor } from "@/components/TiptapEditor";
 import { improveText } from "@/server/actions/ai/improveText";
 import { toast } from "sonner";
@@ -53,6 +60,7 @@ export function AddBlogDialog({ onAddBlog }: AddBlogDialogProps) {
       descriptionAr: "",
       publish: false,
       featured: false,
+      category: "blog",
       file: undefined,
     },
   });
@@ -154,6 +162,31 @@ export function AddBlogDialog({ onAddBlog }: AddBlogDialogProps) {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-6">
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Type</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="blog">
+                          Blog (Kafala Blogs)
+                        </SelectItem>
+                        <SelectItem value="article">
+                          Article (Research &amp; Educational Articles)
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="titleEn"

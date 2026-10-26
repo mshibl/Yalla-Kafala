@@ -1,6 +1,7 @@
 import type { Id } from "../_generated/dataModel";
 import { mutation } from "../_generated/server";
 import { v } from "convex/values";
+import { storyCategory } from "../schema";
 
 export const createStory = mutation({
   args: {
@@ -14,6 +15,7 @@ export const createStory = mutation({
     imageKey: v.string(),
     publish: v.boolean(),
     featured: v.boolean(),
+    category: v.optional(storyCategory),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -38,6 +40,7 @@ export const updateStory = mutation({
     imageKey: v.string(),
     publish: v.boolean(),
     featured: v.boolean(),
+    category: v.optional(storyCategory),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
