@@ -49,10 +49,13 @@ export async function revalidateBlog(blogId?: string) {
   try {
     revalidatePath("/[locale]", "page");
     revalidatePath("/[locale]/kafala-blogs", "page");
+    revalidatePath("/[locale]/kafala-articles", "page");
     if (blogId) {
-      // Revalidate both locales for the specific blog ID
-      revalidatePath(`/en/kafala-blogs/${blogId}`, "page");
-      revalidatePath(`/ar/kafala-blogs/${blogId}`, "page");
+      // Revalidate both locales and both routes: the story's category may have just changed.
+      for (const route of ["kafala-blogs", "kafala-articles"]) {
+        revalidatePath(`/en/${route}/${blogId}`, "page");
+        revalidatePath(`/ar/${route}/${blogId}`, "page");
+      }
     }
     return { success: true };
   } catch (error) {

@@ -65,6 +65,7 @@ const BlogsManagement = () => {
         imageKey: imageKey,
         publish: newBlog.publish,
         featured: newBlog.featured,
+        category: newBlog.category,
       });
 
       await revalidateBlog();
@@ -109,6 +110,7 @@ const BlogsManagement = () => {
         imageKey: uploadthingKey ?? existingBlog.imageKey,
         publish: updatedBlog.publish,
         featured: updatedBlog.featured,
+        category: updatedBlog.category,
       });
 
       await revalidateBlog(updatedBlog.id);
@@ -143,7 +145,7 @@ const BlogsManagement = () => {
       <CardHeader>
         <div className="flex justify-between items-center">
           <CardTitle className="flex items-center gap-4">
-            Blogs
+            Blogs &amp; Articles
             <Button
               variant="outline"
               size="sm"
@@ -157,7 +159,7 @@ const BlogsManagement = () => {
           <AddBlogDialog onAddBlog={handleCreateBlog} />
         </div>
         <CardDescription>
-          Manage the blogs that appear on the website.
+          Manage the blogs and research articles that appear on the website. Use the Type field to choose where each one is listed.
         </CardDescription>
       </CardHeader>
       <CardContent>

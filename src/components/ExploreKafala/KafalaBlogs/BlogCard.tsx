@@ -5,7 +5,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ResilientImage from "@/components/ui/ResilientImage";
-import type { Blog } from "@/lib/types.js";
+import { STORY_ROUTES, type Blog } from "@/lib/types.js";
+import { translations } from "./translations";
 import { useLocale } from "@/components/Providers/LocaleProvider";
 import Link from "next/link";
 interface BlogCardProps {
@@ -47,11 +48,11 @@ const BlogCard = ({ blog, index, reference }: BlogCardProps) => {
           />
 
           <Link
-            href={`/${locale}/kafala-blogs/${blog.id}`}
+            href={`/${locale}/${STORY_ROUTES[blog.category]}/${blog.id}`}
             className="inline-flex items-center"
           >
             <Button variant="outline" className="flex items-center gap-2">
-              {locale === "en" ? "Read Full Blog" : "اقرأ المدونة بالكامل"}{" "}
+              {translations.readFull[blog.category][locale]}{" "}
               {locale === "en" ? (
                 <ArrowRight size={16} className="ml-2" />
               ) : (

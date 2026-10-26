@@ -34,7 +34,10 @@ const LoadingSkeleton = () => (
 );
 
 const BlogsContent = async () => {
-  const blogs = await fetchQuery(api.stories.queries.getStories, { featuredOnly: true });
+  const blogs = await fetchQuery(api.stories.queries.getStories, {
+    featuredOnly: true,
+    category: "blog",
+  });
   if (!blogs || blogs.length === 0) return null;
   return <BlogsClient blogs={blogs} />;
 };

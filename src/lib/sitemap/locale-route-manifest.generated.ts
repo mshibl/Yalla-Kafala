@@ -12,6 +12,7 @@ export const LOCALE_STATIC_PATHS = [
   "donate",
   "faqs",
   "fatwa",
+  "kafala-articles",
   "kafala-blogs",
   "kafala-steps",
   "partnerships",
@@ -24,6 +25,7 @@ export const LOCALE_STATIC_PATHS = [
 ] as const;
 
 export const LOCALE_DYNAMIC_ROUTE_KEYS = [
+  "kafala-articles/[id]",
   "kafala-blogs/[id]",
   "resources/[slug]"
 ] as const;

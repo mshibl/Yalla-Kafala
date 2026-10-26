@@ -1,4 +1,4 @@
-import type { Blog } from "@/lib/types";
+import type { Blog, StoryCategory } from "@/lib/types";
 import { z } from "zod";
 
 export interface AddNewBlog {
@@ -11,6 +11,7 @@ export interface AddNewBlog {
   file: File;
   publish: boolean;
   featured: boolean;
+  category: StoryCategory;
 }
 
 export interface UpdateBlog extends Omit<AddNewBlog, "file"> {
@@ -44,6 +45,7 @@ export const addBlogFormSchema = z.object({
   file: z.instanceof(File, { message: "Image is required" }),
   publish: z.boolean(),
   featured: z.boolean(),
+  category: z.enum(["blog", "article"]),
 });
 
 export type AddBlogFormValues = z.infer<typeof addBlogFormSchema>;
@@ -58,6 +60,7 @@ export const editBlogFormSchema = z.object({
   file: z.instanceof(File, { message: "Image is required" }).optional(),
   publish: z.boolean(),
   featured: z.boolean(),
+  category: z.enum(["blog", "article"]),
 });
 
 export type EditBlogFormValues = z.infer<typeof editBlogFormSchema>;

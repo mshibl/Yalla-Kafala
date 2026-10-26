@@ -8,8 +8,17 @@ export interface FAQ {
   featured: boolean;
 }
 
+export type StoryCategory = "blog" | "article";
+
+/** Listing route for each story category, under `[locale]`. */
+export const STORY_ROUTES: Record<StoryCategory, string> = {
+  blog: "kafala-blogs",
+  article: "kafala-articles",
+};
+
 export interface Blog {
   id: string;
+  category: StoryCategory;
   titleEn: string;
   titleAr: string;
   contentEn: string;

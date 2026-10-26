@@ -71,6 +71,13 @@ export const navigationLinks = [
         href: "/kafala-blogs",
         text: { en: "Kafala Blogs", ar: "مدونات الكفالة" },
       },
+      {
+        href: "/kafala-articles",
+        text: {
+          en: "Research & Educational Articles",
+          ar: "مقالات بحثية وتعليمية",
+        },
+      },
       { href: "/faqs", text: { en: "FAQs", ar: "الأسئلة الشائعة" } },
       {
         href: "/resources",
