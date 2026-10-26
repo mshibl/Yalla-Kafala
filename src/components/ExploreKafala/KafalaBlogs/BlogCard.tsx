@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ResilientImage from "@/components/ui/ResilientImage";
-import { STORY_ROUTES, type Blog } from "@/lib/types.js";
+import { STORY_ROUTES, type Blog } from "@/lib/types";
 import { translations } from "./translations";
 import { useLocale } from "@/components/Providers/LocaleProvider";
 import Link from "next/link";
