@@ -17,6 +17,7 @@ export const ContactList = ({ locale }: { locale: Locale }) => {
             <Link
               href={item.href}
               className="text-gray-400 hover:text-white transition-colors duration-300 inline-block"
+              {...("ltr" in item && item.ltr ? { dir: "ltr" } : {})}
             >
               {item.text[locale]}
             </Link>

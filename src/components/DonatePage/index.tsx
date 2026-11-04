@@ -1,8 +1,17 @@
 "use client";
 
-import { Heart, Copy, Check, Smartphone, CreditCard, Landmark } from "lucide-react";
+import {
+  Heart,
+  Copy,
+  Check,
+  Smartphone,
+  CreditCard,
+  Landmark,
+} from "lucide-react";
 import type { Locale } from "@/components/Providers/LocaleProvider";
+import type { Region } from "@/lib/region";
 import { givebutterDonationUrl } from "@/constants/links";
+import Link from "next/link";
 import React from "react";
 
 const copy = {
@@ -26,14 +35,17 @@ const copy = {
     bank: "Bank: CIB",
     copied: "Copied!",
     copyToClipboard: "Copy",
+    currencyNote:
+      "All donations and payments in Egypt are in Egyptian Pounds (EGP).",
+    refundNote: "Read our",
+    refundLink: "Refund Policy",
   },
   ar: {
     title: "ادعم يلا كفالة",
     subtitle:
       "تبرعك السخي يساعد في ربط الأطفال فاقدي الرعاية الوالدية بعائلات محبة في مصر.",
     button: "تبرّع الآن",
-    taxNote:
-      "يلا كفالة منظمة 501(c)(3). جميع التبرعات معفاة من الضرائب.",
+    taxNote: "يلا كفالة منظمة 501(c)(3). جميع التبرعات معفاة من الضرائب.",
     donateOnline: "تبرع إلكترونياً",
     donateOnlineDesc:
       "تبرع سريع وآمن عبر Givebutter باستخدام بطاقتك الائتمانية أو حسابك البنكي.",
@@ -47,6 +59,9 @@ const copy = {
     bank: "البنك: CIB",
     copied: "تم النسخ!",
     copyToClipboard: "نسخ",
+    currencyNote: "جميع التبرعات والمدفوعات في مصر بالجنيه المصري.",
+    refundNote: "اطلع على",
+    refundLink: "سياسة الاسترداد",
   },
 };
 
@@ -83,13 +98,7 @@ const titleKeys = {
   bank: "bankTitle",
 } as const;
 
-function CopyButton({
-  text,
-  locale,
-}: {
-  text: string;
-  locale: Locale;
-}) {
+function CopyButton({ text, locale }: { text: string; locale: Locale }) {
   const [copied, setCopied] = React.useState(false);
   const t = copy[locale];
 
@@ -132,12 +141,21 @@ function CopyButton({
   );
 }
 
-export default function DonatePage({ locale }: { locale: Locale }) {
+export default function DonatePage({
+  locale,
+  region,
+}: {
+  locale: Locale;
+  region: Region;
+}) {
   const t = copy[locale];
   const dir = locale === "ar" ? "rtl" : "ltr";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white" dir={dir}>
+    <div
+      className="min-h-screen bg-gradient-to-b from-primary/5 to-white"
+      dir={dir}
+    >
       {/* Hero */}
       <section className="flex flex-col items-center justify-center px-4 pt-28 pb-12 md:pt-36 md:pb-16 text-center">
         <h1 className="mb-4 text-4xl font-bold text-gray-900 sm:text-5xl">
@@ -151,30 +169,32 @@ export default function DonatePage({ locale }: { locale: Locale }) {
       {/* Donation Methods */}
       <section className="container mx-auto px-4 pb-20">
         <div className="mx-auto max-w-4xl space-y-10">
-          {/* Online Donation (Givebutter) */}
-          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-            <div className="flex flex-col items-center text-center md:flex-row md:text-start md:items-start md:gap-6">
-              <div className="mb-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 md:mb-0">
-                <Heart className="h-7 w-7 text-primary" />
-              </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-bold text-gray-900 mb-1">
-                  {t.donateOnline}
-                </h2>
-                <p className="text-gray-600 mb-4">{t.donateOnlineDesc}</p>
-                <a
-                  href={givebutterDonationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="primary-button inline-flex items-center gap-2 px-6 py-3 text-base font-semibold"
-                >
-                  <Heart className="h-4 w-4" />
-                  {t.button}
-                </a>
-                <p className="mt-3 text-xs text-gray-500">{t.taxNote}</p>
+          {/* Online Donation (Givebutter, USD) — international site only */}
+          {region === "us" && (
+            <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
+              <div className="flex flex-col items-center text-center md:flex-row md:text-start md:items-start md:gap-6">
+                <div className="mb-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 md:mb-0">
+                  <Heart className="h-7 w-7 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-xl font-bold text-gray-900 mb-1">
+                    {t.donateOnline}
+                  </h2>
+                  <p className="text-gray-600 mb-4">{t.donateOnlineDesc}</p>
+                  <a
+                    href={givebutterDonationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="primary-button inline-flex items-center gap-2 px-6 py-3 text-base font-semibold"
+                  >
+                    <Heart className="h-4 w-4" />
+                    {t.button}
+                  </a>
+                  <p className="mt-3 text-xs text-gray-500">{t.taxNote}</p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Egypt Donation Methods */}
           <div id="egypt" className="scroll-mt-28">
@@ -184,6 +204,9 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                   {t.donateInEgypt}
                 </h2>
                 <p className="text-gray-600">{t.donateInEgyptDesc}</p>
+                <p className="mt-2 text-sm font-medium text-gray-700">
+                  {t.currencyNote}
+                </p>
               </div>
 
               <div className="grid gap-4 md:grid-cols-3">
@@ -207,7 +230,10 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                         {t.accountNumber}
                       </p>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <code className="rounded-md bg-white px-3 py-1.5 text-sm font-mono font-semibold text-gray-800 shadow-sm" dir="ltr">
+                        <code
+                          className="rounded-md bg-white px-3 py-1.5 text-sm font-mono font-semibold text-gray-800 shadow-sm"
+                          dir="ltr"
+                        >
                           {method.account}
                         </code>
                         <CopyButton text={method.account} locale={locale} />
@@ -219,6 +245,16 @@ export default function DonatePage({ locale }: { locale: Locale }) {
               </div>
             </div>
           </div>
+
+          <p className="text-center text-sm text-gray-500">
+            {t.refundNote}{" "}
+            <Link
+              href={`/${locale}/refund-policy`}
+              className="font-medium text-primary hover:underline"
+            >
+              {t.refundLink}
+            </Link>
+          </p>
         </div>
       </section>
     </div>

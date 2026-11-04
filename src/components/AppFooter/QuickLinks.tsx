@@ -1,11 +1,10 @@
 import Link from "next/link";
 import React from "react";
 import LinksList from "./LinksList";
-import { navigationLinks } from "./constants";
+import { DONATE_NAV_HREF, navigationLinks } from "./constants";
 import type { Locale } from "../Providers/LocaleProvider";
 import { translations } from "./translations";
 import DonateNowModal from "@/components/Donate/DonateNowModal";
-import { givebutterDonationUrl } from "@/constants/links";
 const QuickLinks = ({ locale }: { locale: Locale }) => {
   return (
     <div>
@@ -26,7 +25,7 @@ const QuickLinks = ({ locale }: { locale: Locale }) => {
             </li>
           ) : (
             <li key={`${item.href}-${idx}`}>
-              {item.href === givebutterDonationUrl ? (
+              {item.href === DONATE_NAV_HREF ? (
                 <DonateNowModal
                   locale={locale}
                   className="text-gray-400 hover:text-white transition-colors duration-300 inline-block"

@@ -1,9 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { navigationLinks } from "@/components/AppFooter/constants";
+import {
+  DONATE_NAV_HREF,
+  navigationLinks,
+} from "@/components/AppFooter/constants";
 import LanguageSwitcher from "./LanguageSwitcher";
+import RegionSwitcher from "./RegionSwitcher";
 import DonateNowModal from "@/components/Donate/DonateNowModal";
-import { givebutterDonationUrl } from "@/constants/links";
 
 interface DesktopNavProps {
   locale: "en" | "ar";
@@ -36,7 +39,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
           </div>
         ) : (
           <React.Fragment key={item.href}>
-            {item.href === givebutterDonationUrl ? (
+            {item.href === DONATE_NAV_HREF ? (
               <DonateNowModal
                 locale={locale}
                 className="text-gray-700 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
@@ -56,8 +59,9 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
         ),
       )}
 
-      {/* Language Switcher */}
-      <div className="ml-4">
+      {/* Region + Language Switchers */}
+      <div className="ml-4 flex items-center gap-2">
+        <RegionSwitcher locale={locale} />
         <LanguageSwitcher locale={locale} onSwitchLanguage={onSwitchLanguage} />
       </div>
     </nav>
