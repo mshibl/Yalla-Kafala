@@ -16,6 +16,7 @@ export const LOCALE_STATIC_PATHS = [
   "kafala-blogs",
   "kafala-steps",
   "partnerships",
+  "refund-policy",
   "resources",
   "stock-donation",
   "vision-mission",

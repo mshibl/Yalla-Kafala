@@ -4,7 +4,6 @@ import Impact from "@/components/Homepage/Impact/index";
 import Blogs from "@/components/Homepage/Blog/index";
 import FacebookPosts from "@/components/Homepage/FacebookPosts/index";
 import { MakeDifference } from "@/components/Homepage/MakeDifference";
-import Donate from "@/components/Homepage/Donate";
 import FAQs from "@/components/Homepage/FAQs/index";
 import NewsletterPopover from "@/components/Homepage/NewsletterPopover";
 import type { Locale } from "@/components/Providers/LocaleProvider";
@@ -23,7 +22,6 @@ const HomePage = async ({
       <Blogs />
       <FAQs locale={locale} />
       <FacebookPosts locale={locale} />
-      {/* <Donate /> */}
     </>
   );
 };

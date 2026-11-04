@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Navbar from "@/components/AppHeader";
 import Footer from "@/components/AppFooter";
@@ -186,13 +185,6 @@ export default async function RootLayout({
   const { locale } = await params;
   return (
     <html dir={locale === "en" ? "ltr" : "rtl"} lang={locale}>
-      <head>
-        <Script
-          src="https://secure.givelively.org/widgets/branded_donation/yalla-kafala.js"
-          strategy="lazyOnload"
-          async={true}
-        />
-      </head>
       <body>
         <GoogleTagManager gtmId="GTM-TV63ZJT2" />
         <Providers locale={locale as Locale}>

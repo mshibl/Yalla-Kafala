@@ -1,10 +1,6 @@
-import { Heart } from "lucide-react";
-
-import { MapPin } from "lucide-react";
-
-import { Mail } from "lucide-react";
-import { volunteerFormUrl } from "@/constants/links";
-import { givebutterDonationUrl } from "@/constants/links";
+import { Heart, MapPin, Mail, Phone } from "lucide-react";
+import { volunteerFormUrl, givebutterDonationUrl } from "@/constants/links";
+import { officialContact, hasOfficialPhone } from "@/constants/contact";
 
 export const contactItems = [
   {
@@ -12,21 +8,29 @@ export const contactItems = [
     text: { en: "Volunteer", ar: "التطوع" },
     href: volunteerFormUrl,
   },
+  ...(hasOfficialPhone
+    ? [
+        {
+          icon: Phone,
+          text: { en: officialContact.phone, ar: officialContact.phone },
+          href: `tel:${officialContact.phone}`,
+          ltr: true,
+        },
+      ]
+    : []),
   {
     icon: MapPin,
-    text: {
-      en: "24 Al Lasilki Al Sagheer Street, New Maadi, Cairo, Egypt.",
-      ar: "٢٤ شارع اللاسلكي الصغير، المعادي الجديدة، القاهرة، مصر",
-    },
-    href: "https://maps.app.goo.gl/d24Rt7cnGfYYkSyq8?g_st=ic",
+    text: officialContact.address,
+    href: officialContact.mapUrl,
   },
   {
     icon: Mail,
     text: {
-      en: "info@yallakafala.org",
-      ar: "info@yallakafala.org",
+      en: officialContact.email,
+      ar: officialContact.email,
     },
-    href: "mailto:info@yallakafala.org",
+    href: `mailto:${officialContact.email}`,
+    ltr: true,
   },
 ];
 

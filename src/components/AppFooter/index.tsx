@@ -51,6 +51,14 @@ const Footer = ({ locale }: { locale: Locale }) => {
           </div>
 
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+            <p className="mb-3">
+              <Link
+                href={`/${locale}/refund-policy`}
+                className="text-gray-400 hover:text-white underline-offset-4 hover:underline transition-colors duration-300"
+              >
+                {translations.refundPolicy[locale]}
+              </Link>
+            </p>
             <p>
               {translations.rightsReserved[locale]} <br />
               &copy; {new Date().getFullYear()}{" "}
