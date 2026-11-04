@@ -1,7 +1,7 @@
 import BlogDetails from "@/components/ExploreKafala/KafalaBlogs/BlogDetails";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { fetchQuery } from "convex/nextjs";
-import { api } from "../../../../../convex/_generated/api";
+import { api } from "../../../../../../convex/_generated/api";
 
 export default async function KafalaArticlePage({
   params,

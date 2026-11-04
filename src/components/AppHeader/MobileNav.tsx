@@ -2,11 +2,14 @@ import React from "react";
 import { X, ChevronDown, Menu } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { navigationLinks } from "@/components/AppFooter/constants";
+import {
+  DONATE_NAV_HREF,
+  navigationLinks,
+} from "@/components/AppFooter/constants";
 import LanguageSwitcher from "./LanguageSwitcher";
 import type { Locale } from "../Providers/LocaleProvider";
 import DonateNowModal from "@/components/Donate/DonateNowModal";
-import { givebutterDonationUrl } from "@/constants/links";
+import RegionSwitcher from "./RegionSwitcher";
 
 interface MobileNavProps {
   locale: Locale;
@@ -47,7 +50,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
         <div className="flex flex-col items-center justify-center space-y-6 h-full">
           {/* Navigation Links (Mobile) */}
           {navigationLinks
-            .filter((item) => item.href !== givebutterDonationUrl)
+            .filter((item) => item.href !== DONATE_NAV_HREF)
             .map((item, idx) =>
               item.group ? (
                 <div
@@ -181,6 +184,9 @@ export const MobileNav: React.FC<MobileNavProps> = ({
               isMobile={true}
               onSwitchLanguage={onSwitchLanguage}
             />
+            <div className="mt-3">
+              <RegionSwitcher locale={locale} isMobile={true} />
+            </div>
           </div>
 
           <DonateNowModal

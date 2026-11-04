@@ -1,5 +1,8 @@
 import { Heart, MapPin, Mail, Phone } from "lucide-react";
-import { volunteerFormUrl, givebutterDonationUrl } from "@/constants/links";
+import { volunteerFormUrl } from "@/constants/links";
+
+/** Nav item that opens the region-aware Donate flow (see DonateNowModal). */
+export const DONATE_NAV_HREF = "/donate";
 import { officialContact, hasOfficialPhone } from "@/constants/contact";
 
 export const contactItems = [
@@ -105,7 +108,7 @@ export const navigationLinks = [
     ],
   },
   {
-    href: givebutterDonationUrl,
+    href: DONATE_NAV_HREF,
     text: { en: "Donate Now", ar: "تبرع الآن" },
   },
 ];

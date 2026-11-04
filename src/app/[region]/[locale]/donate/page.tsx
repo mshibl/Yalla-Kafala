@@ -1,6 +1,7 @@
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import DonatePage from "@/components/DonatePage";
 import type { Metadata } from "next";
+import type { Region } from "@/lib/region";
 
 export async function generateMetadata({
   params,
@@ -21,8 +22,8 @@ export async function generateMetadata({
 export default async function DonateRoute({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: Locale; region: Region }>;
 }) {
-  const { locale } = await params;
-  return <DonatePage locale={locale} />;
+  const { locale, region } = await params;
+  return <DonatePage locale={locale} region={region} />;
 }

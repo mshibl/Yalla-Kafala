@@ -3,6 +3,18 @@ import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { clerkMiddleware } from "@clerk/nextjs/server";
 import { volunteerFormUrl, brochurePdfUrl } from "@/constants/links";
+import {
+  DEFAULT_REGION,
+  REGION_COOKIE,
+  REGION_QUERY_PARAM,
+  ROOT_DOMAIN,
+  isApexHost,
+  isRegion,
+  regionFromCountry,
+  regionFromHost,
+  regionOrigin,
+  type Region,
+} from "@/lib/region";
 
 // Define the locales we support
 const locales = ["en", "ar"];
@@ -18,8 +30,70 @@ function getLocale(request: NextRequest) {
   return match(languages, locales, defaultLocale);
 }
 
+const REGION_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
+
+/**
+ * Which site version (eg = EGP-only, us = international) this request is for.
+ * - eg./us.yallakafala.org: fixed by the host (never flips with IP/VPN).
+ * - Previews / localhost: `?region=` query param, then the cookie, then DEFAULT_REGION.
+ */
+function resolveRegion(request: NextRequest, host: string): Region {
+  const fromHost = regionFromHost(host);
+  if (fromHost) return fromHost;
+  const fromQuery = request.nextUrl.searchParams.get(REGION_QUERY_PARAM);
+  if (isRegion(fromQuery)) return fromQuery;
+  const fromCookie = request.cookies.get(REGION_COOKIE)?.value;
+  if (isRegion(fromCookie)) return fromCookie;
+  return DEFAULT_REGION;
+}
+
+/** Remember the last version used, so yallakafala.org sends people back to it. */
+function rememberRegion(
+  response: NextResponse,
+  request: NextRequest,
+  host: string,
+  region: Region,
+) {
+  if (request.cookies.get(REGION_COOKIE)?.value === region) return response;
+  response.cookies.set(REGION_COOKIE, region, {
+    path: "/",
+    maxAge: REGION_COOKIE_MAX_AGE,
+    sameSite: "lax",
+    // Share across eg./us. and the apex in production; host-only elsewhere.
+    ...(regionFromHost(host)
+      ? { domain: `.${ROOT_DOMAIN}`, secure: true }
+      : {}),
+  });
+  return response;
+}
+
 export default clerkMiddleware(async (auth, request) => {
   const { pathname } = request.nextUrl;
+  const host = (request.headers.get("host") ?? "").split(":")[0] ?? "";
+
+  // yallakafala.org -> eg. or us. (saved choice first, then visitor country).
+  // 307 (temporary) so browsers don't cache it and a changed choice still applies.
+  if (isApexHost(host) && !pathname.startsWith("/__clerk")) {
+    const saved = request.cookies.get(REGION_COOKIE)?.value;
+    const region = isRegion(saved)
+      ? saved
+      : regionFromCountry(request.headers.get("x-vercel-ip-country"));
+    const target = new URL(
+      `${pathname}${request.nextUrl.search}`,
+      regionOrigin(region),
+    );
+    return NextResponse.redirect(target, 307);
+  }
+
+  const region = resolveRegion(request, host);
+
+  // The internal /eg/... and /us/... trees are never public URLs.
+  const internalRegionPrefix = pathname.match(/^\/(eg|us)(\/.*)?$/);
+  if (internalRegionPrefix) {
+    const newUrl = new URL(request.url);
+    newUrl.pathname = internalRegionPrefix[2] ?? "/";
+    return NextResponse.redirect(newUrl);
+  }
 
   const legacyRedirects: Record<string, string> = {
     "/about_us": "/who-we-are",
@@ -31,6 +105,7 @@ export default clerkMiddleware(async (auth, request) => {
     "/contact_us": "/",
     "/contact-us": "/",
     "/kafala-stories": "/kafala-blogs",
+    "/yk-gala": "/",
   };
 
   for (const locale of locales) {
@@ -43,6 +118,7 @@ export default clerkMiddleware(async (auth, request) => {
     legacyRedirects[`/${locale}/contact_us`] = `/${locale}`;
     legacyRedirects[`/${locale}/contact-us`] = `/${locale}`;
     legacyRedirects[`/${locale}/kafala-stories`] = `/${locale}/kafala-blogs`;
+    legacyRedirects[`/${locale}/yk-gala`] = `/${locale}`;
   }
 
   const legacyDestination = legacyRedirects[pathname];
@@ -128,11 +204,26 @@ export default clerkMiddleware(async (auth, request) => {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
 
-  if (pathnameHasLocale) return NextResponse.next();
+  if (pathnameHasLocale) {
+    // Serve the region's pre-rendered tree (src/app/[region]/[locale]) without changing the URL.
+    const rewriteUrl = request.nextUrl.clone();
+    rewriteUrl.pathname = `/${region}${pathname}`;
+    return rememberRegion(
+      NextResponse.rewrite(rewriteUrl),
+      request,
+      host,
+      region,
+    );
+  }
 
   const locale = getLocale(request);
   request.nextUrl.pathname = `/${locale}${pathname}`;
-  return NextResponse.redirect(request.nextUrl);
+  return rememberRegion(
+    NextResponse.redirect(request.nextUrl),
+    request,
+    host,
+    region,
+  );
 });
 
 export const config = {

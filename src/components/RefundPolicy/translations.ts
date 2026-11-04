@@ -23,7 +23,7 @@ export const translations: Record<"en" | "ar", Copy> = {
     title: "Refund Policy",
     lastUpdated: "Last updated",
     intro:
-      "This policy explains the terms, conditions and processing timelines for refunds of online payments and donations made to Yalla Kafala through our website. All online payments on this website are processed in Egyptian Pounds (EGP).",
+      "This policy explains the terms, conditions and processing timelines for refunds of online payments and donations made to Yalla Kafala through our website. It applies to payments made in Egyptian Pounds (EGP) on the Yalla Kafala Egypt website (eg.yallakafala.org).",
     sections: [
       {
         title: "1. General terms",
@@ -92,7 +92,7 @@ export const translations: Record<"en" | "ar", Copy> = {
     title: "سياسة الاسترداد",
     lastUpdated: "آخر تحديث",
     intro:
-      "توضح هذه السياسة شروط وأحكام والمدد الزمنية لمعالجة طلبات استرداد المدفوعات والتبرعات الإلكترونية المقدمة إلى يلا كفالة عبر موقعنا. تتم معالجة جميع المدفوعات الإلكترونية على هذا الموقع بالجنيه المصري.",
+      "توضح هذه السياسة شروط وأحكام والمدد الزمنية لمعالجة طلبات استرداد المدفوعات والتبرعات الإلكترونية المقدمة إلى يلا كفالة عبر موقعنا. وتنطبق على المدفوعات التي تتم بالجنيه المصري عبر موقع يلا كفالة مصر (eg.yallakafala.org).",
     sections: [
       {
         title: "١. الشروط العامة",

@@ -15,7 +15,7 @@ export const donationMethods = [
       en: "Your financial support helps children without parental care.",
       ar: "دعمكم المالي يساعد الأطفال فاقدي الرعاية الوالدية.",
     },
-    link: "https://givebutter.com/yallakafaladonations",
+    link: "/donate",
     color: "#7b2082", // primary
   },
   {

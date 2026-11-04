@@ -9,6 +9,7 @@ import {
   Landmark,
 } from "lucide-react";
 import type { Locale } from "@/components/Providers/LocaleProvider";
+import type { Region } from "@/lib/region";
 import { givebutterDonationUrl } from "@/constants/links";
 import Link from "next/link";
 import React from "react";
@@ -140,7 +141,13 @@ function CopyButton({ text, locale }: { text: string; locale: Locale }) {
   );
 }
 
-export default function DonatePage({ locale }: { locale: Locale }) {
+export default function DonatePage({
+  locale,
+  region,
+}: {
+  locale: Locale;
+  region: Region;
+}) {
   const t = copy[locale];
   const dir = locale === "ar" ? "rtl" : "ltr";
 
@@ -162,30 +169,32 @@ export default function DonatePage({ locale }: { locale: Locale }) {
       {/* Donation Methods */}
       <section className="container mx-auto px-4 pb-20">
         <div className="mx-auto max-w-4xl space-y-10">
-          {/* Online Donation (Givebutter) */}
-          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-            <div className="flex flex-col items-center text-center md:flex-row md:text-start md:items-start md:gap-6">
-              <div className="mb-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 md:mb-0">
-                <Heart className="h-7 w-7 text-primary" />
-              </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-bold text-gray-900 mb-1">
-                  {t.donateOnline}
-                </h2>
-                <p className="text-gray-600 mb-4">{t.donateOnlineDesc}</p>
-                <a
-                  href={givebutterDonationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="primary-button inline-flex items-center gap-2 px-6 py-3 text-base font-semibold"
-                >
-                  <Heart className="h-4 w-4" />
-                  {t.button}
-                </a>
-                <p className="mt-3 text-xs text-gray-500">{t.taxNote}</p>
+          {/* Online Donation (Givebutter, USD) — international site only */}
+          {region === "us" && (
+            <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
+              <div className="flex flex-col items-center text-center md:flex-row md:text-start md:items-start md:gap-6">
+                <div className="mb-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 md:mb-0">
+                  <Heart className="h-7 w-7 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-xl font-bold text-gray-900 mb-1">
+                    {t.donateOnline}
+                  </h2>
+                  <p className="text-gray-600 mb-4">{t.donateOnlineDesc}</p>
+                  <a
+                    href={givebutterDonationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="primary-button inline-flex items-center gap-2 px-6 py-3 text-base font-semibold"
+                  >
+                    <Heart className="h-4 w-4" />
+                    {t.button}
+                  </a>
+                  <p className="mt-3 text-xs text-gray-500">{t.taxNote}</p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Egypt Donation Methods */}
           <div id="egypt" className="scroll-mt-28">

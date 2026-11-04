@@ -6,7 +6,9 @@ import Footer from "@/components/AppFooter";
 import { Toaster } from "@/components/ui/sonner";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { Providers } from "@/components/Providers";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import { notFound } from "next/navigation";
+import { REGIONS, isRegion } from "@/lib/region";
 
 export async function generateViewport({
   params,
@@ -50,79 +52,79 @@ export async function generateMetadata({
     },
     keywords: isArabic
       ? [
-        "كفالة",
-        "تبني",
-        "أيتام",
-        "مصر",
-        "رعاية الأطفال",
-        "حماية الطفل",
-        "منظمة غير حكومية",
-        "دار أيتام",
-        "رعاية بديلة",
-        "حقوق الطفل",
-        "دعم الأطفال",
-        "الأسر البديلة",
-        "الرعاية الاجتماعية",
-        "تمكين الأطفال",
-        "العمل الخيري",
-        "التطوع في مصر",
-        "مساعدة الأطفال المحتاجين",
-        "برامج رعاية الأيتام",
-        "الأسر الكافلة",
-        "حماية الأطفال المعرضين للخطر",
-        "التنمية الاجتماعية",
-        "الدعم النفسي للأطفال",
-        "الرعاية الصحية للأيتام",
-        "التعليم للأطفال المحرومين",
-        "مؤسسة خيرية للأطفال",
-        "يلا كفالة",
-        "خدمات الدعم للأيتام",
-        "تحسين حياة الأطفال",
-        "الحماية الاجتماعية للأطفال",
-        "مبادرات رعاية الطفل",
-      ]
+          "كفالة",
+          "تبني",
+          "أيتام",
+          "مصر",
+          "رعاية الأطفال",
+          "حماية الطفل",
+          "منظمة غير حكومية",
+          "دار أيتام",
+          "رعاية بديلة",
+          "حقوق الطفل",
+          "دعم الأطفال",
+          "الأسر البديلة",
+          "الرعاية الاجتماعية",
+          "تمكين الأطفال",
+          "العمل الخيري",
+          "التطوع في مصر",
+          "مساعدة الأطفال المحتاجين",
+          "برامج رعاية الأيتام",
+          "الأسر الكافلة",
+          "حماية الأطفال المعرضين للخطر",
+          "التنمية الاجتماعية",
+          "الدعم النفسي للأطفال",
+          "الرعاية الصحية للأيتام",
+          "التعليم للأطفال المحرومين",
+          "مؤسسة خيرية للأطفال",
+          "يلا كفالة",
+          "خدمات الدعم للأيتام",
+          "تحسين حياة الأطفال",
+          "الحماية الاجتماعية للأطفال",
+          "مبادرات رعاية الطفل",
+        ]
       : [
-        "kafala",
-        "adoption",
-        "orphans",
-        "Egypt",
-        "child welfare",
-        "child protection",
-        "NGO",
-        "orphanage",
-        "alternative care",
-        "children's rights",
-        "child support",
-        "foster families",
-        "social care",
-        "child empowerment",
-        "charity work",
-        "volunteering in Egypt",
-        "helping children in need",
-        "orphan care programs",
-        "sponsoring families",
-        "protecting at-risk children",
-        "social development",
-        "psychological support for children",
-        "healthcare for orphans",
-        "education for underprivileged children",
-        "children's charity foundation",
-        "Yalla Kafala",
-        "support services for orphans",
-        "improving children's lives",
-        "social protection for children",
-        "child care initiatives",
-        "Egyptian adoption",
-        "guardianship in Egypt",
-        "child advocacy",
-        "family-based care",
-        "child development programs",
-        "community outreach",
-        "child poverty alleviation",
-        "child rights advocacy",
-        "sustainable child care",
-        "international adoption in Egypt",
-      ],
+          "kafala",
+          "adoption",
+          "orphans",
+          "Egypt",
+          "child welfare",
+          "child protection",
+          "NGO",
+          "orphanage",
+          "alternative care",
+          "children's rights",
+          "child support",
+          "foster families",
+          "social care",
+          "child empowerment",
+          "charity work",
+          "volunteering in Egypt",
+          "helping children in need",
+          "orphan care programs",
+          "sponsoring families",
+          "protecting at-risk children",
+          "social development",
+          "psychological support for children",
+          "healthcare for orphans",
+          "education for underprivileged children",
+          "children's charity foundation",
+          "Yalla Kafala",
+          "support services for orphans",
+          "improving children's lives",
+          "social protection for children",
+          "child care initiatives",
+          "Egyptian adoption",
+          "guardianship in Egypt",
+          "child advocacy",
+          "family-based care",
+          "child development programs",
+          "community outreach",
+          "child poverty alleviation",
+          "child rights advocacy",
+          "sustainable child care",
+          "international adoption in Egypt",
+        ],
     openGraph: {
       title,
       description,
@@ -180,14 +182,15 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string; region: string }>;
 }) {
-  const { locale } = await params;
+  const { locale, region } = await params;
+  if (!isRegion(region)) notFound();
   return (
     <html dir={locale === "en" ? "ltr" : "rtl"} lang={locale}>
       <body>
         <GoogleTagManager gtmId="GTM-TV63ZJT2" />
-        <Providers locale={locale as Locale}>
+        <Providers locale={locale as Locale} region={region}>
           <div className="min-h-screen flex flex-col">
             <Navbar locale={locale as Locale} />
             <main className="flex-grow">{children}</main>
@@ -208,6 +211,10 @@ export default async function RootLayout({
 }
 
 export async function generateStaticParams() {
-  // Putting this here means all pages will be generated for both locales. If this function is put in the page, it will only statically generate that page
-  return [{ locale: "en" }, { locale: "ar" }];
+  // Putting this here means all pages will be generated for every region × locale. If this
+  // function is put in the page, it will only statically generate that page.
+  // `region` is never in public URLs: middleware rewrites eg./us. hosts to /eg/... or /us/...
+  return REGIONS.flatMap((region) =>
+    ["en", "ar"].map((locale) => ({ region, locale })),
+  );
 }
