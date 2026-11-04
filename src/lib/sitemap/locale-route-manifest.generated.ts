@@ -21,11 +21,11 @@ export const LOCALE_STATIC_PATHS = [
   "stock-donation",
   "vision-mission",
   "what-is-kafala",
-  "who-we-are"
+  "who-we-are",
 ] as const;
 
 export const LOCALE_DYNAMIC_ROUTE_KEYS = [
   "kafala-articles/[id]",
   "kafala-blogs/[id]",
-  "resources/[slug]"
+  "resources/[slug]",
 ] as const;

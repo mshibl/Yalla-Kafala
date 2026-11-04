@@ -13,6 +13,7 @@ import type { Locale } from "../Providers/LocaleProvider";
 import { useRegion } from "../Providers/RegionProvider";
 import {
   REGION_QUERY_PARAM,
+  REGION_SUBDOMAINS_ENABLED,
   isProductionHost,
   regionOrigin,
   type Region,
@@ -41,7 +42,7 @@ export const RegionSwitcher = ({
   const switchTo = (target: Region) => {
     if (target === region) return;
     const { hostname, search, hash } = window.location;
-    if (isProductionHost(hostname)) {
+    if (REGION_SUBDOMAINS_ENABLED && isProductionHost(hostname)) {
       window.location.assign(
         `${regionOrigin(target)}${pathname}${search}${hash}`,
       );

@@ -80,7 +80,7 @@ export default function RefundPolicy({ locale }: { locale: Locale }) {
                       className="text-primary hover:underline"
                       dir="ltr"
                     >
-                      {officialContact.phone}
+                      {officialContact.phoneDisplay}
                     </a>
                   </span>
                 </li>

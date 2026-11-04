@@ -15,7 +15,10 @@ export const contactItems = [
     ? [
         {
           icon: Phone,
-          text: { en: officialContact.phone, ar: officialContact.phone },
+          text: {
+            en: officialContact.phoneDisplay,
+            ar: officialContact.phoneDisplay,
+          },
           href: `tel:${officialContact.phone}`,
           ltr: true,
         },

@@ -10,6 +10,15 @@ export const DEFAULT_REGION: Region = "us";
 export const REGION_COOKIE = "yk_region";
 export const REGION_QUERY_PARAM = "region";
 
+/**
+ * Kill switch for the eg./us. subdomains. Leave unset until both subdomains are added in
+ * Vercel and their DNS is live; then set NEXT_PUBLIC_REGION_SUBDOMAINS=on and redeploy.
+ * While off, the apex keeps serving the site itself (international version by default,
+ * `?region=eg` for the Egyptian one) and the region switch uses the query param.
+ */
+export const REGION_SUBDOMAINS_ENABLED =
+  process.env.NEXT_PUBLIC_REGION_SUBDOMAINS === "on";
+
 /** Production root domain. Visitors to the apex are redirected to eg./us. */
 export const ROOT_DOMAIN = "yallakafala.org";
 const APEX_HOSTS = [ROOT_DOMAIN, `www.${ROOT_DOMAIN}`];

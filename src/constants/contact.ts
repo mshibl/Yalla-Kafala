@@ -6,11 +6,10 @@
 
 export const officialContact = {
   email: "info@yallakafala.org",
-  /**
-   * Official contact phone in E.164 form (e.g. "+201XXXXXXXXX").
-   * TODO: fill in the official YK number — it is hidden everywhere while empty.
-   */
-  phone: "",
+  /** Official contact phone in E.164 form. Hidden everywhere if left empty. */
+  phone: "+201208889506",
+  /** Human-friendly rendering of `phone`. */
+  phoneDisplay: "+20 120 888 9506",
   address: {
     en: "24 Al Lasilki Al Sagheer Street, New Maadi, Cairo, Egypt.",
     ar: "٢٤ شارع اللاسلكي الصغير، المعادي الجديدة، القاهرة، مصر",

@@ -7,6 +7,7 @@ import {
   DEFAULT_REGION,
   REGION_COOKIE,
   REGION_QUERY_PARAM,
+  REGION_SUBDOMAINS_ENABLED,
   ROOT_DOMAIN,
   isApexHost,
   isRegion,
@@ -73,7 +74,13 @@ export default clerkMiddleware(async (auth, request) => {
 
   // yallakafala.org -> eg. or us. (saved choice first, then visitor country).
   // 307 (temporary) so browsers don't cache it and a changed choice still applies.
-  if (isApexHost(host) && !pathname.startsWith("/__clerk")) {
+  // Admin stays on the apex (where Clerk is configured) and is not region-specific.
+  if (
+    REGION_SUBDOMAINS_ENABLED &&
+    isApexHost(host) &&
+    !pathname.startsWith("/__clerk") &&
+    !pathname.startsWith("/admin")
+  ) {
     const saved = request.cookies.get(REGION_COOKIE)?.value;
     const region = isRegion(saved)
       ? saved
@@ -83,6 +90,17 @@ export default clerkMiddleware(async (auth, request) => {
       regionOrigin(region),
     );
     return NextResponse.redirect(target, 307);
+  }
+
+  // Admin lives on the apex only; send eg./us./admin there.
+  if (
+    REGION_SUBDOMAINS_ENABLED &&
+    regionFromHost(host) &&
+    pathname.startsWith("/admin")
+  ) {
+    return NextResponse.redirect(
+      new URL(`${pathname}${request.nextUrl.search}`, `https://${ROOT_DOMAIN}`),
+    );
   }
 
   const region = resolveRegion(request, host);
