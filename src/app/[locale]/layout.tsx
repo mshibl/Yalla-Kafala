@@ -192,6 +192,18 @@ export default async function RootLayout({
           strategy="lazyOnload"
           async={true}
         />
+        <Script
+          id="gtm-p8k2j6zh"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-P8K2J6ZH"
+          strategy="afterInteractive"
+        />
+        <Script id="gtm-p8k2j6zh-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          `}
+        </Script>
       </head>
       <body>
         <GoogleTagManager gtmId="GTM-TV63ZJT2" />
