@@ -10,6 +10,8 @@ export const officialContact = {
   phone: "+201208889506",
   /** Human-friendly rendering of `phone`. */
   phoneDisplay: "+20 120 888 9506",
+  /** WhatsApp chat link for the official number (wa.me takes digits only). */
+  whatsappUrl: "https://wa.me/201208889506",
   address: {
     en: "24 Al Lasilki Al Sagheer Street, New Maadi, Cairo, Egypt.",
     ar: "٢٤ شارع اللاسلكي الصغير، المعادي الجديدة، القاهرة، مصر",

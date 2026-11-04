@@ -7,7 +7,6 @@ import {
   DEFAULT_REGION,
   REGION_COOKIE,
   REGION_QUERY_PARAM,
-  REGION_SUBDOMAINS_ENABLED,
   ROOT_DOMAIN,
   isApexHost,
   isRegion,
@@ -76,7 +75,6 @@ export default clerkMiddleware(async (auth, request) => {
   // 307 (temporary) so browsers don't cache it and a changed choice still applies.
   // Admin stays on the apex (where Clerk is configured) and is not region-specific.
   if (
-    REGION_SUBDOMAINS_ENABLED &&
     isApexHost(host) &&
     !pathname.startsWith("/__clerk") &&
     !pathname.startsWith("/admin")
@@ -93,11 +91,7 @@ export default clerkMiddleware(async (auth, request) => {
   }
 
   // Admin lives on the apex only; send eg./us./admin there.
-  if (
-    REGION_SUBDOMAINS_ENABLED &&
-    regionFromHost(host) &&
-    pathname.startsWith("/admin")
-  ) {
+  if (regionFromHost(host) && pathname.startsWith("/admin")) {
     return NextResponse.redirect(
       new URL(`${pathname}${request.nextUrl.search}`, `https://${ROOT_DOMAIN}`),
     );

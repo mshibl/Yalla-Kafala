@@ -6,6 +6,7 @@ import {
   Gift,
   Calendar,
 } from "lucide-react";
+import { officialContact } from "@/constants/contact";
 
 export const donationMethods = [
   {
@@ -45,7 +46,7 @@ export const donationMethods = [
       en: "Connect via WhatsApp for inquiries or to help.",
       ar: "تواصل معنا عبر الواتساب للاستفسارات أو للمساعدة.",
     },
-    link: "https://wa.me/1234567890",
+    link: officialContact.whatsappUrl,
     color: "#25D366", // WhatsApp green
   },
   {

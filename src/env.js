@@ -28,8 +28,6 @@ export const env = createEnv({
     NEXT_PUBLIC_POSTHOG_HOST: z.string(),
     NEXT_PUBLIC_POSTHOG_KEY: z.string(),
     NEXT_PUBLIC_URL: z.string(),
-    /** "on" once eg./us.yallakafala.org are live in Vercel (see src/lib/region.ts). */
-    NEXT_PUBLIC_REGION_SUBDOMAINS: z.enum(["on", "off"]).optional(),
   },
 
   /**
@@ -46,7 +44,6 @@ export const env = createEnv({
     FACEBOOK_PAGE_ACCESS_TOKEN: process.env.FACEBOOK_PAGE_ACCESS_TOKEN,
     EMAIL_OCTOPUS_AUTH_TOKEN: process.env.EMAIL_OCTOPUS_AUTH_TOKEN,
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
-    NEXT_PUBLIC_REGION_SUBDOMAINS: process.env.NEXT_PUBLIC_REGION_SUBDOMAINS,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   },
