@@ -76,10 +76,10 @@ const FAQsSearchList = ({ faqs, locale }: { faqs: Faq[]; locale: Locale }) => {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder={t.search}
-            className="w-full rounded-full border border-gray-200 bg-white py-3 pe-4 ps-12 text-base text-gray-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="w-full rounded-full border border-[#D9D2DE] bg-white py-3 pe-4 ps-12 text-base text-gray-900 shadow-sm outline-none placeholder:text-[#6B6475] transition focus:border-primary focus:ring-2 focus:ring-primary/20"
           />
         </label>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm font-medium text-gray-700">
           {t.count(matches.length, items.length)}
         </p>
       </div>

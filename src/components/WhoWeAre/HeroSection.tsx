@@ -8,9 +8,9 @@ import PageHeader from "@/components/ui/PageHeader";
 export const HeroSection = ({ locale }: { locale: Locale }) => {
   return (
     <section className="relative bg-gradient-to-b from-primary/[0.06] to-white pt-28 pb-14 md:pt-36 md:pb-20">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto grid max-w-6xl items-center gap-10 px-6 md:grid-cols-2 md:gap-14">
         <PageHeader
-          width="max-w-5xl"
+          width="max-w-none"
           eyebrow={translations.hero.badge[locale]}
           title={
             <>
@@ -39,7 +39,7 @@ export const HeroSection = ({ locale }: { locale: Locale }) => {
             </a>
           </div>
         </PageHeader>
-        <div className="relative mx-auto mt-12 aspect-[2/1] max-w-5xl overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5 md:mt-16 md:aspect-[21/9]">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
           <Image
             src="/images/yk-team-1.webp"
             alt={
@@ -49,8 +49,8 @@ export const HeroSection = ({ locale }: { locale: Locale }) => {
             }
             fill
             priority
-            sizes="(min-width: 1024px) 1024px, 100vw"
-            className="object-cover object-[center_35%]"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover object-[center_40%]"
           />
         </div>
       </div>

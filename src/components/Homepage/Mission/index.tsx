@@ -4,6 +4,7 @@ import { MissionCard } from "./MissionCard";
 import { translations } from "./translations";
 import { useLocale } from "@/components/Providers/LocaleProvider";
 import { missionCards } from "./constants";
+import Link from "next/link";
 import { Handshake, HeartHandshake, House, Users } from "lucide-react";
 
 /** Inclusion, community, collaboration, compassion. */
@@ -58,6 +59,13 @@ const Mission = () => {
           >
             {translations.mission.description[locale]}
           </p>
+          <Link
+            href={`/${locale}/who-we-are`}
+            className="mt-4 inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+          >
+            {locale === "en" ? "Learn more about us" : "تعرّف علينا أكثر"}
+            <span aria-hidden="true">{locale === "en" ? "→" : "←"}</span>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 divide-y divide-primary/10 md:grid-cols-2 md:gap-6 md:divide-y-0 lg:grid-cols-4">

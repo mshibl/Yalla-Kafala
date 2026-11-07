@@ -60,7 +60,7 @@ layer(base);
 }
 
 @utility primary-button {
-  @apply bg-primary text-white px-6 py-3 rounded-full hover:shadow-lg transform transition-all duration-300 ease-in-out hover:translate-y-[-2px] inline-flex items-center justify-center;
+  @apply bg-primary text-white min-h-12 px-7 py-3 text-base font-semibold rounded-full hover:shadow-lg transform transition-all duration-300 ease-in-out hover:translate-y-[-2px] inline-flex items-center justify-center;
 }
 
 @utility secondary-button {
@@ -68,7 +68,7 @@ layer(base);
 }
 
 @utility outline-button {
-  @apply border-2 border-primary text-primary px-6 py-3 rounded-full hover:bg-primary/10 transform transition-all duration-300 ease-in-out hover:translate-y-[-2px] inline-flex items-center justify-center;
+  @apply border-2 border-primary text-primary min-h-12 px-7 py-3 text-base font-semibold rounded-full hover:bg-primary/10 transform transition-all duration-300 ease-in-out hover:translate-y-[-2px] inline-flex items-center justify-center;
 }
 
 @utility heading-lg {

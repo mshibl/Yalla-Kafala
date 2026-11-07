@@ -36,12 +36,12 @@ const Footer = ({ locale }: { locale: Locale }) => {
                 href="https://www.guidestar.org/profile/85-3323627"
                 className="inline-flex items-center gap-3 text-sm text-gray-300 hover:text-white"
               >
-                <span className="rounded-lg bg-white p-1.5">
+                <span className="rounded bg-white p-0.5">
                   <Image
                     src="/GuideStarIcon_Platinum.svg"
                     alt="Candid Platinum Transparency 2024"
-                    width={56}
-                    height={56}
+                    width={24}
+                    height={24}
                   />
                 </span>
                 {locale === "en"

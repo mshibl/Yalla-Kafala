@@ -86,8 +86,8 @@ const Hero = ({ locale }: { locale: Locale }) => {
                 <Image
                   src="/GuideStarIcon_Platinum.svg"
                   alt=""
-                  width={56}
-                  height={56}
+                  width={64}
+                  height={64}
                 />
               </span>
               <ul className="space-y-1 text-sm text-gray-800 md:text-[15px]">

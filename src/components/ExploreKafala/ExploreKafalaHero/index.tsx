@@ -51,7 +51,7 @@ const ExploreKafalaHero = ({
               {description[locale]}
             </p>
             {actions.length > 0 && (
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 {actions.map((action, index) => (
                   <Link
                     key={action.href}

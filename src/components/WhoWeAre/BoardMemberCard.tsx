@@ -36,28 +36,53 @@ export const BoardMemberCard = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button
-          type="button"
-          className="group w-full overflow-hidden rounded-2xl bg-white text-start shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-        >
-          <div className="relative aspect-[4/5] bg-primary/5">
-            <Avatar className="absolute inset-0 h-full w-full rounded-none">
-              {member.imageUrl ? (
-                <AvatarImage
-                  src={member.imageUrl}
-                  alt={name}
-                  className="object-cover object-[center_25%]"
-                />
-              ) : null}
-              <AvatarFallback className="rounded-none bg-[#F3E8F5] font-serif text-5xl font-semibold text-primary">
-                {initials}
-              </AvatarFallback>
-            </Avatar>
-            {/* One light shared tint, so photos from different sources read as a set. */}
-            <div className="pointer-events-none absolute inset-0 bg-primary/[0.05] mix-blend-multiply" />
-          </div>
-          <div className="p-4">
-            <h3 className="mb-1 font-sans text-base font-semibold leading-snug text-gray-900">
+        {member.imageUrl ? (
+          <button
+            type="button"
+            className="group w-full overflow-hidden rounded-2xl bg-white text-start shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            <div className="relative aspect-[4/5] bg-primary/5">
+              <Avatar className="absolute inset-0 h-full w-full rounded-none">
+                {member.imageUrl ? (
+                  <AvatarImage
+                    src={member.imageUrl}
+                    alt={name}
+                    className="object-cover object-[center_25%]"
+                  />
+                ) : null}
+                <AvatarFallback className="rounded-none bg-[#F3E8F5] font-serif text-5xl font-semibold text-primary">
+                  {initials}
+                </AvatarFallback>
+              </Avatar>
+              {/* One light shared tint, so photos from different sources read as a set. */}
+              <div className="pointer-events-none absolute inset-0 bg-primary/[0.05] mix-blend-multiply" />
+            </div>
+            <div className="p-4">
+              <h3 className="mb-1 font-sans text-base font-semibold leading-snug text-gray-900">
+                {name}
+              </h3>
+              <p className="text-sm text-gray-600">
+                {role}
+                <span aria-hidden="true"> · </span>
+                <span className="font-medium text-primary group-hover:underline">
+                  {locale === "ar" ? "النبذة" : "Read bio"}
+                </span>
+              </p>
+            </div>
+          </button>
+        ) : (
+          // No portrait: a text card the same height as the photo cards.
+          <button
+            type="button"
+            className="group flex h-full w-full flex-col justify-end rounded-2xl bg-[#FBF8F4] p-5 text-start shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            <span
+              className="mb-auto font-serif text-5xl leading-none text-primary/30"
+              aria-hidden="true"
+            >
+              &ldquo;
+            </span>
+            <h3 className="mb-1 font-serif text-2xl font-semibold leading-snug text-gray-900">
               {name}
             </h3>
             <p className="text-sm text-gray-600">
@@ -67,8 +92,8 @@ export const BoardMemberCard = ({
                 {locale === "ar" ? "النبذة" : "Read bio"}
               </span>
             </p>
-          </div>
-        </button>
+          </button>
+        )}
       </DialogTrigger>
       <DialogContent className="bg-white max-w-lg">
         <DialogHeader>
