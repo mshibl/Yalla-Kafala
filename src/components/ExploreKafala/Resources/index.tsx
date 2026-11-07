@@ -7,6 +7,7 @@ const Resources = async ({ locale }: { locale: Locale }) => {
   return (
     <div className="flex flex-col">
       <ExploreKafalaHero
+        eyebrow={{ en: "Downloads", ar: "للتحميل" }}
         locale={locale}
         title={translations.title}
         description={translations.description}
@@ -18,6 +19,15 @@ const Resources = async ({ locale }: { locale: Locale }) => {
         >
           <div className="container mx-auto px-6">
             <ResourcesList />
+            <p className="mt-8 text-gray-700">
+              {translations.somethingElse[locale]}{" "}
+              <a
+                href="mailto:info@yallakafala.org"
+                className="font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                info@yallakafala.org
+              </a>
+            </p>
           </div>
         </section>
       </div>

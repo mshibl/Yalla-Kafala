@@ -10,6 +10,7 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <ExploreKafalaHero
+        eyebrow={{ en: "The process", ar: "الخطوات" }}
         locale={locale}
         title={translations.title}
         description={translations.description}
@@ -43,8 +44,8 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
         actions={[
           { href: "#documents", label: translations.documentsLink },
           {
-            href: "mailto:info@yallakafala.org",
-            label: translations.cta.contact,
+            href: `mailto:info@yallakafala.org?subject=${encodeURIComponent(translations.cta.meetingSubject[locale])}`,
+            label: translations.cta.meeting,
           },
         ]}
       />
@@ -52,6 +53,21 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
         <div className="container mx-auto px-6">
           {/* Kafala Steps */}
           <div className="mx-auto mb-20 max-w-3xl">
+            <nav
+              aria-label={translations.atAGlance[locale]}
+              className="mb-10 flex flex-wrap justify-center gap-2 md:hidden"
+            >
+              {steps[locale].map((step, index) => (
+                <a
+                  key={index}
+                  href={`#step-${index + 1}`}
+                  aria-label={step.title}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-white font-serif text-base font-semibold text-primary"
+                >
+                  {index + 1}
+                </a>
+              ))}
+            </nav>
             <div className="mb-10 text-center">
               <span className="eyebrow mb-3">
                 {translations.stepsEyebrow[locale]}
@@ -95,30 +111,6 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
             </ol>
           </div>
 
-          {/* Next step */}
-          <div className="mx-auto mb-20 max-w-4xl rounded-3xl bg-primary px-6 py-10 text-center text-white md:px-12 md:py-14">
-            <h2 className="mb-3 text-3xl font-semibold text-white md:text-4xl">
-              {translations.cta.title[locale]}
-            </h2>
-            <p className="mx-auto mb-8 max-w-2xl text-lg text-white/85">
-              {translations.cta.description[locale]}
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <a
-                href={`mailto:info@yallakafala.org?subject=${encodeURIComponent(translations.cta.meetingSubject[locale])}`}
-                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-white/90"
-              >
-                {translations.cta.meeting[locale]}
-              </a>
-              <Link
-                href={`/${locale}/faqs`}
-                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                {translations.cta.faqs[locale]}
-              </Link>
-            </div>
-          </div>
-
           {/* Required Documents */}
           <div id="documents" className="mx-auto mb-20 max-w-4xl scroll-mt-28">
             <h2 className="heading-md mb-8 text-center text-gray-900">
@@ -141,6 +133,30 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Next step */}
+          <div className="mx-auto mb-20 max-w-4xl rounded-3xl bg-primary px-6 py-10 text-center text-white md:px-12 md:py-14">
+            <h2 className="mb-3 text-3xl font-semibold text-white md:text-4xl">
+              {translations.cta.title[locale]}
+            </h2>
+            <p className="mx-auto mb-8 max-w-2xl text-lg text-white/85">
+              {translations.cta.description[locale]}
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <a
+                href={`mailto:info@yallakafala.org?subject=${encodeURIComponent(translations.cta.meetingSubject[locale])}`}
+                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-white/90"
+              >
+                {translations.cta.meeting[locale]}
+              </a>
+              <Link
+                href={`/${locale}/faqs`}
+                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                {translations.cta.faqs[locale]}
+              </Link>
+            </div>
           </div>
 
           {/* Family Card Steps */}

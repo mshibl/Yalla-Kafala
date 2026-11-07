@@ -1,6 +1,10 @@
 import type { StoryCategory } from "@/lib/types";
 
 export const translations = {
+  eyebrow: {
+    article: { en: "Research", ar: "أبحاث" },
+    blog: { en: "Stories", ar: "قصص" },
+  },
   title: {
     blog: {
       en: "Kafala Blogs",

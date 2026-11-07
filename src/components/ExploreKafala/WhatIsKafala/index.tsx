@@ -9,6 +9,7 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <ExploreKafalaHero
+        eyebrow={{ en: "Kafala explained", ar: "الكفالة ببساطة" }}
         locale={locale}
         title={translations.title}
         description={translations.heroDescription}

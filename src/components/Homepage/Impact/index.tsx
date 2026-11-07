@@ -12,7 +12,7 @@ const Impact = ({ locale }: { locale: Locale }) => {
   return (
     <section id="impact" className="bg-[#FBF8F4] py-16 md:py-20">
       <div className="container mx-auto px-6">
-        <div className="max-w-3xl mx-auto text-center mb-8 md:mb-10">
+        <div className="mb-8 max-w-3xl md:mb-10">
           <span className="eyebrow mb-3">{translations.chip[locale]}</span>
           <h2 className="heading-lg text-gray-900 mb-4">
             {translations.title[locale]}
@@ -47,7 +47,7 @@ const Impact = ({ locale }: { locale: Locale }) => {
               <span className="font-serif text-4xl font-semibold">
                 <bdi dir="ltr">{beitSagheer.number}</bdi>
               </span>
-              <span className="text-base font-medium md:text-lg">
+              <span className="text-base font-medium [text-wrap:balance] md:text-lg">
                 {locale === "ar" ? beitSagheer.labelAr : beitSagheer.label}
               </span>
             </span>

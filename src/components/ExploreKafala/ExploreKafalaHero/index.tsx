@@ -14,6 +14,8 @@ interface ExploreKafalaHeroProps {
   imageSrc?: string;
   imageAlt?: LocalizedText;
   aside?: React.ReactNode;
+  /** The section label above the title; defaults to "Explore Kafala". */
+  eyebrow?: LocalizedText;
   actions?: { href: string; label: LocalizedText }[];
 }
 
@@ -24,6 +26,7 @@ const ExploreKafalaHero = ({
   imageSrc,
   imageAlt,
   aside,
+  eyebrow = { en: "Explore Kafala", ar: "استكشف الكفالة" },
   actions = [],
 }: ExploreKafalaHeroProps) => {
   const hasSide = Boolean(imageSrc || aside);
@@ -40,9 +43,7 @@ const ExploreKafalaHero = ({
           )}
         >
           <div className="animate-fade-in">
-            <p className="eyebrow mb-4">
-              {locale === "en" ? "Explore Kafala" : "استكشف الكفالة"}
-            </p>
+            <p className="eyebrow mb-4">{eyebrow[locale]}</p>
             <h1 className="mb-5 text-[2.125rem] font-semibold leading-[1.1] text-gray-900 md:text-5xl">
               {title[locale]}
             </h1>

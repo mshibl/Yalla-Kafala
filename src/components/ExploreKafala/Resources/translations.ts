@@ -1,4 +1,8 @@
 export const translations = {
+  somethingElse: {
+    en: "Looking for something else? Write to us at",
+    ar: "تبحث عن شيء آخر؟ راسلنا على",
+  },
   title: {
     en: "Resources",
     ar: "الموارد",

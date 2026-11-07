@@ -8,7 +8,7 @@ export const KafalaHeader = ({ category }: { category: StoryCategory }) => {
     <PageHeader
       className="mb-12"
       width="max-w-4xl"
-      eyebrow={locale === "en" ? "Explore Kafala" : "استكشف الكفالة"}
+      eyebrow={translations.eyebrow[category][locale]}
       title={translations.title[category][locale]}
       lede={translations.description[category][locale]}
     />
