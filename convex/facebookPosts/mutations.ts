@@ -1,5 +1,6 @@
 import { mutation } from "../_generated/server";
 import { v } from "convex/values";
+import { secretMatches } from "../lib/secrets";
 
 export const syncFacebookPosts = mutation({
   args: {
@@ -26,8 +27,8 @@ export const syncFacebookPosts = mutation({
     ),
   },
   handler: async (ctx, args) => {
-    const expectedSecret = process.env.INTERNAL_SYNC_SECRET || "yallakafala-default-secret-2026";
-    if (args.secret !== expectedSecret) {
+    // Fails closed: with INTERNAL_SYNC_SECRET unset, every call is rejected.
+    if (!secretMatches(args.secret, process.env.INTERNAL_SYNC_SECRET)) {
       throw new Error("Unauthorized: Invalid secret token");
     }
     // 1. Remove outdated posts
