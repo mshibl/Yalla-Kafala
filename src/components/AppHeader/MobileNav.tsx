@@ -45,6 +45,13 @@ export const MobileNav: React.FC<MobileNavProps> = ({
         )}
       >
         <div className="flex flex-col items-center justify-center space-y-6 h-full">
+          <Link
+            href={`/${locale}/kafala-steps`}
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full max-w-xs rounded-full bg-primary px-6 py-3 text-center text-lg font-semibold text-white"
+          >
+            {locale === "en" ? "Start kafala" : "ابدأ الكفالة"}
+          </Link>
           {/* Navigation Links (Mobile) */}
           {navigationLinks
             .filter((item) => item.href !== givebutterDonationUrl)

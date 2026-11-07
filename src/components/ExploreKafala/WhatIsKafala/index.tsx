@@ -1,3 +1,6 @@
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2 } from "lucide-react";
 import ExploreKafalaHero from "../ExploreKafalaHero";
 import { translations } from "./translations";
 import { BackToTopButton } from "../BackToTopButton";
@@ -7,6 +10,7 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <ExploreKafalaHero
+        eyebrow={{ en: "Kafala explained", ar: "الكفالة ببساطة" }}
         locale={locale}
         title={translations.title}
         description={translations.heroDescription}
@@ -15,23 +19,80 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
           en: "A family embracing a child at home",
           ar: "أسرة تحتضن طفلاً في المنزل",
         }}
+        actions={[
+          { href: "/kafala-steps", label: translations.nextStep.steps },
+          { href: "/faqs", label: translations.nextStep.faqs },
+        ]}
       />
-      <section id="learn-more" className="py-12 bg-gray-50">
+      <section aria-labelledby="kafala-brief" className="bg-white pt-4 md:pt-8">
         <div className="container mx-auto px-6">
-          <div className="prose prose-lg max-w-4xl mx-auto animate-fade-up">
+          <div className="mx-auto max-w-5xl rounded-3xl bg-[#F6F1F8] p-6 md:p-10">
+            <h2
+              id="kafala-brief"
+              className="mb-6 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900"
+            >
+              {translations.brief.title[locale]}
+            </h2>
+            <ul className="grid gap-6 md:grid-cols-3">
+              {translations.brief.items.map((item) => (
+                <li key={item.title.en} className="flex items-start gap-3">
+                  <CheckCircle2
+                    className="mt-1 h-5 w-5 shrink-0 text-primary"
+                    aria-hidden="true"
+                  />
+                  <div>
+                    <h3 className="mb-1 text-xl font-semibold text-gray-900">
+                      {item.title[locale]}
+                    </h3>
+                    <p className="leading-relaxed text-gray-700">
+                      {item.text[locale]}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section id="learn-more" className="bg-white py-12 md:py-16">
+        <div className="container mx-auto px-6">
+          <div className="prose prose-lg prose-gray mx-auto max-w-3xl animate-fade-up prose-headings:font-serif prose-strong:text-gray-900 prose-li:marker:text-primary">
+            <nav
+              aria-label={translations.sections.onThisPage[locale]}
+              className="not-prose mb-10 flex flex-wrap items-center gap-2"
+            >
+              <span className="me-2 text-sm font-semibold text-gray-900">
+                {translations.sections.onThisPage[locale]}
+              </span>
+              {(["hadith", "misunderstandings", "sources"] as const).map(
+                (id) => (
+                  <a
+                    key={id}
+                    href={`#${id}`}
+                    className="rounded-full border border-primary/20 bg-white px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/5"
+                  >
+                    {translations.sections[id][locale]}
+                  </a>
+                ),
+              )}
+            </nav>
             <p>{translations.firstParagraph[locale]}</p>
 
             <p>{translations.secondParagraph[locale]}</p>
 
-            <blockquote className="bg-gray-100 p-6 border-l-4 border-primary my-8">
-              <p className="text-right font-arabic text-lg mb-4">
+            <blockquote className="not-prose my-10 rounded-2xl border-s-4 border-primary bg-white p-6 shadow-sm ring-1 ring-primary/10 md:p-8">
+              <p
+                lang="ar"
+                dir="rtl"
+                className="mb-5 text-start font-serif text-xl leading-loose text-gray-900 md:text-2xl"
+              >
                 عَنْ سَهْلِ بْنِ سَعْدٍ رضي الله عنه قَالَ: قَالَ رَسُولَ
                 اَللَّهِ صلى الله عليه وسلم: أَنَا وَكَافِلُ الْيَتِيمِ في
                 الْجَنَّةِ هكَذَا، وَأَشَارَ بِالسَّبَّابَةِ وَالْوُسطَى
                 وَفَرَّجَ بَيْنَهُمَا شَيْئاً.
               </p>
               {locale === "en" && (
-                <p>
+                <p className="text-base leading-relaxed text-gray-700">
                   From Sahl bin Sa&apos;ad (may Allah be pleased with him), he
                   said: &ldquo;The Messenger of Allah sallallaahu &apos;alaihi
                   wa sallam said: &ldquo;I and the one who looks after an orphan
@@ -41,11 +102,15 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
               )}
             </blockquote>
             <p>{translations.firstHadith.explaination[locale]}</p>
-            <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-800">
-              {translations.firstHadith.essentialPhrases.title[locale]}
+            <h2
+              id="hadith"
+              className="mt-12 mb-3 scroll-mt-28 text-2xl font-semibold text-gray-900 md:text-3xl"
+            >
+              {translations.sections.hadith[locale]}
             </h2>
+            <p>{translations.firstHadith.essentialPhrases.title[locale]}</p>
 
-            <ol className="list-decimal pl-6 space-y-4">
+            <ol className="list-decimal ps-6 space-y-4">
               {translations.firstHadith.essentialPhrases.phrases[locale].map(
                 (phrase, index) => (
                   <li key={index}>
@@ -55,24 +120,52 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
               )}
             </ol>
 
-            <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-800">
-              {translations.islamicRules.description[locale]}
-            </h2>
+            <aside className="not-prose my-10 flex flex-col gap-3 rounded-2xl bg-[#FBF8F4] p-5 sm:flex-row sm:items-center sm:justify-between md:p-6">
+              <p className="font-semibold text-gray-900">
+                {translations.nextStep.title[locale]}
+              </p>
+              <Link
+                href={`/${locale}/kafala-steps`}
+                className="inline-flex shrink-0 items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                {translations.nextStep.steps[locale]}
+                {locale === "en" ? (
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                )}
+              </Link>
+            </aside>
 
-            <ul className="list-disc pl-6 space-y-4">
+            <h2
+              id="misunderstandings"
+              className="mt-12 mb-3 scroll-mt-28 text-2xl font-semibold text-gray-900 md:text-3xl"
+            >
+              {translations.sections.misunderstandings[locale]}
+            </h2>
+            <p>{translations.islamicRules.description[locale]}</p>
+
+            <ul className="list-disc ps-6 space-y-4">
               <li>
                 <strong>
                   {translations.islamicRules.rules[locale][0]!.title}
                 </strong>{" "}
                 {translations.islamicRules.rules[locale][0]!.description}
-                <blockquote className="bg-gray-100 p-4 my-2 border-l-4 border-primary">
-                  <p className="text-right font-arabic">
+                <blockquote className="not-prose my-4 rounded-2xl border-s-4 border-primary bg-white p-5 shadow-sm ring-1 ring-primary/10">
+                  <p
+                    lang="ar"
+                    dir="rtl"
+                    className="mb-4 text-start font-serif text-xl leading-loose text-gray-900"
+                  >
                     ادْعُوهُمْ لِآبَائِهِمْ هُوَ أَقْسَطُ عِندَ اللَّـهِ ۚ فَإِن
                     لَّمْ تَعْلَمُوا آبَاءَهُمْ فَإِخْوَانُكُمْ فِي الدِّينِ
-                    وَمَوَالِيكُمْ سورة
+                    وَمَوَالِيكُمْ
+                    <span className="mt-2 block font-sans text-sm text-gray-600">
+                      [الأحزاب: 5]
+                    </span>
                   </p>
                   {locale === "en" && (
-                    <p>
+                    <p className="text-base leading-relaxed text-gray-700">
                       Call them by [the names of] their fathers; it is more just
                       in the sight of Allah. But if you do not know their
                       fathers - then they are [still] your brothers in religion
@@ -89,20 +182,27 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                 .map((rule, index) => (
                   <li
                     key={index + 1}
-                    className={index === 1 ? "text-red-600" : undefined}
+                    className={
+                      index === 1
+                        ? "rounded-xl border-s-4 border-accent bg-accent/10 py-3 pe-4 ps-4"
+                        : undefined
+                    }
                   >
                     <strong>{rule.title}</strong> {rule.description}
                   </li>
                 ))}
             </ul>
 
-            <div className="text-sm mt-12 border-t pt-6 text-gray-600">
+            <div
+              id="sources"
+              className="not-prose mt-14 scroll-mt-28 border-t border-gray-200 pt-8 text-sm leading-relaxed text-gray-600"
+            >
               <p>{translations.Footnote.copiedFrom[locale]}</p>
 
-              <h3 className="font-bold mt-6 mb-2">
+              <h3 className="mt-8 mb-3 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
                 {translations.Footnote.list.listTitle[locale]}
               </h3>
-              <ol className="list-decimal pl-6 space-y-1">
+              <ol className="space-y-1.5">
                 {translations.Footnote.list.listItems[locale].map(
                   (item, index) => (
                     <li key={index}>{item}</li>
@@ -110,7 +210,7 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                 )}
               </ol>
 
-              <h3 className="font-bold mt-6 mb-2">
+              <h3 className="mt-8 mb-3 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
                 {translations.sources.title[locale]}
               </h3>
               <p>
@@ -122,16 +222,40 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                 </a>
               </p>
 
-              <h3 className="font-bold mt-6 mb-2">
+              <h3 className="mt-8 mb-3 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
                 {translations.References.title[locale]}
               </h3>
-              <ol className="list-decimal pl-6 space-y-1">
+              <ol className="list-decimal space-y-1.5 ps-5 break-words">
                 {translations.References.list.listItems[locale].map(
                   (item, index) => (
                     <li key={index}>{item}</li>
                   ),
                 )}
               </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white pb-16 md:pb-24">
+        <div className="container mx-auto px-6">
+          <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 rounded-3xl bg-primary px-6 py-10 text-center md:px-12">
+            <h2 className="text-3xl font-semibold text-white md:text-4xl">
+              {translations.nextStep.title[locale]}
+            </h2>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link
+                href={`/${locale}/kafala-steps`}
+                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-white/90"
+              >
+                {translations.nextStep.steps[locale]}
+              </Link>
+              <Link
+                href={`/${locale}/faqs`}
+                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                {translations.nextStep.faqs[locale]}
+              </Link>
             </div>
           </div>
         </div>

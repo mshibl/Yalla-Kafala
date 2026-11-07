@@ -5,7 +5,6 @@ import { useQuery } from "convex/react";
 import { ExternalLink, FileText } from "lucide-react";
 import React from "react";
 import { translations } from "./translations";
-import { CopyResourceLinkButton } from "./CopyResourceLinkButton";
 import Link from "next/link";
 
 const ResourcesList = () => {
@@ -20,44 +19,30 @@ const ResourcesList = () => {
     );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
       {resources.map((resource) => (
-        <div
+        <Link
           key={resource.id}
-          className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+          href={`${resource.link}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md md:p-6"
         >
-          <div className="flex items-start gap-3 mb-4">
-            <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
-              <FileText className="h-5 w-5" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 min-w-0">
-                <h3 className="text-lg font-semibold text-gray-900 truncate flex-1 min-w-0">
-                  {locale === "ar"
-                    ? resource.nameAr || resource.nameEn
-                    : resource.nameEn}
-                </h3>
-                <CopyResourceLinkButton
-                  href={`/${locale}/resources/${resource.slug}`}
-                  buttonLabel={translations.copyLink[locale]}
-                  successLabel={translations.copySuccess[locale]}
-                  errorLabel={translations.copyError[locale]}
-                />
-              </div>
-            </div>
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <FileText className="h-6 w-6" aria-hidden="true" />
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link
-              href={`${resource.link}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-primary font-medium hover:text-primary/80"
-            >
+          <div className="min-w-0 flex-1">
+            <h3 className="text-lg font-semibold leading-snug text-gray-900 group-hover:text-primary">
+              {locale === "ar"
+                ? resource.nameAr || resource.nameEn
+                : resource.nameEn}
+            </h3>
+            <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
               {translations.view[locale]}
-              <ExternalLink className="h-4 w-4" />
-            </Link>
+              <ExternalLink className="h-4 w-4" aria-hidden="true" />
+            </p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

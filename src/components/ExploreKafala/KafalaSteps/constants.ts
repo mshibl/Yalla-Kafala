@@ -1,16 +1,20 @@
 export const requiredDocuments = {
   en: [
-    "National ID or passport of husband and wife",
-    "Copy of wedding certificate (in cases where the family is composed of a husband and a wife)",
-    "Copy of divorce certificate (in cases where the applicant is a divorcee)",
-    "Copy of husband's death certificate (in cases where the applicant is a widow)",
-    "Criminal status for husband and wife; education qualifications (if present since approval can be granted based on cultural and psychological research along with the committee's decision)",
-    "Recent health certificate to prove the absence of viruses B and C from applicants",
-    "All requested documents for accreditation of provided information ex. Property statement; monthly salaries, pension, or other sources of income; statement of residence (electricity receipt or copy of rent/property contract)",
-    "Heptagonal drug analysis from a government authority",
-    "Bank statements ( I score certificate issued from a bank )",
-    "Completion of psychological assessment (Minnesota MMPI) multifaceted personality in government or university hospitals, provided that the test result received is approved by the logo of the Republic before being presented to the local committee",
-    "Criminal status of families living abroad to be brought from their country of residence and to be accredited by the Egyptian embassy of that country.",
+    "National ID card or passport (copy) for husband and wife",
+    "Copy of the marriage contract (for a family of a husband and wife)",
+    "Copy of the divorce certificate (if the applicant is a divorced woman)",
+    "Husband's death certificate (if the applicant is a widow)",
+    "Criminal record certificate for husband and wife, issued for the Ministry of Social Solidarity",
+    "Copy of educational qualifications, if any (approval without them is possible, depending on the social and psychological assessment and the committee's decision)",
+    "Recent health certificate showing the applicants are free of hepatitis B and C",
+    "7-panel drug test from a government lab",
+    "Bank letter (an I-Score certificate from any bank)",
+    "Multiphasic personality test (Minnesota MMPI) at a government or university hospital; the result must carry the seal of the Republic before it goes to the local committee",
+    "Computerised birth certificates for biological children, if any",
+    "Statement of property and of salary, pension or any other income",
+    "Proof of residence (electricity bill, or copy of the property deed or lease)",
+    "Copy of the guarantor's national ID card",
+    "Families living abroad: a criminal record certificate from the country of residence, notarised and certified by the Egyptian embassy there",
   ],
   ar: [
     "بطاقة الرقم القومي أو صورة جواز السفر للزوج والزوجة",
@@ -43,19 +47,19 @@ export const steps = {
         "Complete and submit the official Kafala application form, providing necessary details.",
     },
     {
-      title: "Evaluation Stage",
+      title: "Evaluation stage",
       description:
         "Assess the suitability of the applying family through initial and detailed evaluations, along with document revision and accreditation",
     },
     {
-      title: "The journey to find my child",
+      title: "Meeting your child",
       description:
-        "Facilitating the process from issuance of viewing authorization to meeting prospective children, and completing bonding visits paralleled with medical assessments",
+        "From the viewing authorization to meeting prospective children, with bonding visits alongside medical assessments.",
     },
     {
-      title: "Social compatibility stage",
+      title: "Social compatibility assessment",
       description:
-        "Facilitating the process from viewing authorization to meeting prospective children for social compatibility assessment, and conducting bonding visits paralleled with medical evaluations.",
+        "An assessment of the social compatibility between the family and the child, while bonding visits and medical evaluations continue.",
     },
     {
       title: "Start a savings account",
@@ -79,14 +83,14 @@ export const steps = {
         "تقييم مدى ملاءمة الأسرة المتقدمة من خلال التقييمات الأولية والتفصيلية، ومراجعة المستندات والاعتماد.",
     },
     {
-      title: "رحلتي للعثور على طفلي",
+      title: "لقاء طفلك",
       description:
-        "تسهيل العملية من إصدار إذن العرض إلى لقاء الأطفال المحتملين، وإتمام زيارات التعارف بالتوازي مع الفحوصات الطبية.",
+        "من إصدار إذن العرض إلى لقاء الأطفال المحتملين، مع زيارات التعارف بالتوازي مع الفحوصات الطبية.",
     },
     {
-      title: "مرحلة التوافق الاجتماعي",
+      title: "تقييم التوافق الاجتماعي",
       description:
-        "تسهيل العملية من إصدار إذن العرض إلى لقاء الأطفال المحتملين لتقييم التوافق الاجتماعي، وإجراء زيارات التعارف بالتوازي مع التقييمات الطبية.",
+        "تقييم التوافق الاجتماعي بين الأسرة والطفل، مع استمرار زيارات التعارف والتقييمات الطبية.",
     },
     {
       title: "فتح حساب توفير",
@@ -105,11 +109,11 @@ export const familyCardSteps = {
     "The courier company then delivers the card to the provided address.",
   ],
   ar: [
-    "اﻟﺬﻫﺎب اﻟﻰ اﻻدارة اﻻﺟﺘﻤﺎﻋﻴﺔ ﻓﻲ ﻣﺤﻴﻂ ﺳﻜﻦ اﻻﺳﺮة اﻟﺒﺪﻳﻠﺔ اﻟﻜﺎﻓﻠﺔ، ﺣﻴﺚ ﻳﺘﻢ ﺗﺴﻠﻴﻢ ﺻﻮر اﻷرﻗﺎم اﻟﻘﻮﻣﻴﺔ ﻟﻠﻮاﻟﺪﻳﻦ اﻟﻜﺎﻓﻠﻴﻦ، وإﻳﺼﺎل ﻓﺘﺢ اﻟﺤﺴﺎب، وإﻳﺼﺎل دﻓﻊ ٢٠٠ ﺟﻨﻴﻪ وﺻﻮر ﺣﺪﻳﺜﺔ ٤*٦ ﻟﻠﻄﻔﻞ اﻟﻤﻜﻔﻮل وﻟﻠﻮاﻟﺪﻳﻦ اﻟﻜﺎﻓﻠﻴﻦ ٥",
-    "ﺗﺴﺪد اﻷﺳﺮة اﻟﺒﺪﻳﻠﺔ اﻟﻜﺎﻓﻠﺔ ﻣﺒﻠﻎ ٢٠٠ ﺟﻨﻴﻪ ﻋﻠﻰ رﻗﻢ اﻟﺤﺴﺎب ( ٢١٨١٢ ) اﻟﺘﺎﺑﻊ ﻟﺒﻨﻚ ﻧﺎﺻﺮ اﻹﺟﺘﻤﺎﻋﻲ ﻓﺮع اﻟﻘﺎﻫﺮة ﺑﺎﺳﻢ اﻷﺳﺮ اﻟﺒﺪﻳﻠﺔ أو ﻣﻦ ﺧﻼل اﻟﺪﻓﻊ اﻟﻔﻮري ﻟﺬات اﻟﺤﺴﺎب",
-    " ﺗﺴﺘﺨﺮج اﻷﺳﺮة اﻟﺒﺪﻳﻠﺔ اﻟﻜﺎﻓﻠﺔ اﻟﺮﻗﻢ اﻟﺘﺄﻣﻴﻨﻲ ﻟﻠﻄﻔﻞ ﻣﻦ أﻗﺮب ﻣﻜﺘﺐ ﺗﺄﻣﻴﻨﺎت اﻟﺬي ﻳﻘﻮم ﺑﺪوره ﺑﺎﺳﺘﺨﺮاﺟﻪ ﺑﺎﺳﺘﺨﺪام اﻟﺮﻗﻢ اﻟﻘﻮﻣﻲ اﻟﻮارد ﺑﺸﻬﺎدة اﻟﻤﻴﻼد اﻟﻤﻤﻴﻜﻨﺔ ﻟﻠﻄﻔﻞ",
-    "تقوم اﻟﺸﺮﻛﺔ اﻟﻤﺘﻌﺎﻗﺪة ﻣﻊ اﻟﻮزارة ﺑﺎﺳﺘﺨﺮاج اﻟﺒﻄﺎﻗﺔ ﺑﻌﺪ ارﺳﺎل اﻟﺒﻴﺎﻧﺎت واﻟﻤﺴﺘﻨﺪات ﻟﻬﺎ ﺑﻤﻌﺮﻓﺔ اﻟﻮزارة وﺗﺴﻠﻴﻤﻬﺎ اﻟﻰ ﺷﺮﻛﺔ ﺷﺤﻦ ﻟﺘﻮﺻﻴﻠﻬﺎ ﻟﻤﺤﻞ ﺳﻜﻦ اﻷﺳﺮة اﻟﺒﺪﻳﻠﺔ اﻟﻜﺎﻓﻠﺔ",
-    "ﺗﻘﻮم اﻷﺳﺮة اﻟﺒﺪﻳﻠﺔ اﻟﻜﺎﻓﻠﺔ ﺑﻔﺘﺢ ﺣﺴﺎب ﺑﻨﲄ ﻟﺪى ﺑﻨﻚ ﻧﺎﺻﺮ اﻻﺟﺘﻤﺎﻋﻲ ﺑﺈﺳﻢ اﻟﻄﻔﻞ اﻟﻤﻜﻔﻮل",
-    "ﺗﻘﻮم اﻟﺸﺮﻛﺔ اﻟﻤﺘﻌﺎﻗﺪ ﻣﻌﻬﺎ ﺑﺘﻮﺻﻴﻞ اﻟﺒﻄﺎﻗﺔ ﻣﺒﺎﺷﺮة ﻟﻸﺳﺮة اﻟﺒﺪﻳﻠﺔ اﻟﻜﺎﻓﻠﺔ ﺑﻤﺤﻞ ﺳﻜﻨﻬﺎ",
+    "الذهاب الى الادارة الاجتماعية في محيط سكن الاسرة البديلة الكافلة، حيث يتم تسليم صور الأرقام القومية للوالدين الكافلين، وإيصال فتح الحساب، وإيصال دفع ٢٠٠ جنيه وصور حديثة ٤*٦ للطفل المكفول وللوالدين الكافلين ٥",
+    "تسدد الأسرة البديلة الكافلة مبلغ ٢٠٠ جنيه على رقم الحساب ( ٢١٨١٢ ) التابع لبنك ناصر الإجتماعي فرع القاهرة باسم الأسر البديلة أو من خلال الدفع الفوري لذات الحساب",
+    " تستخرج الأسرة البديلة الكافلة الرقم التأميني للطفل من أقرب مكتب تأمينات الذي يقوم بدوره باستخراجه باستخدام الرقم القومي الوارد بشهادة الميلاد المميكنة للطفل",
+    "تقوم الشركة المتعاقدة مع الوزارة باستخراج البطاقة بعد ارسال البيانات والمستندات لها بمعرفة الوزارة وتسليمها الى شركة شحن لتوصيلها لمحل سكن الأسرة البديلة الكافلة",
+    "تقوم الأسرة البديلة الكافلة بفتح حساب بنكي لدى بنك ناصر الاجتماعي بإسم الطفل المكفول",
+    "تقوم الشركة المتعاقد معها بتوصيل البطاقة مباشرة للأسرة البديلة الكافلة بمحل سكنها",
   ],
 };

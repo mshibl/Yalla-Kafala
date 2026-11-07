@@ -16,7 +16,7 @@ export const contactItems = [
     icon: MapPin,
     text: {
       en: "24 Al Lasilki Al Sagheer Street, New Maadi, Cairo, Egypt.",
-      ar: "٢٤ شارع اللاسلكي الصغير، المعادي الجديدة، القاهرة، مصر",
+      ar: "24 شارع اللاسلكي الصغير، المعادي الجديدة، القاهرة، مصر",
     },
     href: "https://maps.app.goo.gl/d24Rt7cnGfYYkSyq8?g_st=ic",
   },
@@ -87,7 +87,7 @@ export const navigationLinks = [
   },
   { href: "/beit-sagheer", text: { en: "Beit Sagheer", ar: "البيت الصغير" } },
   {
-    group: { en: "About Us", ar: "من نحن" },
+    group: { en: "About Us", ar: "عن المنظمة" },
     links: [
       { href: "/who-we-are", text: { en: "Who We Are", ar: "من نحن" } },
       {

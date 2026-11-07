@@ -19,10 +19,10 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
       {navigationLinks.map((item) =>
         item.group ? (
           <div className="relative group" key={item.group.en}>
-            <span className="text-gray-700 hover:text-primary transition-colors duration-300 font-medium cursor-pointer">
+            <span className="text-[15px] text-gray-800 hover:text-primary transition-colors duration-300 font-medium cursor-pointer">
               {item.group[locale]}
             </span>
-            <div className="absolute left-0 mt-2 w-56 bg-white shadow-lg rounded-lg overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div className="absolute start-0 mt-2 w-56 bg-white shadow-lg rounded-lg overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
               {item.links.map((link) => (
                 <Link
                   key={link.href}
@@ -39,7 +39,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
             {item.href === givebutterDonationUrl ? (
               <DonateNowModal
                 locale={locale}
-                className="text-gray-700 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                className="order-[100] inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors duration-300 hover:bg-primary/90"
               >
                 {item.text[locale]}
               </DonateNowModal>
@@ -47,7 +47,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
               <Link
                 target={`${item.href.includes("http") ? "_blank" : ""}`}
                 href={`${item.href.includes("http") ? item.href : `/${locale}${item.href}`}`}
-                className="text-gray-700 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                className="text-[15px] text-gray-800 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
               >
                 {item.text[locale]}
               </Link>
@@ -57,9 +57,17 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
       )}
 
       {/* Language Switcher */}
-      <div className="ml-4">
+      <div className="ms-2">
         <LanguageSwitcher locale={locale} onSwitchLanguage={onSwitchLanguage} />
       </div>
+
+      {/* Start kafala: the would-be parent's next step, before Donate */}
+      <Link
+        href={`/${locale}/kafala-steps`}
+        className="order-[99] font-semibold text-primary underline-offset-4 transition-colors duration-300 hover:underline"
+      >
+        {locale === "en" ? "Start kafala" : "ابدأ الكفالة"}
+      </Link>
     </nav>
   );
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import { User } from "lucide-react";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
 import { BoardMemberCard } from "./BoardMemberCard";
@@ -33,51 +32,68 @@ export const TeamSection = async ({ locale }: { locale: Locale }) => {
   const advisors = (boardMembers ?? []).filter(
     (member) => member.type === "advisor",
   );
-  const allBoardMembers = mergeByName(
-    featuredBoardMembers,
-    currentBoardMembers,
-  );
+  // The founder has her own section just above, so the grid leaves her out.
+  const founderKey = normalizeName(translations.founder.name.en);
+  const allBoardMembers = mergeByName(featuredBoardMembers, currentBoardMembers)
+    .filter((member) => normalizeName(member.nameEn) !== founderKey)
+    // Portraits first, so a monogram never leads the grid.
+    .sort((a, b) => Number(!a.imageUrl) - Number(!b.imageUrl));
 
   return (
     <section
       id="our-team"
-      className="bg-white py-16"
+      className="bg-white py-16 md:py-20"
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       <div className="container mx-auto px-6">
-        <h2 className="mb-8 text-center text-2xl font-semibold text-primary">
-          {translations.team.title[locale]}
-        </h2>
-
         <div className="mx-auto max-w-5xl">
+          <h2 className="heading-lg mb-10 text-gray-900">
+            {translations.team.title[locale]}
+          </h2>
           <div className="mb-12">
-            <h3 className="mb-5 flex items-center text-xl font-semibold text-primary">
-              <User className="me-2 h-5 w-5" />
+            <h3 className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
               {translations.team.sections.boardMembers[locale]}
             </h3>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {allBoardMembers.map((member) => (
-                <BoardMemberCard
-                  key={member.id}
-                  member={member}
-                  locale={locale}
-                />
-              ))}
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
+              {allBoardMembers
+                .filter((member) => member.imageUrl)
+                .map((member) => (
+                  <BoardMemberCard
+                    key={member.id}
+                    member={member}
+                    locale={locale}
+                  />
+                ))}
             </div>
+            {allBoardMembers.some((member) => !member.imageUrl) && (
+              <p className="mt-6 text-gray-700">
+                {locale === "en"
+                  ? "Also on the board: "
+                  : "وأيضاً في مجلس الإدارة: "}
+                {allBoardMembers
+                  .filter((member) => !member.imageUrl)
+                  .map((member, index) => (
+                    <React.Fragment key={member.id}>
+                      {index > 0 && (locale === "en" ? ", " : "، ")}
+                      <BoardMemberCard member={member} locale={locale} />
+                    </React.Fragment>
+                  ))}
+              </p>
+            )}
           </div>
 
           {advisors.length > 0 && (
             <div>
-              <h3 className="mb-5 flex items-center text-xl font-semibold text-primary">
-                <User className="me-2 h-5 w-5" />
+              <h3 className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
                 {translations.team.sections.advisoryCommittee[locale]}
               </h3>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
                 {advisors.map((member) => (
                   <BoardMemberCard
                     key={member.id}
                     member={member}
                     locale={locale}
+                    layout="row"
                   />
                 ))}
               </div>

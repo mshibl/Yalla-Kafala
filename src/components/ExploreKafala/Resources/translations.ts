@@ -1,4 +1,8 @@
 export const translations = {
+  somethingElse: {
+    en: "Looking for something else? Write to us at",
+    ar: "تبحث عن شيء آخر؟ راسلنا على",
+  },
   title: {
     en: "Resources",
     ar: "الموارد",
@@ -18,17 +22,5 @@ export const translations = {
   view: {
     en: "View resource",
     ar: "عرض المورد",
-  },
-  copyLink: {
-    en: "Copy link",
-    ar: "نسخ الرابط",
-  },
-  copySuccess: {
-    en: "Link copied",
-    ar: "تم نسخ الرابط",
-  },
-  copyError: {
-    en: "Failed to copy link",
-    ar: "تعذر نسخ الرابط",
   },
 };

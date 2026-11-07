@@ -11,6 +11,8 @@ type NewsletterFormProps = {
   description: string;
   inputClassName?: string;
   onSuccessfulSubscribe?: () => void;
+  /** The optional name field; the footer leaves it out to stay short. */
+  showName?: boolean;
 };
 
 export const NewsletterForm = ({
@@ -18,6 +20,7 @@ export const NewsletterForm = ({
   description,
   inputClassName = "bg-gray-800 border border-gray-700",
   onSuccessfulSubscribe,
+  showName = true,
 }: NewsletterFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -27,7 +30,7 @@ export const NewsletterForm = ({
     const form = e.currentTarget;
     const formData = new FormData(form);
     const email = formData.get("email");
-    const name = formData.get("name");
+    const name = formData.get("name") ?? "";
     const honeypot = formData.get("hpc4b27b6e-eb38-11e9-be00-06b4694bee2a");
 
     // If honeypot is filled, it's a bot
@@ -79,7 +82,11 @@ export const NewsletterForm = ({
 
   return (
     <div>
-      {title && <h3 className="text-lg font-bold mb-4">{title}</h3>}
+      {title && (
+        <h3 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wider text-white">
+          {title}
+        </h3>
+      )}
       {description && <p className="text-gray-400 mb-4">{description}</p>}
       <form className="space-y-3" onSubmit={handleSubmit} autoComplete="off">
         <input
@@ -91,14 +98,16 @@ export const NewsletterForm = ({
           aria-label="Email address"
           tabIndex={3}
         />
-        <input
-          name="name"
-          type="text"
-          placeholder={translations.namePlaceholder[locale]}
-          className={`w-full py-3 px-4 ${inputClassName} rounded-lg focus:outline-none focus:border-primary transition-colors`}
-          aria-label="Enter your name"
-          tabIndex={2}
-        />
+        {showName && (
+          <input
+            name="name"
+            type="text"
+            placeholder={translations.namePlaceholder[locale]}
+            className={`w-full py-3 px-4 ${inputClassName} rounded-lg focus:outline-none focus:border-primary transition-colors`}
+            aria-label="Enter your name"
+            tabIndex={2}
+          />
+        )}
         {/* Honeypot field (hidden from users) */}
         <div style={{ display: "none" }} aria-hidden="true">
           <input
@@ -121,7 +130,7 @@ export const NewsletterForm = ({
             <Loader2 className="animate-spin h-5 w-5" />
           ) : isSuccess ? (
             <div className="flex items-center">
-              <CheckCircle className="h-5 w-5 mr-2 animate-in fade-in duration-300" />
+              <CheckCircle className="h-5 w-5 me-2 animate-in fade-in duration-300" />
               <span>{translations.successButtonText[locale]}</span>
             </div>
           ) : (

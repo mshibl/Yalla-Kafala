@@ -1,52 +1,71 @@
 import Link from "next/link";
 import React from "react";
-import LinksList from "./LinksList";
 import { navigationLinks } from "./constants";
 import type { Locale } from "../Providers/LocaleProvider";
-import { translations } from "./translations";
 import DonateNowModal from "@/components/Donate/DonateNowModal";
-import { givebutterDonationUrl } from "@/constants/links";
+import { givebutterDonationUrl, volunteerFormUrl } from "@/constants/links";
+
+const linkClass =
+  "text-gray-300 hover:text-white transition-colors duration-300 inline-block";
+
+const href = (locale: Locale, path: string) =>
+  path.startsWith("http") ? path : `/${locale}${path}`;
+
+/** The site's links as flat, titled lists: Explore Kafala, then About Us with the rest. */
 const QuickLinks = ({ locale }: { locale: Locale }) => {
+  const groups = navigationLinks.filter((item) => item.group);
+  const singles = navigationLinks.filter(
+    (item) => !item.group && item.href !== "/",
+  );
+
   return (
-    <div>
-      <h3 className="text-lg font-bold mb-4">
-        {translations.quickLinks[locale]}
-      </h3>
-      <ul className="space-y-3">
-        {navigationLinks.map((item, idx) =>
-          item.group ? (
-            <li key={`${item.group}-${idx}`}>
-              <LinksList
-                title={item.group[locale]}
-                links={item.links.map((link) => ({
-                  href: `/${locale}${link.href}`,
-                  text: link.text[locale],
-                }))}
-              />
-            </li>
-          ) : (
-            <li key={`${item.href}-${idx}`}>
-              {item.href === givebutterDonationUrl ? (
-                <DonateNowModal
-                  locale={locale}
-                  className="text-gray-400 hover:text-white transition-colors duration-300 inline-block"
-                >
-                  {item.text[locale]}
-                </DonateNowModal>
-              ) : (
-                <Link
-                  target={`${item.href.includes("http") ? "_blank" : ""}`}
-                  href={`${item.href.includes("http") ? item.href : `/${locale}${item.href}`}`}
-                  className="text-gray-400 hover:text-white transition-colors duration-300 inline-block"
-                >
-                  {item.text[locale]}
+    <>
+      {groups.map((group, groupIndex) => (
+        <div key={group.group!.en}>
+          <h3 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wider text-white">
+            {group.group![locale]}
+          </h3>
+          <ul className="space-y-3">
+            {group.links!.map((link) => (
+              <li key={link.href}>
+                <Link href={href(locale, link.href)} className={linkClass}>
+                  {link.text[locale]}
                 </Link>
-              )}
-            </li>
-          ),
-        )}
-      </ul>
-    </div>
+              </li>
+            ))}
+            {groupIndex === groups.length - 1 && (
+              <>
+                {singles.map((item) => (
+                  <li key={item.href}>
+                    {item.href === givebutterDonationUrl ? (
+                      <DonateNowModal locale={locale} className={linkClass}>
+                        {item.text![locale]}
+                      </DonateNowModal>
+                    ) : (
+                      <Link
+                        href={href(locale, item.href!)}
+                        className={linkClass}
+                      >
+                        {item.text![locale]}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+                <li>
+                  <Link
+                    href={volunteerFormUrl}
+                    target="_blank"
+                    className={linkClass}
+                  >
+                    {locale === "en" ? "Volunteer" : "التطوع"}
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+      ))}
+    </>
   );
 };
 

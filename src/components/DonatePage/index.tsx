@@ -1,9 +1,23 @@
 "use client";
 
-import { Heart, Copy, Check, Smartphone, CreditCard, Landmark } from "lucide-react";
+import {
+  ArrowDown,
+  Heart,
+  Copy,
+  Check,
+  CheckCircle2,
+  Lock,
+  Smartphone,
+  CreditCard,
+  Landmark,
+} from "lucide-react";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { givebutterDonationUrl } from "@/constants/links";
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import PageHeader from "@/components/ui/PageHeader";
+import { isolateLatin } from "@/lib/bidi";
 
 const copy = {
   en: {
@@ -12,16 +26,27 @@ const copy = {
       "Your generous donation helps connect children without parental care with loving families in Egypt.",
     button: "Donate Now",
     taxNote:
-      "Yalla Kafala is a 501(c)(3) organization. All donations are tax-deductible.",
+      "For US donors: Yalla Kafala is a 501(c)(3) organization, so donations are tax-deductible.",
+    eyebrow: "Donate",
+    jumpToEgypt: "Donating from Egypt? See local payment methods",
+    supportsTitle: "Your gift supports",
+    supports: [
+      "Training and support for kafala families",
+      "Psychological and social support for mothers and families",
+      "Beit Sagheer, our small family homes for children",
+    ],
+    secure: "Secure payment through Givebutter",
+    transparency: "Candid Platinum Seal of Transparency, 2024.",
+    reports: "Read our reports",
     donateOnline: "Donate Online",
     donateOnlineDesc:
       "Make a fast, secure donation via Givebutter using your credit card or bank account.",
     donateInEgypt: "Donate in Egypt",
     donateInEgyptDesc:
-      "Support us locally through one of the following payment methods. All accounts are with CIB (Commercial International Bank).",
+      "Support us locally in Egyptian pounds through one of the following payment methods.",
     vodafoneTitle: "Vodafone Cash",
     fawryTitle: "Fawry",
-    bankTitle: "Bank Transfer (CIB)",
+    bankTitle: "CIB bank transfer",
     accountNumber: "Account Number",
     bank: "Bank: CIB",
     copied: "Copied!",
@@ -33,16 +58,27 @@ const copy = {
       "تبرعك السخي يساعد في ربط الأطفال فاقدي الرعاية الوالدية بعائلات محبة في مصر.",
     button: "تبرّع الآن",
     taxNote:
-      "يلا كفالة منظمة 501(c)(3). جميع التبرعات معفاة من الضرائب.",
+      "للمتبرعين في الولايات المتحدة: يلا كفالة منظمة 501(c)(3)، والتبرعات معفاة من الضرائب.",
+    eyebrow: "تبرّع",
+    jumpToEgypt: "تتبرع من مصر؟ اطّلع على طرق الدفع المحلية",
+    supportsTitle: "تبرعك يدعم",
+    supports: [
+      "تدريب ودعم الأسر الكافلة",
+      "الدعم النفسي والاجتماعي للأمهات والأسر",
+      "بيت صغير، بيوتنا الصغيرة للأطفال",
+    ],
+    secure: "دفع آمن عبر Givebutter",
+    transparency: "ختم الشفافية البلاتيني من Candid لعام 2024.",
+    reports: "اقرأ تقاريرنا",
     donateOnline: "تبرع إلكترونياً",
     donateOnlineDesc:
       "تبرع سريع وآمن عبر Givebutter باستخدام بطاقتك الائتمانية أو حسابك البنكي.",
     donateInEgypt: "تبرع في مصر",
     donateInEgyptDesc:
-      "ادعمنا محلياً من خلال إحدى طرق الدفع التالية. جميع الحسابات في بنك CIB (البنك التجاري الدولي).",
+      "ادعمنا محلياً بالجنيه المصري من خلال إحدى طرق الدفع التالية.",
     vodafoneTitle: "فودافون كاش",
     fawryTitle: "فوري",
-    bankTitle: "تحويل بنكي (CIB)",
+    bankTitle: "تحويل بنكي – البنك التجاري الدولي (CIB)",
     accountNumber: "رقم الحساب",
     bank: "البنك: CIB",
     copied: "تم النسخ!",
@@ -55,25 +91,16 @@ const egyptMethods = [
     key: "vodafone" as const,
     icon: Smartphone,
     account: "100053734809",
-    color: "text-red-600",
-    bgColor: "bg-red-50",
-    borderColor: "border-red-100",
   },
   {
     key: "fawry" as const,
     icon: CreditCard,
     account: "100053734485",
-    color: "text-amber-600",
-    bgColor: "bg-amber-50",
-    borderColor: "border-amber-100",
   },
   {
     key: "bank" as const,
     icon: Landmark,
     account: "100053734857",
-    color: "text-blue-600",
-    bgColor: "bg-blue-50",
-    borderColor: "border-blue-100",
   },
 ];
 
@@ -83,13 +110,7 @@ const titleKeys = {
   bank: "bankTitle",
 } as const;
 
-function CopyButton({
-  text,
-  locale,
-}: {
-  text: string;
-  locale: Locale;
-}) {
+function CopyButton({ text, locale }: { text: string; locale: Locale }) {
   const [copied, setCopied] = React.useState(false);
   const t = copy[locale];
 
@@ -114,7 +135,7 @@ function CopyButton({
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition-all hover:border-primary/40 hover:text-primary active:scale-95"
+      className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 text-sm font-medium text-gray-600 transition-all hover:border-primary/40 hover:text-primary active:scale-95"
       type="button"
     >
       {copied ? (
@@ -135,84 +156,154 @@ function CopyButton({
 export default function DonatePage({ locale }: { locale: Locale }) {
   const t = copy[locale];
   const dir = locale === "ar" ? "rtl" : "ltr";
+  // Arabic: every Latin run set apart. English: keep "501(c)(3)" on one line.
+  const bidi = (text: string): React.ReactNode =>
+    locale === "ar"
+      ? isolateLatin(text)
+      : text.split("501(c)(3)").flatMap((part, index) =>
+          index === 0
+            ? [part]
+            : [
+                <span key={index} className="whitespace-nowrap">
+                  501(c)(3)
+                </span>,
+                part,
+              ],
+        );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white" dir={dir}>
+    <div
+      className="min-h-screen bg-gradient-to-b from-primary/[0.06] to-white"
+      dir={dir}
+    >
       {/* Hero */}
-      <section className="flex flex-col items-center justify-center px-4 pt-28 pb-12 md:pt-36 md:pb-16 text-center">
-        <h1 className="mb-4 text-4xl font-bold text-gray-900 sm:text-5xl">
-          {t.title}
-        </h1>
-        <p className="mx-auto mb-8 max-w-lg text-lg text-gray-600">
-          {t.subtitle}
-        </p>
+      <section className="px-6 pt-28 pb-10 md:pt-36 md:pb-14">
+        <PageHeader
+          width="max-w-4xl"
+          eyebrow={t.eyebrow}
+          title={t.title}
+          lede={t.subtitle}
+        >
+          <a
+            href="#egypt"
+            className="mt-5 inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+          >
+            {t.jumpToEgypt}
+            <ArrowDown className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </PageHeader>
       </section>
 
       {/* Donation Methods */}
-      <section className="container mx-auto px-4 pb-20">
-        <div className="mx-auto max-w-4xl space-y-10">
+      <section className="container mx-auto px-6 pb-20">
+        <div className="mx-auto max-w-4xl space-y-8">
           {/* Online Donation (Givebutter) */}
-          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-            <div className="flex flex-col items-center text-center md:flex-row md:text-start md:items-start md:gap-6">
-              <div className="mb-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 md:mb-0">
-                <Heart className="h-7 w-7 text-primary" />
-              </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-bold text-gray-900 mb-1">
+          <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-primary/10">
+            <div className="grid md:grid-cols-5">
+              <div className="p-6 md:col-span-3 md:p-10">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                  <Heart className="h-6 w-6 text-primary" aria-hidden="true" />
+                </div>
+                <h2 className="mb-2 text-2xl font-semibold text-gray-900 md:text-3xl">
                   {t.donateOnline}
                 </h2>
-                <p className="text-gray-600 mb-4">{t.donateOnlineDesc}</p>
+                <p className="mb-6 text-gray-700">{bidi(t.donateOnlineDesc)}</p>
                 <a
                   href={givebutterDonationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="primary-button inline-flex items-center gap-2 px-6 py-3 text-base font-semibold"
+                  className="primary-button w-full gap-2 px-7 py-3.5 text-base font-semibold sm:w-auto"
                 >
-                  <Heart className="h-4 w-4" />
+                  <Heart className="h-4 w-4" aria-hidden="true" />
                   {t.button}
                 </a>
-                <p className="mt-3 text-xs text-gray-500">{t.taxNote}</p>
+                <p className="mt-4 flex items-center gap-2 text-sm text-gray-600">
+                  <Lock
+                    className="h-4 w-4 shrink-0 text-secondary-dark"
+                    aria-hidden="true"
+                  />
+                  {bidi(t.secure)}
+                </p>
+                <p className="mt-1 text-sm text-gray-600">{bidi(t.taxNote)}</p>
+              </div>
+              <div className="bg-[#FBF8F4] p-6 md:col-span-2 md:p-10">
+                <h3 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
+                  {t.supportsTitle}
+                </h3>
+                <ul className="space-y-4">
+                  {t.supports.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-gray-800"
+                    >
+                      <CheckCircle2
+                        className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                        aria-hidden="true"
+                      />
+                      <span className="leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8 flex items-center gap-4 rounded-2xl bg-white p-4">
+                  <Image
+                    src="/GuideStarIcon_Platinum.svg"
+                    alt="Candid Platinum Transparency 2024"
+                    width={56}
+                    height={56}
+                    className="shrink-0 rounded-md"
+                  />
+                  <p className="text-sm leading-relaxed text-gray-700">
+                    {t.transparency}{" "}
+                    <Link
+                      href={`/${locale}/resources`}
+                      className="font-semibold text-primary underline-offset-4 hover:underline"
+                    >
+                      {t.reports}
+                    </Link>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Egypt Donation Methods */}
           <div id="egypt" className="scroll-mt-28">
-            <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-              <div className="mb-6 text-center md:text-start">
-                <h2 className="text-xl font-bold text-gray-900 mb-1">
+            <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-primary/10 md:p-10">
+              <div className="mb-6 text-start">
+                <h2 className="mb-2 text-2xl font-semibold text-gray-900 md:text-3xl">
                   {t.donateInEgypt}
                 </h2>
-                <p className="text-gray-600">{t.donateInEgyptDesc}</p>
+                <p className="text-gray-700">{bidi(t.donateInEgyptDesc)}</p>
               </div>
 
               <div className="grid gap-4 md:grid-cols-3">
                 {egyptMethods.map((method) => (
                   <div
                     key={method.key}
-                    className={`rounded-xl border ${method.borderColor} ${method.bgColor} p-5 transition-shadow hover:shadow-md`}
+                    className="rounded-2xl border border-[#EDE4EF] bg-white p-5"
                   >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div
-                        className={`flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-sm`}
-                      >
-                        <method.icon className={`h-5 w-5 ${method.color}`} />
+                    <div className="mb-4 flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                        <method.icon
+                          className="h-5 w-5 text-primary"
+                          aria-hidden="true"
+                        />
                       </div>
-                      <h3 className="font-semibold text-gray-900">
-                        {t[titleKeys[method.key]]}
+                      <h3 className="font-sans text-base font-semibold text-gray-900">
+                        {bidi(t[titleKeys[method.key]])}
                       </h3>
                     </div>
-                    <div className="space-y-2">
-                      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                        {t.accountNumber}
-                      </p>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <code className="rounded-md bg-white px-3 py-1.5 text-sm font-mono font-semibold text-gray-800 shadow-sm" dir="ltr">
-                          {method.account}
-                        </code>
-                        <CopyButton text={method.account} locale={locale} />
-                      </div>
-                      <p className="text-xs text-gray-500 mt-1">{t.bank}</p>
+                    <p className="mb-1 text-xs font-medium uppercase tracking-wide text-gray-600">
+                      {t.accountNumber}
+                    </p>
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span
+                        className="text-lg font-semibold tabular-nums tracking-wide text-gray-900"
+                        dir="ltr"
+                      >
+                        {method.account}
+                      </span>
+                      <CopyButton text={method.account} locale={locale} />
                     </div>
                   </div>
                 ))}

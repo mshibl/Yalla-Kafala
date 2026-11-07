@@ -1,10 +1,5 @@
 import React, { Suspense } from "react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import FAQsSearchList from "./FAQsSearchList";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
@@ -17,34 +12,12 @@ const FAQsContent = async ({ locale }: { locale: Locale }) => {
 
   if (!faqs || faqs.length === 0) {
     return (
-      <div className="text-center text-gray-500">No FAQs found</div>
+      <div className="text-center text-gray-600">
+        {locale === "en" ? "No questions yet." : "لا توجد أسئلة بعد."}
+      </div>
     );
   }
-  return (
-    <Accordion type="single" collapsible className="w-full space-y-4">
-      {faqs.map((faq, index) => (
-        <AccordionItem
-          key={index}
-          value={`item-${index}`}
-          className="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm"
-        >
-          <AccordionTrigger className="px-6 py-4 hover:bg-gray-50 transition-colors">
-            <span className="text-left text-gray-800 font-medium text-base">
-              {locale === "en" ? faq.questionEn : faq.questionAr}
-            </span>
-          </AccordionTrigger>
-          <AccordionContent className="px-6 pb-4 pt-2 text-gray-600">
-            <div
-              className="text-base"
-              dangerouslySetInnerHTML={{
-                __html: locale === "en" ? faq.answerEn : faq.answerAr,
-              }}
-            />
-          </AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
-  );
+  return <FAQsSearchList faqs={faqs} locale={locale} />;
 };
 
 const LoadingSkeleton = () => (

@@ -41,8 +41,8 @@ export const translations = {
     },
     paragraphs: [
       {
-        en: "Yalla Kafala is a pioneering NGO founded in 2020, dedicated to reshaping child welfare in Egypt through alternative care options and Kafala (guardianship/adoption).",
-        ar: "يلا كفالة هي منظمة غير حكومية رائدة تأسست في عام 2020، مكرسة لإعادة تشكيل رعاية الأطفال في مصر من خلال خيارات الرعاية البديلة والكفالة (الوصاية / التبني).",
+        en: "Yalla Kafala is a pioneering NGO founded in 2020 and registered in Egypt in 2021 (licence no. 990), dedicated to reshaping child welfare in Egypt through alternative care options and Kafala (Islamic guardianship).",
+        ar: "يلا كفالة هي منظمة غير حكومية رائدة تأسست في عام 2020 وسُجّلت في مصر عام 2021 (رخصة رقم 990)، مكرسة لإعادة تشكيل رعاية الأطفال في مصر من خلال خيارات الرعاية البديلة والكفالة.",
       },
       {
         en: "Inspired by our founder Rasha Mekky's personal journey and her Kafala of her son Mostafa, we launched Egypt's first Kafala-dedicated website and established Yalla Kafala.",

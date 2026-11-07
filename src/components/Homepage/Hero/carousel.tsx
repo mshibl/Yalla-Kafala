@@ -33,7 +33,7 @@ export const HeroCarousel = ({
   return (
     <Carousel
       className="w-full"
-      opts={{ loop: true }}
+      opts={{ loop: true, direction: locale === "ar" ? "rtl" : "ltr" }}
       setApi={(api) => {
         carouselApiRef.current = api;
       }}
@@ -41,18 +41,19 @@ export const HeroCarousel = ({
       <CarouselContent>
         {carouselImages.map((image, index) => (
           <CarouselItem key={index}>
-            <div className="relative aspect-square h-[300px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
+            <div className="relative aspect-[16/10] w-full md:aspect-auto md:h-[560px] rounded-3xl overflow-hidden shadow-xl">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent z-10"></div>
               <Image
                 fill
                 priority
                 src={image.src}
                 alt={image.altDescription}
-                className="bg-gray-50 transition-transform duration-700 hover:scale-105"
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="bg-gray-50 object-cover"
               />
               {((locale === "en" && image.captionEn) ||
                 (locale !== "en" && image.captionAr)) && (
-                <div className="absolute bottom-6 left-6 z-20 max-w-sm">
+                <div className="absolute bottom-6 start-6 z-20 max-w-sm">
                   <p className="text-white font-medium text-sm md:text-base">
                     {locale === "en" ? image.captionEn : image.captionAr}
                   </p>
