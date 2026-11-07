@@ -89,7 +89,7 @@ layer(base);
 
 /* The one label style above headings, site-wide. */
 @utility eyebrow {
-  @apply inline-block font-sans text-xs font-semibold uppercase tracking-[0.14em] text-secondary-dark;
+  @apply inline-block font-sans text-[13px] font-semibold uppercase tracking-[0.12em] text-secondary-dark;
 }
 
 @layer base {
@@ -143,11 +143,16 @@ layer(base);
 
   /* One heading face everywhere: Playfair Display, with Amiri for Arabic. */
   h1,
-  h2,
-  h3 {
+  h2 {
     @apply font-serif;
     text-wrap: balance;
     font-variant-numeric: lining-nums;
+  }
+
+  /* Card and step titles: Playfair's thin strokes break up below ~24px. */
+  h3 {
+    @apply font-sans;
+    text-wrap: balance;
   }
 
   p {

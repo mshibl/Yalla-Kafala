@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Link2 } from "lucide-react";
 import { toast } from "sonner";
 
 export const CopyResourceLinkButton = ({
@@ -29,11 +29,13 @@ export const CopyResourceLinkButton = ({
   return (
     <Button
       variant="ghost"
+      size="icon"
       onClick={handleCopy}
-      className="rounded-full px-4 text-sm font-semibold text-gray-700 hover:text-primary"
+      aria-label={buttonLabel}
+      title={buttonLabel}
+      className="h-10 w-10 rounded-full text-gray-500 hover:text-primary"
     >
-      <Copy className="h-4 w-4" aria-hidden="true" />
-      {buttonLabel}
+      <Link2 className="h-5 w-5" aria-hidden="true" />
     </Button>
   );
 };

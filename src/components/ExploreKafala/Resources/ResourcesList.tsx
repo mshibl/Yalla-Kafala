@@ -26,7 +26,7 @@ const ResourcesList = () => {
           key={resource.id}
           className="flex flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md md:p-6"
         >
-          <div className="mb-5 flex items-start gap-4">
+          <div className="mb-5 flex items-center gap-4">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
               <FileText className="h-5 w-5" aria-hidden="true" />
             </div>
@@ -36,7 +36,7 @@ const ResourcesList = () => {
                 : resource.nameEn}
             </h3>
           </div>
-          <div className="mt-auto flex flex-wrap items-center gap-3">
+          <div className="mt-auto flex items-center justify-between gap-3">
             <Link
               href={`${resource.link}`}
               target="_blank"

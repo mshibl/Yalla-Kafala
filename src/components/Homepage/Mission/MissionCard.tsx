@@ -41,9 +41,9 @@ export const MissionCard: React.FC<MissionCardProps> = ({
   return (
     <div
       ref={cardRef}
-      className="flex flex-col items-start gap-3 rounded-2xl border border-primary/10 bg-white p-5 text-start shadow-sm opacity-0 translate-y-10 transition-all duration-700 ease-out md:gap-4 md:p-7"
+      className="flex items-start gap-4 py-5 text-start opacity-0 translate-y-10 transition-all duration-700 ease-out first:pt-0 md:flex-col md:rounded-2xl md:border md:border-primary/10 md:bg-white md:p-7 md:shadow-sm md:first:pt-7"
     >
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#F3E8F5]">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F3E8F5] md:h-14 md:w-14">
         <Icon
           className="h-7 w-7 text-primary"
           strokeWidth={1.75}
@@ -51,7 +51,7 @@ export const MissionCard: React.FC<MissionCardProps> = ({
         />
       </div>
       <div>
-        <h3 className="mb-1.5 text-xl font-semibold text-gray-900 md:mb-3">
+        <h3 className="mb-1 text-lg font-semibold text-gray-900 md:mb-2 md:text-xl">
           {title}
         </h3>
         <p className="text-[15px] leading-relaxed text-gray-700">

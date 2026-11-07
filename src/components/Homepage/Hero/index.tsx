@@ -9,12 +9,12 @@ import type { Locale } from "@/components/Providers/LocaleProvider";
 import type { CarouselImage } from "@/lib/types";
 import { ShieldCheck } from "lucide-react";
 
-/** The first slide: a family together, the promise of the page. */
-const familyImage: CarouselImage = {
-  id: "home-family",
-  uploadthingKey: "local-what-is-kafala",
-  src: "/images/what-is-kafala.webp",
-  altDescription: "Parents kissing their daughter at home",
+/** The first slide: a child at play, smiling at the camera. */
+const leadImage: CarouselImage = {
+  id: "home-child-playing",
+  uploadthingKey: "local-child-main",
+  src: "/images/child-main.webp",
+  altDescription: "A smiling child riding a toy car outdoors",
   order: -2,
 };
 
@@ -30,7 +30,7 @@ const CarouselContent = async () => {
       altDescription: "A child playing in a welcoming home environment",
       order: 0,
     };
-    return <HeroCarousel carouselImages={[familyImage, fallbackImage]} />;
+    return <HeroCarousel carouselImages={[leadImage, fallbackImage]} />;
   }
   const homepageImage: CarouselImage = {
     id: "home-page-featured",
@@ -41,7 +41,7 @@ const CarouselContent = async () => {
   };
   return (
     <HeroCarousel
-      carouselImages={[familyImage, homepageImage, ...carouselImages]}
+      carouselImages={[leadImage, homepageImage, ...carouselImages]}
     />
   );
 };

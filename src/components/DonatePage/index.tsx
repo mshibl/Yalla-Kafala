@@ -183,29 +183,11 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                   href={givebutterDonationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="primary-button gap-2 px-7 py-3 text-base font-semibold"
+                  className="primary-button w-full gap-2 px-7 py-3.5 text-base font-semibold sm:w-auto"
                 >
                   <Heart className="h-4 w-4" aria-hidden="true" />
                   {t.button}
                 </a>
-                <div className="mt-6 flex items-center gap-4 rounded-2xl bg-gray-50 p-4">
-                  <Image
-                    src="/GuideStarIcon_Platinum.svg"
-                    alt="Candid Platinum Transparency 2024"
-                    width={56}
-                    height={56}
-                    className="shrink-0 rounded-md"
-                  />
-                  <p className="text-sm leading-relaxed text-gray-700">
-                    {t.transparency}{" "}
-                    <Link
-                      href={`/${locale}/resources`}
-                      className="font-semibold text-primary underline-offset-4 hover:underline"
-                    >
-                      {t.reports}
-                    </Link>
-                  </p>
-                </div>
                 <p className="mt-4 flex items-center gap-2 text-sm text-gray-600">
                   <Lock
                     className="h-4 w-4 shrink-0 text-secondary-dark"
@@ -233,6 +215,24 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-8 flex items-center gap-4 rounded-2xl bg-white p-4">
+                  <Image
+                    src="/GuideStarIcon_Platinum.svg"
+                    alt="Candid Platinum Transparency 2024"
+                    width={56}
+                    height={56}
+                    className="shrink-0 rounded-md"
+                  />
+                  <p className="text-sm leading-relaxed text-gray-700">
+                    {t.transparency}{" "}
+                    <Link
+                      href={`/${locale}/resources`}
+                      className="font-semibold text-primary underline-offset-4 hover:underline"
+                    >
+                      {t.reports}
+                    </Link>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

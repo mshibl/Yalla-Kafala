@@ -10,10 +10,10 @@ const Resources = async ({ locale }: { locale: Locale }) => {
         locale={locale}
         title={translations.title}
         description={translations.description}
-        imageSrc="/images/child-main.webp"
+        imageSrc="/images/explore-kafala-hero.webp"
         imageAlt={{
-          en: "A child playing in a safe, caring home",
-          ar: "طفل يلعب في منزل آمن ورعائي",
+          en: "Children sitting together, listening and smiling",
+          ar: "أطفال يجلسون معاً يستمعون ويبتسمون",
         }}
       />
       <div className="flex-grow">

@@ -53,7 +53,7 @@ const Mission = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4">
+        <div className="grid grid-cols-1 divide-y divide-primary/10 md:grid-cols-2 md:gap-6 md:divide-y-0 lg:grid-cols-4">
           {missionCards.map((card, index) => (
             <MissionCard
               key={index}

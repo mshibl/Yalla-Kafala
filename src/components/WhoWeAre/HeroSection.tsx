@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
 import PageHeader from "@/components/ui/PageHeader";
@@ -28,6 +29,20 @@ export const HeroSection = ({ locale }: { locale: Locale }) => {
             </a>
           </div>
         </PageHeader>
+        <div className="relative mx-auto mt-12 aspect-[2/1] max-w-5xl overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5 md:mt-16 md:aspect-[21/9]">
+          <Image
+            src="/images/yk-team-1.webp"
+            alt={
+              locale === "ar"
+                ? "فريق يلا كفالة ومتطوعوها معاً"
+                : "The Yalla Kafala team and volunteers together"
+            }
+            fill
+            priority
+            sizes="(min-width: 1024px) 1024px, 100vw"
+            className="object-cover object-[center_35%]"
+          />
+        </div>
       </div>
       <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-white to-transparent" />
     </section>

@@ -59,7 +59,7 @@ const BlogCard = ({ blog, index, reference, featured }: BlogCardProps) => {
           <h3
             className={cn(
               "mb-3 text-xl font-semibold leading-snug text-gray-900",
-              featured && "md:text-3xl",
+              featured && "font-serif md:text-3xl",
             )}
           >
             {title}
