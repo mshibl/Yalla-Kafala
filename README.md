@@ -1,5 +1,7 @@
 # Create T3 App
 
+> **Design council:** `pnpm design-council` scores the site's design, in English and Arabic, with a panel of models beside other sites, round after round. See [docs/design-council.md](docs/design-council.md).
+
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
 ## What's next? How do I make an app with this?
