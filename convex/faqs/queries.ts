@@ -9,8 +9,10 @@ export const getFaqs = query({
     let faqsQuery = ctx.db.query("faqs");
     const faqs = await faqsQuery.collect();
 
+    // Unpublished FAQs are for signed-in admins only.
+    const identity = await ctx.auth.getUserIdentity();
     let filtered = faqs;
-    if (args.publishedOnly) {
+    if (args.publishedOnly || identity === null) {
       filtered = faqs.filter(faq => faq.publish);
     }
 
