@@ -39,7 +39,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
             {item.href === givebutterDonationUrl ? (
               <DonateNowModal
                 locale={locale}
-                className="order-last inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors duration-300 hover:bg-primary/90"
+                className="order-[100] inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors duration-300 hover:bg-primary/90"
               >
                 {item.text[locale]}
               </DonateNowModal>
@@ -60,6 +60,14 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
       <div className="ms-2">
         <LanguageSwitcher locale={locale} onSwitchLanguage={onSwitchLanguage} />
       </div>
+
+      {/* Start kafala: the would-be parent's next step, before Donate */}
+      <Link
+        href={`/${locale}/kafala-steps`}
+        className="order-[99] inline-flex items-center rounded-full border-[1.5px] border-primary px-5 py-[7px] text-sm font-semibold text-primary transition-colors duration-300 hover:bg-primary/5"
+      >
+        {locale === "en" ? "Start kafala" : "ابدأ الكفالة"}
+      </Link>
     </nav>
   );
 };

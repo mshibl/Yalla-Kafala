@@ -34,7 +34,7 @@ export const translations = {
       {
         en: "Registered in Egypt, licence no. 990",
         ar: "مسجّلة في مصر، رخصة رقم 990",
-        href: undefined as string | undefined,
+        href: "/who-we-are" as string | undefined,
       },
       {
         en: "Candid Platinum Transparency 2024",

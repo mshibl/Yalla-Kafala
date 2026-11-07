@@ -55,7 +55,7 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
       </section>
       <section id="learn-more" className="bg-white py-12 md:py-16">
         <div className="container mx-auto px-6">
-          <div className="prose prose-lg prose-gray mx-auto max-w-3xl animate-fade-up prose-headings:font-serif prose-strong:text-gray-900">
+          <div className="prose prose-lg prose-gray mx-auto max-w-3xl animate-fade-up prose-headings:font-serif prose-strong:text-gray-900 prose-li:marker:text-primary">
             <nav
               aria-label={translations.sections.onThisPage[locale]}
               className="not-prose mb-10 flex flex-wrap items-center gap-2"

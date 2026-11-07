@@ -99,7 +99,11 @@ const Hero = ({ locale }: { locale: Locale }) => {
                     />
                     {item.href ? (
                       <a
-                        href={item.href}
+                        href={
+                          item.href.startsWith("/")
+                            ? `/${locale}${item.href}`
+                            : item.href
+                        }
                         className="underline-offset-4 hover:text-primary hover:underline"
                       >
                         {locale === "ar" ? isolateLatin(item.ar) : item.en}

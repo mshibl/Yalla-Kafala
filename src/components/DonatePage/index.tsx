@@ -44,7 +44,7 @@ const copy = {
       "Support us locally in Egyptian pounds through one of the following payment methods.",
     vodafoneTitle: "Vodafone Cash",
     fawryTitle: "Fawry",
-    bankTitle: "Bank transfer (CIB, Commercial International Bank)",
+    bankTitle: "CIB bank transfer",
     accountNumber: "Account Number",
     bank: "Bank: CIB",
     copied: "Copied!",
@@ -75,7 +75,7 @@ const copy = {
       "ادعمنا محلياً بالجنيه المصري من خلال إحدى طرق الدفع التالية.",
     vodafoneTitle: "فودافون كاش",
     fawryTitle: "فوري",
-    bankTitle: "تحويل بنكي (CIB، البنك التجاري الدولي)",
+    bankTitle: "تحويل بنكي – البنك التجاري الدولي (CIB)",
     accountNumber: "رقم الحساب",
     bank: "البنك: CIB",
     copied: "تم النسخ!",
@@ -258,7 +258,7 @@ export default function DonatePage({ locale }: { locale: Locale }) {
           {/* Egypt Donation Methods */}
           <div id="egypt" className="scroll-mt-28">
             <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-primary/10 md:p-10">
-              <div className="mb-6 text-center md:text-start">
+              <div className="mb-6 text-start">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-900 md:text-3xl">
                   {t.donateInEgypt}
                 </h2>
@@ -279,7 +279,7 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                         />
                       </div>
                       <h3 className="font-sans text-base font-semibold text-gray-900">
-                        {t[titleKeys[method.key]]}
+                        {bidi(t[titleKeys[method.key]])}
                       </h3>
                     </div>
                     <p className="mb-1 text-xs font-medium uppercase tracking-wide text-gray-600">

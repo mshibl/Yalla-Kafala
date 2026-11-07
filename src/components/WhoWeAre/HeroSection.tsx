@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { ArrowDown } from "lucide-react";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
 import PageHeader from "@/components/ui/PageHeader";
@@ -21,12 +22,20 @@ export const HeroSection = ({ locale }: { locale: Locale }) => {
           }
           lede={translations.hero.description[locale]}
         >
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#our-story" className="primary-button font-semibold">
+          <div className="mt-6 flex flex-wrap gap-6">
+            <a
+              href="#our-story"
+              className="inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+            >
               {translations.hero.ctas.ourStory[locale]}
+              <ArrowDown className="h-4 w-4" aria-hidden="true" />
             </a>
-            <a href="#our-team" className="outline-button font-semibold">
+            <a
+              href="#our-team"
+              className="inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+            >
               {translations.hero.ctas.meetTeam[locale]}
+              <ArrowDown className="h-4 w-4" aria-hidden="true" />
             </a>
           </div>
         </PageHeader>

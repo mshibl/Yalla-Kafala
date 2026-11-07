@@ -37,7 +37,7 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
         aside={
           <nav
             aria-label={translations.atAGlance[locale]}
-            className="rounded-3xl bg-white p-6 shadow-xl ring-1 ring-primary/10 md:p-8"
+            className="hidden rounded-3xl bg-white p-8 shadow-xl ring-1 ring-primary/10 md:block"
           >
             <p className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
               {translations.atAGlance[locale]}
@@ -122,7 +122,7 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
               {translations.requiredDocumentsTitle[locale]}
             </h2>
 
-            <div className="grid gap-4 md:grid-cols-2 md:gap-6">
+            <div className="grid items-start gap-4 md:grid-cols-2 md:gap-6">
               {documentGroups.map((group) => (
                 <div
                   key={group.title.en}

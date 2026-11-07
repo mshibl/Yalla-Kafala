@@ -15,9 +15,6 @@ export const OurStorySection = ({ locale }: { locale: Locale }) => {
             {translations.whoWeAre.sectionTitle[locale]}
           </h2>
           <div className="mb-10">
-            <h3 className="mb-4 text-2xl font-semibold text-primary">
-              {translations.whoWeAre.ourStoryTitle[locale]}
-            </h3>
             {translations.whoWeAre.paragraphs.map((para, idx) => (
               <p
                 key={idx}
