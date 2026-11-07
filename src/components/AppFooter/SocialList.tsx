@@ -10,14 +10,15 @@ const SocialList = () => {
         <Link
           key={social.name}
           href={social.url}
-          className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors duration-300"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.08] transition-colors duration-300 hover:bg-primary"
           aria-label={`Follow us on ${social.name}`}
         >
           <Image
             src={`/${social.name}.svg`}
-            width={16}
-            height={16}
-            alt={social.name}
+            width={18}
+            height={18}
+            alt=""
+            className="brightness-0 invert"
           />
         </Link>
       ))}

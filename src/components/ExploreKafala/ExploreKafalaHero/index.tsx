@@ -35,7 +35,6 @@ const ExploreKafalaHero = ({
             <h1 className="mb-5 text-[2.125rem] font-semibold leading-[1.1] text-gray-900 md:text-5xl">
               {title[locale]}
             </h1>
-            <div className="mb-6 h-1 w-16 rounded-full bg-accent"></div>
             <p className="max-w-xl text-lg leading-relaxed text-gray-700 md:text-xl">
               {description[locale]}
             </p>

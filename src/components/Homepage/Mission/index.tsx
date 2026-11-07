@@ -4,6 +4,10 @@ import { MissionCard } from "./MissionCard";
 import { translations } from "./translations";
 import { useLocale } from "@/components/Providers/LocaleProvider";
 import { missionCards } from "./constants";
+import { Handshake, HeartHandshake, House, Users } from "lucide-react";
+
+/** Inclusion, community, collaboration, compassion. */
+const icons = [Users, House, Handshake, HeartHandshake];
 
 const Mission = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -34,7 +38,7 @@ const Mission = () => {
   return (
     <section id="mission" ref={sectionRef} className="section-padding bg-white">
       <div className="container mx-auto">
-        <div className="max-w-3xl mx-auto text-center mb-10 md:mb-14">
+        <div className="mb-10 max-w-3xl md:mb-14">
           <h2
             ref={headingRef}
             className="heading-lg text-gray-900 mb-5 opacity-0 translate-y-10 transition-all duration-700 ease-out"
@@ -53,7 +57,7 @@ const Mission = () => {
           {missionCards.map((card, index) => (
             <MissionCard
               key={index}
-              image={card.image}
+              icon={icons[index]!}
               title={card.title[locale]}
               description={card.description[locale]}
               delay={index * 100}

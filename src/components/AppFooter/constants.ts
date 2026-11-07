@@ -87,7 +87,7 @@ export const navigationLinks = [
   },
   { href: "/beit-sagheer", text: { en: "Beit Sagheer", ar: "البيت الصغير" } },
   {
-    group: { en: "About Us", ar: "من نحن" },
+    group: { en: "About Us", ar: "عن المنظمة" },
     links: [
       { href: "/who-we-are", text: { en: "Who We Are", ar: "من نحن" } },
       {

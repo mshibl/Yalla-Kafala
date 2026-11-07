@@ -32,8 +32,8 @@ export const translations = {
     },
     trust: [
       {
-        en: "Established in Egypt in 2021, licence no. 990",
-        ar: "تأسست في مصر عام 2021، رخصة رقم 990",
+        en: "Registered in Egypt, licence no. 990",
+        ar: "مسجّلة في مصر، رخصة رقم 990",
       },
       {
         en: "Candid Platinum Transparency 2024",

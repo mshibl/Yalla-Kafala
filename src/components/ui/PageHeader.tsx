@@ -2,8 +2,8 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * The header every page without a hero photo uses: eyebrow, title, a short
- * gold rule and a lede, centred. Pages with a photo use the same parts
+ * The header every page without a hero photo uses: eyebrow, title and a
+ * lede, centred. Pages with a photo use the same parts
  * (ExploreKafalaHero), aligned to the start.
  */
 export const PageHeader = ({
@@ -24,9 +24,8 @@ export const PageHeader = ({
     <h1 className="text-[2.125rem] font-semibold leading-[1.1] text-gray-900 md:text-5xl">
       {title}
     </h1>
-    <div className="mx-auto my-6 h-1 w-16 rounded-full bg-accent" />
     {lede && (
-      <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-700 md:text-xl">
+      <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-700 md:text-xl">
         {lede}
       </p>
     )}

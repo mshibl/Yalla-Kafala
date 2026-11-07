@@ -78,9 +78,12 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
               {translations.requiredDocumentsTitle[locale]}
             </h2>
 
-            <ul className="grid gap-x-8 gap-y-4 rounded-3xl bg-[#F6F1F8] p-6 md:grid-cols-2 md:p-10">
+            <ul className="gap-x-12 rounded-3xl bg-[#F6F1F8] p-6 md:columns-2 md:p-10">
               {requiredDocuments[locale].map((doc, index) => (
-                <li key={index} className="flex items-start gap-3">
+                <li
+                  key={index}
+                  className="mb-4 flex break-inside-avoid items-start gap-3 last:mb-0"
+                >
                   <CheckCircle2
                     className="mt-0.5 h-5 w-5 shrink-0 text-primary"
                     aria-hidden="true"

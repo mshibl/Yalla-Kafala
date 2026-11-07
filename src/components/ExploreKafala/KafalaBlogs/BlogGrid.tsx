@@ -13,7 +13,7 @@ const BlogGrid = ({ blogs, blogsRef }: BlogGridProps) => {
       className={
         // A few posts read as features, one per row; more fill a grid.
         blogs.length < 3
-          ? "mx-auto grid max-w-5xl grid-cols-1 gap-8"
+          ? "mx-auto grid max-w-4xl grid-cols-1 gap-8"
           : "grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
       }
     >

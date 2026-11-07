@@ -2,12 +2,12 @@ import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
 import { impactStats } from "./constants";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const Impact = ({ locale }: { locale: Locale }) => {
   // The large-scale figures as tiles; the Beit Sagheer figure, a different
   // kind of number, as a link to that programme.
-  const headline = impactStats.slice(0, 3);
   const beitSagheer = impactStats[3];
   const Arrow = locale === "ar" ? ArrowLeft : ArrowRight;
   return (
@@ -23,16 +23,20 @@ const Impact = ({ locale }: { locale: Locale }) => {
           </p>
         </div>
 
-        <dl className="grid gap-3 sm:grid-cols-3 md:gap-6">
-          {headline.map((stat) => (
+        <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-6">
+          {impactStats.map((stat, index) => (
             <div
               key={stat.number}
-              className="flex flex-col rounded-2xl bg-white p-5 text-center shadow-sm ring-1 ring-primary/10 md:p-8"
+              className={cn(
+                "flex flex-col rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-primary/10 sm:p-6 md:p-8",
+                // Beit Sagheer is a tile on phones, a banner from sm up.
+                index === 3 && "sm:hidden",
+              )}
             >
-              <dd className="order-first font-serif text-5xl font-semibold text-primary md:text-6xl">
+              <dd className="order-first font-serif text-4xl font-semibold text-primary sm:text-5xl md:text-6xl">
                 <bdi dir="ltr">{stat.number}</bdi>
               </dd>
-              <dt className="mx-auto mt-2 max-w-[18ch] text-sm font-medium leading-snug text-gray-700 md:text-base">
+              <dt className="mx-auto mt-2 max-w-[18ch] text-[13px] font-medium leading-snug text-gray-700 sm:text-sm md:text-base">
                 {locale === "ar" ? stat.labelAr : stat.label}
               </dt>
             </div>
@@ -42,7 +46,16 @@ const Impact = ({ locale }: { locale: Locale }) => {
         {beitSagheer && (
           <Link
             href={`/${locale}/beit-sagheer`}
-            className="group mt-3 flex flex-col items-center gap-3 rounded-2xl bg-primary px-6 py-5 text-center text-white sm:flex-row sm:justify-between sm:text-start md:mt-6 md:px-8"
+            className="mx-auto mt-4 flex w-fit items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline sm:hidden"
+          >
+            {translations.beitSagheerLink[locale]}
+            <Arrow size={18} aria-hidden="true" />
+          </Link>
+        )}
+        {beitSagheer && (
+          <Link
+            href={`/${locale}/beit-sagheer`}
+            className="group mt-3 hidden flex-col items-center gap-3 rounded-2xl bg-primary sm:flex px-6 py-5 text-center text-white sm:flex-row sm:justify-between sm:text-start md:mt-6 md:px-8"
           >
             <span className="flex items-center gap-4">
               <span className="font-serif text-4xl font-semibold">

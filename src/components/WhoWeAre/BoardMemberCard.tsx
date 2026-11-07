@@ -1,5 +1,4 @@
 import React from "react";
-import { UserRound } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   Dialog,
@@ -50,10 +49,12 @@ export const BoardMemberCard = ({
                   className="object-cover object-[center_25%]"
                 />
               ) : null}
-              <AvatarFallback className="rounded-none bg-primary/10 text-primary/40">
-                <UserRound className="h-1/2 w-1/2" aria-hidden="true" />
+              <AvatarFallback className="rounded-none bg-[#F3E8F5] font-serif text-5xl font-semibold text-primary">
+                {initials}
               </AvatarFallback>
             </Avatar>
+            {/* One light shared tint, so photos from different sources read as a set. */}
+            <div className="pointer-events-none absolute inset-0 bg-primary/[0.05] mix-blend-multiply" />
           </div>
           <div className="p-4">
             <h3 className="mb-1 font-sans text-base font-semibold leading-snug text-gray-900">

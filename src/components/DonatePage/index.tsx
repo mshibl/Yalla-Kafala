@@ -13,7 +13,10 @@ import {
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { givebutterDonationUrl } from "@/constants/links";
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import PageHeader from "@/components/ui/PageHeader";
+import { isolateLatin } from "@/lib/bidi";
 
 const copy = {
   en: {
@@ -31,6 +34,8 @@ const copy = {
       "Beit Sagheer, our small family homes for children",
     ],
     secure: "Secure payment through Givebutter",
+    transparency: "Candid Platinum Seal of Transparency, 2024.",
+    reports: "Read our reports",
     donateOnline: "Donate Online",
     donateOnlineDesc:
       "Make a fast, secure donation via Givebutter using your credit card or bank account.",
@@ -60,6 +65,8 @@ const copy = {
       "بيت صغير، بيوتنا الصغيرة للأطفال",
     ],
     secure: "دفع آمن عبر Givebutter",
+    transparency: "ختم الشفافية البلاتيني من Candid لعام 2024.",
+    reports: "اقرأ تقاريرنا",
     donateOnline: "تبرع إلكترونياً",
     donateOnlineDesc:
       "تبرع سريع وآمن عبر Givebutter باستخدام بطاقتك الائتمانية أو حسابك البنكي.",
@@ -146,6 +153,7 @@ function CopyButton({ text, locale }: { text: string; locale: Locale }) {
 export default function DonatePage({ locale }: { locale: Locale }) {
   const t = copy[locale];
   const dir = locale === "ar" ? "rtl" : "ltr";
+  const bidi = (text: string) => (locale === "ar" ? isolateLatin(text) : text);
 
   return (
     <div
@@ -170,7 +178,7 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                 <h2 className="mb-2 text-2xl font-semibold text-gray-900 md:text-3xl">
                   {t.donateOnline}
                 </h2>
-                <p className="mb-6 text-gray-700">{t.donateOnlineDesc}</p>
+                <p className="mb-6 text-gray-700">{bidi(t.donateOnlineDesc)}</p>
                 <a
                   href={givebutterDonationUrl}
                   target="_blank"
@@ -180,20 +188,32 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                   <Heart className="h-4 w-4" aria-hidden="true" />
                   {t.button}
                 </a>
+                <div className="mt-6 flex items-center gap-4 rounded-2xl bg-gray-50 p-4">
+                  <Image
+                    src="/GuideStarIcon_Platinum.svg"
+                    alt="Candid Platinum Transparency 2024"
+                    width={56}
+                    height={56}
+                    className="shrink-0 rounded-md"
+                  />
+                  <p className="text-sm leading-relaxed text-gray-700">
+                    {t.transparency}{" "}
+                    <Link
+                      href={`/${locale}/resources`}
+                      className="font-semibold text-primary underline-offset-4 hover:underline"
+                    >
+                      {t.reports}
+                    </Link>
+                  </p>
+                </div>
                 <p className="mt-4 flex items-center gap-2 text-sm text-gray-600">
                   <Lock
                     className="h-4 w-4 shrink-0 text-secondary-dark"
                     aria-hidden="true"
                   />
-                  {t.secure}
+                  {bidi(t.secure)}
                 </p>
-                <p className="mt-1 text-sm text-gray-600">
-                  {t.taxNote.split("501(c)(3)")[0]}
-                  <bdi dir="ltr" className="whitespace-nowrap">
-                    501(c)(3)
-                  </bdi>
-                  {t.taxNote.split("501(c)(3)")[1]}
-                </p>
+                <p className="mt-1 text-sm text-gray-600">{bidi(t.taxNote)}</p>
               </div>
               <div className="bg-[#F6F1F8] p-6 md:col-span-2 md:p-10">
                 <h3 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
@@ -224,7 +244,7 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                 <h2 className="mb-2 text-2xl font-semibold text-gray-900 md:text-3xl">
                   {t.donateInEgypt}
                 </h2>
-                <p className="text-gray-700">{t.donateInEgyptDesc}</p>
+                <p className="text-gray-700">{bidi(t.donateInEgyptDesc)}</p>
               </div>
 
               <div className="grid gap-4 md:grid-cols-3">

@@ -47,7 +47,7 @@ export const steps = {
         "Complete and submit the official Kafala application form, providing necessary details.",
     },
     {
-      title: "Evaluation Stage",
+      title: "Evaluation stage",
       description:
         "Assess the suitability of the applying family through initial and detailed evaluations, along with document revision and accreditation",
     },

@@ -34,10 +34,10 @@ export const TeamSection = async ({ locale }: { locale: Locale }) => {
   );
   // The founder has her own section just above, so the grid leaves her out.
   const founderKey = normalizeName(translations.founder.name.en);
-  const allBoardMembers = mergeByName(
-    featuredBoardMembers,
-    currentBoardMembers,
-  ).filter((member) => normalizeName(member.nameEn) !== founderKey);
+  const allBoardMembers = mergeByName(featuredBoardMembers, currentBoardMembers)
+    .filter((member) => normalizeName(member.nameEn) !== founderKey)
+    // Portraits first, so a monogram never leads the grid.
+    .sort((a, b) => Number(!a.imageUrl) - Number(!b.imageUrl));
 
   return (
     <section

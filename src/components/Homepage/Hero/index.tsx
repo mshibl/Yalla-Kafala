@@ -9,6 +9,15 @@ import type { Locale } from "@/components/Providers/LocaleProvider";
 import type { CarouselImage } from "@/lib/types";
 import { ShieldCheck } from "lucide-react";
 
+/** The first slide: a family together, the promise of the page. */
+const familyImage: CarouselImage = {
+  id: "home-family",
+  uploadthingKey: "local-what-is-kafala",
+  src: "/images/what-is-kafala.webp",
+  altDescription: "Parents kissing their daughter at home",
+  order: -2,
+};
+
 const CarouselContent = async () => {
   const carouselImages = await fetchQuery(
     api.carouselImages.queries.getCarouselImages,
@@ -21,7 +30,7 @@ const CarouselContent = async () => {
       altDescription: "A child playing in a welcoming home environment",
       order: 0,
     };
-    return <HeroCarousel carouselImages={[fallbackImage]} />;
+    return <HeroCarousel carouselImages={[familyImage, fallbackImage]} />;
   }
   const homepageImage: CarouselImage = {
     id: "home-page-featured",
@@ -30,7 +39,11 @@ const CarouselContent = async () => {
     altDescription: "A child playing in a welcoming home environment",
     order: -1,
   };
-  return <HeroCarousel carouselImages={[homepageImage, ...carouselImages]} />;
+  return (
+    <HeroCarousel
+      carouselImages={[familyImage, homepageImage, ...carouselImages]}
+    />
+  );
 };
 
 const Hero = ({ locale }: { locale: Locale }) => {

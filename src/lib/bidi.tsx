@@ -1,9 +1,11 @@
 import React from "react";
 
 // A run of Latin letters or digits, with the punctuation that belongs to it
-// ("I-SCORE", "MMPI", "501(c)(3)", "3000").
-const LATIN_RUN =
-  /([A-Za-z0-9][A-Za-z0-9()\-./]*(?:\s[A-Za-z0-9][A-Za-z0-9()\-./]*)*)/g;
+// ("I-SCORE", "MMPI", "501(c)(3)", "3000"); brackets around a run stay
+// with the Arabic text.
+const TOKEN = String.raw`[A-Za-z0-9]+(?:[-./][A-Za-z0-9]+|\([A-Za-z0-9]+\))*`;
+const LATIN_RUN = new RegExp(`(${TOKEN}(?:\\s${TOKEN})*)`, "g");
+/([A-Za-z0-9][A-Za-z0-9()\-./]*(?:\s[A-Za-z0-9][A-Za-z0-9()\-./]*)*)/g;
 
 /**
  * Arabic text with every Latin or numeric run set apart as left to right, so
