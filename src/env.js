@@ -17,6 +17,9 @@ export const env = createEnv({
     EMAIL_OCTOPUS_AUTH_TOKEN: z.string(),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
+    // Shared with the Convex deployment; the Facebook sync refuses to run without it.
+    // Optional here so builds that don't sync (previews, local) still pass.
+    INTERNAL_SYNC_SECRET: z.string().min(1).optional(),
   },
 
   /**
@@ -46,6 +49,7 @@ export const env = createEnv({
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    INTERNAL_SYNC_SECRET: process.env.INTERNAL_SYNC_SECRET,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
