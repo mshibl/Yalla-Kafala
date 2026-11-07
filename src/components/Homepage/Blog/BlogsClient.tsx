@@ -20,9 +20,6 @@ const BlogsClient = ({ blogs }: { blogs: Blog[] }) => {
       <div className="container mx-auto px-6">
         <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <span className="eyebrow mb-3">
-              {translations.blogs.eyebrow[locale]}
-            </span>
             <h2 className="heading-lg mb-4 text-gray-900">
               {translations.blogs.title[locale]}
             </h2>

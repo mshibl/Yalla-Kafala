@@ -62,26 +62,17 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
           </nav>
         }
         actions={[
-          { href: "#documents", label: translations.documentsLink },
           {
             href: `mailto:info@yallakafala.org?subject=${encodeURIComponent(translations.cta.meetingSubject[locale])}`,
             label: translations.cta.meeting,
           },
+          { href: "#documents", label: translations.documentsLink },
         ]}
       />
       <section id="learn-more" className="bg-white pt-8 pb-14 md:py-20">
         <div className="container mx-auto px-6">
           {/* Kafala Steps */}
           <div className="mx-auto mb-20 max-w-4xl">
-            <div className="mb-10">
-              <span className="eyebrow mb-3">
-                {translations.stepsEyebrow[locale]}
-              </span>
-              <h2 className="heading-lg text-gray-900">
-                {translations.kafalaStepsTitle[locale]}
-              </h2>
-            </div>
-
             <ol className="relative">
               {steps[locale].map((step, index) => {
                 const isLast = index === steps[locale].length - 1;

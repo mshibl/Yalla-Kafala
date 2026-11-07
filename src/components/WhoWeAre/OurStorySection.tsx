@@ -18,7 +18,7 @@ export const OurStorySection = ({ locale }: { locale: Locale }) => {
             {translations.whoWeAre.paragraphs.map((para, idx) => (
               <p
                 key={idx}
-                className="mb-4 text-lg leading-relaxed text-gray-700"
+                className="mb-4 max-w-[68ch] text-base leading-[1.7] text-gray-700 md:text-lg"
               >
                 {para[locale]}
               </p>

@@ -82,14 +82,18 @@ const Hero = ({ locale }: { locale: Locale }) => {
             </div>
 
             <div className="flex items-center gap-4 pt-4">
-              <span className="shrink-0 rounded-lg bg-white p-1 shadow-sm ring-1 ring-gray-200">
+              <a
+                href="https://www.guidestar.org/profile/85-3323627"
+                aria-label="Candid Platinum Transparency 2024"
+                className="shrink-0 rounded-lg bg-white p-1 shadow-sm ring-1 ring-gray-200"
+              >
                 <Image
                   src="/GuideStarIcon_Platinum.svg"
                   alt=""
                   width={72}
                   height={72}
                 />
-              </span>
+              </a>
               <ul className="space-y-1 text-sm text-gray-800 md:text-[15px]">
                 {t.trust.map((item) => (
                   <li

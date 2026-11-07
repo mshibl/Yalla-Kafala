@@ -1,4 +1,5 @@
 "use client";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import React, { useEffect, useRef } from "react";
 import { MissionCard } from "./MissionCard";
 import { translations } from "./translations";
@@ -44,9 +45,6 @@ const Mission = () => {
     >
       <div className="container mx-auto">
         <div className="mb-10 max-w-3xl md:mb-14">
-          <span className="eyebrow mb-3">
-            {locale === "en" ? "What we stand for" : "ما نؤمن به"}
-          </span>
           <h2
             ref={headingRef}
             className="heading-lg text-gray-900 mb-5 opacity-0 translate-y-10 transition-all duration-700 ease-out"
@@ -64,7 +62,11 @@ const Mission = () => {
             className="mt-4 inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
           >
             {locale === "en" ? "Learn more about us" : "تعرّف علينا أكثر"}
-            <span aria-hidden="true">{locale === "en" ? "→" : "←"}</span>
+            {locale === "en" ? (
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            ) : (
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+            )}
           </Link>
         </div>
 

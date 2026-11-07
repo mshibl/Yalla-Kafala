@@ -43,7 +43,6 @@ const FacebookPosts = ({ locale }: { locale: Locale }) => {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-6">
         <div className="max-w-3xl mx-auto text-center mb-16 opacity-100 transition-all duration-500">
-          <div className="eyebrow mb-3">{translations.chip[locale]}</div>
           <h2 className="heading-lg text-gray-900 mb-5">
             {translations.title[locale]}
           </h2>

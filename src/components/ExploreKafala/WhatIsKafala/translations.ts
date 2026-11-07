@@ -212,7 +212,7 @@ export const translations = {
         title: { en: "Encouraged in Islam", ar: "يشجعها الإسلام" },
         text: {
           en: "A religiously valid form of guardianship, strongly encouraged by the Prophet.",
-          ar: "شكل مشروع من أشكال الولاية، حثّ عليه النبي ﷺ.",
+          ar: "شكل مشروع من أشكال الولاية، حثّ عليه النبي صلى الله عليه وسلم.",
         },
       },
     ],

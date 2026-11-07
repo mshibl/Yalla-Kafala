@@ -1,3 +1,4 @@
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import ExploreKafalaHero from "../ExploreKafalaHero";
@@ -128,7 +129,11 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                 className="inline-flex shrink-0 items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
               >
                 {translations.nextStep.steps[locale]}
-                <span aria-hidden="true">{locale === "en" ? "→" : "←"}</span>
+                {locale === "en" ? (
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                )}
               </Link>
             </aside>
 
