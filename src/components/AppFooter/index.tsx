@@ -6,14 +6,12 @@ import QuickLinks from "./QuickLinks";
 import SocialList from "./SocialList";
 import type { Locale } from "../Providers/LocaleProvider";
 import { translations } from "./translations";
-import { MakeDifference } from "../Homepage/MakeDifference";
 const Footer = ({ locale }: { locale: Locale }) => {
   return (
     <>
-      {/* <MakeDifference locale={locale} /> */}
       <footer id="contact" className="bg-gray-900 text-white pt-16 pb-8">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">
             <div className="space-y-4">
               <Link
                 href="/"
@@ -29,7 +27,7 @@ const Footer = ({ locale }: { locale: Locale }) => {
                   {locale === "en" ? "Yallakafala" : "يلا كفالة"}
                 </span>
               </Link>
-              <p className="text-gray-400">
+              <p className="text-gray-300 leading-relaxed">
                 {translations.socialsParagraph[locale]}
               </p>
               <SocialList />
@@ -37,8 +35,9 @@ const Footer = ({ locale }: { locale: Locale }) => {
                 <Image
                   src="/GuideStarIcon_Platinum.svg"
                   alt="GuideStar Platinum Level"
-                  width={100}
-                  height={100}
+                  width={88}
+                  height={88}
+                  className="rounded-md"
                 />
               </Link>
             </div>
@@ -50,7 +49,7 @@ const Footer = ({ locale }: { locale: Locale }) => {
             />
           </div>
 
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
             <p>
               {translations.rightsReserved[locale]} <br />
               &copy; {new Date().getFullYear()}{" "}

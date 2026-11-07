@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap")
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap")
 layer(base);
 
 @import "tailwindcss";
@@ -87,6 +87,11 @@ layer(base);
   @apply inline-block py-1 px-3 text-xs font-medium rounded-full;
 }
 
+/* The one label style above headings, site-wide. */
+@utility eyebrow {
+  @apply inline-block font-sans text-xs font-semibold uppercase tracking-[0.14em] text-secondary-dark;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -131,6 +136,46 @@ layer(base);
     scroll-behavior: smooth;
   }
 
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  /* One heading face everywhere: Playfair Display, with Noto Naskh Arabic for Arabic. */
+  h1,
+  h2,
+  h3 {
+    @apply font-serif;
+    text-wrap: balance;
+    font-variant-numeric: lining-nums;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  .font-serif {
+    font-variant-numeric: lining-nums;
+  }
+
+  /* Arabic script is never slanted, and never letter-spaced. */
+  :lang(ar) em,
+  :lang(ar) i,
+  :lang(ar) blockquote,
+  :lang(ar).italic,
+  :lang(ar) .italic {
+    font-style: normal;
+  }
+
+  :lang(ar) .eyebrow,
+  :lang(ar) [class*="tracking-"] {
+    letter-spacing: 0;
+  }
+
+  :lang(ar) body {
+    line-height: 1.75;
+  }
+
   body {
     @apply bg-[#FAFBFF] text-foreground;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
@@ -154,49 +199,6 @@ layer(base);
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(123, 32, 130, 0.5);
 }
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
 @import "./animations.css";
 
 /*

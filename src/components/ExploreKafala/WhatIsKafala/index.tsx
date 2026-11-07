@@ -16,22 +16,26 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
           ar: "أسرة تحتضن طفلاً في المنزل",
         }}
       />
-      <section id="learn-more" className="py-12 bg-gray-50">
+      <section id="learn-more" className="bg-white py-12 md:py-16">
         <div className="container mx-auto px-6">
-          <div className="prose prose-lg max-w-4xl mx-auto animate-fade-up">
+          <div className="prose prose-lg prose-gray mx-auto max-w-3xl animate-fade-up prose-headings:font-serif prose-strong:text-gray-900">
             <p>{translations.firstParagraph[locale]}</p>
 
             <p>{translations.secondParagraph[locale]}</p>
 
-            <blockquote className="bg-gray-100 p-6 border-l-4 border-primary my-8">
-              <p className="text-right font-arabic text-lg mb-4">
+            <blockquote className="not-prose my-10 rounded-2xl border-s-4 border-primary bg-white p-6 shadow-sm ring-1 ring-primary/10 md:p-8">
+              <p
+                lang="ar"
+                dir="rtl"
+                className="mb-5 text-start font-serif text-xl leading-loose text-gray-900 md:text-2xl"
+              >
                 عَنْ سَهْلِ بْنِ سَعْدٍ رضي الله عنه قَالَ: قَالَ رَسُولَ
                 اَللَّهِ صلى الله عليه وسلم: أَنَا وَكَافِلُ الْيَتِيمِ في
                 الْجَنَّةِ هكَذَا، وَأَشَارَ بِالسَّبَّابَةِ وَالْوُسطَى
                 وَفَرَّجَ بَيْنَهُمَا شَيْئاً.
               </p>
               {locale === "en" && (
-                <p>
+                <p className="text-base leading-relaxed text-gray-700">
                   From Sahl bin Sa&apos;ad (may Allah be pleased with him), he
                   said: &ldquo;The Messenger of Allah sallallaahu &apos;alaihi
                   wa sallam said: &ldquo;I and the one who looks after an orphan
@@ -41,11 +45,11 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
               )}
             </blockquote>
             <p>{translations.firstHadith.explaination[locale]}</p>
-            <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-800">
+            <h2 className="mt-12 mb-5 text-2xl font-semibold text-gray-900 md:text-3xl">
               {translations.firstHadith.essentialPhrases.title[locale]}
             </h2>
 
-            <ol className="list-decimal pl-6 space-y-4">
+            <ol className="list-decimal ps-6 space-y-4">
               {translations.firstHadith.essentialPhrases.phrases[locale].map(
                 (phrase, index) => (
                   <li key={index}>
@@ -55,24 +59,28 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
               )}
             </ol>
 
-            <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-800">
+            <h2 className="mt-12 mb-5 text-2xl font-semibold text-gray-900 md:text-3xl">
               {translations.islamicRules.description[locale]}
             </h2>
 
-            <ul className="list-disc pl-6 space-y-4">
+            <ul className="list-disc ps-6 space-y-4">
               <li>
                 <strong>
                   {translations.islamicRules.rules[locale][0]!.title}
                 </strong>{" "}
                 {translations.islamicRules.rules[locale][0]!.description}
-                <blockquote className="bg-gray-100 p-4 my-2 border-l-4 border-primary">
-                  <p className="text-right font-arabic">
+                <blockquote className="not-prose my-4 rounded-2xl border-s-4 border-primary bg-white p-5 shadow-sm ring-1 ring-primary/10">
+                  <p
+                    lang="ar"
+                    dir="rtl"
+                    className="mb-4 text-start font-serif text-xl leading-loose text-gray-900"
+                  >
                     ادْعُوهُمْ لِآبَائِهِمْ هُوَ أَقْسَطُ عِندَ اللَّـهِ ۚ فَإِن
                     لَّمْ تَعْلَمُوا آبَاءَهُمْ فَإِخْوَانُكُمْ فِي الدِّينِ
                     وَمَوَالِيكُمْ سورة
                   </p>
                   {locale === "en" && (
-                    <p>
+                    <p className="text-base leading-relaxed text-gray-700">
                       Call them by [the names of] their fathers; it is more just
                       in the sight of Allah. But if you do not know their
                       fathers - then they are [still] your brothers in religion
@@ -89,20 +97,24 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                 .map((rule, index) => (
                   <li
                     key={index + 1}
-                    className={index === 1 ? "text-red-600" : undefined}
+                    className={
+                      index === 1
+                        ? "rounded-xl border-s-4 border-accent bg-accent/10 py-3 pe-4 ps-4"
+                        : undefined
+                    }
                   >
                     <strong>{rule.title}</strong> {rule.description}
                   </li>
                 ))}
             </ul>
 
-            <div className="text-sm mt-12 border-t pt-6 text-gray-600">
+            <div className="not-prose mt-14 border-t border-gray-200 pt-8 text-sm leading-relaxed text-gray-600">
               <p>{translations.Footnote.copiedFrom[locale]}</p>
 
-              <h3 className="font-bold mt-6 mb-2">
+              <h3 className="mt-8 mb-3 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
                 {translations.Footnote.list.listTitle[locale]}
               </h3>
-              <ol className="list-decimal pl-6 space-y-1">
+              <ol className="space-y-1.5">
                 {translations.Footnote.list.listItems[locale].map(
                   (item, index) => (
                     <li key={index}>{item}</li>
@@ -110,7 +122,7 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                 )}
               </ol>
 
-              <h3 className="font-bold mt-6 mb-2">
+              <h3 className="mt-8 mb-3 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
                 {translations.sources.title[locale]}
               </h3>
               <p>
@@ -122,10 +134,10 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                 </a>
               </p>
 
-              <h3 className="font-bold mt-6 mb-2">
+              <h3 className="mt-8 mb-3 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
                 {translations.References.title[locale]}
               </h3>
-              <ol className="list-decimal pl-6 space-y-1">
+              <ol className="list-decimal space-y-1.5 ps-5 break-words">
                 {translations.References.list.listItems[locale].map(
                   (item, index) => (
                     <li key={index}>{item}</li>

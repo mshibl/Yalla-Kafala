@@ -30,6 +30,7 @@ export default {
         },
         secondary: {
           DEFAULT: "#1a9cb7",
+          dark: "#0f6f84",
           foreground: "hsl(var(--secondary-foreground))",
         },
         accent: {
@@ -125,8 +126,8 @@ export default {
         "fade-in-up": "fade-in-up 0.7s ease-out forwards",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        serif: ["Playfair Display", "serif"],
+        sans: ["Inter", "IBM Plex Sans Arabic", "sans-serif"],
+        serif: ["Playfair Display", "Noto Naskh Arabic", "serif"],
         elegant: ["Cormorant Garamond", "serif"],
         luxury: ["Crimson Text", "serif"],
       },

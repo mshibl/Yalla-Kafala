@@ -80,7 +80,6 @@ const BlogsClient = ({ blogs }: { blogs: Blog[] }) => {
             blogsLength={blogs.length}
             onPrev={prevBlog}
             onNext={nextBlog}
-            onDotClick={setActiveIndex}
           />
         </div>
       </div>

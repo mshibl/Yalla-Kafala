@@ -79,7 +79,11 @@ export const NewsletterForm = ({
 
   return (
     <div>
-      {title && <h3 className="text-lg font-bold mb-4">{title}</h3>}
+      {title && (
+        <h3 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wider text-white">
+          {title}
+        </h3>
+      )}
       {description && <p className="text-gray-400 mb-4">{description}</p>}
       <form className="space-y-3" onSubmit={handleSubmit} autoComplete="off">
         <input
@@ -121,7 +125,7 @@ export const NewsletterForm = ({
             <Loader2 className="animate-spin h-5 w-5" />
           ) : isSuccess ? (
             <div className="flex items-center">
-              <CheckCircle className="h-5 w-5 mr-2 animate-in fade-in duration-300" />
+              <CheckCircle className="h-5 w-5 me-2 animate-in fade-in duration-300" />
               <span>{translations.successButtonText[locale]}</span>
             </div>
           ) : (

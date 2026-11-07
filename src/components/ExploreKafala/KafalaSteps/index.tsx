@@ -1,5 +1,5 @@
-import { FileText } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
+import { CheckCircle2 } from "lucide-react";
 import { BackToTopButton } from "../BackToTopButton";
 import ExploreKafalaHero from "../ExploreKafalaHero";
 import { familyCardSteps, requiredDocuments, steps } from "./constants";
@@ -18,84 +18,111 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
           ar: "أيدي أسرة متشابكة في الدعم",
         }}
       />
-      <section id="learn-more" className="py-12 bg-gray-50">
+      <section id="learn-more" className="bg-white py-14 md:py-20">
         <div className="container mx-auto px-6">
           {/* Kafala Steps */}
-          <div className="max-w-5xl mx-auto mb-20">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
-              {translations.kafalaStepsTitle[locale]}
-            </h2>
-
-            <div className="grid gap-8 md:grid-cols-2">
-              {steps[locale].map((step, index) => (
-                <div
-                  key={index}
-                  className="animate-fade-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <Card className="h-full border-l-4 border-primary overflow-hidden hover:shadow-md transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg shrink-0">
-                          {index + 1}
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                            {step.title}
-                          </h3>
-                          <p className="text-gray-600">{step.description}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
+          <div className="mx-auto mb-20 max-w-3xl">
+            <div className="mb-10 text-center">
+              <span className="eyebrow mb-3">
+                {translations.stepsEyebrow[locale]}
+              </span>
+              <h2 className="heading-lg text-gray-900">
+                {translations.kafalaStepsTitle[locale]}
+              </h2>
             </div>
+
+            <ol className="relative">
+              {steps[locale].map((step, index) => {
+                const isLast = index === steps[locale].length - 1;
+                return (
+                  <li
+                    key={index}
+                    className="relative flex gap-5 pb-10 last:pb-0 md:gap-7"
+                  >
+                    {!isLast && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute start-5 top-12 bottom-0 w-0.5 -translate-x-1/2 rtl:translate-x-1/2 bg-primary/15 md:start-6"
+                      />
+                    )}
+                    <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary font-serif text-lg font-semibold text-white shadow-sm md:h-12 md:w-12 md:text-xl">
+                      {index + 1}
+                    </span>
+                    <div className="pt-1.5 md:pt-2.5">
+                      <h3 className="mb-2 text-xl font-semibold text-gray-900 md:text-2xl">
+                        {step.title}
+                      </h3>
+                      <p className="text-base leading-relaxed text-gray-700 md:text-lg">
+                        {step.description}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
           </div>
 
           {/* Required Documents */}
-          <div
-            className="max-w-4xl mx-auto mb-20 animate-fade-up"
-            style={{ animationDelay: "600ms" }}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
+          <div className="mx-auto mb-20 max-w-4xl">
+            <h2 className="heading-md mb-8 text-center text-gray-900">
               {translations.requiredDocumentsTitle[locale]}
             </h2>
 
-            <Card>
-              <CardContent className="p-8">
-                <ul className="space-y-4">
-                  {requiredDocuments[locale].map((doc, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <FileText className="w-5 h-5 text-primary shrink-0 mt-1" />
-                      <span className="text-gray-700">{doc}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+            <ul className="grid gap-x-8 gap-y-4 rounded-3xl bg-[#F6F1F8] p-6 md:grid-cols-2 md:p-10">
+              {requiredDocuments[locale].map((doc, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <CheckCircle2
+                    className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                    aria-hidden="true"
+                  />
+                  <span className="leading-relaxed text-gray-800">{doc}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Family Card Steps */}
-          <div
-            className="max-w-4xl mx-auto mb-12 animate-fade-up"
-            style={{ animationDelay: "800ms" }}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
+          <div className="mx-auto mb-20 max-w-3xl">
+            <h2 className="heading-md mb-8 text-center text-gray-900">
               {translations.familyCardStepsTitle[locale]}
             </h2>
 
-            <Card>
-              <CardContent className="p-8">
-                <ol className="list-decimal pl-5 space-y-4">
-                  {familyCardSteps[locale].map((step, index) => (
-                    <li key={index} className="text-gray-700 pl-2">
-                      {step}
-                    </li>
-                  ))}
-                </ol>
-              </CardContent>
-            </Card>
+            <ol className="space-y-4">
+              {familyCardSteps[locale].map((step, index) => (
+                <li key={index} className="flex items-start gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                    {index + 1}
+                  </span>
+                  <span className="pt-1 leading-relaxed text-gray-800">
+                    {step}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Next step */}
+          <div className="mx-auto max-w-4xl rounded-3xl bg-primary px-6 py-10 text-center text-white md:px-12 md:py-14">
+            <h2 className="mb-3 text-3xl font-semibold text-white md:text-4xl">
+              {translations.cta.title[locale]}
+            </h2>
+            <p className="mx-auto mb-8 max-w-2xl text-lg text-white/85">
+              {translations.cta.description[locale]}
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link
+                href={`/${locale}/faqs`}
+                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-white/90"
+              >
+                {translations.cta.faqs[locale]}
+              </Link>
+              <a
+                href="mailto:info@yallakafala.org"
+                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                {translations.cta.contact[locale]}
+              </a>
+            </div>
           </div>
         </div>
       </section>

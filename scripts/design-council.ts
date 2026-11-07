@@ -286,6 +286,18 @@ async function capture(
           localStorage.setItem(key, value);
       } catch {}
     }, STORAGE);
+    // A signed-out, returning visitor as far as Clerk is concerned. Without
+    // these, Clerk's development instance answers a browser's first request
+    // with a handshake redirect, which a local build without Clerk's secret
+    // key can't complete (it serves a 500 instead of the page).
+    if (baseUrl.startsWith("http://localhost"))
+      await context.addCookies(
+        ["__clerk_db_jwt", "__client_uat"].map((name) => ({
+          name,
+          value: name === "__client_uat" ? "0" : "dvb_design_council",
+          url: baseUrl,
+        })),
+      );
     const page = await context.newPage();
     try {
       await page.goto(`${baseUrl}${shotPath(shot)}`, {

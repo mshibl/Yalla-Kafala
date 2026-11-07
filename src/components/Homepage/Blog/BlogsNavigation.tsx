@@ -1,6 +1,5 @@
 import React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { useLocale } from "@/components/Providers/LocaleProvider";
 
 interface BlogsNavigationProps {
@@ -8,7 +7,6 @@ interface BlogsNavigationProps {
   blogsLength: number;
   onPrev: () => void;
   onNext: () => void;
-  onDotClick: (index: number) => void;
 }
 
 const BlogsNavigation: React.FC<BlogsNavigationProps> = ({
@@ -16,11 +14,10 @@ const BlogsNavigation: React.FC<BlogsNavigationProps> = ({
   blogsLength,
   onPrev,
   onNext,
-  onDotClick,
 }) => {
   const locale = useLocale();
   return (
-    <div className="flex justify-center mt-10 gap-4">
+    <div className="flex items-center justify-center mt-10 gap-4">
       <button
         onClick={locale === "ar" ? onNext : onPrev}
         className="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-gray-700 hover:text-primary transition-colors"
@@ -28,18 +25,13 @@ const BlogsNavigation: React.FC<BlogsNavigationProps> = ({
       >
         {locale === "ar" ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
       </button>
-      <div className="flex gap-2">
-        {Array.from({ length: blogsLength }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => onDotClick(index)}
-            className={cn(
-              "w-3 h-3 rounded-full transition-all duration-300",
-              index === activeIndex ? "bg-primary scale-125" : "bg-gray-300",
-            )}
-            aria-label={`Go to blog ${index + 1}`}
-          />
-        ))}
+      <div
+        className="flex min-w-[5rem] items-center justify-center gap-1 font-medium tabular-nums text-gray-600"
+        aria-live="polite"
+      >
+        <span className="text-primary">{activeIndex + 1}</span>
+        <span aria-hidden="true">/</span>
+        <span>{blogsLength}</span>
       </div>
       <button
         onClick={locale === "ar" ? onPrev : onNext}

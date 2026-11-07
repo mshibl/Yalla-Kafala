@@ -32,8 +32,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, cardRef, index }) => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent md:bg-gradient-to-r"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-8 md:hidden">
-                <h3 className="text-white text-2xl font-serif font-medium mb-2">
+              <div className="absolute bottom-0 inset-x-0 p-6 md:hidden">
+                <h3 className="text-white text-2xl font-serif font-semibold mb-2">
                   {title}
                 </h3>
                 <p className="text-white/90 text-sm line-clamp-2">
@@ -43,21 +43,21 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, cardRef, index }) => {
             </div>
             <div className="md:col-span-6 p-6 md:p-10 flex flex-col justify-center">
               <div className="hidden md:block mb-6">
-                <span className="text-indigo-600 text-sm font-medium uppercase tracking-wider mb-2 block">
+                <span className="eyebrow mb-3 block">
                   {locale === "en" ? "Kafala Blog" : "مدونة كفالة"}
                 </span>
-                <h3 className="text-gray-800 text-3xl font-serif font-medium leading-tight">
+                <h3 className="text-gray-900 text-3xl font-serif font-semibold leading-tight">
                   {title}
                 </h3>
               </div>
               <div className="relative">
-                <div className="absolute -left-4 top-0 bottom-0 w-1 bg-indigo-600/40 rounded"></div>
-                <p className="text-gray-700 leading-relaxed pl-6 relative z-10">
+                <div className="absolute -start-4 top-0 bottom-0 w-1 bg-primary/30 rounded"></div>
+                <p className="text-gray-700 leading-relaxed ps-6 relative z-10">
                   {description}
                 </p>
-                <div className="mt-8 pl-6 ">
+                <div className="mt-8 ps-6">
                   <Link href={`/kafala-blogs/${blog.id}`}>
-                    <button className="cursor-pointer flex items-center text-indigo-700 font-medium group">
+                    <button className="cursor-pointer inline-flex items-center gap-2 text-primary font-semibold group hover:underline underline-offset-4">
                       {locale === "en"
                         ? "Read Full Blog"
                         : "اقرأ المدونة بالكامل"}

@@ -18,8 +18,8 @@ const HomePage = async ({
     <>
       <NewsletterPopover />
       <Hero locale={locale} />
-      <Mission />
       <Impact locale={locale} />
+      <Mission />
       <Blogs />
       <FAQs locale={locale} />
       <FacebookPosts locale={locale} />

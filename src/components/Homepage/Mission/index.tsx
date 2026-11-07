@@ -32,16 +32,12 @@ const Mission = () => {
   }, []);
 
   return (
-    <section
-      id="mission"
-      ref={sectionRef}
-      className="section-padding bg-gray-50"
-    >
+    <section id="mission" ref={sectionRef} className="section-padding bg-white">
       <div className="container mx-auto">
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-10 md:mb-14">
           <h2
             ref={headingRef}
-            className="heading-md text-primary mb-6 opacity-0 translate-y-10 transition-all duration-700 ease-out"
+            className="heading-lg text-gray-900 mb-5 opacity-0 translate-y-10 transition-all duration-700 ease-out"
           >
             {translations.mission.title[locale]}
           </h2>
@@ -53,7 +49,7 @@ const Mission = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4">
           {missionCards.map((card, index) => (
             <MissionCard
               key={index}

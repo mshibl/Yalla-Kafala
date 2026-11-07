@@ -1,11 +1,11 @@
 export const translations = {
   chip: {
-    en: "Our Progress",
-    ar: "تقدمنا",
+    en: "Our impact",
+    ar: "أثرنا",
   },
   title: {
     en: "The Impact We're Making Together",
-    ar: "التأثير الذي نكسبه معاً",
+    ar: "الأثر الذي نصنعه معاً",
   },
   description: {
     en: "With your continued support, we're on our way to making a significant difference in the lives of children without parental care, connecting them with loving families and creating lasting change.",

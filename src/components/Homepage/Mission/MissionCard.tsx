@@ -41,13 +41,19 @@ export const MissionCard: React.FC<MissionCardProps> = ({
   return (
     <div
       ref={cardRef}
-      className="glass-card flex flex-col items-center justify-center p-8 opacity-0 translate-y-10 transition-all duration-700 ease-out"
+      className="flex items-start gap-4 rounded-2xl border border-primary/10 bg-white p-5 text-start shadow-sm opacity-0 translate-y-10 transition-all duration-700 ease-out md:flex-col md:items-center md:p-8 md:text-center"
     >
-      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-        <Image src={image} alt={title} width={64} height={64} />
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary/10 md:h-16 md:w-16">
+        <Image src={image} alt="" width={44} height={44} />
       </div>
-      <h3 className="heading-sm mb-4 text-gray-800">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+      <div>
+        <h3 className="mb-1.5 text-xl font-semibold text-gray-900 md:mb-3">
+          {title}
+        </h3>
+        <p className="text-[15px] leading-relaxed text-gray-700">
+          {description}
+        </p>
+      </div>
     </div>
   );
 };

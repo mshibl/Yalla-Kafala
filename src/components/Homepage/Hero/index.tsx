@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { translations } from "./translations";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import type { CarouselImage } from "@/lib/types";
-import DonateNowModal from "@/components/Donate/DonateNowModal";
+import { ShieldCheck } from "lucide-react";
 
 const CarouselContent = async () => {
   const carouselImages = await fetchQuery(
@@ -34,74 +34,55 @@ const CarouselContent = async () => {
 };
 
 const Hero = ({ locale }: { locale: Locale }) => {
+  const t = translations.hero;
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent"></div>
-
-      {/* Animated Shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-[20%] right-[5%] w-64 h-64 rounded-full bg-primary/5 animate-float"
-          style={{ animationDelay: "0s" }}
-        ></div>
-        <div
-          className="absolute top-[40%] left-[10%] w-48 h-48 rounded-full bg-secondary/5 animate-float"
-          style={{ animationDelay: "1s" }}
-        ></div>
-        <div
-          className="absolute bottom-[10%] right-[15%] w-40 h-40 rounded-full bg-primary/5 animate-float"
-          style={{ animationDelay: "2s" }}
-        ></div>
-      </div>
-
-      <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="flex flex-col md:flex-row gap-16 items-center">
+    <section className="relative overflow-hidden bg-gradient-to-b from-primary/[0.06] via-[#FBF8FC] to-transparent pt-28 pb-16 md:pt-36 md:pb-24">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-center">
           <div className="w-full max-w-xl space-y-6 md:w-1/2 md:shrink-0">
-            <div
-              className="chip purple-gradient text-white animate-fade-in opacity-0 translate-y-10"
-              style={{ transitionDelay: "200ms" }}
-            >
-              {translations.hero.chipText[locale]}
-            </div>
+            <span className="eyebrow">{t.chipText[locale]}</span>
 
-            <h1
-              className="heading-lg text-gray-900 animate-fade-in opacity-0 translate-y-10"
-              style={{ transitionDelay: "300ms" }}
-            >
-              {translations.hero.heading.part1[locale]}{" "}
-              <span className="text-primary">
-                {translations.hero.heading.part2[locale]}
-              </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] text-gray-900">
+              {t.heading.part1[locale]}{" "}
+              <span className="text-primary">{t.heading.part2[locale]}</span>
             </h1>
 
-            <p
-              className="text-gray-600 text-lg animate-fade-in opacity-0 translate-y-10"
-              style={{ transitionDelay: "400ms" }}
-            >
-              {translations.hero.description[locale]}
+            <p className="text-gray-700 text-lg md:text-xl leading-relaxed">
+              {t.description[locale]}
             </p>
 
-            <div
-              className="flex flex-wrap gap-4 pt-4 animate-fade-in opacity-0 translate-y-10"
-              style={{ transitionDelay: "500ms" }}
-            >
-              <DonateNowModal locale={locale} className="primary-button">
-                {translations.hero.donateButton[locale]}
-              </DonateNowModal>
-              <Link href="/vision-mission" className="outline-button">
-                {translations.hero.learnMoreButton[locale]}
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Link
+                href={`/${locale}/kafala-steps`}
+                className="primary-button font-semibold"
+              >
+                {t.journeyButton[locale]}
+              </Link>
+              <Link
+                href={`/${locale}/what-is-kafala`}
+                className="outline-button font-semibold"
+              >
+                {t.learnMoreButton[locale]}
               </Link>
             </div>
+
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-sm text-gray-600">
+              {t.trust.map((item) => (
+                <li key={item.en} className="flex items-center gap-2">
+                  <ShieldCheck
+                    className="h-4 w-4 shrink-0 text-secondary-dark"
+                    aria-hidden="true"
+                  />
+                  {item[locale]}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div
-            className="relative w-full animate-fade-in opacity-0 translate-y-10 md:w-1/2 md:shrink-0"
-            style={{ transitionDelay: "600ms" }}
-          >
+          <div className="relative w-full md:w-1/2 md:shrink-0">
             <Suspense
               fallback={
-                <Skeleton className="w-full aspect-[4/3] rounded-xl bg-gray-200" />
+                <Skeleton className="w-full aspect-[4/5] rounded-2xl bg-gray-200" />
               }
             >
               <CarouselContent />

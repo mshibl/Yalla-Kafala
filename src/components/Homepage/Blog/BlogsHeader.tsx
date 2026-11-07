@@ -10,10 +10,10 @@ interface BlogsHeaderProps {
 const BlogsHeader: React.FC<BlogsHeaderProps> = ({ headingRef, descRef }) => {
   const locale = useLocale();
   return (
-    <div className="max-w-3xl mx-auto text-center mb-16">
+    <div className="max-w-3xl mx-auto text-center mb-12">
       <h2
         ref={headingRef}
-        className="heading-md text-primary mb-6 opacity-0 translate-y-10 transition-all duration-700 ease-out"
+        className="heading-lg text-gray-900 mb-5 opacity-0 translate-y-10 transition-all duration-700 ease-out"
       >
         {translations.blogs.title[locale]}
       </h2>
