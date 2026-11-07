@@ -44,3 +44,8 @@ yarn-error.log*
 
 # idea files
 .idea
+# design council runs (scripts/design-council.ts)
+/reports/design-council/
+# Other sites' screenshots for the design council stay on this machine.
+/design/references/*
+!/design/references/README.md
