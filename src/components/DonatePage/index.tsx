@@ -125,7 +125,7 @@ function CopyButton({ text, locale }: { text: string; locale: Locale }) {
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition-all hover:border-primary/40 hover:text-primary active:scale-95"
+      className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 text-sm font-medium text-gray-600 transition-all hover:border-primary/40 hover:text-primary active:scale-95"
       type="button"
     >
       {copied ? (
@@ -189,7 +189,9 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                 </p>
                 <p className="mt-1 text-sm text-gray-600">
                   {t.taxNote.split("501(c)(3)")[0]}
-                  <bdi dir="ltr">501(c)(3)</bdi>
+                  <bdi dir="ltr" className="whitespace-nowrap">
+                    501(c)(3)
+                  </bdi>
                   {t.taxNote.split("501(c)(3)")[1]}
                 </p>
               </div>

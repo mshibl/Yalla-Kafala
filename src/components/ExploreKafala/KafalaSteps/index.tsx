@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { isolateLatin } from "@/lib/bidi";
 import { CheckCircle2 } from "lucide-react";
 import { BackToTopButton } from "../BackToTopButton";
 import ExploreKafalaHero from "../ExploreKafalaHero";
@@ -17,6 +18,13 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
           en: "Family hands joined in support",
           ar: "أيدي أسرة متشابكة في الدعم",
         }}
+        actions={[
+          { href: "#documents", label: translations.documentsLink },
+          {
+            href: "mailto:info@yallakafala.org",
+            label: translations.cta.contact,
+          },
+        ]}
       />
       <section id="learn-more" className="bg-white py-14 md:py-20">
         <div className="container mx-auto px-6">
@@ -53,7 +61,9 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
                         {step.title}
                       </h3>
                       <p className="text-base leading-relaxed text-gray-700 md:text-lg">
-                        {step.description}
+                        {locale === "ar"
+                          ? isolateLatin(step.description)
+                          : step.description}
                       </p>
                     </div>
                   </li>
@@ -63,7 +73,7 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
           </div>
 
           {/* Required Documents */}
-          <div className="mx-auto mb-20 max-w-4xl">
+          <div id="documents" className="mx-auto mb-20 max-w-4xl scroll-mt-28">
             <h2 className="heading-md mb-8 text-center text-gray-900">
               {translations.requiredDocumentsTitle[locale]}
             </h2>
@@ -75,7 +85,9 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
                     className="mt-0.5 h-5 w-5 shrink-0 text-primary"
                     aria-hidden="true"
                   />
-                  <span className="leading-relaxed text-gray-800">{doc}</span>
+                  <span className="leading-relaxed text-gray-800">
+                    {locale === "ar" ? isolateLatin(doc) : doc}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -94,7 +106,7 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
                     {index + 1}
                   </span>
                   <span className="pt-1 leading-relaxed text-gray-800">
-                    {step}
+                    {locale === "ar" ? isolateLatin(step) : step}
                   </span>
                 </li>
               ))}

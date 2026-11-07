@@ -39,20 +39,22 @@ const BlogCard = ({ blog, index, reference, featured }: BlogCardProps) => {
         href={`/${locale}/${STORY_ROUTES[blog.category]}/${blog.id}`}
         className={cn(
           "group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-lg",
-          featured && "md:grid md:grid-cols-[11fr_9fr]",
+          featured && "md:grid md:grid-cols-[3fr_2fr] md:items-center",
         )}
       >
         <div
           className={cn(
-            "aspect-video overflow-hidden bg-gray-100",
-            featured && "md:aspect-auto md:h-full md:min-h-[360px]",
+            "bg-gray-100",
+            featured && "md:flex md:items-center md:self-stretch",
           )}
         >
-          <ResilientImage
-            src={blog.imageUrl}
-            alt={title}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-          />
+          <div className="aspect-video w-full overflow-hidden">
+            <ResilientImage
+              src={blog.imageUrl}
+              alt={title}
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            />
+          </div>
         </div>
         <div
           className={cn(

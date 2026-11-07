@@ -6,11 +6,11 @@ export const translations = {
     },
     heading: {
       part1: {
-        en: "Every Child Deserves",
+        en: "Every Child Deserves a",
         ar: "كل طفل يستحق",
       },
       part2: {
-        en: "a Loving Home",
+        en: "Loving Home",
         ar: "عائلة محبة",
       },
     },

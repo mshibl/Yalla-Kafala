@@ -19,6 +19,10 @@ export const translations = {
     en: "Steps to Issue Family Card for Kafala Families",
     ar: "خطوات إستخراج الكارت للأسر البديلة الكافلة",
   },
+  documentsLink: {
+    en: "See the required documents",
+    ar: "الوثائق المطلوبة",
+  },
   stepsEyebrow: {
     en: "Six steps",
     ar: "ست خطوات",

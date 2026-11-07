@@ -1,4 +1,5 @@
 import React from "react";
+import { UserRound } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   Dialog,
@@ -46,11 +47,11 @@ export const BoardMemberCard = ({
                 <AvatarImage
                   src={member.imageUrl}
                   alt={name}
-                  className="object-cover object-top"
+                  className="object-cover object-[center_25%]"
                 />
               ) : null}
-              <AvatarFallback className="rounded-none bg-primary/10 font-serif text-5xl font-semibold text-primary">
-                {initials}
+              <AvatarFallback className="rounded-none bg-primary/10 text-primary/40">
+                <UserRound className="h-1/2 w-1/2" aria-hidden="true" />
               </AvatarFallback>
             </Avatar>
           </div>
@@ -80,11 +81,8 @@ export const BoardMemberCard = ({
               {member.imageUrl ? (
                 <AvatarImage src={member.imageUrl} alt={name} />
               ) : null}
-              <AvatarFallback className="text-2xl">
-                {name
-                  .split(" ")
-                  .map((n: string) => n[0])
-                  .join("")}
+              <AvatarFallback className="bg-primary/10 text-2xl font-semibold text-primary">
+                {initials}
               </AvatarFallback>
             </Avatar>
             <div

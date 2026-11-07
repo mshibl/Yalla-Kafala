@@ -21,7 +21,7 @@ export const PageHeader = ({
 }) => (
   <div className={cn("mx-auto max-w-3xl text-center", className)}>
     <span className="eyebrow mb-4">{eyebrow}</span>
-    <h1 className="text-4xl font-semibold leading-[1.1] text-gray-900 md:text-5xl lg:text-6xl">
+    <h1 className="text-[2.125rem] font-semibold leading-[1.1] text-gray-900 md:text-5xl">
       {title}
     </h1>
     <div className="mx-auto my-6 h-1 w-16 rounded-full bg-accent" />

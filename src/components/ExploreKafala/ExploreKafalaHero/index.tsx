@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 
 type LocalizedText = Record<Locale, string>;
@@ -9,6 +10,7 @@ interface ExploreKafalaHeroProps {
   description: LocalizedText;
   imageSrc: string;
   imageAlt: LocalizedText;
+  actions?: { href: string; label: LocalizedText }[];
 }
 
 const ExploreKafalaHero = ({
@@ -17,6 +19,7 @@ const ExploreKafalaHero = ({
   description,
   imageSrc,
   imageAlt,
+  actions = [],
 }: ExploreKafalaHeroProps) => {
   return (
     <section
@@ -29,13 +32,34 @@ const ExploreKafalaHero = ({
             <p className="eyebrow mb-4">
               {locale === "en" ? "Explore Kafala" : "استكشف الكفالة"}
             </p>
-            <h1 className="mb-5 text-4xl font-semibold leading-[1.1] text-gray-900 md:text-5xl lg:text-6xl">
+            <h1 className="mb-5 text-[2.125rem] font-semibold leading-[1.1] text-gray-900 md:text-5xl">
               {title[locale]}
             </h1>
             <div className="mb-6 h-1 w-16 rounded-full bg-accent"></div>
             <p className="max-w-xl text-lg leading-relaxed text-gray-700 md:text-xl">
               {description[locale]}
             </p>
+            {actions.length > 0 && (
+              <div className="mt-8 flex flex-wrap gap-3">
+                {actions.map((action, index) => (
+                  <Link
+                    key={action.href}
+                    href={
+                      action.href.startsWith("/")
+                        ? `/${locale}${action.href}`
+                        : action.href
+                    }
+                    className={
+                      index === 0
+                        ? "primary-button font-semibold"
+                        : "outline-button font-semibold"
+                    }
+                  >
+                    {action.label[locale]}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="animate-fade-in md:ps-8">

@@ -17,6 +17,10 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
           en: "A family embracing a child at home",
           ar: "أسرة تحتضن طفلاً في المنزل",
         }}
+        actions={[
+          { href: "/kafala-steps", label: translations.nextStep.steps },
+          { href: "/faqs", label: translations.nextStep.faqs },
+        ]}
       />
       <section aria-labelledby="kafala-brief" className="bg-white pt-4 md:pt-8">
         <div className="container mx-auto px-6">

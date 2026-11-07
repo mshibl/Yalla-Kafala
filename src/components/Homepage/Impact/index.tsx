@@ -1,8 +1,15 @@
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
 import { impactStats } from "./constants";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const Impact = ({ locale }: { locale: Locale }) => {
+  // The large-scale figures as tiles; the Beit Sagheer figure, a different
+  // kind of number, as a link to that programme.
+  const headline = impactStats.slice(0, 3);
+  const beitSagheer = impactStats[3];
+  const Arrow = locale === "ar" ? ArrowLeft : ArrowRight;
   return (
     <section id="impact" className="bg-[#F6F1F8] py-16 md:py-20">
       <div className="container mx-auto px-6">
@@ -16,21 +23,41 @@ const Impact = ({ locale }: { locale: Locale }) => {
           </p>
         </div>
 
-        <dl className="grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-4">
-          {impactStats.map((stat) => (
+        <dl className="grid gap-3 sm:grid-cols-3 md:gap-6">
+          {headline.map((stat) => (
             <div
               key={stat.number}
               className="flex flex-col rounded-2xl bg-white p-5 text-center shadow-sm ring-1 ring-primary/10 md:p-8"
             >
-              <dd className="order-first font-serif text-4xl font-semibold text-primary md:text-5xl">
+              <dd className="order-first font-serif text-5xl font-semibold text-primary md:text-6xl">
                 <bdi dir="ltr">{stat.number}</bdi>
               </dd>
-              <dt className="mt-2 text-sm font-medium leading-snug text-gray-700 md:text-base">
+              <dt className="mx-auto mt-2 max-w-[18ch] text-sm font-medium leading-snug text-gray-700 md:text-base">
                 {locale === "ar" ? stat.labelAr : stat.label}
               </dt>
             </div>
           ))}
         </dl>
+
+        {beitSagheer && (
+          <Link
+            href={`/${locale}/beit-sagheer`}
+            className="group mt-3 flex flex-col items-center gap-3 rounded-2xl bg-primary px-6 py-5 text-center text-white sm:flex-row sm:justify-between sm:text-start md:mt-6 md:px-8"
+          >
+            <span className="flex items-center gap-4">
+              <span className="font-serif text-4xl font-semibold">
+                <bdi dir="ltr">{beitSagheer.number}</bdi>
+              </span>
+              <span className="text-base font-medium md:text-lg">
+                {locale === "ar" ? beitSagheer.labelAr : beitSagheer.label}
+              </span>
+            </span>
+            <span className="inline-flex shrink-0 items-center gap-2 font-semibold underline-offset-4 group-hover:underline">
+              {translations.beitSagheerLink[locale]}
+              <Arrow size={18} aria-hidden="true" />
+            </span>
+          </Link>
+        )}
       </div>
     </section>
   );

@@ -11,8 +11,8 @@ const Footer = ({ locale }: { locale: Locale }) => {
     <>
       <footer id="contact" className="bg-gray-900 text-white pt-16 pb-8">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">
-            <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-5 lg:gap-8">
+            <div className="col-span-2 space-y-4 lg:col-span-1">
               <Link
                 href="/"
                 className="flex items-center gap-2 text-xl md:text-2xl font-serif font-bold text-primary"
@@ -35,18 +35,22 @@ const Footer = ({ locale }: { locale: Locale }) => {
                 <Image
                   src="/GuideStarIcon_Platinum.svg"
                   alt="GuideStar Platinum Level"
-                  width={88}
-                  height={88}
+                  width={112}
+                  height={112}
                   className="rounded-md"
                 />
               </Link>
             </div>
             <QuickLinks locale={locale} />
-            <ContactList locale={locale} />
-            <NewsletterForm
-              title={translations.newsletterTitle[locale]}
-              description={translations.newsletterDescription[locale]}
-            />
+            <div className="col-span-2 sm:col-span-1">
+              <ContactList locale={locale} />
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <NewsletterForm
+                title={translations.newsletterTitle[locale]}
+                description={translations.newsletterDescription[locale]}
+              />
+            </div>
           </div>
 
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
