@@ -14,23 +14,31 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
         title={translations.title}
         description={translations.description}
         aside={
-          <div className="rounded-3xl bg-white p-6 shadow-xl ring-1 ring-primary/10 md:p-8">
+          <nav
+            aria-label={translations.atAGlance[locale]}
+            className="hidden rounded-3xl bg-white p-8 shadow-xl ring-1 ring-primary/10 md:block"
+          >
             <p className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
               {translations.atAGlance[locale]}
             </p>
             <ol className="space-y-3">
               {steps[locale].map((step, index) => (
-                <li key={index} className="flex items-center gap-3">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white">
-                    {index + 1}
-                  </span>
-                  <span className="font-medium text-gray-900">
-                    {step.title}
-                  </span>
+                <li key={index}>
+                  <a
+                    href={`#step-${index + 1}`}
+                    className="group flex items-center gap-3"
+                  >
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-serif text-base font-semibold text-white">
+                      {index + 1}
+                    </span>
+                    <span className="font-medium text-gray-900 underline-offset-4 group-hover:text-primary group-hover:underline">
+                      {step.title}
+                    </span>
+                  </a>
                 </li>
               ))}
             </ol>
-          </div>
+          </nav>
         }
         actions={[
           { href: "#documents", label: translations.documentsLink },
@@ -59,7 +67,8 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
                 return (
                   <li
                     key={index}
-                    className="relative flex gap-5 pb-10 last:pb-0 md:gap-7"
+                    id={`step-${index + 1}`}
+                    className="relative flex scroll-mt-28 gap-5 pb-10 last:pb-0 md:gap-7"
                   >
                     {!isLast && (
                       <span
@@ -95,18 +104,18 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
               {translations.cta.description[locale]}
             </p>
             <div className="flex flex-wrap justify-center gap-3">
+              <a
+                href={`mailto:info@yallakafala.org?subject=${encodeURIComponent(translations.cta.meetingSubject[locale])}`}
+                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-white/90"
+              >
+                {translations.cta.meeting[locale]}
+              </a>
               <Link
                 href={`/${locale}/faqs`}
-                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-white/90"
+                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
               >
                 {translations.cta.faqs[locale]}
               </Link>
-              <a
-                href="mailto:info@yallakafala.org"
-                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                {translations.cta.contact[locale]}
-              </a>
             </div>
           </div>
 
@@ -116,7 +125,7 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
               {translations.requiredDocumentsTitle[locale]}
             </h2>
 
-            <ul className="gap-x-12 rounded-3xl bg-[#F6F1F8] p-6 md:columns-2 md:p-10">
+            <ul className="gap-x-12 rounded-3xl bg-[#FBF8F4] p-6 md:columns-2 md:p-10">
               {requiredDocuments[locale].map((doc, index) => (
                 <li
                   key={index}

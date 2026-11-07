@@ -5,7 +5,7 @@ import ResourcesList from "./ResourcesList";
 
 const Resources = async ({ locale }: { locale: Locale }) => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col">
       <ExploreKafalaHero
         locale={locale}
         title={translations.title}

@@ -10,7 +10,7 @@ const Impact = ({ locale }: { locale: Locale }) => {
   const beitSagheer = impactStats[3];
   const Arrow = locale === "ar" ? ArrowLeft : ArrowRight;
   return (
-    <section id="impact" className="bg-[#F6F1F8] py-16 md:py-20">
+    <section id="impact" className="bg-[#FBF8F4] py-16 md:py-20">
       <div className="container mx-auto px-6">
         <div className="max-w-3xl mx-auto text-center mb-8 md:mb-10">
           <span className="eyebrow mb-3">{translations.chip[locale]}</span>
@@ -22,16 +22,16 @@ const Impact = ({ locale }: { locale: Locale }) => {
           </p>
         </div>
 
-        <dl className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-6">
+        <dl className="grid gap-3 sm:grid-cols-3 md:gap-6">
           {impactStats.slice(0, 3).map((stat) => (
             <div
               key={stat.number}
-              className="flex flex-col rounded-2xl bg-white px-2 py-4 text-center shadow-sm ring-1 ring-primary/10 sm:p-6 md:p-8"
+              className="flex items-center gap-4 rounded-2xl bg-white px-5 py-4 text-start shadow-sm ring-1 ring-primary/10 sm:flex-col sm:gap-0 sm:p-6 sm:text-center md:p-8"
             >
-              <dd className="order-first font-serif text-[1.75rem] font-semibold text-primary sm:text-5xl md:text-6xl">
+              <dd className="order-first w-28 shrink-0 font-serif text-4xl font-semibold text-primary sm:w-auto sm:text-5xl md:text-6xl">
                 <bdi dir="ltr">{stat.number}</bdi>
               </dd>
-              <dt className="mx-auto mt-1.5 max-w-[18ch] text-xs font-medium leading-snug text-gray-700 sm:mt-2 sm:text-sm md:text-base">
+              <dt className="text-[15px] font-medium leading-snug text-gray-700 sm:mx-auto sm:mt-2 sm:max-w-[18ch] sm:text-sm md:text-base">
                 {locale === "ar" ? stat.labelAr : stat.label}
               </dt>
             </div>

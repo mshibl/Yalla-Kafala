@@ -31,13 +31,15 @@ const Footer = ({ locale }: { locale: Locale }) => {
                 {translations.socialsParagraph[locale]}
               </p>
               <SocialList />
-              <Link href="https://www.guidestar.org/profile/85-3323627">
+              <Link
+                href="https://www.guidestar.org/profile/85-3323627"
+                className="inline-block rounded-lg bg-white p-2"
+              >
                 <Image
                   src="/GuideStarIcon_Platinum.svg"
-                  alt="GuideStar Platinum Level"
-                  width={112}
-                  height={112}
-                  className="rounded-md"
+                  alt="Candid Platinum Transparency 2024"
+                  width={72}
+                  height={72}
                 />
               </Link>
             </div>

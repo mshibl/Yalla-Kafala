@@ -16,7 +16,7 @@ const BlogsClient = ({ blogs }: { blogs: Blog[] }) => {
   const recent = blogs.slice(0, 3);
 
   return (
-    <section id="blogs" className="section-padding bg-[#FBF8FC]">
+    <section id="blogs" className="section-padding bg-white">
       <div className="container mx-auto px-6">
         <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">

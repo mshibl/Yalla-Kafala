@@ -215,7 +215,7 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                 </p>
                 <p className="mt-1 text-sm text-gray-600">{bidi(t.taxNote)}</p>
               </div>
-              <div className="bg-[#F6F1F8] p-6 md:col-span-2 md:p-10">
+              <div className="bg-[#FBF8F4] p-6 md:col-span-2 md:p-10">
                 <h3 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
                   {t.supportsTitle}
                 </h3>

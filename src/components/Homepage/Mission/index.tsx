@@ -36,7 +36,11 @@ const Mission = () => {
   }, []);
 
   return (
-    <section id="mission" ref={sectionRef} className="section-padding bg-white">
+    <section
+      id="mission"
+      ref={sectionRef}
+      className="section-padding bg-[#FBF8F4]"
+    >
       <div className="container mx-auto">
         <div className="mb-10 max-w-3xl md:mb-14">
           <h2

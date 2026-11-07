@@ -40,6 +40,14 @@ export const translations = {
       en: "Read the answers to common questions, or write to us and we will guide you through the process.",
       ar: "اقرأ إجابات الأسئلة الشائعة، أو راسلنا وسنرشدك خلال الخطوات.",
     },
+    meeting: {
+      en: "Request a first meeting",
+      ar: "اطلب لقاءً أول",
+    },
+    meetingSubject: {
+      en: "Request for a first kafala meeting",
+      ar: "طلب لقاء أول بخصوص الكفالة",
+    },
     faqs: {
       en: "Read the FAQs",
       ar: "الأسئلة الشائعة",

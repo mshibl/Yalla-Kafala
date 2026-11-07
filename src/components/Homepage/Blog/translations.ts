@@ -1,12 +1,12 @@
 export const translations = {
   blogs: {
     eyebrow: {
-      en: "Stories",
-      ar: "قصص",
+      en: "From our blog",
+      ar: "من المدونة",
     },
     title: {
-      en: "Kafala Blogs",
-      ar: "مدونات الكفالة",
+      en: "Kafala stories",
+      ar: "قصص الكفالة",
     },
     description: {
       en: "Each of these blogs represents a journey from uncertainty to belonging. Learn how Kafala has transformed lives of these families.",

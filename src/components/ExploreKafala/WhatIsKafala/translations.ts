@@ -182,6 +182,15 @@ export const translations = {
       },
     },
   },
+  sections: {
+    onThisPage: { en: "On this page", ar: "في هذه الصفحة" },
+    hadith: { en: "What the hadith teaches", ar: "ما يعلّمه الحديث" },
+    misunderstandings: {
+      en: "Common misunderstandings",
+      ar: "مفاهيم شائعة خاطئة",
+    },
+    sources: { en: "Sources", ar: "المصادر" },
+  },
   brief: {
     title: { en: "Kafala in brief", ar: "الكفالة باختصار" },
     items: [

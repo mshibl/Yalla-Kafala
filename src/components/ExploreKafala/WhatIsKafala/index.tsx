@@ -55,6 +55,25 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
       <section id="learn-more" className="bg-white py-12 md:py-16">
         <div className="container mx-auto px-6">
           <div className="prose prose-lg prose-gray mx-auto max-w-3xl animate-fade-up prose-headings:font-serif prose-strong:text-gray-900">
+            <nav
+              aria-label={translations.sections.onThisPage[locale]}
+              className="not-prose mb-10 flex flex-wrap items-center gap-2"
+            >
+              <span className="me-2 text-sm font-semibold text-gray-900">
+                {translations.sections.onThisPage[locale]}
+              </span>
+              {(["hadith", "misunderstandings", "sources"] as const).map(
+                (id) => (
+                  <a
+                    key={id}
+                    href={`#${id}`}
+                    className="rounded-full border border-primary/20 bg-white px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/5"
+                  >
+                    {translations.sections[id][locale]}
+                  </a>
+                ),
+              )}
+            </nav>
             <p>{translations.firstParagraph[locale]}</p>
 
             <p>{translations.secondParagraph[locale]}</p>
@@ -81,9 +100,13 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
               )}
             </blockquote>
             <p>{translations.firstHadith.explaination[locale]}</p>
-            <h2 className="mt-12 mb-5 text-2xl font-semibold text-gray-900 md:text-3xl">
-              {translations.firstHadith.essentialPhrases.title[locale]}
+            <h2
+              id="hadith"
+              className="mt-12 mb-3 scroll-mt-28 text-2xl font-semibold text-gray-900 md:text-3xl"
+            >
+              {translations.sections.hadith[locale]}
             </h2>
+            <p>{translations.firstHadith.essentialPhrases.title[locale]}</p>
 
             <ol className="list-decimal ps-6 space-y-4">
               {translations.firstHadith.essentialPhrases.phrases[locale].map(
@@ -95,9 +118,13 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
               )}
             </ol>
 
-            <h2 className="mt-12 mb-5 text-2xl font-semibold text-gray-900 md:text-3xl">
-              {translations.islamicRules.description[locale]}
+            <h2
+              id="misunderstandings"
+              className="mt-12 mb-3 scroll-mt-28 text-2xl font-semibold text-gray-900 md:text-3xl"
+            >
+              {translations.sections.misunderstandings[locale]}
             </h2>
+            <p>{translations.islamicRules.description[locale]}</p>
 
             <ul className="list-disc ps-6 space-y-4">
               <li>
@@ -147,7 +174,10 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                 ))}
             </ul>
 
-            <div className="not-prose mt-14 border-t border-gray-200 pt-8 text-sm leading-relaxed text-gray-600">
+            <div
+              id="sources"
+              className="not-prose mt-14 scroll-mt-28 border-t border-gray-200 pt-8 text-sm leading-relaxed text-gray-600"
+            >
               <p>{translations.Footnote.copiedFrom[locale]}</p>
 
               <h3 className="mt-8 mb-3 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
