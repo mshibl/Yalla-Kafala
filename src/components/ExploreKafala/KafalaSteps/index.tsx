@@ -26,6 +26,12 @@ const documentGroups = [
   },
 ];
 
+/** Two columns of about equal length: identity and abroad, then health and income. */
+const documentColumns = [
+  [documentGroups[0]!, documentGroups[3]!],
+  [documentGroups[1]!, documentGroups[2]!],
+];
+
 const KafalaSteps = ({ locale }: { locale: Locale }) => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -34,33 +40,11 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
         locale={locale}
         title={translations.title}
         description={translations.description}
-        aside={
-          <nav
-            aria-label={translations.atAGlance[locale]}
-            className="hidden rounded-3xl bg-white p-8 shadow-xl ring-1 ring-primary/10 md:block"
-          >
-            <p className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
-              {translations.atAGlance[locale]}
-            </p>
-            <ol className="space-y-3">
-              {steps[locale].map((step, index) => (
-                <li key={index}>
-                  <a
-                    href={`#step-${index + 1}`}
-                    className="group flex items-center gap-3"
-                  >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-serif text-base font-semibold text-white">
-                      {index + 1}
-                    </span>
-                    <span className="font-medium text-gray-900 underline-offset-4 group-hover:text-primary group-hover:underline">
-                      {step.title}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
-        }
+        imageSrc="/images/child-playing.webp"
+        imageAlt={{
+          en: "A small child playing with toy blocks on a wooden floor at home",
+          ar: "طفل صغير يلعب بالمكعبات على أرضية خشبية في البيت",
+        }}
         actions={[
           {
             href: `mailto:info@yallakafala.org?subject=${encodeURIComponent(translations.cta.meetingSubject[locale])}`,
@@ -69,7 +53,7 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
           { href: "#documents", label: translations.documentsLink },
         ]}
       />
-      <section id="learn-more" className="bg-white pt-8 pb-14 md:py-20">
+      <section id="learn-more" className="bg-white pt-2 pb-14 md:py-16">
         <div className="container mx-auto px-6">
           {/* Kafala Steps */}
           <div className="mx-auto mb-20 max-w-4xl">
@@ -113,31 +97,35 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
               {translations.requiredDocumentsTitle[locale]}
             </h2>
 
-            <div className="gap-6 md:columns-2">
-              {documentGroups.map((group) => (
-                <div
-                  key={group.title.en}
-                  className="mb-4 break-inside-avoid rounded-3xl bg-[#FBF8F4] p-6 md:mb-6 md:p-8"
-                >
-                  <h3 className="mb-4 text-base font-semibold text-gray-900">
-                    {group.title[locale]}
-                  </h3>
-                  <ul className="space-y-3">
-                    {group.items.map((index) => {
-                      const doc = requiredDocuments[locale][index]!;
-                      return (
-                        <li key={index} className="flex items-start gap-3">
-                          <CheckCircle2
-                            className="mt-0.5 h-5 w-5 shrink-0 text-primary"
-                            aria-hidden="true"
-                          />
-                          <span className="leading-relaxed text-gray-800">
-                            {locale === "ar" ? isolateLatin(doc) : doc}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
+            <div className="grid items-start gap-4 md:grid-cols-2 md:gap-6">
+              {documentColumns.map((column, columnIndex) => (
+                <div key={columnIndex} className="space-y-4 md:space-y-6">
+                  {column.map((group) => (
+                    <div
+                      key={group.title.en}
+                      className="rounded-3xl bg-[#FBF8F4] p-6 md:p-8"
+                    >
+                      <h3 className="mb-4 text-base font-semibold text-gray-900">
+                        {group.title[locale]}
+                      </h3>
+                      <ul className="space-y-3">
+                        {group.items.map((index) => {
+                          const doc = requiredDocuments[locale][index]!;
+                          return (
+                            <li key={index} className="flex items-start gap-3">
+                              <CheckCircle2
+                                className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                                aria-hidden="true"
+                              />
+                              <span className="leading-relaxed text-gray-800">
+                                {locale === "ar" ? isolateLatin(doc) : doc}
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>

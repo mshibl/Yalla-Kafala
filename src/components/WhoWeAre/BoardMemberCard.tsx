@@ -94,7 +94,7 @@ export const BoardMemberCard = ({
               <span className="block text-base font-semibold text-gray-900">
                 {name}
               </span>
-              <span className="block text-sm text-gray-600">
+              <span className="block text-sm text-gray-600 [&>span]:whitespace-nowrap">
                 {role}
                 <span aria-hidden="true"> · </span>
                 <span className="font-medium text-primary group-hover:underline">
@@ -106,9 +106,12 @@ export const BoardMemberCard = ({
         ) : (
           <button
             type="button"
-            className="font-semibold text-gray-900 underline decoration-primary/40 underline-offset-4 hover:text-primary"
+            className="inline-flex items-center gap-2 rounded-full bg-[#FBF8F4] px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-gray-200 hover:text-primary"
           >
             {name}
+            <span className="font-medium text-primary">
+              {locale === "ar" ? "النبذة" : "Read bio"}
+            </span>
           </button>
         )}
       </DialogTrigger>

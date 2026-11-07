@@ -14,7 +14,7 @@ const LATIN_RUN = new RegExp(`(${TOKEN}(?:\\s${TOKEN})*)`, "g");
 export const isolateLatin = (text: string): React.ReactNode =>
   text.split(LATIN_RUN).map((part, index) =>
     index % 2 === 1 ? (
-      <bdi key={index} dir="ltr" className="whitespace-nowrap">
+      <bdi key={index} dir="ltr" className="inline-block whitespace-nowrap">
         {part}
       </bdi>
     ) : (

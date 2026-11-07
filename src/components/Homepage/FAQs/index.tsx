@@ -33,7 +33,7 @@ const FAQs = ({ locale }: { locale: Locale }) => {
   return (
     <section id="faq" className="section-padding bg-white">
       <div className="container mx-auto">
-        <div className="max-w-3xl mx-auto text-center mb-12">
+        <div className="mb-10 max-w-3xl">
           <h2 className="heading-lg text-gray-900 mb-5 animate-fade-up opacity-0">
             {translations.title[locale]}
           </h2>

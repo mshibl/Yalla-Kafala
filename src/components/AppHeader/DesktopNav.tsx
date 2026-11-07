@@ -19,7 +19,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
       {navigationLinks.map((item) =>
         item.group ? (
           <div className="relative group" key={item.group.en}>
-            <span className="text-gray-700 hover:text-primary transition-colors duration-300 font-medium cursor-pointer">
+            <span className="text-[15px] text-gray-800 hover:text-primary transition-colors duration-300 font-medium cursor-pointer">
               {item.group[locale]}
             </span>
             <div className="absolute start-0 mt-2 w-56 bg-white shadow-lg rounded-lg overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
@@ -47,7 +47,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
               <Link
                 target={`${item.href.includes("http") ? "_blank" : ""}`}
                 href={`${item.href.includes("http") ? item.href : `/${locale}${item.href}`}`}
-                className="text-gray-700 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                className="text-[15px] text-gray-800 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
               >
                 {item.text[locale]}
               </Link>

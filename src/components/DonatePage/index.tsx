@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ArrowDown,
   Heart,
   Copy,
   Check,
@@ -27,6 +28,7 @@ const copy = {
     taxNote:
       "For US donors: Yalla Kafala is a 501(c)(3) organization, so donations are tax-deductible.",
     eyebrow: "Donate",
+    jumpToEgypt: "Donating from Egypt? See local payment methods",
     supportsTitle: "Your gift supports",
     supports: [
       "Training and support for kafala families",
@@ -58,6 +60,7 @@ const copy = {
     taxNote:
       "للمتبرعين في الولايات المتحدة: يلا كفالة منظمة 501(c)(3)، والتبرعات معفاة من الضرائب.",
     eyebrow: "تبرّع",
+    jumpToEgypt: "تتبرع من مصر؟ اطّلع على طرق الدفع المحلية",
     supportsTitle: "تبرعك يدعم",
     supports: [
       "تدريب ودعم الأسر الكافلة",
@@ -180,7 +183,15 @@ export default function DonatePage({ locale }: { locale: Locale }) {
           eyebrow={t.eyebrow}
           title={t.title}
           lede={t.subtitle}
-        />
+        >
+          <a
+            href="#egypt"
+            className="mt-5 inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+          >
+            {t.jumpToEgypt}
+            <ArrowDown className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </PageHeader>
       </section>
 
       {/* Donation Methods */}
