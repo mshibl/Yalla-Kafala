@@ -43,6 +43,9 @@ const Mission = () => {
     >
       <div className="container mx-auto">
         <div className="mb-10 max-w-3xl md:mb-14">
+          <span className="eyebrow mb-3">
+            {locale === "en" ? "What we stand for" : "ما نؤمن به"}
+          </span>
           <h2
             ref={headingRef}
             className="heading-lg text-gray-900 mb-5 opacity-0 translate-y-10 transition-all duration-700 ease-out"

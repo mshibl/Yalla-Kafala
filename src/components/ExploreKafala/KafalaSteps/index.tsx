@@ -49,25 +49,10 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
           },
         ]}
       />
-      <section id="learn-more" className="bg-white py-14 md:py-20">
+      <section id="learn-more" className="bg-white pt-8 pb-14 md:py-20">
         <div className="container mx-auto px-6">
           {/* Kafala Steps */}
           <div className="mx-auto mb-20 max-w-3xl">
-            <nav
-              aria-label={translations.atAGlance[locale]}
-              className="mb-10 flex flex-wrap justify-center gap-2 md:hidden"
-            >
-              {steps[locale].map((step, index) => (
-                <a
-                  key={index}
-                  href={`#step-${index + 1}`}
-                  aria-label={step.title}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-white font-serif text-base font-semibold text-primary"
-                >
-                  {index + 1}
-                </a>
-              ))}
-            </nav>
             <div className="mb-10 text-center">
               <span className="eyebrow mb-3">
                 {translations.stepsEyebrow[locale]}

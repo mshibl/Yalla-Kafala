@@ -7,6 +7,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { translations } from "./translations";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import type { CarouselImage } from "@/lib/types";
+import Image from "next/image";
+import { isolateLatin } from "@/lib/bidi";
 import { ShieldCheck } from "lucide-react";
 
 /** The first slide: a child at play, smiling at the camera. */
@@ -79,17 +81,27 @@ const Hero = ({ locale }: { locale: Locale }) => {
               </Link>
             </div>
 
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-sm text-gray-600">
-              {t.trust.map((item) => (
-                <li key={item.en} className="flex items-center gap-2">
-                  <ShieldCheck
-                    className="h-4 w-4 shrink-0 text-secondary-dark"
-                    aria-hidden="true"
-                  />
-                  {item[locale]}
-                </li>
-              ))}
-            </ul>
+            <div className="flex items-center gap-4 pt-4">
+              <span className="shrink-0 rounded-lg bg-white p-1 shadow-sm ring-1 ring-gray-200">
+                <Image
+                  src="/GuideStarIcon_Platinum.svg"
+                  alt=""
+                  width={44}
+                  height={44}
+                />
+              </span>
+              <ul className="space-y-1 text-sm text-gray-800 md:text-[15px]">
+                {t.trust.map((item) => (
+                  <li key={item.en} className="flex items-center gap-2">
+                    <ShieldCheck
+                      className="h-4 w-4 shrink-0 text-primary"
+                      aria-hidden="true"
+                    />
+                    {locale === "ar" ? isolateLatin(item.ar) : item.en}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="relative w-full md:w-1/2 md:shrink-0">

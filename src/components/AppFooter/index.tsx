@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { isolateLatin } from "@/lib/bidi";
 import { NewsletterForm } from "../NewsletterForm";
 import ContactList from "./ContactList";
 import QuickLinks from "./QuickLinks";
@@ -43,7 +44,9 @@ const Footer = ({ locale }: { locale: Locale }) => {
                     height={56}
                   />
                 </span>
-                Candid Platinum 2024
+                {locale === "en"
+                  ? "Candid Platinum 2024"
+                  : isolateLatin("ختم Candid البلاتيني 2024")}
               </Link>
             </div>
             <QuickLinks locale={locale} />
