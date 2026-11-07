@@ -41,7 +41,7 @@ export const HeroCarousel = ({
       <CarouselContent>
         {carouselImages.map((image, index) => (
           <CarouselItem key={index}>
-            <div className="relative aspect-[4/3] w-full md:aspect-auto md:h-[560px] rounded-3xl overflow-hidden shadow-xl">
+            <div className="relative aspect-[16/10] w-full md:aspect-auto md:h-[560px] rounded-3xl overflow-hidden shadow-xl">
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent z-10"></div>
               <Image
                 fill

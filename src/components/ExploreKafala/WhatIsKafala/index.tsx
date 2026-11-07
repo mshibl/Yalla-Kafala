@@ -119,6 +119,19 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
               )}
             </ol>
 
+            <aside className="not-prose my-10 flex flex-col gap-3 rounded-2xl bg-[#FBF8F4] p-5 sm:flex-row sm:items-center sm:justify-between md:p-6">
+              <p className="font-semibold text-gray-900">
+                {translations.nextStep.title[locale]}
+              </p>
+              <Link
+                href={`/${locale}/kafala-steps`}
+                className="inline-flex shrink-0 items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                {translations.nextStep.steps[locale]}
+                <span aria-hidden="true">{locale === "en" ? "→" : "←"}</span>
+              </Link>
+            </aside>
+
             <h2
               id="misunderstandings"
               className="mt-12 mb-3 scroll-mt-28 text-2xl font-semibold text-gray-900 md:text-3xl"

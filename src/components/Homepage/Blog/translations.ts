@@ -9,8 +9,8 @@ export const translations = {
       ar: "الأخبار والمستجدات",
     },
     description: {
-      en: "Each of these blogs represents a journey from uncertainty to belonging. Learn how Kafala has transformed lives of these families.",
-      ar: "كل مدونة تمثل رحلة من الغموض إلى الانتماء. اعرف كيف غيّرت الكفالة حياة هذه العائلات.",
+      en: "The latest on our partnerships, programmes and work for kafala families.",
+      ar: "آخر أخبار شراكاتنا وبرامجنا وعملنا من أجل الأسر الكافلة.",
     },
     seeAll: {
       en: "See all updates",

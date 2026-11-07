@@ -51,7 +51,7 @@ const CarouselContent = async () => {
 const Hero = ({ locale }: { locale: Locale }) => {
   const t = translations.hero;
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-primary/[0.06] via-[#FBF8FC] to-transparent pt-28 pb-16 md:pt-36 md:pb-24">
+    <section className="relative overflow-hidden bg-gradient-to-b from-primary/[0.06] via-[#FBF8FC] to-transparent pt-24 pb-14 md:pt-36 md:pb-24">
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-center">
           <div className="w-full max-w-xl space-y-6 md:w-1/2 md:shrink-0">
@@ -86,13 +86,16 @@ const Hero = ({ locale }: { locale: Locale }) => {
                 <Image
                   src="/GuideStarIcon_Platinum.svg"
                   alt=""
-                  width={64}
-                  height={64}
+                  width={72}
+                  height={72}
                 />
               </span>
               <ul className="space-y-1 text-sm text-gray-800 md:text-[15px]">
                 {t.trust.map((item) => (
-                  <li key={item.en} className="flex items-center gap-2">
+                  <li
+                    key={item.en}
+                    className="flex items-center gap-2 sm:whitespace-nowrap"
+                  >
                     <ShieldCheck
                       className="h-4 w-4 shrink-0 text-primary"
                       aria-hidden="true"
@@ -119,7 +122,7 @@ const Hero = ({ locale }: { locale: Locale }) => {
             </div>
           </div>
 
-          <div className="relative w-full md:w-1/2 md:shrink-0">
+          <div className="relative order-first w-full md:order-none md:w-1/2 md:shrink-0">
             <Suspense
               fallback={
                 <Skeleton className="w-full aspect-[4/5] rounded-2xl bg-gray-200" />

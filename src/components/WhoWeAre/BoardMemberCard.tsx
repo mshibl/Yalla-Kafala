@@ -13,9 +13,12 @@ import type { BoardMember } from "@/lib/types";
 export const BoardMemberCard = ({
   member,
   locale,
+  layout = member.imageUrl ? "card" : "line",
 }: {
   member: BoardMember;
   locale: Locale;
+  /** card: portrait tile; row: small portrait beside the name; line: name only. */
+  layout?: "card" | "row" | "line";
 }) => {
   const name = locale === "ar" ? member.nameAr : member.nameEn;
   const bio = locale === "ar" ? member.bioAr : member.bioEn;
@@ -36,7 +39,7 @@ export const BoardMemberCard = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {member.imageUrl ? (
+        {layout === "card" ? (
           <button
             type="button"
             className="group w-full overflow-hidden rounded-2xl bg-white text-start shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
@@ -70,28 +73,42 @@ export const BoardMemberCard = ({
               </p>
             </div>
           </button>
-        ) : (
-          // No portrait: a text card the same height as the photo cards.
+        ) : layout === "row" ? (
           <button
             type="button"
-            className="group flex h-full w-full flex-col justify-end rounded-2xl bg-[#FBF8F4] p-5 text-start shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="group flex w-full items-center gap-4 rounded-2xl bg-white p-4 text-start shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
-            <span
-              className="mb-auto font-serif text-5xl leading-none text-primary/30"
-              aria-hidden="true"
-            >
-              &ldquo;
-            </span>
-            <h3 className="mb-1 font-serif text-2xl font-semibold leading-snug text-gray-900">
-              {name}
-            </h3>
-            <p className="text-sm text-gray-600">
-              {role}
-              <span aria-hidden="true"> · </span>
-              <span className="font-medium text-primary group-hover:underline">
-                {locale === "ar" ? "النبذة" : "Read bio"}
+            <Avatar className="h-20 w-20 shrink-0">
+              {member.imageUrl ? (
+                <AvatarImage
+                  src={member.imageUrl}
+                  alt={name}
+                  className="object-cover object-[center_25%]"
+                />
+              ) : null}
+              <AvatarFallback className="bg-primary/10 text-xl font-semibold text-primary">
+                {initials}
+              </AvatarFallback>
+            </Avatar>
+            <span>
+              <span className="block text-base font-semibold text-gray-900">
+                {name}
               </span>
-            </p>
+              <span className="block text-sm text-gray-600">
+                {role}
+                <span aria-hidden="true"> · </span>
+                <span className="font-medium text-primary group-hover:underline">
+                  {locale === "ar" ? "النبذة" : "Read bio"}
+                </span>
+              </span>
+            </span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="font-semibold text-gray-900 underline decoration-primary/40 underline-offset-4 hover:text-primary"
+          >
+            {name}
           </button>
         )}
       </DialogTrigger>

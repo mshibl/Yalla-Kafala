@@ -55,14 +55,31 @@ export const TeamSection = async ({ locale }: { locale: Locale }) => {
               {translations.team.sections.boardMembers[locale]}
             </h3>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
-              {allBoardMembers.map((member) => (
-                <BoardMemberCard
-                  key={member.id}
-                  member={member}
-                  locale={locale}
-                />
-              ))}
+              {allBoardMembers
+                .filter((member) => member.imageUrl)
+                .map((member) => (
+                  <BoardMemberCard
+                    key={member.id}
+                    member={member}
+                    locale={locale}
+                  />
+                ))}
             </div>
+            {allBoardMembers.some((member) => !member.imageUrl) && (
+              <p className="mt-6 text-gray-700">
+                {locale === "en"
+                  ? "Also on the board: "
+                  : "وأيضاً في مجلس الإدارة: "}
+                {allBoardMembers
+                  .filter((member) => !member.imageUrl)
+                  .map((member, index) => (
+                    <React.Fragment key={member.id}>
+                      {index > 0 && (locale === "en" ? ", " : "، ")}
+                      <BoardMemberCard member={member} locale={locale} />
+                    </React.Fragment>
+                  ))}
+              </p>
+            )}
           </div>
 
           {advisors.length > 0 && (
@@ -70,12 +87,13 @@ export const TeamSection = async ({ locale }: { locale: Locale }) => {
               <h3 className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
                 {translations.team.sections.advisoryCommittee[locale]}
               </h3>
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
+              <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
                 {advisors.map((member) => (
                   <BoardMemberCard
                     key={member.id}
                     member={member}
                     locale={locale}
+                    layout="row"
                   />
                 ))}
               </div>

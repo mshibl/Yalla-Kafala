@@ -21,7 +21,7 @@ const documentGroups = [
     items: [8, 11, 12],
   },
   {
-    title: { en: "Families living abroad", ar: "الأسر المقيمة بالخارج" },
+    title: { en: "If you live abroad", ar: "إذا كنتم تقيمون بالخارج" },
     items: [14],
   },
 ];
@@ -122,11 +122,11 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
               {translations.requiredDocumentsTitle[locale]}
             </h2>
 
-            <div className="grid items-start gap-4 md:grid-cols-2 md:gap-6">
+            <div className="gap-6 md:columns-2">
               {documentGroups.map((group) => (
                 <div
                   key={group.title.en}
-                  className="rounded-3xl bg-[#FBF8F4] p-6 md:p-8"
+                  className="mb-4 break-inside-avoid rounded-3xl bg-[#FBF8F4] p-6 md:mb-6 md:p-8"
                 >
                   <h3 className="mb-4 text-base font-semibold text-gray-900">
                     {group.title[locale]}

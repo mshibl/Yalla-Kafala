@@ -64,7 +64,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
       {/* Start kafala: the would-be parent's next step, before Donate */}
       <Link
         href={`/${locale}/kafala-steps`}
-        className="order-[99] inline-flex items-center rounded-full border-[1.5px] border-primary px-5 py-[7px] text-sm font-semibold text-primary transition-colors duration-300 hover:bg-primary/5"
+        className="order-[99] font-semibold text-primary underline-offset-4 transition-colors duration-300 hover:underline"
       >
         {locale === "en" ? "Start kafala" : "ابدأ الكفالة"}
       </Link>

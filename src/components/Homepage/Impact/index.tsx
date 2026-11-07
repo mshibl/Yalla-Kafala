@@ -26,7 +26,7 @@ const Impact = ({ locale }: { locale: Locale }) => {
           {impactStats.slice(0, 3).map((stat) => (
             <div
               key={stat.number}
-              className="flex items-center gap-4 rounded-2xl bg-white px-5 py-4 text-start shadow-sm ring-1 ring-primary/10 sm:flex-col sm:gap-0 sm:p-6 sm:text-center md:p-8"
+              className="flex items-center gap-4 rounded-2xl bg-white px-5 py-4 text-start shadow-sm ring-1 ring-primary/10 sm:flex-col sm:gap-0 sm:p-6 sm:text-center md:px-8 md:py-10"
             >
               <dd className="order-first w-28 shrink-0 font-serif text-4xl font-semibold text-primary sm:w-auto sm:text-5xl md:text-6xl">
                 <bdi dir="ltr">
