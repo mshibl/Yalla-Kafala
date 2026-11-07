@@ -40,7 +40,7 @@ const BlogsSection = ({
   category: StoryCategory;
 }) => {
   return (
-    <section className="bg-gray-50 pb-24 pt-12 md:pt-16">
+    <section className="pb-24 pt-10 md:pt-14">
       <Suspense
         fallback={
           <div className="container mx-auto px-4">

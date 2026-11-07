@@ -6,6 +6,7 @@ import type { Locale } from "@/components/Providers/LocaleProvider";
 import Logo from "./Logo";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import LanguageSwitcher from "./LanguageSwitcher";
 import DonateNowModal from "@/components/Donate/DonateNowModal";
 
 const Navbar = ({ locale }: { locale: Locale }) => {
@@ -44,6 +45,11 @@ const Navbar = ({ locale }: { locale: Locale }) => {
         <DesktopNav locale={locale} onSwitchLanguage={handleSwitchLanguage} />
 
         <div className="flex items-center gap-4 lg:hidden">
+          <LanguageSwitcher
+            locale={locale}
+            compact
+            onSwitchLanguage={handleSwitchLanguage}
+          />
           <DonateNowModal
             locale={locale}
             className="inline-flex items-center rounded-full bg-primary px-4 py-1.5 text-sm font-semibold text-white shadow-sm"

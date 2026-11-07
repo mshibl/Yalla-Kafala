@@ -13,6 +13,7 @@ import {
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { givebutterDonationUrl } from "@/constants/links";
 import React from "react";
+import PageHeader from "@/components/ui/PageHeader";
 
 const copy = {
   en: {
@@ -153,11 +154,7 @@ export default function DonatePage({ locale }: { locale: Locale }) {
     >
       {/* Hero */}
       <section className="flex flex-col items-center justify-center px-6 pt-28 pb-10 md:pt-36 md:pb-14 text-center">
-        <span className="eyebrow mb-4">{t.eyebrow}</span>
-        <h1 className="mb-4 text-4xl font-semibold leading-tight text-gray-900 sm:text-5xl">
-          {t.title}
-        </h1>
-        <p className="mx-auto max-w-xl text-lg text-gray-700">{t.subtitle}</p>
+        <PageHeader eyebrow={t.eyebrow} title={t.title} lede={t.subtitle} />
       </section>
 
       {/* Donation Methods */}
@@ -190,7 +187,11 @@ export default function DonatePage({ locale }: { locale: Locale }) {
                   />
                   {t.secure}
                 </p>
-                <p className="mt-1 text-sm text-gray-600">{t.taxNote}</p>
+                <p className="mt-1 text-sm text-gray-600">
+                  {t.taxNote.split("501(c)(3)")[0]}
+                  <bdi dir="ltr">501(c)(3)</bdi>
+                  {t.taxNote.split("501(c)(3)")[1]}
+                </p>
               </div>
               <div className="bg-[#F6F1F8] p-6 md:col-span-2 md:p-10">
                 <h3 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">

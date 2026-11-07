@@ -2,8 +2,7 @@
 
 import React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import ResilientImage from "@/components/ui/ResilientImage";
 import { STORY_ROUTES, type Blog } from "@/lib/types";
 import { translations } from "./translations";
@@ -13,14 +12,22 @@ interface BlogCardProps {
   blog: Blog;
   index: number;
   reference: (el: HTMLDivElement | null) => void;
+  featured?: boolean;
 }
 
-const BlogCard = ({ blog, index, reference }: BlogCardProps) => {
+const toText = (html: string) =>
+  html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const BlogCard = ({ blog, index, reference, featured }: BlogCardProps) => {
   const locale = useLocale();
-  // Get the appropriate content based on locale
+  const title = locale === "en" ? blog.titleEn : blog.titleAr;
   const content = locale === "en" ? blog.contentEn : blog.contentAr;
-  // Truncate content safely to 150 characters
-  const truncatedContent = content ? content.substring(0, 150) : "";
+  const excerpt = toText(content ?? "");
+  const Arrow = locale === "en" ? ArrowRight : ArrowLeft;
 
   return (
     <div
@@ -28,40 +35,53 @@ const BlogCard = ({ blog, index, reference }: BlogCardProps) => {
       className="opacity-0 translate-y-10 transition-all duration-700 ease-out"
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <Card className="h-full hover:shadow-md transition-shadow overflow-hidden">
-        <div className="aspect-video bg-gray-100 overflow-hidden">
+      <Link
+        href={`/${locale}/${STORY_ROUTES[blog.category]}/${blog.id}`}
+        className={cn(
+          "group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-lg",
+          featured && "md:grid md:grid-cols-[11fr_9fr]",
+        )}
+      >
+        <div
+          className={cn(
+            "aspect-video overflow-hidden bg-gray-100",
+            featured && "md:aspect-auto md:h-full md:min-h-[360px]",
+          )}
+        >
           <ResilientImage
             src={blog.imageUrl}
-            alt={locale === "en" ? blog.titleEn : blog.titleAr}
-            className="w-full h-full object-cover"
+            alt={title}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
           />
         </div>
-        <CardContent className="p-6">
-          <h3 className="text-xl font-semibold mb-3 text-gray-800">
-            {locale === "en" ? blog.titleEn : blog.titleAr}
-          </h3>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: truncatedContent + "...",
-            }}
-            className="text-gray-600 mb-4"
-          />
-
-          <Link
-            href={`/${locale}/${STORY_ROUTES[blog.category]}/${blog.id}`}
-            className="inline-flex items-center"
+        <div
+          className={cn(
+            "flex flex-1 flex-col p-6",
+            featured && "md:justify-center md:p-10",
+          )}
+        >
+          <h3
+            className={cn(
+              "mb-3 text-xl font-semibold leading-snug text-gray-900",
+              featured && "md:text-3xl",
+            )}
           >
-            <Button variant="outline" className="flex items-center gap-2">
-              {translations.readFull[blog.category][locale]}{" "}
-              {locale === "en" ? (
-                <ArrowRight size={16} className="ml-2" />
-              ) : (
-                <ArrowLeft size={16} className="ml-2" />
-              )}
-            </Button>
-          </Link>
-        </CardContent>
-      </Card>
+            {title}
+          </h3>
+          <p
+            className={cn(
+              "mb-6 leading-relaxed text-gray-700",
+              featured ? "line-clamp-5" : "line-clamp-3",
+            )}
+          >
+            {excerpt}
+          </p>
+          <span className="mt-auto inline-flex items-center gap-2 font-semibold text-primary group-hover:underline underline-offset-4">
+            {translations.readFull[blog.category][locale]}
+            <Arrow size={18} aria-hidden="true" />
+          </span>
+        </div>
+      </Link>
     </div>
   );
 };

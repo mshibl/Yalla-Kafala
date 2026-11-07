@@ -10,16 +10,19 @@ export const OurStorySection = ({ locale }: { locale: Locale }) => {
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       <div className="container mx-auto px-6">
-        <h1 className="text-3xl md:text-4xl font-bold text-center text-primary mb-4">
+        <h2 className="heading-lg mb-8 text-center text-gray-900">
           {translations.whoWeAre.sectionTitle[locale]}
-        </h1>
+        </h2>
         <div className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-10">
-            <h2 className="text-2xl font-semibold text-primary mb-4">
+          <div className="mb-10">
+            <h3 className="mb-4 text-2xl font-semibold text-primary">
               {translations.whoWeAre.ourStoryTitle[locale]}
-            </h2>
+            </h3>
             {translations.whoWeAre.paragraphs.map((para, idx) => (
-              <p key={idx} className="text-gray-700 mb-4">
+              <p
+                key={idx}
+                className="mb-4 text-lg leading-relaxed text-gray-700"
+              >
                 {para[locale]}
               </p>
             ))}

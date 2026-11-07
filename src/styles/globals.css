@@ -28,7 +28,7 @@ layer(base);
 }
 
 @utility section-padding {
-  @apply py-16 md:py-24 px-6 md:px-12 lg:px-24;
+  @apply py-16 md:py-24;
 }
 
 @utility animate-delay-100 {

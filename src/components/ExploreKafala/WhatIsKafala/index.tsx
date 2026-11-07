@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { CheckCircle2 } from "lucide-react";
 import ExploreKafalaHero from "../ExploreKafalaHero";
 import { translations } from "./translations";
 import { BackToTopButton } from "../BackToTopButton";
@@ -16,6 +18,36 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
           ar: "أسرة تحتضن طفلاً في المنزل",
         }}
       />
+      <section aria-labelledby="kafala-brief" className="bg-white pt-4 md:pt-8">
+        <div className="container mx-auto px-6">
+          <div className="mx-auto max-w-5xl rounded-3xl bg-[#F6F1F8] p-6 md:p-10">
+            <h2
+              id="kafala-brief"
+              className="mb-6 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900"
+            >
+              {translations.brief.title[locale]}
+            </h2>
+            <ul className="grid gap-6 md:grid-cols-3">
+              {translations.brief.items.map((item) => (
+                <li key={item.title.en} className="flex items-start gap-3">
+                  <CheckCircle2
+                    className="mt-1 h-5 w-5 shrink-0 text-primary"
+                    aria-hidden="true"
+                  />
+                  <div>
+                    <h3 className="mb-1 text-xl font-semibold text-gray-900">
+                      {item.title[locale]}
+                    </h3>
+                    <p className="leading-relaxed text-gray-700">
+                      {item.text[locale]}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
       <section id="learn-more" className="bg-white py-12 md:py-16">
         <div className="container mx-auto px-6">
           <div className="prose prose-lg prose-gray mx-auto max-w-3xl animate-fade-up prose-headings:font-serif prose-strong:text-gray-900">
@@ -77,7 +109,10 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                   >
                     ادْعُوهُمْ لِآبَائِهِمْ هُوَ أَقْسَطُ عِندَ اللَّـهِ ۚ فَإِن
                     لَّمْ تَعْلَمُوا آبَاءَهُمْ فَإِخْوَانُكُمْ فِي الدِّينِ
-                    وَمَوَالِيكُمْ سورة
+                    وَمَوَالِيكُمْ
+                    <span className="mt-2 block font-sans text-sm text-gray-600">
+                      [الأحزاب: 5]
+                    </span>
                   </p>
                   {locale === "en" && (
                     <p className="text-base leading-relaxed text-gray-700">
@@ -144,6 +179,30 @@ const WhatIsKafala = ({ locale }: { locale: Locale }) => {
                   ),
                 )}
               </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white pb-16 md:pb-24">
+        <div className="container mx-auto px-6">
+          <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 rounded-3xl bg-primary px-6 py-10 text-center md:px-12">
+            <h2 className="text-3xl font-semibold text-white md:text-4xl">
+              {translations.nextStep.title[locale]}
+            </h2>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link
+                href={`/${locale}/kafala-steps`}
+                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-white/90"
+              >
+                {translations.nextStep.steps[locale]}
+              </Link>
+              <Link
+                href={`/${locale}/faqs`}
+                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                {translations.nextStep.faqs[locale]}
+              </Link>
             </div>
           </div>
         </div>

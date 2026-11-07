@@ -12,14 +12,9 @@ export const Logo: React.FC<LogoProps> = ({ locale }) => {
       href="/"
       className="flex items-center gap-2 text-xl md:text-2xl font-serif font-bold text-primary"
     >
-      <Image
-        src="/images/yk_logo.svg"
-        alt="Yallakafala Logo"
-        width={36}
-        height={36}
-      />{" "}
+      <Image src="/images/yk_logo.svg" alt="" width={36} height={36} />{" "}
       {locale === "en" ? (
-        <span className="tracking-tight">Yallakafala</span>
+        <span className="tracking-tight">Yalla Kafala</span>
       ) : (
         <span className="tracking-tight">يلا كفالة</span>
       )}

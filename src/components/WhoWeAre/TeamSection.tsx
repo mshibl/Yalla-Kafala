@@ -1,5 +1,4 @@
 import React from "react";
-import { User } from "lucide-react";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
 import { BoardMemberCard } from "./BoardMemberCard";
@@ -41,21 +40,20 @@ export const TeamSection = async ({ locale }: { locale: Locale }) => {
   return (
     <section
       id="our-team"
-      className="bg-white py-16"
+      className="bg-white py-16 md:py-20"
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       <div className="container mx-auto px-6">
-        <h2 className="mb-8 text-center text-2xl font-semibold text-primary">
+        <h2 className="heading-lg mb-10 text-center text-gray-900">
           {translations.team.title[locale]}
         </h2>
 
         <div className="mx-auto max-w-5xl">
           <div className="mb-12">
-            <h3 className="mb-5 flex items-center text-xl font-semibold text-primary">
-              <User className="me-2 h-5 w-5" />
+            <h3 className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
               {translations.team.sections.boardMembers[locale]}
             </h3>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
               {allBoardMembers.map((member) => (
                 <BoardMemberCard
                   key={member.id}
@@ -68,11 +66,10 @@ export const TeamSection = async ({ locale }: { locale: Locale }) => {
 
           {advisors.length > 0 && (
             <div>
-              <h3 className="mb-5 flex items-center text-xl font-semibold text-primary">
-                <User className="me-2 h-5 w-5" />
+              <h3 className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
                 {translations.team.sections.advisoryCommittee[locale]}
               </h3>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
                 {advisors.map((member) => (
                   <BoardMemberCard
                     key={member.id}

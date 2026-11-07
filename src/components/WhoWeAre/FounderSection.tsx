@@ -14,12 +14,12 @@ export const FounderSection = ({ locale }: { locale: Locale }) => {
       <div className="container mx-auto px-6">
         <h2
           id="founder-heading"
-          className="mb-8 text-center text-2xl font-semibold text-primary"
+          className="heading-lg mb-10 text-center text-gray-900"
         >
           {founder.title[locale]}
         </h2>
         <div className="mx-auto max-w-4xl">
-          <div className="flex flex-col items-center gap-8 rounded-lg bg-white p-8 shadow-sm md:flex-row">
+          <div className="flex flex-col items-center gap-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-primary/10 md:flex-row md:p-10">
             <div className="flex w-full justify-center md:w-1/3">
               <div className="relative h-64 w-64 overflow-hidden rounded-full border-4 border-primary/20">
                 <Image
@@ -35,7 +35,7 @@ export const FounderSection = ({ locale }: { locale: Locale }) => {
               <h3 className="mb-2 text-xl font-semibold text-primary">
                 {founder.name[locale]}
               </h3>
-              <p className="mb-4 italic text-gray-600">
+              <p className="mb-4 font-medium text-gray-600">
                 {founder.role[locale]}
               </p>
               {founder.bio.map((paragraph, index) => (

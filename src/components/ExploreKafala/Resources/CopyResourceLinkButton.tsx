@@ -28,13 +28,12 @@ export const CopyResourceLinkButton = ({
 
   return (
     <Button
-      variant="outline"
-      size="icon"
+      variant="ghost"
       onClick={handleCopy}
-      aria-label={buttonLabel}
-      title={buttonLabel}
+      className="rounded-full px-4 text-sm font-semibold text-gray-700 hover:text-primary"
     >
-      <Copy className="h-4 w-4" />
+      <Copy className="h-4 w-4" aria-hidden="true" />
+      {buttonLabel}
     </Button>
   );
 };

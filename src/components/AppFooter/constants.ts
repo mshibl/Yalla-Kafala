@@ -16,7 +16,7 @@ export const contactItems = [
     icon: MapPin,
     text: {
       en: "24 Al Lasilki Al Sagheer Street, New Maadi, Cairo, Egypt.",
-      ar: "٢٤ شارع اللاسلكي الصغير، المعادي الجديدة، القاهرة، مصر",
+      ar: "24 شارع اللاسلكي الصغير، المعادي الجديدة، القاهرة، مصر",
     },
     href: "https://maps.app.goo.gl/d24Rt7cnGfYYkSyq8?g_st=ic",
   },

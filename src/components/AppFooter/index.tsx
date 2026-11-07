@@ -24,7 +24,7 @@ const Footer = ({ locale }: { locale: Locale }) => {
                   height={36}
                 />{" "}
                 <span className="tracking-tight text-white">
-                  {locale === "en" ? "Yallakafala" : "يلا كفالة"}
+                  {locale === "en" ? "Yalla Kafala" : "يلا كفالة"}
                 </span>
               </Link>
               <p className="text-gray-300 leading-relaxed">

@@ -1,5 +1,4 @@
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   Dialog,
@@ -20,32 +19,54 @@ export const BoardMemberCard = ({
 }) => {
   const name = locale === "ar" ? member.nameAr : member.nameEn;
   const bio = locale === "ar" ? member.bioAr : member.bioEn;
+  const initials = name
+    .split(" ")
+    .map((n: string) => n[0])
+    .slice(0, 2)
+    .join("");
+  const role =
+    member.type === "advisor"
+      ? locale === "ar"
+        ? "عضو اللجنة الاستشارية"
+        : "Advisory committee"
+      : locale === "ar"
+        ? "عضو مجلس الإدارة"
+        : "Board member";
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Card className="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-          <div className="relative pt-[100%] bg-gray-100">
-            <Avatar className="absolute inset-0 w-full h-full rounded-none">
+        <button
+          type="button"
+          className="group w-full overflow-hidden rounded-2xl bg-white text-start shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        >
+          <div className="relative aspect-[4/5] bg-primary/5">
+            <Avatar className="absolute inset-0 h-full w-full rounded-none">
               {member.imageUrl ? (
                 <AvatarImage
                   src={member.imageUrl}
                   alt={name}
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
               ) : null}
-              <AvatarFallback className="rounded-none text-4xl font-semibold">
-                {name
-                  .split(" ")
-                  .map((n: string) => n[0])
-                  .join("")}
+              <AvatarFallback className="rounded-none bg-primary/10 font-serif text-5xl font-semibold text-primary">
+                {initials}
               </AvatarFallback>
             </Avatar>
           </div>
-          <CardContent className="p-4 bg-white">
-            <h3 className="font-semibold text-lg text-primary mb-1">{name}</h3>
-          </CardContent>
-        </Card>
+          <div className="p-4">
+            <h3 className="mb-1 font-sans text-base font-semibold leading-snug text-gray-900">
+              {name}
+            </h3>
+            <p className="text-sm text-gray-600">
+              {role}
+              <span aria-hidden="true"> · </span>
+              <span className="font-medium text-primary group-hover:underline">
+                {locale === "ar" ? "النبذة" : "Read bio"}
+              </span>
+            </p>
+          </div>
+        </button>
       </DialogTrigger>
       <DialogContent className="bg-white max-w-lg">
         <DialogHeader>
@@ -68,7 +89,7 @@ export const BoardMemberCard = ({
             </Avatar>
             <div
               dangerouslySetInnerHTML={{ __html: bio }}
-              className="max-h-[55vh] min-w-0 flex-1 overflow-y-auto break-words pr-2 leading-relaxed text-gray-700 [&_p]:mb-4 [&_p:last-child]:mb-0"
+              className="max-h-[55vh] min-w-0 flex-1 overflow-y-auto break-words pe-2 leading-relaxed text-gray-700 [&_p]:mb-4 [&_p:last-child]:mb-0"
             />
           </div>
         </div>

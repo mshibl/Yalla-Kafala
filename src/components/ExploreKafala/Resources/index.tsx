@@ -16,7 +16,7 @@ const Resources = async ({ locale }: { locale: Locale }) => {
           ar: "طفل يلعب في منزل آمن ورعائي",
         }}
       />
-      <main className="flex-grow">
+      <div className="flex-grow">
         <section
           className="py-12 md:py-16 bg-gray-50"
           dir={locale === "ar" ? "rtl" : "ltr"}
@@ -25,7 +25,7 @@ const Resources = async ({ locale }: { locale: Locale }) => {
             <ResourcesList />
           </div>
         </section>
-      </main>
+      </div>
     </div>
   );
 };
