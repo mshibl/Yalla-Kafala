@@ -19,16 +19,4 @@ export const translations = {
     en: "View resource",
     ar: "عرض المورد",
   },
-  copyLink: {
-    en: "Copy link",
-    ar: "نسخ الرابط",
-  },
-  copySuccess: {
-    en: "Link copied",
-    ar: "تم نسخ الرابط",
-  },
-  copyError: {
-    en: "Failed to copy link",
-    ar: "تعذر نسخ الرابط",
-  },
 };

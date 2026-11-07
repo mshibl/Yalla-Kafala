@@ -32,14 +32,17 @@ export const FounderSection = ({ locale }: { locale: Locale }) => {
               </div>
             </div>
             <div className="w-full md:w-2/3">
-              <h3 className="mb-2 text-xl font-semibold text-primary">
+              <h3 className="mb-1 text-2xl font-semibold text-gray-900">
                 {founder.name[locale]}
               </h3>
               <p className="mb-4 font-medium text-gray-600">
                 {founder.role[locale]}
               </p>
               {founder.bio.map((paragraph, index) => (
-                <p key={index} className="mb-4 text-gray-700 last:mb-0">
+                <p
+                  key={index}
+                  className="mb-4 text-base leading-relaxed text-gray-700 last:mb-0 md:text-lg"
+                >
                   {paragraph[locale]}
                 </p>
               ))}

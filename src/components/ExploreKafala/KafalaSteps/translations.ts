@@ -23,6 +23,10 @@ export const translations = {
     en: "See the required documents",
     ar: "الوثائق المطلوبة",
   },
+  atAGlance: {
+    en: "The six steps at a glance",
+    ar: "الخطوات الست باختصار",
+  },
   stepsEyebrow: {
     en: "Six steps",
     ar: "ست خطوات",
@@ -41,8 +45,8 @@ export const translations = {
       ar: "الأسئلة الشائعة",
     },
     contact: {
-      en: "Email us",
-      ar: "راسلنا",
+      en: "Ask us a question",
+      ar: "اسألنا",
     },
   },
 };

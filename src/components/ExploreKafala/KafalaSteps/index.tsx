@@ -13,11 +13,25 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
         locale={locale}
         title={translations.title}
         description={translations.description}
-        imageSrc="/images/kafala-steps.webp"
-        imageAlt={{
-          en: "Family hands joined in support",
-          ar: "أيدي أسرة متشابكة في الدعم",
-        }}
+        aside={
+          <div className="rounded-3xl bg-white p-6 shadow-xl ring-1 ring-primary/10 md:p-8">
+            <p className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
+              {translations.atAGlance[locale]}
+            </p>
+            <ol className="space-y-3">
+              {steps[locale].map((step, index) => (
+                <li key={index} className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white">
+                    {index + 1}
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {step.title}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        }
         actions={[
           { href: "#documents", label: translations.documentsLink },
           {
@@ -72,6 +86,30 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
             </ol>
           </div>
 
+          {/* Next step */}
+          <div className="mx-auto mb-20 max-w-4xl rounded-3xl bg-primary px-6 py-10 text-center text-white md:px-12 md:py-14">
+            <h2 className="mb-3 text-3xl font-semibold text-white md:text-4xl">
+              {translations.cta.title[locale]}
+            </h2>
+            <p className="mx-auto mb-8 max-w-2xl text-lg text-white/85">
+              {translations.cta.description[locale]}
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link
+                href={`/${locale}/faqs`}
+                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-white/90"
+              >
+                {translations.cta.faqs[locale]}
+              </Link>
+              <a
+                href="mailto:info@yallakafala.org"
+                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                {translations.cta.contact[locale]}
+              </a>
+            </div>
+          </div>
+
           {/* Required Documents */}
           <div id="documents" className="mx-auto mb-20 max-w-4xl scroll-mt-28">
             <h2 className="heading-md mb-8 text-center text-gray-900">
@@ -102,42 +140,18 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
               {translations.familyCardStepsTitle[locale]}
             </h2>
 
-            <ol className="space-y-4">
+            <ol className="space-y-6">
               {familyCardSteps[locale].map((step, index) => (
                 <li key={index} className="flex items-start gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white">
                     {index + 1}
                   </span>
-                  <span className="pt-1 leading-relaxed text-gray-800">
+                  <span className="pt-1 text-base leading-relaxed text-gray-800 md:text-lg">
                     {locale === "ar" ? isolateLatin(step) : step}
                   </span>
                 </li>
               ))}
             </ol>
-          </div>
-
-          {/* Next step */}
-          <div className="mx-auto max-w-4xl rounded-3xl bg-primary px-6 py-10 text-center text-white md:px-12 md:py-14">
-            <h2 className="mb-3 text-3xl font-semibold text-white md:text-4xl">
-              {translations.cta.title[locale]}
-            </h2>
-            <p className="mx-auto mb-8 max-w-2xl text-lg text-white/85">
-              {translations.cta.description[locale]}
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Link
-                href={`/${locale}/faqs`}
-                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-white/90"
-              >
-                {translations.cta.faqs[locale]}
-              </Link>
-              <a
-                href="mailto:info@yallakafala.org"
-                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                {translations.cta.contact[locale]}
-              </a>
-            </div>
           </div>
         </div>
       </section>

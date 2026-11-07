@@ -153,7 +153,20 @@ function CopyButton({ text, locale }: { text: string; locale: Locale }) {
 export default function DonatePage({ locale }: { locale: Locale }) {
   const t = copy[locale];
   const dir = locale === "ar" ? "rtl" : "ltr";
-  const bidi = (text: string) => (locale === "ar" ? isolateLatin(text) : text);
+  // Arabic: every Latin run set apart. English: keep "501(c)(3)" on one line.
+  const bidi = (text: string): React.ReactNode =>
+    locale === "ar"
+      ? isolateLatin(text)
+      : text.split("501(c)(3)").flatMap((part, index) =>
+          index === 0
+            ? [part]
+            : [
+                <span key={index} className="whitespace-nowrap">
+                  501(c)(3)
+                </span>,
+                part,
+              ],
+        );
 
   return (
     <div
@@ -161,8 +174,13 @@ export default function DonatePage({ locale }: { locale: Locale }) {
       dir={dir}
     >
       {/* Hero */}
-      <section className="flex flex-col items-center justify-center px-6 pt-28 pb-10 md:pt-36 md:pb-14 text-center">
-        <PageHeader eyebrow={t.eyebrow} title={t.title} lede={t.subtitle} />
+      <section className="px-6 pt-28 pb-10 md:pt-36 md:pb-14">
+        <PageHeader
+          width="max-w-4xl"
+          eyebrow={t.eyebrow}
+          title={t.title}
+          lede={t.subtitle}
+        />
       </section>
 
       {/* Donation Methods */}

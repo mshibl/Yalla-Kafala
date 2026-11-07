@@ -5,6 +5,7 @@ import PageHeader from "@/components/ui/PageHeader";
 const FAQsHeader = ({ locale }: { locale: Locale }) => (
   <PageHeader
     className="mb-10"
+    width="max-w-3xl"
     eyebrow={locale === "en" ? "Explore Kafala" : "استكشف الكفالة"}
     title={locale === "en" ? "Frequently Asked Questions" : "الأسئلة الشائعة"}
     lede={

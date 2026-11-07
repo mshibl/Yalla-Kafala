@@ -54,9 +54,7 @@ export const MissionCard: React.FC<MissionCardProps> = ({
         <h3 className="mb-1 text-lg font-semibold text-gray-900 md:mb-2 md:text-xl">
           {title}
         </h3>
-        <p className="text-[15px] leading-relaxed text-gray-700">
-          {description}
-        </p>
+        <p className="text-base leading-relaxed text-gray-700">{description}</p>
       </div>
     </div>
   );

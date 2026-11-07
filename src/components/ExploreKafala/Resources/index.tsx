@@ -10,11 +10,6 @@ const Resources = async ({ locale }: { locale: Locale }) => {
         locale={locale}
         title={translations.title}
         description={translations.description}
-        imageSrc="/images/explore-kafala-hero.webp"
-        imageAlt={{
-          en: "Children sitting together, listening and smiling",
-          ar: "أطفال يجلسون معاً يستمعون ويبتسمون",
-        }}
       />
       <div className="flex-grow">
         <section

@@ -9,6 +9,7 @@ export const HeroSection = ({ locale }: { locale: Locale }) => {
     <section className="relative bg-gradient-to-b from-primary/[0.06] to-white pt-28 pb-14 md:pt-36 md:pb-20">
       <div className="container mx-auto px-6">
         <PageHeader
+          width="max-w-5xl"
           eyebrow={translations.hero.badge[locale]}
           title={
             <>
@@ -20,7 +21,7 @@ export const HeroSection = ({ locale }: { locale: Locale }) => {
           }
           lede={translations.hero.description[locale]}
         >
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <a href="#our-story" className="primary-button font-semibold">
               {translations.hero.ctas.ourStory[locale]}
             </a>
