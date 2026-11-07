@@ -10,7 +10,7 @@ export const OurStorySection = ({ locale }: { locale: Locale }) => {
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       <div className="container mx-auto px-6">
-        <div className="max-w-3xl mx-auto">
+        <div className="mx-auto max-w-5xl">
           <h2 className="heading-lg mb-8 text-gray-900">
             {translations.whoWeAre.sectionTitle[locale]}
           </h2>

@@ -52,14 +52,14 @@ export const steps = {
         "Assess the suitability of the applying family through initial and detailed evaluations, along with document revision and accreditation",
     },
     {
-      title: "The journey to find my child",
+      title: "Meeting your child",
       description:
-        "Facilitating the process from issuance of viewing authorization to meeting prospective children, and completing bonding visits paralleled with medical assessments",
+        "From the viewing authorization to meeting prospective children, with bonding visits alongside medical assessments.",
     },
     {
-      title: "Social compatibility stage",
+      title: "Social compatibility assessment",
       description:
-        "Facilitating the process from viewing authorization to meeting prospective children for social compatibility assessment, and conducting bonding visits paralleled with medical evaluations.",
+        "An assessment of the social compatibility between the family and the child, while bonding visits and medical evaluations continue.",
     },
     {
       title: "Start a savings account",
@@ -83,14 +83,14 @@ export const steps = {
         "تقييم مدى ملاءمة الأسرة المتقدمة من خلال التقييمات الأولية والتفصيلية، ومراجعة المستندات والاعتماد.",
     },
     {
-      title: "رحلتي للعثور على طفلي",
+      title: "لقاء طفلك",
       description:
-        "تسهيل العملية من إصدار إذن العرض إلى لقاء الأطفال المحتملين، وإتمام زيارات التعارف بالتوازي مع الفحوصات الطبية.",
+        "من إصدار إذن العرض إلى لقاء الأطفال المحتملين، مع زيارات التعارف بالتوازي مع الفحوصات الطبية.",
     },
     {
-      title: "مرحلة التوافق الاجتماعي",
+      title: "تقييم التوافق الاجتماعي",
       description:
-        "تسهيل العملية من إصدار إذن العرض إلى لقاء الأطفال المحتملين لتقييم التوافق الاجتماعي، وإجراء زيارات التعارف بالتوازي مع التقييمات الطبية.",
+        "تقييم التوافق الاجتماعي بين الأسرة والطفل، مع استمرار زيارات التعارف والتقييمات الطبية.",
     },
     {
       title: "فتح حساب توفير",

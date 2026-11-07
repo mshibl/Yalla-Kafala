@@ -29,7 +29,11 @@ const Impact = ({ locale }: { locale: Locale }) => {
               className="flex items-center gap-4 rounded-2xl bg-white px-5 py-4 text-start shadow-sm ring-1 ring-primary/10 sm:flex-col sm:gap-0 sm:p-6 sm:text-center md:p-8"
             >
               <dd className="order-first w-28 shrink-0 font-serif text-4xl font-semibold text-primary sm:w-auto sm:text-5xl md:text-6xl">
-                <bdi dir="ltr">{stat.number}</bdi>
+                <bdi dir="ltr">
+                  {locale === "ar" && stat.number.endsWith("+")
+                    ? `+${stat.number.slice(0, -1)}`
+                    : stat.number}
+                </bdi>
               </dd>
               <dt className="text-[15px] font-medium leading-snug text-gray-700 sm:mx-auto sm:mt-2 sm:max-w-[18ch] sm:text-sm md:text-base">
                 {locale === "ar" ? stat.labelAr : stat.label}
@@ -41,7 +45,7 @@ const Impact = ({ locale }: { locale: Locale }) => {
         {beitSagheer && (
           <Link
             href={`/${locale}/beit-sagheer`}
-            className="group mt-3 flex flex-col items-start gap-2 rounded-2xl bg-primary px-5 py-5 text-start text-white sm:flex-row sm:items-center sm:justify-between md:mt-6 md:px-8"
+            className="group mt-3 flex flex-col items-start gap-2 rounded-2xl bg-[#0E6E7A] px-5 py-5 text-start text-white sm:flex-row sm:items-center sm:justify-between md:mt-6 md:px-8"
           >
             <span className="flex items-center gap-4 text-start">
               <span className="font-serif text-4xl font-semibold">

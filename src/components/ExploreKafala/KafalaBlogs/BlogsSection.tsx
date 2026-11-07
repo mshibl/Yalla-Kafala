@@ -87,7 +87,7 @@ const MoreReading = ({
         ]
       : moreReading.links;
   return (
-    <div className="container mx-auto mt-16 px-6">
+    <div className="container mx-auto mt-16 max-w-4xl px-6">
       <h2 className="mb-6 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
         {moreReading.title[locale]}
       </h2>

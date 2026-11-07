@@ -57,6 +57,7 @@ const Footer = ({ locale }: { locale: Locale }) => {
               <NewsletterForm
                 title={translations.newsletterTitle[locale]}
                 description={translations.newsletterDescription[locale]}
+                showName={false}
               />
             </div>
           </div>

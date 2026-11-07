@@ -34,10 +34,12 @@ export const translations = {
       {
         en: "Registered in Egypt, licence no. 990",
         ar: "مسجّلة في مصر، رخصة رقم 990",
+        href: undefined as string | undefined,
       },
       {
         en: "Candid Platinum Transparency 2024",
         ar: "شفافية بلاتينية من Candid لعام 2024",
+        href: "https://www.guidestar.org/profile/85-3323627",
       },
     ],
   },

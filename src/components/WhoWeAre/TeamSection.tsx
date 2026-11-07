@@ -46,11 +46,10 @@ export const TeamSection = async ({ locale }: { locale: Locale }) => {
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       <div className="container mx-auto px-6">
-        <h2 className="heading-lg mb-10 text-center text-gray-900">
-          {translations.team.title[locale]}
-        </h2>
-
         <div className="mx-auto max-w-5xl">
+          <h2 className="heading-lg mb-10 text-gray-900">
+            {translations.team.title[locale]}
+          </h2>
           <div className="mb-12">
             <h3 className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
               {translations.team.sections.boardMembers[locale]}

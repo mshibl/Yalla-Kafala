@@ -6,6 +6,26 @@ import ExploreKafalaHero from "../ExploreKafalaHero";
 import { familyCardSteps, requiredDocuments, steps } from "./constants";
 import { translations } from "./translations";
 import type { Locale } from "@/components/Providers/LocaleProvider";
+/** The documents in four sets; indices into requiredDocuments (same order in both languages). */
+const documentGroups = [
+  {
+    title: { en: "Identity and family", ar: "الهوية والأسرة" },
+    items: [0, 1, 2, 3, 10, 13],
+  },
+  {
+    title: { en: "Health and background checks", ar: "الصحة والفحوصات" },
+    items: [4, 5, 6, 7, 9],
+  },
+  {
+    title: { en: "Income and residence", ar: "الدخل والسكن" },
+    items: [8, 11, 12],
+  },
+  {
+    title: { en: "Families living abroad", ar: "الأسر المقيمة بالخارج" },
+    items: [14],
+  },
+];
+
 const KafalaSteps = ({ locale }: { locale: Locale }) => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -17,7 +37,7 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
         aside={
           <nav
             aria-label={translations.atAGlance[locale]}
-            className="hidden rounded-3xl bg-white p-8 shadow-xl ring-1 ring-primary/10 md:block"
+            className="rounded-3xl bg-white p-6 shadow-xl ring-1 ring-primary/10 md:p-8"
           >
             <p className="mb-5 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
               {translations.atAGlance[locale]}
@@ -52,8 +72,8 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
       <section id="learn-more" className="bg-white pt-8 pb-14 md:py-20">
         <div className="container mx-auto px-6">
           {/* Kafala Steps */}
-          <div className="mx-auto mb-20 max-w-3xl">
-            <div className="mb-10 text-center">
+          <div className="mx-auto mb-20 max-w-4xl">
+            <div className="mb-10">
               <span className="eyebrow mb-3">
                 {translations.stepsEyebrow[locale]}
               </span>
@@ -98,30 +118,42 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
 
           {/* Required Documents */}
           <div id="documents" className="mx-auto mb-20 max-w-4xl scroll-mt-28">
-            <h2 className="heading-md mb-8 text-center text-gray-900">
+            <h2 className="heading-md mb-8 text-gray-900">
               {translations.requiredDocumentsTitle[locale]}
             </h2>
 
-            <ul className="gap-x-12 rounded-3xl bg-[#FBF8F4] p-6 md:columns-2 md:p-10">
-              {requiredDocuments[locale].map((doc, index) => (
-                <li
-                  key={index}
-                  className="mb-4 flex break-inside-avoid items-start gap-3 last:mb-0"
+            <div className="grid gap-4 md:grid-cols-2 md:gap-6">
+              {documentGroups.map((group) => (
+                <div
+                  key={group.title.en}
+                  className="rounded-3xl bg-[#FBF8F4] p-6 md:p-8"
                 >
-                  <CheckCircle2
-                    className="mt-0.5 h-5 w-5 shrink-0 text-primary"
-                    aria-hidden="true"
-                  />
-                  <span className="leading-relaxed text-gray-800">
-                    {locale === "ar" ? isolateLatin(doc) : doc}
-                  </span>
-                </li>
+                  <h3 className="mb-4 text-base font-semibold text-gray-900">
+                    {group.title[locale]}
+                  </h3>
+                  <ul className="space-y-3">
+                    {group.items.map((index) => {
+                      const doc = requiredDocuments[locale][index]!;
+                      return (
+                        <li key={index} className="flex items-start gap-3">
+                          <CheckCircle2
+                            className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                            aria-hidden="true"
+                          />
+                          <span className="leading-relaxed text-gray-800">
+                            {locale === "ar" ? isolateLatin(doc) : doc}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Next step */}
-          <div className="mx-auto mb-20 max-w-4xl rounded-3xl bg-primary px-6 py-10 text-center text-white md:px-12 md:py-14">
+          <div className="mx-auto mb-20 max-w-4xl rounded-3xl bg-[#0E6E7A] px-6 py-10 text-center text-white md:px-12 md:py-14">
             <h2 className="mb-3 text-3xl font-semibold text-white md:text-4xl">
               {translations.cta.title[locale]}
             </h2>
@@ -131,7 +163,7 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
             <div className="flex flex-wrap justify-center gap-3">
               <a
                 href={`mailto:info@yallakafala.org?subject=${encodeURIComponent(translations.cta.meetingSubject[locale])}`}
-                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-primary transition-colors hover:bg-white/90"
+                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-[#0E6E7A] transition-colors hover:bg-white/90"
               >
                 {translations.cta.meeting[locale]}
               </a>
@@ -145,8 +177,8 @@ const KafalaSteps = ({ locale }: { locale: Locale }) => {
           </div>
 
           {/* Family Card Steps */}
-          <div className="mx-auto mb-20 max-w-3xl">
-            <h2 className="heading-md mb-8 text-center text-gray-900">
+          <div className="mx-auto mb-20 max-w-4xl">
+            <h2 className="heading-md mb-8 text-gray-900">
               {translations.familyCardStepsTitle[locale]}
             </h2>
 

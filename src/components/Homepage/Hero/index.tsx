@@ -66,16 +66,16 @@ const Hero = ({ locale }: { locale: Locale }) => {
               {t.description[locale]}
             </p>
 
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
               <Link
                 href={`/${locale}/kafala-steps`}
-                className="primary-button font-semibold"
+                className="primary-button min-h-12 font-semibold"
               >
                 {t.journeyButton[locale]}
               </Link>
               <Link
                 href={`/${locale}/what-is-kafala`}
-                className="outline-button font-semibold"
+                className="outline-button min-h-12 font-semibold"
               >
                 {t.learnMoreButton[locale]}
               </Link>
@@ -86,8 +86,8 @@ const Hero = ({ locale }: { locale: Locale }) => {
                 <Image
                   src="/GuideStarIcon_Platinum.svg"
                   alt=""
-                  width={44}
-                  height={44}
+                  width={56}
+                  height={56}
                 />
               </span>
               <ul className="space-y-1 text-sm text-gray-800 md:text-[15px]">
@@ -97,7 +97,18 @@ const Hero = ({ locale }: { locale: Locale }) => {
                       className="h-4 w-4 shrink-0 text-primary"
                       aria-hidden="true"
                     />
-                    {locale === "ar" ? isolateLatin(item.ar) : item.en}
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        className="underline-offset-4 hover:text-primary hover:underline"
+                      >
+                        {locale === "ar" ? isolateLatin(item.ar) : item.en}
+                      </a>
+                    ) : locale === "ar" ? (
+                      isolateLatin(item.ar)
+                    ) : (
+                      item.en
+                    )}
                   </li>
                 ))}
               </ul>
