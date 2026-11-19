@@ -2,7 +2,7 @@
 
 **Screens:**
 
-- Home `/en` and `/ar`: the picture carousel (swipe or click through it), the mission text, the impact numbers, the "make a difference" cards, the blog slider, the FAQ list, the Facebook posts, the donate band
+- Home `/en` and `/ar`: the hero (both buttons and the trust list), the picture carousel (swipe or click through it), the impact numbers, the featured blogs and their "see all" link, the mission text, the FAQ list, the Facebook posts
 - What is Kafala `/what-is-kafala` and Kafala steps `/kafala-steps`: follow every link and button
 - Who we are `/who-we-are`: the team and the board members, per country; a member who is not published must not appear
 - Vision and mission `/vision-mission`, Beit Sagheer `/beit-sagheer` ("back to top"), Activities and milestones `/activities-and-milestones`, Fatwa `/fatwa`, YK Gala `/yk-gala`

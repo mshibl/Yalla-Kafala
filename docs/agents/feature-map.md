@@ -22,10 +22,14 @@ sweep take their flows from the `##` heading (`scripts/lib/browserHunt.ts`
 ### Home page
 
 - **Route**: `/`
-- Hero with the picture carousel, the mission, impact numbers, "make a
-  difference" cards, the blog slider, the FAQ list, the Facebook posts and the
-  donate band all show content (the demo has 3 carousel pictures, 4 posts).
-- The header's links and the footer's links go to the pages below.
+- The hero (headline, "Start your kafala journey" and "What is kafala?" buttons, the trust
+  list with the GuideStar badge, the picture carousel), the impact numbers, the
+  featured blogs (up to three cards and a "see all" link), the mission, the FAQ
+  list and the Facebook posts all show content (the demo has 3 carousel
+  pictures, 4 posts). The home page has no donate band and no "make a
+  difference" cards any more.
+- The header's links and the footer's links go to the pages below. On a laptop
+  the header also has a "Start kafala" link to the steps.
 
 ### What is Kafala
 
@@ -35,7 +39,9 @@ sweep take their flows from the `##` heading (`scripts/lib/browserHunt.ts`
 ### Kafala steps
 
 - **Route**: `/kafala-steps`
-- Every step is shown in order; the page reads correctly at 360 px.
+- Every step is shown in order, with the list of required documents; the page
+  reads correctly at 360 px. Its "meeting" button opens an email (checked, not
+  followed) and its FAQs link works.
 
 ### Who we are
 
@@ -73,7 +79,8 @@ sweep take their flows from the `##` heading (`scripts/lib/browserHunt.ts`
 
 - **Route**: `/kafala-blogs`
 - The published blogs show as cards (4 in the demo are published and 1 is a
-  draft that must not show); the featured ones are marked.
+  draft that must not show). Which blogs are featured is not marked here: it
+  decides which ones the home page shows.
 
 ### Read a blog
 
@@ -92,30 +99,39 @@ sweep take their flows from the `##` heading (`scripts/lib/browserHunt.ts`
 ### FAQs
 
 - **Route**: `/faqs`
-- Only published questions show; each opens and closes.
+- Only published questions show; each opens and closes. A search box filters
+  them (and says how many match, or that none do); a long list starts with the
+  first twelve and a "show all" button.
 
 ### Resources list
 
 - **Route**: `/resources`
-- The demo has two resources.
+- The demo has two resources, as cards. Each card opens the resource's own
+  link (a PDF under `/docs/`) in a new tab; there is no "copy link" button any
+  more.
 
 ### Open a resource
 
-- **Route**: `/resources/{slug}`
-- The resource page shows; "copy link" works. (The PDF in `/docs/` opens.)
+- **Route**: `/resources/annual-report-2024-25`
+- A resource's address does not show a page: it sends the visitor on to the
+  resource's link (the PDF opens). An unknown slug shows the "not found" page.
+  The demo's slugs are `annual-report-2024-25` and `dar-ifta-fatwa-source`.
 
 ## Public visitor: support
 
 ### Donate page
 
 - **Route**: `/donate`
-- The options show; the donate buttons open the donation page of another site
-  (the link is checked, not followed).
+- The two ways to donate show (online, and in Egypt: the "jump to Egypt" link
+  scrolls to its section); the online donate button opens the donation page of another site (the
+  link is checked, not followed); the link to the resources page works.
 
 ### Donate now dialog
 
 - **Route**: `/`
-- The "Donate" button of the header or the hero opens a dialog and closes it.
+- The header's "Donate Now" button (on a phone, "Donate") opens a dialog with
+  three options (card or bank, stock, in Egypt) and closes it. The hero has no
+  donate button any more.
 
 ### Stock donation
 
@@ -174,8 +190,9 @@ sweep take their flows from the `##` heading (`scripts/lib/browserHunt.ts`
 ### Unknown page
 
 - **Route**: `/no-such-page`
-- A page that doesn't exist shows a clear "not found" page, with a way back,
-  not a blank or error screen.
+- A page that doesn't exist shows a "not found" page, not a blank or error
+  screen. (The app has no page of its own for it: it is the framework's plain
+  404. A missing link back is a design finding, not a failure.)
 
 ## Admin: stories and FAQs
 
