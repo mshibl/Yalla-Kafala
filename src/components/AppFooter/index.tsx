@@ -7,7 +7,8 @@ import QuickLinks from "./QuickLinks";
 import SocialList from "./SocialList";
 import type { Locale } from "../Providers/LocaleProvider";
 import { translations } from "./translations";
-const Footer = ({ locale }: { locale: Locale }) => {
+import type { Region } from "@/lib/region";
+const Footer = ({ locale, region }: { locale: Locale; region: Region }) => {
   return (
     <>
       <footer id="contact" className="bg-gray-900 text-white pt-16 pb-8">
@@ -51,7 +52,7 @@ const Footer = ({ locale }: { locale: Locale }) => {
             </div>
             <QuickLinks locale={locale} />
             <div className="col-span-2 sm:col-span-1">
-              <ContactList locale={locale} />
+              <ContactList locale={locale} region={region} />
             </div>
             <div className="col-span-2 sm:col-span-1">
               <NewsletterForm
@@ -63,6 +64,14 @@ const Footer = ({ locale }: { locale: Locale }) => {
           </div>
 
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+            <p className="mb-3">
+              <Link
+                href={`/${locale}/refund-policy`}
+                className="text-gray-300 hover:text-white underline-offset-4 hover:underline transition-colors duration-300"
+              >
+                {translations.refundPolicy[locale]}
+              </Link>
+            </p>
             <p>
               {translations.rightsReserved[locale]} <br />
               &copy; {new Date().getFullYear()}{" "}

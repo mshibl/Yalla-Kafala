@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
-import { navigationLinks } from "./constants";
+import { DONATE_NAV_HREF, navigationLinks } from "./constants";
 import type { Locale } from "../Providers/LocaleProvider";
 import DonateNowModal from "@/components/Donate/DonateNowModal";
-import { givebutterDonationUrl, volunteerFormUrl } from "@/constants/links";
+import { volunteerFormUrl } from "@/constants/links";
 
 const linkClass =
   "text-gray-300 hover:text-white transition-colors duration-300 inline-block";
@@ -37,7 +37,7 @@ const QuickLinks = ({ locale }: { locale: Locale }) => {
               <>
                 {singles.map((item) => (
                   <li key={item.href}>
-                    {item.href === givebutterDonationUrl ? (
+                    {item.href === DONATE_NAV_HREF ? (
                       <DonateNowModal locale={locale} className={linkClass}>
                         {item.text![locale]}
                       </DonateNowModal>
