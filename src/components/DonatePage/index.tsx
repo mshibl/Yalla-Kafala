@@ -12,6 +12,7 @@ import {
   Landmark,
 } from "lucide-react";
 import type { Locale } from "@/components/Providers/LocaleProvider";
+import type { Region } from "@/lib/region";
 import { givebutterDonationUrl } from "@/constants/links";
 import React from "react";
 import Image from "next/image";
@@ -51,6 +52,8 @@ const copy = {
     bank: "Bank: CIB",
     copied: "Copied!",
     copyToClipboard: "Copy",
+    refundNote: "Read our",
+    refundLink: "Refund Policy",
   },
   ar: {
     title: "ادعم يلا كفالة",
@@ -83,6 +86,8 @@ const copy = {
     bank: "البنك: CIB",
     copied: "تم النسخ!",
     copyToClipboard: "نسخ",
+    refundNote: "اطلع على",
+    refundLink: "سياسة الاسترداد",
   },
 };
 
@@ -153,7 +158,15 @@ function CopyButton({ text, locale }: { text: string; locale: Locale }) {
   );
 }
 
-export default function DonatePage({ locale }: { locale: Locale }) {
+export default function DonatePage({
+  locale,
+  region,
+}: {
+  locale: Locale;
+  region: Region;
+}) {
+  // The Egyptian site is EGP-only (CIB/Paymob requirement): no Givebutter/USD.
+  const isEgypt = region === "eg";
   const t = copy[locale];
   const dir = locale === "ar" ? "rtl" : "ltr";
   // Arabic: every Latin run set apart. English: keep "501(c)(3)" on one line.
@@ -171,6 +184,43 @@ export default function DonatePage({ locale }: { locale: Locale }) {
               ],
         );
 
+  const supportsPanel = (
+    <>
+      <h3 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
+        {t.supportsTitle}
+      </h3>
+      <ul className="space-y-4">
+        {t.supports.map((item) => (
+          <li key={item} className="flex items-start gap-3 text-gray-800">
+            <CheckCircle2
+              className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+              aria-hidden="true"
+            />
+            <span className="leading-relaxed">{item}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-8 flex items-center gap-4 rounded-2xl bg-white p-4">
+        <Image
+          src="/GuideStarIcon_Platinum.svg"
+          alt="Candid Platinum Transparency 2024"
+          width={56}
+          height={56}
+          className="shrink-0 rounded-md"
+        />
+        <p className="text-sm leading-relaxed text-gray-700">
+          {t.transparency}{" "}
+          <Link
+            href={`/${locale}/resources`}
+            className="font-semibold text-primary underline-offset-4 hover:underline"
+          >
+            {t.reports}
+          </Link>
+        </p>
+      </div>
+    </>
+  );
+
   return (
     <div
       className="min-h-screen bg-gradient-to-b from-primary/[0.06] to-white"
@@ -184,87 +234,64 @@ export default function DonatePage({ locale }: { locale: Locale }) {
           title={t.title}
           lede={t.subtitle}
         >
-          <a
-            href="#egypt"
-            className="mt-5 inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
-          >
-            {t.jumpToEgypt}
-            <ArrowDown className="h-4 w-4" aria-hidden="true" />
-          </a>
+          {!isEgypt && (
+            <a
+              href="#egypt"
+              className="mt-5 inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+            >
+              {t.jumpToEgypt}
+              <ArrowDown className="h-4 w-4" aria-hidden="true" />
+            </a>
+          )}
         </PageHeader>
       </section>
 
       {/* Donation Methods */}
       <section className="container mx-auto px-6 pb-20">
         <div className="mx-auto max-w-4xl space-y-8">
-          {/* Online Donation (Givebutter) */}
-          <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-primary/10">
-            <div className="grid md:grid-cols-5">
-              <div className="p-6 md:col-span-3 md:p-10">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <Heart className="h-6 w-6 text-primary" aria-hidden="true" />
-                </div>
-                <h2 className="mb-2 text-2xl font-semibold text-gray-900 md:text-3xl">
-                  {t.donateOnline}
-                </h2>
-                <p className="mb-6 text-gray-700">{bidi(t.donateOnlineDesc)}</p>
-                <a
-                  href={givebutterDonationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="primary-button w-full gap-2 px-7 py-3.5 text-base font-semibold sm:w-auto"
-                >
-                  <Heart className="h-4 w-4" aria-hidden="true" />
-                  {t.button}
-                </a>
-                <p className="mt-4 flex items-center gap-2 text-sm text-gray-600">
-                  <Lock
-                    className="h-4 w-4 shrink-0 text-secondary-dark"
-                    aria-hidden="true"
-                  />
-                  {bidi(t.secure)}
-                </p>
-                <p className="mt-1 text-sm text-gray-600">{bidi(t.taxNote)}</p>
-              </div>
-              <div className="bg-[#FBF8F4] p-6 md:col-span-2 md:p-10">
-                <h3 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wider text-gray-900">
-                  {t.supportsTitle}
-                </h3>
-                <ul className="space-y-4">
-                  {t.supports.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-3 text-gray-800"
-                    >
-                      <CheckCircle2
-                        className="mt-0.5 h-5 w-5 shrink-0 text-primary"
-                        aria-hidden="true"
-                      />
-                      <span className="leading-relaxed">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8 flex items-center gap-4 rounded-2xl bg-white p-4">
-                  <Image
-                    src="/GuideStarIcon_Platinum.svg"
-                    alt="Candid Platinum Transparency 2024"
-                    width={56}
-                    height={56}
-                    className="shrink-0 rounded-md"
-                  />
-                  <p className="text-sm leading-relaxed text-gray-700">
-                    {t.transparency}{" "}
-                    <Link
-                      href={`/${locale}/resources`}
-                      className="font-semibold text-primary underline-offset-4 hover:underline"
-                    >
-                      {t.reports}
-                    </Link>
+          {/* Online Donation (Givebutter, USD) — international site only */}
+          {!isEgypt && (
+            <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-primary/10">
+              <div className="grid md:grid-cols-5">
+                <div className="p-6 md:col-span-3 md:p-10">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                    <Heart
+                      className="h-6 w-6 text-primary"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <h2 className="mb-2 text-2xl font-semibold text-gray-900 md:text-3xl">
+                    {t.donateOnline}
+                  </h2>
+                  <p className="mb-6 text-gray-700">
+                    {bidi(t.donateOnlineDesc)}
                   </p>
+                  <a
+                    href={givebutterDonationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="primary-button w-full gap-2 px-7 py-3.5 text-base font-semibold sm:w-auto"
+                  >
+                    <Heart className="h-4 w-4" aria-hidden="true" />
+                    {t.button}
+                  </a>
+                  <p className="mt-4 flex items-center gap-2 text-sm text-gray-600">
+                    <Lock
+                      className="h-4 w-4 shrink-0 text-secondary-dark"
+                      aria-hidden="true"
+                    />
+                    {bidi(t.secure)}
+                  </p>
+                  <p className="mt-1 text-sm text-gray-600">
+                    {bidi(t.taxNote)}
+                  </p>
+                </div>
+                <div className="bg-[#FBF8F4] p-6 md:col-span-2 md:p-10">
+                  {supportsPanel}
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Egypt Donation Methods */}
           <div id="egypt" className="scroll-mt-28">
@@ -310,6 +337,22 @@ export default function DonatePage({ locale }: { locale: Locale }) {
               </div>
             </div>
           </div>
+
+          {isEgypt && (
+            <div className="rounded-3xl bg-[#FBF8F4] p-6 shadow-sm ring-1 ring-primary/10 md:p-10">
+              {supportsPanel}
+            </div>
+          )}
+
+          <p className="text-center text-sm text-gray-600">
+            {t.refundNote}{" "}
+            <Link
+              href={`/${locale}/refund-policy`}
+              className="font-semibold text-primary underline-offset-4 hover:underline"
+            >
+              {t.refundLink}
+            </Link>
+          </p>
         </div>
       </section>
     </div>

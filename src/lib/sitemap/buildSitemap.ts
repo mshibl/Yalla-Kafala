@@ -12,6 +12,7 @@ import { fetchQuery } from "convex/nextjs";
 
 import { env } from "@/env";
 import type { Resource } from "@/lib/types";
+import { regionFromHost, regionOrigin, type Region } from "@/lib/region";
 import { api } from "../../../convex/_generated/api";
 import {
   LOCALE_DYNAMIC_ROUTE_KEYS,
@@ -29,7 +30,10 @@ type DynamicSegmentResolver = () => Promise<string[]>;
  * When you add a new dynamic route under `[locale]`, register it here once, then run
  * `pnpm run sitemap:manifest` so `LOCALE_DYNAMIC_ROUTE_KEYS` includes the new key.
  */
-const DYNAMIC_SEGMENT_RESOLVERS: Record<DynamicRouteKey, DynamicSegmentResolver> = {
+const DYNAMIC_SEGMENT_RESOLVERS: Record<
+  DynamicRouteKey,
+  DynamicSegmentResolver
+> = {
   "kafala-blogs/[id]": async () => {
     const stories = await fetchQuery(api.stories.queries.getStories, {
       publishedOnly: true,
@@ -59,16 +63,39 @@ function getSiteOrigin(): string {
   return raw.startsWith("http") ? raw : `https://${raw}`;
 }
 
+/** Static pages that only exist on one region's site (others redirect away). */
+const REGION_ONLY_PATHS: Record<string, Region> = {
+  "stock-donation": "us",
+};
+
+/**
+ * Origin + region for the host serving this sitemap: eg./us.yallakafala.org list their own
+ * URLs; any other host (apex, previews) falls back to `NEXT_PUBLIC_URL` and the default region.
+ */
+export function resolveSitemapSite(host: string | null): {
+  origin: string;
+  region: Region | null;
+} {
+  const region = host ? regionFromHost(host.split(":")[0] ?? "") : null;
+  return region
+    ? { origin: regionOrigin(region), region }
+    : { origin: getSiteOrigin(), region: null };
+}
+
 /**
  * Composes one sitemap entry URL: `{origin}/{locale}/{path}` with no duplicate slashes when path is empty.
  *
+ * @param origin - Site origin, no trailing slash
  * @param locale - `ar` or `en`
  * @param pathWithoutLocale - Path after locale (e.g. `faqs`, `kafala-blogs/12`), or empty string for home
  */
-function urlFor(locale: string, pathWithoutLocale: string): string {
-  const base = getSiteOrigin();
+function urlFor(
+  origin: string,
+  locale: string,
+  pathWithoutLocale: string,
+): string {
   const suffix = pathWithoutLocale ? `/${pathWithoutLocale}` : "";
-  return `${base}/${locale}${suffix}`;
+  return `${origin}/${locale}${suffix}`;
 }
 
 /** Single URL path segment from DB/Convex; not pre-encoded elsewhere before sitemap use. */
@@ -80,8 +107,14 @@ function encodeDynamicSegment(value: string): string {
  * Produces the full sitemap payload for Next.js: every static route per locale from the build-time
  * manifest, plus expanded URLs for each dynamic route using `DYNAMIC_SEGMENT_RESOLVERS`.
  */
-export async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPaths = [...LOCALE_STATIC_PATHS];
+export async function buildSitemap(
+  host: string | null = null,
+): Promise<MetadataRoute.Sitemap> {
+  const { origin, region } = resolveSitemapSite(host);
+  const staticPaths = LOCALE_STATIC_PATHS.filter((path) => {
+    const only = REGION_ONLY_PATHS[path];
+    return !only || !region || only === region;
+  });
   const dynamicKeys = [...LOCALE_DYNAMIC_ROUTE_KEYS];
 
   const entries: MetadataRoute.Sitemap = [];
@@ -90,7 +123,7 @@ export async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
   for (const locale of LOCALES) {
     for (const path of staticPaths) {
       entries.push({
-        url: urlFor(locale, path),
+        url: urlFor(origin, locale, path),
         lastModified: now,
         changeFrequency: path === "" ? "weekly" : "monthly",
         priority: path === "" ? 1 : 0.8,
@@ -125,10 +158,9 @@ export async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
     for (const locale of LOCALES) {
       for (const value of values) {
         const segment = encodeDynamicSegment(String(value));
-        const path =
-          pathPrefix === "" ? segment : `${pathPrefix}/${segment}`;
+        const path = pathPrefix === "" ? segment : `${pathPrefix}/${segment}`;
         entries.push({
-          url: urlFor(locale, path),
+          url: urlFor(origin, locale, path),
           lastModified: now,
           changeFrequency: "monthly",
           priority: 0.7,

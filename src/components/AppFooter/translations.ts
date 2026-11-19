@@ -23,6 +23,10 @@ export const translations = {
     en: "All rights reserved. Yalla Kafala was established in Egypt in 2021 with a license number (990).",
     ar: "جميع الحقوق محفوظة. تم تأسيسها في مصر في عام 2021 برخصة رقم (990).",
   },
+  refundPolicy: {
+    en: "Refund Policy",
+    ar: "سياسة الاسترداد",
+  },
   copyrightName: {
     en: "Yalla Kafala",
     ar: "يلا كفالة",

@@ -4,6 +4,8 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { ExternalLink, Landmark, LineChart, MapPin } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useRegion } from "@/components/Providers/RegionProvider";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { givebutterDonationUrl } from "@/constants/links";
@@ -50,7 +52,8 @@ const copy = {
   ar: {
     trigger: "تبرع الآن",
     title: "اختر نوع التبرع",
-    description: "ادعم يلا كفالة بالتبرع الإلكتروني أو بتبرع الأسهم أو التبرع في مصر.",
+    description:
+      "ادعم يلا كفالة بالتبرع الإلكتروني أو بتبرع الأسهم أو التبرع في مصر.",
     cardBankTitle: "تبرع بالبطاقة أو البنك",
     cardBankDescription: "تبرع إلكتروني سريع عبر Givebutter.",
     stockTitle: "تبرع بالأسهم",
@@ -71,10 +74,18 @@ export default function DonateNowModal({
 }: DonateNowModalProps) {
   const [open, setOpen] = React.useState(false);
   const isMobile = useIsMobile();
+  const router = useRouter();
+  const region = useRegion();
   const t = copy[locale];
+  // The Egyptian site only offers EGP methods, so skip the chooser entirely.
+  const isEgypt = region === "eg";
 
   const handleTriggerClick = () => {
     onTriggerClick?.();
+    if (isEgypt) {
+      router.push(`/${locale}/donate`);
+      return;
+    }
     setOpen(true);
   };
 
@@ -156,14 +167,14 @@ export default function DonateNowModal({
       <Trigger
         onClick={handleTriggerClick}
         className={cn(className)}
-        aria-haspopup="dialog"
+        aria-haspopup={isEgypt ? undefined : "dialog"}
         style={style}
         {...(!asChild ? { type: "button" as const } : {})}
       >
         {children ?? t.trigger}
       </Trigger>
 
-      {isMobile ? (
+      {isEgypt ? null : isMobile ? (
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerContent className="max-h-[85vh] px-4 pb-5">
             <DrawerHeader className="px-0">

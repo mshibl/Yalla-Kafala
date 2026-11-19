@@ -13,7 +13,7 @@ const LocaleLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <html dir="ltr" lang="en">
       <body>
-        <Providers locale={"en"}>
+        <Providers locale={"en"} region="us">
           {children}
           <Toaster />
         </Providers>
