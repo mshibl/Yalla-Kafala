@@ -15,6 +15,17 @@ The idea comes from treating design as a "hill climb": a number that can be rais
 
 Only the owner starts it, or an agent the owner asked to, in that session. It builds the site, starts a throwaway backend and drives a browser, so it is never part of feature work and never a way to check a change (AGENTS.md). It is not an end-to-end test: it writes no specs and asserts nothing.
 
+## What changed from the older council
+
+This council replaces the earlier one on `main` (sixteen rounds, PR #141). Two things to know:
+
+- **The old reports don't compare with the new shares.** The older council gave each screen a 1–10 score. This one asks yes/no checks and reports the share that pass, with a ledger of issues and a blind A/B comparison. A "9" from an old report and a "90%" from a new run measure different things, so start the new climb from round 1 and don't read old reports against it.
+- **The test-only login stays.** The older council photographed only the public pages, with the real `.env` keys and fake Clerk cookies, and had no way into `/admin`; `--url` could point it at a running site. Since the admin area is part of what the council judges and no safe local sign-in existed, this council keeps its flag-guarded test-only login and throwaway local backend (next section) and uses no `.env` value. `--url` is gone: a run always builds its own copy.
+
+From the older council's capture, this one kept the newsletter pop-over suppression (`STORAGE` in `screens.ts`: the pop-over skips subscribers) and the scroll-through that triggers lazy images and reveal-on-scroll blocks, plus a wait for the home page's counting numbers. Its screens follow the pages that exist on `main` today (header "Start kafala" link, no donate band on the home page, the research articles page, the Resources cards).
+
+The council's own tests run with `pnpm test` (Vitest for `scripts/**` and `src/**`, then `pnpm test:scripts`, Node's runner, for `scripts/lib/secrets.test.ts`). The scripts run through `tsx` (`pnpm design-council`, `pnpm bug-sweep`, `pnpm bug-council`, `pnpm bug-tracker`). Bugs the sweep finds go to `reports/bugs/bugs.json` (git-ignored; `docs/bug-council.md`).
+
 ## Before the first run
 
 One-time setup, by the owner:
