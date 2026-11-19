@@ -22,6 +22,7 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
+import { councilTestMode } from "@/lib/councilTestMode";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -111,7 +112,17 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                     </h1>
                   </div>
                   <div className="flex items-center gap-4">
-                    <UserButton />
+                    {councilTestMode() ? (
+                      // eslint-disable-next-line @next/next/no-html-link-for-pages -- an API route, not a page
+                      <a
+                        href="/api/council/logout"
+                        className="text-sm text-gray-600 underline"
+                      >
+                        Test admin: sign out
+                      </a>
+                    ) : (
+                      <UserButton />
+                    )}
                   </div>
                 </div>
               </header>
