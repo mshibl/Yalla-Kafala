@@ -51,7 +51,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { join, resolve } from "node:path";
-import { APP, LOOKUPS, SCREENS } from "./design-council/screens";
+import { APP, LOOKUPS, SCREENS, STORAGE } from "./design-council/screens";
 import { createRunner } from "./lib/agentRunner";
 import { capture } from "./lib/designCapture";
 import {
@@ -443,6 +443,7 @@ async function main() {
       screens: pickScreens(SCREENS, options.screens),
       lookups: LOOKUPS,
       outDir: screensDir,
+      storage: STORAGE,
       log,
     });
     writeFileSync(

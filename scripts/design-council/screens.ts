@@ -16,6 +16,16 @@ import type { Lookup, Screen } from "../lib/designCouncil";
 /** What the reviewers are told the app is. */
 export const APP = `Yallakafala: a website about kafala, the Islamic way of caring for a child without parents: sponsoring a child and alternative family care. It is in English and Arabic (right to left). Visitors, many of them families thinking about kafala, read what kafala is, the steps, the organisation, its blogs, articles, FAQs and resources, and are asked to donate, volunteer or sign up to the newsletter, mostly from a phone. The staff sign in to an admin area to write blogs and articles, answer FAQs, and keep the board members, carousel and resources up to date, mostly from a laptop. The screenshots come from a local build with invented demo content, so photos and texts are placeholders.`;
 
+/**
+ * Set in every page's local storage before it loads, as for a returning
+ * visitor: the newsletter pop-over on the home page
+ * (src/components/Homepage/NewsletterPopover) skips anyone who has
+ * subscribed, so it doesn't cover the screen the reviewers are judging.
+ */
+export const STORAGE: Record<string, string> = {
+  "newsletter-subscribed": "true",
+};
+
 const BOTH = [360, 1280];
 
 /** The IDs of the demo's blogs are made by the database: look one up. */
@@ -70,6 +80,13 @@ export const SCREENS: Screen[] = [
     path: "/kafala-blogs/{blog}",
     widths: BOTH,
     arabic: true,
+  },
+  {
+    id: "articles",
+    title: "Research and educational articles",
+    as: null,
+    path: "/kafala-articles",
+    widths: [1280],
   },
   {
     id: "faqs",

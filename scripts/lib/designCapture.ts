@@ -64,6 +64,8 @@ export async function capture(opts: {
   screens: Screen[];
   lookups: Lookup[];
   outDir: string;
+  /** Put in every page's local storage before it loads (screens.ts STORAGE). */
+  storage?: Record<string, string>;
   log: (message: string) => void;
 }): Promise<CaptureResult> {
   // A machine whose browser doesn't match the project's Playwright points at
@@ -83,6 +85,16 @@ export async function capture(opts: {
       colorScheme: "light",
       reducedMotion: "reduce",
     });
+    // As for a returning visitor: the newsletter pop-over on the home page
+    // skips subscribers, so it doesn't cover the screen being judged.
+    await context.addInitScript((storage: Record<string, string>) => {
+      try {
+        for (const [key, value] of Object.entries(storage))
+          localStorage.setItem(key, value);
+      } catch {
+        // no storage: the page still opens
+      }
+    }, opts.storage ?? {});
     const page = await context.newPage();
     if (as === "admin") {
       // The login answers with a redirect and sets the cookie on the context.
@@ -150,6 +162,16 @@ export async function capture(opts: {
       await page.evaluate(() => document.fonts.ready.then(() => undefined));
       // Live queries settle and entry animations end.
       await page.waitForTimeout(800);
+      // Walk down a screen at a time and back, so lazy images and the blocks
+      // that reveal on scroll (the home page's, the articles') have shown.
+      await page.evaluate(async (max) => {
+        const end = Math.min(document.documentElement.scrollHeight, max);
+        for (let y = 0; y < end; y += window.innerHeight * 0.8) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 250));
+        }
+        window.scrollTo(0, 0);
+      }, MAX_HEIGHT);
       // The viewport grows to the content instead of a full-page shot: a
       // full-page shot leaves fixed bars at the first screen's bottom, over
       // the content, and stops 100vh shells and inner scroll areas there.
@@ -162,6 +184,8 @@ export async function capture(opts: {
         await page.setViewportSize({ width: shot.width, height });
         await page.waitForTimeout(300);
       }
+      // The home page's impact numbers count up for two seconds once seen.
+      await page.waitForTimeout(2500);
       await page.screenshot({
         path: join(opts.outDir, shot.file),
         fullPage: false,
