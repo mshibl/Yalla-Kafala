@@ -182,4 +182,47 @@ export const translations = {
       },
     },
   },
+  sections: {
+    onThisPage: { en: "On this page", ar: "في هذه الصفحة" },
+    hadith: { en: "What the hadith teaches", ar: "ما يعلّمه الحديث" },
+    misunderstandings: {
+      en: "Common misunderstandings",
+      ar: "مفاهيم شائعة خاطئة",
+    },
+    sources: { en: "Sources", ar: "المصادر" },
+  },
+  brief: {
+    title: { en: "Kafala in brief", ar: "الكفالة باختصار" },
+    items: [
+      {
+        title: { en: "Legal and permanent", ar: "قانونية ودائمة" },
+        text: {
+          en: "The family takes full, lasting responsibility for the child's care and upbringing.",
+          ar: "تتحمل الأسرة المسؤولية الكاملة والدائمة عن رعاية الطفل وتربيته.",
+        },
+      },
+      {
+        title: { en: "Keeps the child's identity", ar: "تحفظ هوية الطفل" },
+        text: {
+          en: "The child keeps their lineage, inheritance rights and full name.",
+          ar: "يحتفظ الطفل بنسبه وحقوقه في الميراث واسمه الكامل.",
+        },
+      },
+      {
+        title: { en: "Encouraged in Islam", ar: "يشجعها الإسلام" },
+        text: {
+          en: "A religiously valid form of guardianship, strongly encouraged by the Prophet.",
+          ar: "شكل مشروع من أشكال الولاية، حثّ عليه النبي صلى الله عليه وسلم.",
+        },
+      },
+    ],
+  },
+  nextStep: {
+    title: {
+      en: "Ready to learn how kafala works in practice?",
+      ar: "هل تريد أن تعرف كيف تتم الكفالة عملياً؟",
+    },
+    steps: { en: "See the six steps", ar: "اطّلع على الخطوات الست" },
+    faqs: { en: "Read the FAQs", ar: "الأسئلة الشائعة" },
+  },
 };

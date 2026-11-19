@@ -3,9 +3,15 @@ import { volunteerFormUrl } from "@/constants/links";
 
 /** Nav item that opens the region-aware Donate flow (see DonateNowModal). */
 export const DONATE_NAV_HREF = "/donate";
-import { officialContact, hasOfficialPhone } from "@/constants/contact";
+import {
+  officialContact,
+  hasOfficialPhone,
+  officeAddresses,
+} from "@/constants/contact";
+import type { Region } from "@/lib/region";
 
-export const contactItems = [
+/** Footer contact rows; the office address depends on the site (eg./us.). */
+export const getContactItems = (region: Region) => [
   {
     icon: Heart,
     text: { en: "Volunteer", ar: "التطوع" },
@@ -26,8 +32,8 @@ export const contactItems = [
     : []),
   {
     icon: MapPin,
-    text: officialContact.address,
-    href: officialContact.mapUrl,
+    text: officeAddresses[region].text,
+    href: officeAddresses[region].mapUrl,
   },
   {
     icon: Mail,
@@ -97,7 +103,7 @@ export const navigationLinks = [
   },
   { href: "/beit-sagheer", text: { en: "Beit Sagheer", ar: "البيت الصغير" } },
   {
-    group: { en: "About Us", ar: "من نحن" },
+    group: { en: "About Us", ar: "عن المنظمة" },
     links: [
       { href: "/who-we-are", text: { en: "Who We Are", ar: "من نحن" } },
       {

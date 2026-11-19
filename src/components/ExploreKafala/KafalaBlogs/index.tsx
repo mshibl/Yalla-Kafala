@@ -11,9 +11,9 @@ const KafalaBlogs = ({
 }) => {
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-grow pt-24 md:pt-32">
+      <div className="flex-grow bg-gradient-to-b from-primary/[0.06] to-white pt-24 md:pt-32">
         <BlogsSection locale={locale} category={category} />
-      </main>
+      </div>
     </div>
   );
 };

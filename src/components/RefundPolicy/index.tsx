@@ -1,6 +1,10 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import type { Locale } from "@/components/Providers/LocaleProvider";
-import { officialContact, hasOfficialPhone } from "@/constants/contact";
+import {
+  officialContact,
+  hasOfficialPhone,
+  officeAddresses,
+} from "@/constants/contact";
 import { LAST_UPDATED, translations } from "./translations";
 
 export default function RefundPolicy({ locale }: { locale: Locale }) {
@@ -90,12 +94,12 @@ export default function RefundPolicy({ locale }: { locale: Locale }) {
                 <span>
                   <span className="font-medium">{t.addressLabel}: </span>
                   <a
-                    href={officialContact.mapUrl}
+                    href={officeAddresses.eg.mapUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:underline"
                   >
-                    {officialContact.address[locale]}
+                    {officeAddresses.eg.text[locale]}
                   </a>
                 </span>
               </li>

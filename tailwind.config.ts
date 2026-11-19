@@ -12,7 +12,7 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1.5rem",
       screens: {
         "2xl": "1400px",
       },
@@ -30,6 +30,7 @@ export default {
         },
         secondary: {
           DEFAULT: "#1a9cb7",
+          dark: "#0F5C5C",
           foreground: "hsl(var(--secondary-foreground))",
         },
         accent: {
@@ -125,8 +126,8 @@ export default {
         "fade-in-up": "fade-in-up 0.7s ease-out forwards",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        serif: ["Playfair Display", "serif"],
+        sans: ["Inter", "IBM Plex Sans Arabic", "sans-serif"],
+        serif: ["Playfair Display", "Amiri", "serif"],
         elegant: ["Cormorant Garamond", "serif"],
         luxury: ["Crimson Text", "serif"],
       },

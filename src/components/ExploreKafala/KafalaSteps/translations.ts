@@ -17,6 +17,44 @@ export const translations = {
   },
   familyCardStepsTitle: {
     en: "Steps to Issue Family Card for Kafala Families",
-    ar: "ﺧﻄﻮات إﺳﺘﺨﺮاج اﻟﻜﺎرت ﻟﻸﺳﺮ اﻟﺒﺪﻳﻠﺔ اﻟﻜﺎﻓﻠﺔ",
+    ar: "خطوات إستخراج الكارت للأسر البديلة الكافلة",
+  },
+  documentsLink: {
+    en: "See the required documents",
+    ar: "الوثائق المطلوبة",
+  },
+  atAGlance: {
+    en: "The six steps at a glance",
+    ar: "الخطوات الست باختصار",
+  },
+  stepsEyebrow: {
+    en: "Six steps",
+    ar: "ست خطوات",
+  },
+  cta: {
+    title: {
+      en: "Ready to take the first step?",
+      ar: "هل أنت مستعد للخطوة الأولى؟",
+    },
+    description: {
+      en: "Read the answers to common questions, or write to us and we will guide you through the process.",
+      ar: "اقرأ إجابات الأسئلة الشائعة، أو راسلنا وسنرشدك خلال الخطوات.",
+    },
+    meeting: {
+      en: "Request a first meeting",
+      ar: "اطلب لقاءً أول",
+    },
+    meetingSubject: {
+      en: "Request for a first kafala meeting",
+      ar: "طلب لقاء أول بخصوص الكفالة",
+    },
+    faqs: {
+      en: "Read the FAQs",
+      ar: "الأسئلة الشائعة",
+    },
+    contact: {
+      en: "Ask us a question",
+      ar: "اسألنا",
+    },
   },
 };

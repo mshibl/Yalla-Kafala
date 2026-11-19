@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import Script from "next/script";
 import type { Metadata, Viewport } from "next";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Navbar from "@/components/AppHeader";
@@ -188,13 +189,27 @@ export default async function RootLayout({
   if (!isRegion(region)) notFound();
   return (
     <html dir={locale === "en" ? "ltr" : "rtl"} lang={locale}>
+      <head>
+        <Script
+          id="gtm-p8k2j6zh"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-P8K2J6ZH"
+          strategy="afterInteractive"
+        />
+        <Script id="gtm-p8k2j6zh-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          `}
+        </Script>
+      </head>
       <body>
         <GoogleTagManager gtmId="GTM-TV63ZJT2" />
         <Providers locale={locale as Locale} region={region}>
           <div className="min-h-screen flex flex-col">
             <Navbar locale={locale as Locale} />
             <main className="flex-grow">{children}</main>
-            <Footer locale={locale as Locale} />
+            <Footer locale={locale as Locale} region={region} />
           </div>
           <Toaster
             toastOptions={{

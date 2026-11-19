@@ -1,50 +1,60 @@
 import React from "react";
+import Image from "next/image";
+import { ArrowDown } from "lucide-react";
 import type { Locale } from "@/components/Providers/LocaleProvider";
 import { translations } from "./translations";
+import PageHeader from "@/components/ui/PageHeader";
 
 export const HeroSection = ({ locale }: { locale: Locale }) => {
   return (
-    <section className="relative bg-gradient-to-b from-primary/5 to-white pt-24 pb-16 md:pt-32 md:pb-24">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-[20%] right-[5%] w-64 h-64 rounded-full bg-primary/5 animate-float"
-          style={{ animationDelay: "0s" }}
-        />
-        <div
-          className="absolute top-[40%] left-[10%] w-48 h-48 rounded-full bg-secondary/5 animate-float"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="absolute bottom-[10%] right-[15%] w-40 h-40 rounded-full bg-primary/5 animate-float"
-          style={{ animationDelay: "2s" }}
-        />
-      </div>
-
-      <div className="container mx-auto px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            {translations.hero.badge[locale]}
-          </div>
-          <h1 className="text-3xl md:text-5xl font-bold text-primary mb-6">
-            {translations.hero.title.part1[locale]}{" "}
-            <span className="text-secondary">
-              {translations.hero.title.part2[locale]}
-            </span>
-          </h1>
-          <p className="text-gray-700 text-lg mb-8">
-            {translations.hero.description[locale]}
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="#our-story" className="outline-button">
+    <section className="relative bg-gradient-to-b from-primary/[0.06] to-white pt-28 pb-14 md:pt-36 md:pb-20">
+      <div className="container mx-auto grid max-w-6xl items-center gap-10 px-6 md:grid-cols-2 md:gap-14">
+        <PageHeader
+          width="max-w-none"
+          eyebrow={translations.hero.badge[locale]}
+          title={
+            <>
+              {translations.hero.title.part1[locale]}{" "}
+              <span className="text-primary">
+                {translations.hero.title.part2[locale]}
+              </span>
+            </>
+          }
+          lede={translations.hero.description[locale]}
+        >
+          <div className="mt-6 flex flex-wrap gap-6">
+            <a
+              href="#our-story"
+              className="inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+            >
               {translations.hero.ctas.ourStory[locale]}
+              <ArrowDown className="h-4 w-4" aria-hidden="true" />
             </a>
-            <a href="#our-team" className="primary-button">
+            <a
+              href="#our-team"
+              className="inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+            >
               {translations.hero.ctas.meetTeam[locale]}
+              <ArrowDown className="h-4 w-4" aria-hidden="true" />
             </a>
           </div>
+        </PageHeader>
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
+          <Image
+            src="/images/yk-team-1.webp"
+            alt={
+              locale === "ar"
+                ? "فريق يلا كفالة ومتطوعوها معاً"
+                : "The Yalla Kafala team and volunteers together"
+            }
+            fill
+            priority
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover object-[center_40%]"
+          />
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-white to-transparent" />
     </section>
   );
 };

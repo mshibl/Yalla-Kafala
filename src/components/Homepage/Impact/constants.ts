@@ -22,9 +22,9 @@ export const impactStats = [
   },
   {
     number: "7",
-    label: "Children secured in the first YK Small Home",
+    label: "Children secured in our first Beit Sagheer home",
     description: "",
-    labelAr: "أطفال تم تأمينهم في أول بيت صغير من يلا كفالة",
+    labelAr: "أطفال تم تأمينهم في أول بيت صغير من يلا\u00a0كفالة",
     descriptionAr: "",
   },
 ];

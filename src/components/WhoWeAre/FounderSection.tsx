@@ -7,19 +7,16 @@ export const FounderSection = ({ locale }: { locale: Locale }) => {
 
   return (
     <section
-      className="bg-gray-50 py-16"
+      className="bg-[#FBF8F4] py-16 md:py-20"
       dir={locale === "ar" ? "rtl" : "ltr"}
       aria-labelledby="founder-heading"
     >
       <div className="container mx-auto px-6">
-        <h2
-          id="founder-heading"
-          className="mb-8 text-center text-2xl font-semibold text-primary"
-        >
-          {founder.title[locale]}
-        </h2>
-        <div className="mx-auto max-w-4xl">
-          <div className="flex flex-col items-center gap-8 rounded-lg bg-white p-8 shadow-sm md:flex-row">
+        <div className="mx-auto max-w-5xl">
+          <h2 id="founder-heading" className="heading-lg mb-10 text-gray-900">
+            {founder.title[locale]}
+          </h2>
+          <div className="flex flex-col items-center gap-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-primary/10 md:flex-row md:p-10">
             <div className="flex w-full justify-center md:w-1/3">
               <div className="relative h-64 w-64 overflow-hidden rounded-full border-4 border-primary/20">
                 <Image
@@ -32,14 +29,17 @@ export const FounderSection = ({ locale }: { locale: Locale }) => {
               </div>
             </div>
             <div className="w-full md:w-2/3">
-              <h3 className="mb-2 text-xl font-semibold text-primary">
+              <h3 className="mb-1 text-2xl font-semibold text-gray-900">
                 {founder.name[locale]}
               </h3>
-              <p className="mb-4 italic text-gray-600">
+              <p className="mb-4 font-medium text-gray-600">
                 {founder.role[locale]}
               </p>
               {founder.bio.map((paragraph, index) => (
-                <p key={index} className="mb-4 text-gray-700 last:mb-0">
+                <p
+                  key={index}
+                  className="mb-4 text-base leading-relaxed text-gray-700 last:mb-0 md:text-lg"
+                >
                   {paragraph[locale]}
                 </p>
               ))}

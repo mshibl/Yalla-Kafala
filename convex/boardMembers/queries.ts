@@ -8,7 +8,9 @@ export const getBoardMembers = query({
   },
   handler: async (ctx, args): Promise<BoardMember[]> => {
     let boardMembers = await ctx.db.query("boardMembers").collect();
-    if (args.publishedOnly) {
+    // Unpublished members are for signed-in admins only.
+    const identity = await ctx.auth.getUserIdentity();
+    if (args.publishedOnly || identity === null) {
       boardMembers = boardMembers.filter((member) => member.publish);
     }
     return boardMembers.map((boardMember) => ({

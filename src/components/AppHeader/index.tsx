@@ -6,6 +6,8 @@ import type { Locale } from "@/components/Providers/LocaleProvider";
 import Logo from "./Logo";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import LanguageSwitcher from "./LanguageSwitcher";
+import DonateNowModal from "@/components/Donate/DonateNowModal";
 
 const Navbar = ({ locale }: { locale: Locale }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,7 +33,7 @@ const Navbar = ({ locale }: { locale: Locale }) => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
+        "fixed top-0 inset-x-0 z-50 transition-all duration-300 ease-in-out",
         isScrolled && !mobileMenuOpen
           ? "bg-white/90 backdrop-blur-md py-3 shadow-md"
           : "bg-transparent py-6",
@@ -42,12 +44,25 @@ const Navbar = ({ locale }: { locale: Locale }) => {
 
         <DesktopNav locale={locale} onSwitchLanguage={handleSwitchLanguage} />
 
-        <MobileNav
-          locale={locale}
-          mobileMenuOpen={mobileMenuOpen}
-          setMobileMenuOpen={setMobileMenuOpen}
-          onSwitchLanguage={handleSwitchLanguage}
-        />
+        <div className="flex items-center gap-4 lg:hidden">
+          <LanguageSwitcher
+            locale={locale}
+            compact
+            onSwitchLanguage={handleSwitchLanguage}
+          />
+          <DonateNowModal
+            locale={locale}
+            className="inline-flex items-center rounded-full bg-primary px-4 py-1.5 text-sm font-semibold text-white shadow-sm"
+          >
+            {locale === "en" ? "Donate" : "تبرع"}
+          </DonateNowModal>
+          <MobileNav
+            locale={locale}
+            mobileMenuOpen={mobileMenuOpen}
+            setMobileMenuOpen={setMobileMenuOpen}
+            onSwitchLanguage={handleSwitchLanguage}
+          />
+        </div>
       </div>
     </header>
   );

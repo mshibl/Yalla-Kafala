@@ -64,7 +64,7 @@ export const FacebookPost: React.FC<FacebookPostProps> = ({ post, index }) => {
               <span className="text-white text-xs font-semibold">YK</span>
             </div>
             <span className="font-medium">
-              {locale === "en" ? "Yallakafala" : "يلا كفالة"}
+              {locale === "en" ? "Yalla Kafala" : "يلا كفالة"}
             </span>
           </div>
           <span className="text-sm text-gray-500">{formatDate(post.date)}</span>

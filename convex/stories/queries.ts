@@ -13,8 +13,10 @@ export const getStories = query({
   handler: async (ctx, args) => {
     let stories = await ctx.db.query("stories").order("desc").collect();
 
+    // Drafts are for signed-in admins only; everyone else sees published stories.
+    const identity = await ctx.auth.getUserIdentity();
     let filtered = stories;
-    if (args.publishedOnly) {
+    if (args.publishedOnly || identity === null) {
       filtered = filtered.filter(s => s.publish);
     }
     if (args.category) {
@@ -55,6 +57,9 @@ export const getStoryById = query({
     try {
       const story = await ctx.db.get(args.id as Id<"stories">);
       if (!story) return null;
+      if (!story.publish && (await ctx.auth.getUserIdentity()) === null) {
+        return null;
+      }
 
       return {
         id: story._id.toString(),
@@ -81,6 +86,9 @@ export const getStoryById = query({
 export const getStoryIds = query({
   handler: async (ctx) => {
     const stories = await ctx.db.query("stories").collect();
-    return stories.map(s => ({ id: s._id.toString() }));
+    const identity = await ctx.auth.getUserIdentity();
+    return stories
+      .filter((s) => identity !== null || s.publish)
+      .map((s) => ({ id: s._id.toString() }));
   },
 });

@@ -18,7 +18,9 @@ const LoadingSkeleton = () => (
 );
 
 const FAQsContent = async ({ locale }: { locale: Locale }) => {
-  const faqs = await fetchQuery(api.faqs.queries.getFaqs, { publishedOnly: true });
+  const faqs = await fetchQuery(api.faqs.queries.getFaqs, {
+    publishedOnly: true,
+  });
   if (!faqs || faqs.length === 0) {
     return null;
   }
@@ -31,8 +33,8 @@ const FAQs = ({ locale }: { locale: Locale }) => {
   return (
     <section id="faq" className="section-padding bg-white">
       <div className="container mx-auto">
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="heading-md text-primary mb-6 animate-fade-up opacity-0">
+        <div className="mb-10 max-w-3xl">
+          <h2 className="heading-lg text-gray-900 mb-5 animate-fade-up opacity-0">
             {translations.title[locale]}
           </h2>
           <p className="text-gray-600 text-lg animate-fade-up opacity-0 animation-delay-200">

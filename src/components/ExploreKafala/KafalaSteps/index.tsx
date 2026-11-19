@@ -1,101 +1,178 @@
-import { FileText } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
+import { isolateLatin } from "@/lib/bidi";
+import { CheckCircle2 } from "lucide-react";
 import { BackToTopButton } from "../BackToTopButton";
 import ExploreKafalaHero from "../ExploreKafalaHero";
 import { familyCardSteps, requiredDocuments, steps } from "./constants";
 import { translations } from "./translations";
 import type { Locale } from "@/components/Providers/LocaleProvider";
+/** The documents in four sets; indices into requiredDocuments (same order in both languages). */
+const documentGroups = [
+  {
+    title: { en: "Identity and family", ar: "الهوية والأسرة" },
+    items: [0, 1, 2, 3, 10, 13],
+  },
+  {
+    title: { en: "Health and background checks", ar: "الصحة والفحوصات" },
+    items: [4, 5, 6, 7, 9],
+  },
+  {
+    title: { en: "Income and residence", ar: "الدخل والسكن" },
+    items: [8, 11, 12],
+  },
+  {
+    title: { en: "If you live abroad", ar: "إذا كنتم تقيمون بالخارج" },
+    items: [14],
+  },
+];
+
+/** Two columns of about equal length: identity and abroad, then health and income. */
+const documentColumns = [
+  [documentGroups[0]!, documentGroups[3]!],
+  [documentGroups[1]!, documentGroups[2]!],
+];
+
 const KafalaSteps = ({ locale }: { locale: Locale }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <ExploreKafalaHero
+        eyebrow={{ en: "The process", ar: "الخطوات" }}
         locale={locale}
         title={translations.title}
         description={translations.description}
-        imageSrc="/images/kafala-steps.webp"
+        imageSrc="/images/child-playing.webp"
         imageAlt={{
-          en: "Family hands joined in support",
-          ar: "أيدي أسرة متشابكة في الدعم",
+          en: "A small child playing with toy blocks on a wooden floor at home",
+          ar: "طفل صغير يلعب بالمكعبات على أرضية خشبية في البيت",
         }}
+        actions={[
+          {
+            href: `mailto:info@yallakafala.org?subject=${encodeURIComponent(translations.cta.meetingSubject[locale])}`,
+            label: translations.cta.meeting,
+          },
+          { href: "#documents", label: translations.documentsLink },
+        ]}
       />
-      <section id="learn-more" className="py-12 bg-gray-50">
+      <section id="learn-more" className="bg-white pt-2 pb-14 md:py-16">
         <div className="container mx-auto px-6">
           {/* Kafala Steps */}
-          <div className="max-w-5xl mx-auto mb-20">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
-              {translations.kafalaStepsTitle[locale]}
+          <div className="mx-auto mb-20 max-w-4xl">
+            <ol className="relative">
+              {steps[locale].map((step, index) => {
+                const isLast = index === steps[locale].length - 1;
+                return (
+                  <li
+                    key={index}
+                    id={`step-${index + 1}`}
+                    className="relative flex scroll-mt-28 gap-5 pb-10 last:pb-0 md:gap-7"
+                  >
+                    {!isLast && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute start-5 top-12 bottom-0 w-0.5 -translate-x-1/2 rtl:translate-x-1/2 bg-primary/15 md:start-6"
+                      />
+                    )}
+                    <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary font-serif text-lg font-semibold text-white shadow-sm md:h-12 md:w-12 md:text-xl">
+                      {index + 1}
+                    </span>
+                    <div className="pt-1.5 md:pt-2.5">
+                      <h3 className="mb-2 text-xl font-semibold text-gray-900 md:text-2xl">
+                        {step.title}
+                      </h3>
+                      <p className="text-base leading-relaxed text-gray-700 md:text-lg">
+                        {locale === "ar"
+                          ? isolateLatin(step.description)
+                          : step.description}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+
+          {/* Required Documents */}
+          <div id="documents" className="mx-auto mb-20 max-w-4xl scroll-mt-28">
+            <h2 className="heading-md mb-8 text-gray-900">
+              {translations.requiredDocumentsTitle[locale]}
             </h2>
 
-            <div className="grid gap-8 md:grid-cols-2">
-              {steps[locale].map((step, index) => (
-                <div
-                  key={index}
-                  className="animate-fade-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <Card className="h-full border-l-4 border-primary overflow-hidden hover:shadow-md transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg shrink-0">
-                          {index + 1}
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                            {step.title}
-                          </h3>
-                          <p className="text-gray-600">{step.description}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+            <div className="grid items-start gap-4 md:grid-cols-2 md:gap-6">
+              {documentColumns.map((column, columnIndex) => (
+                <div key={columnIndex} className="space-y-4 md:space-y-6">
+                  {column.map((group) => (
+                    <div
+                      key={group.title.en}
+                      className="rounded-3xl bg-[#FBF8F4] p-6 md:p-8"
+                    >
+                      <h3 className="mb-4 text-base font-semibold text-gray-900">
+                        {group.title[locale]}
+                      </h3>
+                      <ul className="space-y-3">
+                        {group.items.map((index) => {
+                          const doc = requiredDocuments[locale][index]!;
+                          return (
+                            <li key={index} className="flex items-start gap-3">
+                              <CheckCircle2
+                                className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                                aria-hidden="true"
+                              />
+                              <span className="leading-relaxed text-gray-800">
+                                {locale === "ar" ? isolateLatin(doc) : doc}
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Required Documents */}
-          <div
-            className="max-w-4xl mx-auto mb-20 animate-fade-up"
-            style={{ animationDelay: "600ms" }}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
-              {translations.requiredDocumentsTitle[locale]}
+          {/* Next step */}
+          <div className="mx-auto mb-20 max-w-4xl rounded-3xl bg-[#0E6E7A] px-6 py-10 text-center text-white md:px-12 md:py-14">
+            <h2 className="mb-3 text-3xl font-semibold text-white md:text-4xl">
+              {translations.cta.title[locale]}
             </h2>
-
-            <Card>
-              <CardContent className="p-8">
-                <ul className="space-y-4">
-                  {requiredDocuments[locale].map((doc, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <FileText className="w-5 h-5 text-primary shrink-0 mt-1" />
-                      <span className="text-gray-700">{doc}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+            <p className="mx-auto mb-8 max-w-2xl text-lg text-white/85">
+              {translations.cta.description[locale]}
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <a
+                href={`mailto:info@yallakafala.org?subject=${encodeURIComponent(translations.cta.meetingSubject[locale])}`}
+                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-[#0E6E7A] transition-colors hover:bg-white/90"
+              >
+                {translations.cta.meeting[locale]}
+              </a>
+              <Link
+                href={`/${locale}/faqs`}
+                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                {translations.cta.faqs[locale]}
+              </Link>
+            </div>
           </div>
 
           {/* Family Card Steps */}
-          <div
-            className="max-w-4xl mx-auto mb-12 animate-fade-up"
-            style={{ animationDelay: "800ms" }}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
+          <div className="mx-auto mb-20 max-w-4xl">
+            <h2 className="heading-md mb-8 text-gray-900">
               {translations.familyCardStepsTitle[locale]}
             </h2>
 
-            <Card>
-              <CardContent className="p-8">
-                <ol className="list-decimal pl-5 space-y-4">
-                  {familyCardSteps[locale].map((step, index) => (
-                    <li key={index} className="text-gray-700 pl-2">
-                      {step}
-                    </li>
-                  ))}
-                </ol>
-              </CardContent>
-            </Card>
+            <ol className="space-y-6">
+              {familyCardSteps[locale].map((step, index) => (
+                <li key={index} className="flex items-start gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white">
+                    {index + 1}
+                  </span>
+                  <span className="pt-1 text-base leading-relaxed text-gray-800 md:text-lg">
+                    {locale === "ar" ? isolateLatin(step) : step}
+                  </span>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>

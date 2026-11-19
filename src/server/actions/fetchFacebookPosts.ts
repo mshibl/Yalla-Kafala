@@ -5,6 +5,7 @@ import { fetchQuery, fetchMutation } from "convex/nextjs";
 import { api } from "../../../convex/_generated/api";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { env } from "@/env";
 
 interface FacebookPagingCursors {
   before: string;
@@ -141,6 +142,7 @@ async function translatePosts(
 async function syncDatabaseWithFacebook(
   dbPosts: FacebookPostType[],
   latestPosts: FacebookPostType[],
+  secret: string,
 ) {
   const dbPostIds = new Set(dbPosts.map((post) => String(post.id)));
   const latestPostIds = new Set(latestPosts.map((post) => String(post.id)));
@@ -169,7 +171,7 @@ async function syncDatabaseWithFacebook(
 
   // Call the single sync mutation in Convex
   await fetchMutation(api.facebookPosts.mutations.syncFacebookPosts, {
-    secret: process.env.INTERNAL_SYNC_SECRET || "yallakafala-default-secret-2026",
+    secret,
     postsToInsert: translatedNewPosts,
     idsToRemove,
     imagesToUpdate,
@@ -225,12 +227,22 @@ export const syncFacebookPostsAction = async (): Promise<{
       };
     }
 
+    const syncSecret = env.INTERNAL_SYNC_SECRET;
+    if (!syncSecret) {
+      console.error("INTERNAL_SYNC_SECRET is not set; Facebook sync is disabled.");
+      return {
+        success: false,
+        message:
+          "Facebook sync is not configured: INTERNAL_SYNC_SECRET is missing on the server.",
+      };
+    }
+
     // Fetch all posts currently stored in Convex
     const dbPosts = await fetchQuery(api.facebookPosts.queries.getFacebookPosts, { limit: 100 });
     // Fetch latest posts from Facebook
     const latestFacebookPosts = await fetchPostsFromFacebook(4);
     // Sync DB (remove outdated, insert new, update image URLs)
-    await syncDatabaseWithFacebook(dbPosts, latestFacebookPosts);
+    await syncDatabaseWithFacebook(dbPosts, latestFacebookPosts, syncSecret);
 
     // Revalidate homepage cache on-demand
     revalidatePath("/[locale]", "page");
