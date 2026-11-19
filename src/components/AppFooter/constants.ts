@@ -1,32 +1,48 @@
-import { Heart } from "lucide-react";
-
-import { MapPin } from "lucide-react";
-
-import { Mail } from "lucide-react";
+import { Heart, MapPin, Mail, Phone } from "lucide-react";
 import { volunteerFormUrl } from "@/constants/links";
-import { givebutterDonationUrl } from "@/constants/links";
 
-export const contactItems = [
+/** Nav item that opens the region-aware Donate flow (see DonateNowModal). */
+export const DONATE_NAV_HREF = "/donate";
+import {
+  officialContact,
+  hasOfficialPhone,
+  officeAddresses,
+} from "@/constants/contact";
+import type { Region } from "@/lib/region";
+
+/** Footer contact rows; the office address depends on the site (eg./us.). */
+export const getContactItems = (region: Region) => [
   {
     icon: Heart,
     text: { en: "Volunteer", ar: "التطوع" },
     href: volunteerFormUrl,
   },
+  ...(hasOfficialPhone
+    ? [
+        {
+          icon: Phone,
+          text: {
+            en: officialContact.phoneDisplay,
+            ar: officialContact.phoneDisplay,
+          },
+          href: `tel:${officialContact.phone}`,
+          ltr: true,
+        },
+      ]
+    : []),
   {
     icon: MapPin,
-    text: {
-      en: "24 Al Lasilki Al Sagheer Street, New Maadi, Cairo, Egypt.",
-      ar: "24 شارع اللاسلكي الصغير، المعادي الجديدة، القاهرة، مصر",
-    },
-    href: "https://maps.app.goo.gl/d24Rt7cnGfYYkSyq8?g_st=ic",
+    text: officeAddresses[region].text,
+    href: officeAddresses[region].mapUrl,
   },
   {
     icon: Mail,
     text: {
-      en: "info@yallakafala.org",
-      ar: "info@yallakafala.org",
+      en: officialContact.email,
+      ar: officialContact.email,
     },
-    href: "mailto:info@yallakafala.org",
+    href: `mailto:${officialContact.email}`,
+    ltr: true,
   },
 ];
 
@@ -101,7 +117,7 @@ export const navigationLinks = [
     ],
   },
   {
-    href: givebutterDonationUrl,
+    href: DONATE_NAV_HREF,
     text: { en: "Donate Now", ar: "تبرع الآن" },
   },
 ];
