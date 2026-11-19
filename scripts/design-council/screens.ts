@@ -1,63 +1,145 @@
-import type { Screen } from "../lib/designCouncil.ts";
+import type { Lookup, Screen } from "../lib/designCouncil";
 
 /**
  * What the design council photographs (scripts/design-council.ts): the main
- * public pages, at a phone's width and a laptop's, the most visited ones in
- * Arabic too. Each page is scrolled through (so lazy images and reveals
- * load) and photographed whole, cut at a few screens' height. Keep it to a
- * dozen or so pages: every reviewer looks at every screenshot in one pass.
+ * public pages and the admin area, on a local build with invented content
+ * (scripts/council/seedData.ts). Phones first: most visitors read on a
+ * phone. Keep it to a dozen or so screens per role: every reviewer looks at
+ * every screenshot in one pass, and more pictures make each look shallower.
+ *
+ * The public pages are photographed in English at 360 and 1280 px, and the
+ * main ones again in Arabic (right to left) at 360 px. The admin area has no
+ * language prefix and is English only; it opens through the test-only login
+ * (`as: "admin"`, docs/design-council.md).
  */
 
-/** What the reviewers are told the site is. */
-export const SITE = `yallakafala.org: the site of Yalla Kafala, an Egyptian non-profit that promotes kafala (the Islamic, legal way to give an orphaned child a permanent family home) and supports families through it. In English and Arabic (right to left). Its visitors are would-be kafala parents looking for guidance and trust, current families, partners and donors. It explains what kafala is and its steps, answers religious and legal questions, shares articles and stories, and asks for donations. The screenshots are of the live site, each page scrolled through and photographed whole.`;
+/** What the reviewers are told the app is. */
+export const APP = `Yallakafala: a website about kafala, the Islamic way of caring for a child without parents: sponsoring a child and alternative family care. It is in English and Arabic (right to left). Visitors, many of them families thinking about kafala, read what kafala is, the steps, the organisation, its blogs, articles, FAQs and resources, and are asked to donate, volunteer or sign up to the newsletter, mostly from a phone. The staff sign in to an admin area to write blogs and articles, answer FAQs, and keep the board members, carousel and resources up to date, mostly from a laptop. The screenshots come from a local build with invented demo content, so photos and texts are placeholders.`;
 
-/**
- * Set in every page's local storage before it loads, as for a returning
- * visitor: the newsletter popup on the homepage
- * (src/components/Homepage/NewsletterPopover) skips anyone who has
- * subscribed, so it doesn't cover the page the reviewers are judging.
- */
-export const STORAGE: Record<string, string> = {
-  "newsletter-subscribed": "true",
-};
+const BOTH = [360, 1280];
 
-const BOTH = [390, 1440];
+/** The IDs of the demo's blogs are made by the database: look one up. */
+export const LOOKUPS: Lookup[] = [
+  { name: "blog", open: "/kafala-blogs", pattern: /\/kafala-blogs\/([^/?#]+)/ },
+];
 
 export const SCREENS: Screen[] = [
-  { id: "home", title: "Home", path: "/", widths: BOTH, arabic: true },
+  {
+    id: "home",
+    title: "Home",
+    as: null,
+    path: "/",
+    widths: BOTH,
+    arabic: true,
+  },
   {
     id: "what-is-kafala",
     title: "What is kafala",
+    as: null,
     path: "/what-is-kafala",
     widths: BOTH,
     arabic: true,
   },
   {
     id: "kafala-steps",
-    title: "Kafala steps",
+    title: "The steps of kafala",
+    as: null,
     path: "/kafala-steps",
+    widths: [360],
+    arabic: true,
+  },
+  {
+    id: "who-we-are",
+    title: "Who we are (the board)",
+    as: null,
+    path: "/who-we-are",
+    widths: BOTH,
+  },
+  {
+    id: "blogs",
+    title: "Blog list",
+    as: null,
+    path: "/kafala-blogs",
     widths: BOTH,
     arabic: true,
   },
-  { id: "faqs", title: "FAQs", path: "/faqs", widths: [390] },
   {
-    id: "who-we-are",
-    title: "Who we are",
-    path: "/who-we-are",
-    widths: [1440],
+    id: "blog",
+    title: "A blog post",
+    as: null,
+    path: "/kafala-blogs/{blog}",
+    widths: BOTH,
+    arabic: true,
   },
   {
-    id: "articles",
-    title: "Kafala articles",
-    path: "/kafala-articles",
-    widths: [1440],
+    id: "faqs",
+    title: "FAQs",
+    as: null,
+    path: "/faqs",
+    widths: [360],
+    arabic: true,
   },
-  { id: "resources", title: "Resources", path: "/resources", widths: [390] },
+  {
+    id: "resources",
+    title: "Resources",
+    as: null,
+    path: "/resources",
+    widths: [360],
+  },
   {
     id: "donate",
     title: "Donate",
+    as: null,
     path: "/donate",
     widths: BOTH,
     arabic: true,
+  },
+  {
+    id: "admin-home",
+    title: "Admin dashboard",
+    as: "admin",
+    path: "/admin",
+    unprefixed: true,
+    widths: [1280],
+  },
+  {
+    id: "admin-blogs",
+    title: "Admin: blogs",
+    as: "admin",
+    path: "/admin/blogs",
+    unprefixed: true,
+    widths: [1280],
+  },
+  {
+    id: "admin-faqs",
+    title: "Admin: FAQs",
+    as: "admin",
+    path: "/admin/faqs",
+    unprefixed: true,
+    widths: [1280],
+  },
+  {
+    id: "admin-board",
+    title: "Admin: board members",
+    as: "admin",
+    path: "/admin/board-members",
+    unprefixed: true,
+    widths: [1280],
+  },
+  {
+    id: "admin-carousel",
+    title: "Admin: carousel",
+    as: "admin",
+    path: "/admin/carousel",
+    unprefixed: true,
+    widths: [1280],
+  },
+  {
+    id: "admin-resources",
+    title: "Admin: resources",
+    as: "admin",
+    path: "/admin/resources",
+    unprefixed: true,
+    widths: [1280],
   },
 ];

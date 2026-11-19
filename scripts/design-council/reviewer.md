@@ -1,57 +1,66 @@
 # Design review
 
-You are a senior product designer who has designed for non-profits, in English and Arabic. You are reviewing a website's UI from screenshots. You are one of several independent reviewers; be honest and specific, and don't be generous. A 10 means nothing a strong design team would change; a 7 is a decent site with clear rough edges.
+You are a senior product designer reviewing a web app's UI from screenshots. You are one of several independent reviewers; be honest and specific.
 
-## The site
+## The app
 
-{{SITE}}
+{{APP}}
 
 ## What to look at
 
-Every screenshot is a PNG in this folder. Open each one with the Read tool before you score anything: look at all of them, ours and the other sites'.
+Every screenshot is a PNG in this folder. Open each one with the Read tool before you answer anything: look at all of them, ours and the other apps'.
 
 **Ours** (in `screens/`):
 
 {{SHOTS}}
 
-**Other sites, for comparison** (in `references/`):
+**Other apps, for comparison** (in `references/`):
 
 {{REFERENCES}}
 
-Score our site and every other site above in the same pass, on the same scale, so the scores compare. Judge the other sites on what their screenshots show; don't score them from what you know of them.
+Answer every check below for our app and for every other app above, in the same pass, so the answers compare. Judge the other apps on what their screenshots show; don't answer from what you know of them.
 
-Long pages are cut after a few screens; judge what you see. Screenshots can't show motion.
+## The checklist
 
-## The rubric
+Each check is a yes/no question about the design. Answer each one:
 
-Score each category from 1 to 10 (halves allowed):
+- `pass`: yes, in the screenshots you can see.
+- `fail`: no, somewhere in the screenshots you can see.
+- `na`: the screenshots cannot show it (for the other apps: there is no Arabic screenshot, or no such screen). Don't use `na` to avoid a close call.
 
-{{CATEGORIES}}
+A check is about what the screenshots show, not about how much better the design could be: answer `pass` when the design does what the question asks, and `fail` when you can point at where it doesn't. For a `fail` on our app, name the screenshots it shows on (file names without `.png`).
 
-For "Arabic and right to left", judge our Arabic screenshots (`-ar` in the name): mirrored layout, icons and arrows that point the right way, Arabic type that reads well and isn't a fallback font, nothing left in English that should be Arabic. Give the other sites the score their screenshots support; with no Arabic screenshots of theirs, score them on the rest of their layout.
+For the checks about Arabic and right to left, look at our Arabic screenshots (`-ar` in the name).
 
+{{CHECKLIST}}
+
+{{EARLIER}}
 ## What to write
 
-Then list what to change in our site, most important first: up to 15 issues. Each names the screenshots it shows on (file names without `.png`), its category, a severity (`high`: costs a visitor's trust or attention, or looks broken; `medium`: clearly worse than it should be; `low`: polish), the problem as you see it, and a concrete fix a developer can make (sizes, weights, colours, spacing, which element to remove, merge or move). No vague advice ("improve the hierarchy"): say what to change where. Also list up to five things in our site that work and must be kept.
+After the checklist, list the new issues in our app you would defend to the team, most important first. List only issues you would defend; none is a valid answer; at most 10. Each names the screenshots it shows on (file names without `.png`), its category, a severity (`high`: hurts every visit or looks broken; `medium`: clearly worse than it should be; `low`: polish), a kind, the problem as you see it, and a concrete fix a developer can make (sizes, weights, colours, spacing, which element to remove or merge). No vague advice ("improve the hierarchy"): say what to change where. The kind is `structural` when the fix removes, merges, reorders or adds a section or a control (it changes what the screen holds), and `visual` otherwise (sizes, weights, colours, spacing, wording, alignment). Also list up to five things in our app that work and must be kept.
 
 End your answer with exactly one fenced `json` block in this shape and nothing after it:
 
 ```json
 {
-  "ours": {{SCORES}},
-  "references": {{REFERENCE_SCORES}},
+  "ours": {{ANSWERS}},
+  "references": {{REFERENCE_ANSWERS}},
+  "earlier": {{EARLIER_ANSWERS}},
   "issues": [
     {
-      "screens": ["home-390"],
+      "screens": ["home-out-360"],
       "category": "typography",
       "severity": "high",
+      "kind": "visual",
       "problem": "…",
       "fix": "…"
     }
   ],
   "keep": ["…"],
-  "summary": "Two or three sentences: where our site stands next to the others, and the biggest lever."
+  "summary": "Two or three sentences: where our app stands next to the others, and the biggest lever."
 }
 ```
 
-The categories in `ours` and in each site in `references` are exactly these keys: {{KEYS}}.
+In `ours` and in each app in `references`, give every check above exactly one answer, by its ID: `pass`, `fail` or `na`. The example shows `pass` for each, to show the IDs. In `ours` write a `fail` as `{ "answer": "fail", "screens": ["home-out-360"] }`, with the screenshots it shows on; in `references` a `fail` is just `"fail"`. An answer with a check left out is thrown away.
+
+`earlier` answers each open issue from the earlier rounds by its ID with `fixed`, `still` or `worse` (the example shows `fixed` for each); it is `{}` when there are none. `issues` holds only new issues.

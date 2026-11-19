@@ -3,178 +3,181 @@
  *
  * 1. Snapshot the working tree (committed or not) into a commit of its own,
  *    without touching the branch or the index, and check it out in a
- *    worktree (../yalla-kafala-design-council), so a dev server and its
- *    .next in this checkout are never disturbed. This checkout's .env and
- *    .env.local are copied there: the build needs the site's keys.
- * 2. Build the site there (`next build`) and serve it (`next start`), or,
- *    with --url, use a deployed site instead (production or a Vercel
- *    preview). Photograph every page in scripts/design-council/screens.ts
- *    with Playwright (as a library: no tests).
- * 3. Every reviewer (Claude models, and Codex when installed) scores the
- *    screenshots beside the reference sites in design/references/, in a
- *    session of its own, with no idea of the target or earlier rounds.
- * 4. The round's folder gets each review, scores.md and feedback.md; the
- *    run's README.md the history. The last line says whether it passed.
+ *    worktree (../yk-design-council), so the local backend never meets this
+ *    checkout's cloud .env.local. The snapshot must hold the councils'
+ *    scripts: run it from a checkout that has them.
+ * 2. Start a throwaway local Convex backend with invented demo rows and a
+ *    production build in council test mode there (scripts/lib/localApp.ts;
+ *    app on 3600, Convex on 3610), and photograph every screen
+ *    (scripts/design-council/screens.ts), the admin ones through the
+ *    test-only login (scripts/lib/designCapture.ts).
+ * 3. Every reviewer (Claude models, and Codex when installed) answers the
+ *    yes/no checklist (design-council/checklist.ts) for the screenshots and
+ *    for the reference apps in design/references/, in a
+ *    session of its own, with no idea of the target or earlier rounds' scores.
+ *    From round 2 each also gets the run's open issues (issues.json) and says
+ *    whether each is fixed, still there or worse.
+ * 4. From round 2, each shot whose picture changed is put beside the last
+ *    round's, unlabelled and in random order (compare/<shot>-A.png and -B.png,
+ *    the key in compare/key.json), and every reviewer says in a call of its
+ *    own which it would ship. compare.md of the round has the result.
+ * 5. One Sonnet call joins the reviewers' duplicate new issues; the ledger
+ *    (issues.json: the round's folder, and the run's folder for the latest)
+ *    is updated. The round's folder gets each review, scores.md and
+ *    feedback.md; the run's folder the README.md (rules and history) and
+ *    proposals.md (the open structural issues, for the owner).
+ * 6. The verdict is DONE or CONTINUE with a reason for each rule not met
+ *    (`verdict`), and a STALLED line when the last two rounds closed no issue
+ *    and made no picture better (`stalled`).
  *
- *   pnpm design-council                                       # build this checkout, the next round
- *   pnpm design-council --url https://www.yallakafala.org     # photograph production instead
- *   pnpm design-council --review-only                         # score this round's screenshots again
+ *   pnpm design-council                     # the next round
+ *   pnpm design-council --target 95         # overall share of passing checks, percent (default 90)
+ *   pnpm design-council --review-only       # answer this round's screenshots again
+ *   pnpm design-council --dry-run           # print the reviewers' prompt, run nothing
  *
- * The loop around it (fix, build, commit, next round) is the agent's:
+ * The loop around it (fix, check, commit, next round) is the agent's:
  * .claude/skills/design-council/SKILL.md. Runs: reports/design-council/<name>/
- * (git-ignored). Documented in docs/design-council.md.
+ * (git-ignored). It drives a browser: run it only when the owner asks.
  */
-import { type ChildProcess, spawn, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import {
   copyFileSync,
   existsSync,
   mkdirSync,
-  openSync,
   readdirSync,
   readFileSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
 import { join, resolve } from "node:path";
-import { SCREENS, SITE, STORAGE } from "./design-council/screens.ts";
+import { APP, LOOKUPS, SCREENS } from "./design-council/screens";
+import { createRunner } from "./lib/agentRunner";
+import { capture } from "./lib/designCapture";
 import {
-  CATEGORIES,
+  assignSides,
+  changedShots,
+  CLAUDE_MODELS,
   claudeAnswer,
   claudeArgs,
   codexArgs,
+  compareFile,
+  compareMarkdown,
+  comparePrompt,
+  comparison,
   feedbackMarkdown,
-  historyTable,
+  gaps,
+  type Ledger,
+  mergePrompt,
+  newIssuesOf,
   nextRound,
   parseArgs,
+  parseComparison,
+  parseGroups,
   parseReview,
   pickScreens,
+  proposals,
+  proposalsMarkdown,
+  readmeMarkdown,
+  type Review,
+  type Reviewer,
+  reviewerPrompt,
   roundFolder,
+  type RoundRecord,
   roundRecord,
   scoresTable,
-  shotPath,
+  type Shot,
   shotsFor,
   slug,
+  stalled,
+  updateLedger,
   verdict,
-} from "./lib/designCouncil.ts";
-import type {
-  Review,
-  Reviewer,
-  RoundRecord,
-  Shot,
-} from "./lib/designCouncil.ts";
+  type Vote,
+} from "./lib/designCouncil";
+import { PORTS, startLocalApp } from "./lib/localApp";
 
 const root = resolve(import.meta.dirname, "..");
 const prompts = join(root, "scripts/design-council");
 const references = join(root, "design/references");
-const worktree = resolve(root, "../yalla-kafala-design-council");
+const worktree = resolve(root, "../yk-design-council");
+const IMAGE = /\.(png|jpe?g|webp)$/i;
 
-let options: ReturnType<typeof parseArgs>;
-try {
-  options = parseArgs(process.argv.slice(2));
-} catch (error) {
-  console.error(error instanceof Error ? error.message : error);
-  process.exit(1);
-}
-const baseUrl = options.url || `http://localhost:${options.port}`;
-
-// ---- Processes ----------------------------------------------------------
-
-const children = new Set<ChildProcess>();
-
-/** A clean environment: a stray NODE_ENV or PORT breaks a build or moves the server. */
-function childEnv(extra: Record<string, string> = {}): NodeJS.ProcessEnv {
-  const env: Record<string, string | undefined> = { ...process.env, ...extra };
-  delete env.NODE_ENV;
-  delete env.PORT;
-  return env as NodeJS.ProcessEnv;
-}
-
-function log(message: string) {
-  console.log(
-    `[design-council ${new Date().toISOString().slice(11, 19)}Z] ${message}`,
-  );
-}
-
-function git(args: string[], extra: Record<string, string> = {}): string {
-  const r = spawnSync("git", args, {
-    cwd: root,
-    env: childEnv(extra),
-    encoding: "utf8",
-  });
-  if (r.status !== 0) throw new Error(`git ${args[0]}: ${r.stderr}`);
-  return r.stdout.trim();
-}
-
-function run(cmd: string, args: string[], cwd: string) {
-  log(`$ ${cmd} ${args.join(" ")}`);
-  const r = spawnSync(cmd, args, { cwd, stdio: "inherit", env: childEnv() });
-  if (r.status !== 0) throw new Error(`${cmd} ${args[0]} failed`);
-}
-
-function installed(cmd: string): boolean {
-  return spawnSync("which", [cmd], { env: childEnv() }).status === 0;
-}
-
-function startChild(
-  cmd: string,
-  args: string[],
-  cwd: string,
-  logFile: string,
-): ChildProcess {
-  const out = openSync(logFile, "a");
-  const child = spawn(cmd, args, {
-    cwd,
-    env: childEnv(),
-    detached: true,
-    stdio: ["ignore", out, out],
-  });
-  children.add(child);
-  child.on("exit", () => children.delete(child));
-  return child;
-}
-
-function stop(child: ChildProcess) {
-  if (!child.pid || child.exitCode !== null) return;
-  try {
-    process.kill(-child.pid, "SIGTERM");
-  } catch {}
-}
-
-/** Runs `cmd` until it exits or `minutes` pass; its exit code, or null when stopped. */
-async function runFor(
-  cmd: string,
-  args: string[],
-  cwd: string,
-  logFile: string,
-  minutes: number,
-) {
-  const child = startChild(cmd, args, cwd, logFile);
-  const timer = setTimeout(() => {
-    log(`${cmd}: time is up, stopping it`);
-    stop(child);
-  }, minutes * 60_000);
-  const code = await new Promise<number | null>((done) =>
-    child.on("exit", (c) => done(c)),
-  );
-  clearTimeout(timer);
-  return code;
-}
-
-async function waitFor(
-  what: string,
-  ready: () => Promise<boolean>,
-  seconds: number,
-) {
-  for (let i = 0; i < seconds; i++) {
-    if (await ready()) return;
-    await new Promise((r) => setTimeout(r, 1000));
+/**
+ * The issues carried into `round`: the ledger the highest earlier round of
+ * the run left (`round-NN/issues.json`), or none. Reading the round before,
+ * not the run's latest ledger, makes running a round again start from the
+ * same place.
+ */
+function earlierLedger(dir: string, round: number): Ledger {
+  if (!existsSync(dir)) return [];
+  const rounds = readdirSync(dir)
+    .map((f) => /^round-(\d+)$/.exec(f)?.[1])
+    .filter((n): n is string => n !== undefined)
+    .map(Number)
+    .filter((n) => n < round)
+    .sort((a, b) => b - a);
+  for (const n of rounds) {
+    const file = join(dir, roundFolder(n), "issues.json");
+    if (existsSync(file))
+      return JSON.parse(readFileSync(file, "utf8")) as Ledger;
   }
-  throw new Error(`Timed out waiting for ${what}`);
+  return [];
 }
 
-// ---- The round ----------------------------------------------------------
+/** Each PNG in `dir`: its name without `.png` → a hash of its bytes. */
+function hashShots(dir: string): Record<string, string> {
+  return Object.fromEntries(
+    readdirSync(dir)
+      .filter((f) => f.endsWith(".png"))
+      .sort()
+      .map((f) => [
+        f.slice(0, -4),
+        createHash("sha256")
+          .update(readFileSync(join(dir, f)))
+          .digest("hex"),
+      ]),
+  );
+}
 
-const branch = git(["rev-parse", "--abbrev-ref", "HEAD"]);
+/** The screenshots folder of the highest earlier round that has one, or null. */
+function previousScreens(dir: string, round: number): string | null {
+  if (!existsSync(dir)) return null;
+  const rounds = readdirSync(dir)
+    .map((f) => /^round-(\d+)$/.exec(f)?.[1])
+    .filter((n): n is string => n !== undefined)
+    .map(Number)
+    .filter((n) => n < round)
+    .sort((a, b) => b - a);
+  for (const n of rounds) {
+    const screens = join(dir, roundFolder(n), "screens");
+    if (existsSync(screens)) return screens;
+  }
+  return null;
+}
+
+const options = parseArgs(process.argv.slice(2));
+if (options.dryRun) {
+  // The prompt as the reviewers would get it: no app, no browser, no run
+  // folder. The shots are the screens' file names; nothing is photographed.
+  // With --name of a run that has issues, it is the prompt of its next round.
+  const dir = join(root, "reports/design-council", options.name);
+  const next =
+    options.round || nextRound(existsSync(dir) ? readdirSync(dir) : []);
+  console.log(
+    reviewerPrompt(
+      template(),
+      APP,
+      shotsFor(pickScreens(SCREENS, options.screens)),
+      referencePaths(),
+      options.name ? earlierLedger(dir, next) : [],
+    ),
+  );
+  process.exit(0);
+}
+const runner = createRunner("design-council");
+const { log } = runner;
+
+const branch = runner.git(["rev-parse", "--abbrev-ref", "HEAD"], root);
 const runDir = join(
   root,
   "reports/design-council",
@@ -185,218 +188,105 @@ const existing = readdirSync(runDir);
 const round =
   options.round ||
   (options.reviewOnly ? nextRound(existing) - 1 : nextRound(existing));
+if (round < 1) throw new Error("No round to review yet: run one first");
 const roundDir = join(runDir, roundFolder(round));
 const screensDir = join(roundDir, "screens");
 const historyFile = join(runDir, "history.json");
 
 /** The working tree as a commit, the branch and the index untouched. */
 function snapshot(): string {
-  const index = { GIT_INDEX_FILE: join(runDir, ".snapshot-index") };
+  const index = join(runDir, ".snapshot-index");
+  const tmp = runner.childEnv({ GIT_INDEX_FILE: index });
+  const git = (args: string[]) => {
+    const r = spawnSync("git", args, { cwd: root, env: tmp, encoding: "utf8" });
+    if (r.status !== 0) throw new Error(`git ${args[0]}: ${r.stderr}`);
+    return r.stdout.trim();
+  };
   try {
-    git(["read-tree", "HEAD"], index);
-    git(["add", "-A"], index);
-    const tree = git(["write-tree"], index);
-    return git(
-      [
-        "commit-tree",
-        tree,
-        "-p",
-        "HEAD",
-        "-m",
-        `design council round ${round} snapshot`,
-      ],
-      index,
-    );
+    git(["read-tree", "HEAD"]);
+    git(["add", "-A"]);
+    const tree = git(["write-tree"]);
+    return git([
+      "commit-tree",
+      tree,
+      "-p",
+      "HEAD",
+      "-m",
+      `design council round ${round} snapshot`,
+    ]);
   } finally {
-    rmSync(index.GIT_INDEX_FILE, { force: true });
+    rmSync(index, { force: true });
   }
 }
 
-/** A worktree at `sha`, created or moved there. */
-function prepareWorktree(sha: string) {
-  if (!existsSync(worktree))
-    run("git", ["worktree", "add", "--detach", worktree, sha], root);
-  else run("git", ["checkout", "--force", "--detach", sha], worktree);
-}
-
-/** The production build, served on the port, with this checkout's keys. */
-async function startSite() {
-  const envFiles = [".env", ".env.local"].filter((f) =>
-    existsSync(join(root, f)),
-  );
-  if (!envFiles.length)
-    throw new Error(
-      "No .env or .env.local in this checkout: the build needs the site's keys. Add them, or photograph a deployment with --url.",
-    );
-  for (const f of envFiles) copyFileSync(join(root, f), join(worktree, f));
-  run("pnpm", ["install", "--frozen-lockfile", "--prefer-offline"], worktree);
-  run("pnpm", ["build"], worktree);
-  const site = startChild(
-    join(worktree, "node_modules/.bin/next"),
-    ["start", "-p", String(options.port)],
-    worktree,
-    join(roundDir, "logs/site.log"),
-  );
-  await waitFor(
-    "the site",
-    async () => {
-      if (site.exitCode !== null)
-        throw new Error("next start exited: see logs/site.log");
-      try {
-        return (await fetch(`${baseUrl}/en`)).ok;
-      } catch {
-        return false;
-      }
-    },
-    60,
-  );
-  log(`Site at ${baseUrl}`);
-}
-
-/** Phones at 2× so small text stays legible to the reviewers. */
-const scaleFor = (width: number) => (width < 768 ? 2 : 1);
-/** A page taller than this is cut: the reviewers judge the first few screens. */
-const MAX_HEIGHT = 3000;
-
-/** Every page, scrolled through so lazy images and reveals load, then photographed whole. */
-async function capture(
-  shots: Shot[],
-): Promise<{ shots: Shot[]; failures: string[] }> {
-  const { chromium } = await import("playwright");
-  // CHROMIUM_PATH: a Chromium already on the machine, when Playwright's own
-  // (`pnpm exec playwright install chromium`) isn't.
-  const browser = await chromium.launch(
-    process.env.CHROMIUM_PATH
-      ? { executablePath: process.env.CHROMIUM_PATH }
-      : {},
-  );
-  const taken: Shot[] = [];
-  const failures: string[] = [];
-  for (const shot of shots) {
-    const height = shot.width < 768 ? 844 : 900;
-    const context = await browser.newContext({
-      viewport: { width: shot.width, height },
-      deviceScaleFactor: scaleFor(shot.width),
-      locale: shot.locale === "ar" ? "ar-EG" : "en-US",
-      colorScheme: "light",
-    });
-    await context.addInitScript((storage: Record<string, string>) => {
-      try {
-        for (const [key, value] of Object.entries(storage))
-          localStorage.setItem(key, value);
-      } catch {}
-    }, STORAGE);
-    // A signed-out, returning visitor as far as Clerk is concerned. Without
-    // these, Clerk's development instance answers a browser's first request
-    // with a handshake redirect, which a local build without Clerk's secret
-    // key can't complete (it serves a 500 instead of the page).
-    if (baseUrl.startsWith("http://localhost"))
-      await context.addCookies(
-        ["__clerk_db_jwt", "__client_uat"].map((name) => ({
-          name,
-          value: name === "__client_uat" ? "0" : "dvb_design_council",
-          url: baseUrl,
-        })),
+/** Stops early, with a plain message, when a tool or a port isn't ready. */
+function preflight() {
+  const missing = runner.missing(["claude", "pnpm", "npx"]);
+  if (missing.length)
+    throw new Error(`Not installed or not on PATH: ${missing.join(", ")}`);
+  for (const port of Object.values(PORTS["design-council"])) {
+    if (
+      spawnSync("lsof", ["-nP", `-iTCP:${port}`, "-sTCP:LISTEN"]).status === 0
+    )
+      throw new Error(
+        `Port ${port} is in use: another design council run, or something else. Stop it first.`,
       );
-    const page = await context.newPage();
-    try {
-      await page.goto(`${baseUrl}${shotPath(shot)}`, {
-        waitUntil: "networkidle",
-        timeout: 90_000,
-      });
-      await page.evaluate(() => document.fonts.ready.then(() => undefined));
-      const full = await page.evaluate(async (max) => {
-        // Walk down a screen at a time, so lazy images and reveals load.
-        const end = Math.min(document.documentElement.scrollHeight, max);
-        for (let y = 0; y < end; y += window.innerHeight * 0.8) {
-          window.scrollTo(0, y);
-          await new Promise((r) => setTimeout(r, 300));
-        }
-        window.scrollTo(0, 0);
-        return document.documentElement.scrollHeight;
-      }, MAX_HEIGHT);
-      await page.waitForLoadState("networkidle").catch(() => {});
-      await page.waitForTimeout(800);
-      await page.screenshot({
-        path: join(screensDir, shot.file),
-        fullPage: true,
-        clip: {
-          x: 0,
-          y: 0,
-          width: shot.width,
-          height: Math.min(full, MAX_HEIGHT),
-        },
-      });
-      taken.push(shot);
-      log(`  ${shot.file} ← ${shotPath(shot)}`);
-    } catch (error) {
-      failures.push(`${shot.file}: ${String(error)}`);
-    } finally {
-      await context.close();
-    }
   }
-  await browser.close();
-  return { shots: taken, failures };
+  // The browser is the owner's one-time install; a missing one fails late and
+  // confusingly, so name the command here.
+  const browser = spawnSync(
+    "node",
+    [
+      "-e",
+      "const {chromium}=require('playwright');process.exit(require('fs').existsSync(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE||chromium.executablePath())?0:1)",
+    ],
+    { cwd: root },
+  );
+  if (browser.status !== 0)
+    throw new Error(
+      "No Chromium for Playwright: run `pnpm exec playwright install chromium` once, or set PLAYWRIGHT_CHROMIUM_EXECUTABLE.",
+    );
 }
 
-const IMAGE = /\.(png|jpe?g|webp)$/i;
-
-/** design/references/<site>/*.png copied into the round, by site. */
-function copyReferences(): Record<string, string[]> {
-  const out: Record<string, string[]> = {};
+/** design/references/<app>/ images, by app folder name (as `slug`). */
+function listReferences(): Record<string, { dir: string; files: string[] }> {
+  const out: Record<string, { dir: string; files: string[] }> = {};
   if (!existsSync(references)) return out;
-  for (const site of readdirSync(references, { withFileTypes: true })) {
-    if (!site.isDirectory()) continue;
-    const files = readdirSync(join(references, site.name)).filter((f) =>
+  for (const app of readdirSync(references, { withFileTypes: true })) {
+    if (!app.isDirectory()) continue;
+    const files = readdirSync(join(references, app.name)).filter((f) =>
       IMAGE.test(f),
     );
-    if (!files.length) continue;
-    const name = slug(site.name);
-    mkdirSync(join(roundDir, "references", name), { recursive: true });
-    for (const f of files)
-      copyFileSync(
-        join(references, site.name, f),
-        join(roundDir, "references", name, f),
-      );
-    out[name] = files.map((f) => `references/${name}/${f}`);
+    if (files.length) out[slug(app.name)] = { dir: app.name, files };
   }
   return out;
 }
 
-/** Fills `{{name}}` placeholders; a placeholder with no value is an error. */
-function fill(template: string, values: Record<string, string>): string {
-  return template.replace(/\{\{(\w+)\}\}/g, (_, name: string) => {
-    const value = values[name];
-    if (value === undefined) throw new Error(`No value for {{${name}}}`);
-    return value;
-  });
+/** The reference images as the round's folder holds them, by app. */
+function referencePaths(): Record<string, string[]> {
+  return Object.fromEntries(
+    Object.entries(listReferences()).map(([name, { files }]) => [
+      name,
+      files.map((f) => `references/${name}/${f}`),
+    ]),
+  );
 }
 
-function reviewerPrompt(shots: Shot[], refs: Record<string, string[]>) {
-  const zero = Object.fromEntries(CATEGORIES.map((c) => [c.key, 0]));
-  return fill(readFileSync(join(prompts, "reviewer.md"), "utf8"), {
-    SITE,
-    SHOTS: shots
-      .map(
-        (s) =>
-          `- \`screens/${s.file}\`: ${s.screen.title}, ${s.width} px wide${s.width < 768 ? " (a phone)" : ""}, ${s.locale === "ar" ? "Arabic" : "English"}`,
-      )
-      .join("\n"),
-    REFERENCES: Object.keys(refs).length
-      ? Object.entries(refs)
-          .map(
-            ([site, files]) =>
-              `- ${site}: ${files.map((f) => `\`${f}\``).join(", ")}`,
-          )
-          .join("\n")
-      : "None this time: score ours against the best non-profit and family-services sites you know.",
-    CATEGORIES: CATEGORIES.map((c) => `- \`${c.key}\`: ${c.title}`).join("\n"),
-    SCORES: JSON.stringify(zero),
-    REFERENCE_SCORES: JSON.stringify(
-      Object.fromEntries(Object.keys(refs).map((site) => [site, zero])),
-    ),
-    KEYS: CATEGORIES.map((c) => `\`${c.key}\``).join(", "),
-  });
+/** design/references/<app>/*.png copied into the round, by app. */
+function copyReferences(): Record<string, string[]> {
+  for (const [name, { dir, files }] of Object.entries(listReferences())) {
+    mkdirSync(join(roundDir, "references", name), { recursive: true });
+    for (const f of files)
+      copyFileSync(
+        join(references, dir, f),
+        join(roundDir, "references", name, f),
+      );
+  }
+  return referencePaths();
+}
+
+function template(): string {
+  return readFileSync(join(prompts, "reviewer.md"), "utf8");
 }
 
 /** One reviewer's answer text, or null when it gave none in time. */
@@ -404,55 +294,157 @@ async function ask(
   reviewer: Reviewer,
   prompt: string,
   images: string[],
+  /** Keeps a second call to the same reviewer from overwriting its logs. */
+  tag = "",
 ): Promise<string | null> {
-  const logFile = join(roundDir, "logs", `${reviewer.name}.log`);
+  const logFile = join(roundDir, "logs", `${reviewer.name}${tag}.log`);
   rmSync(logFile, { force: true });
   if (reviewer.kind === "claude") {
-    const code = await runFor(
-      "claude",
-      claudeArgs(prompt, reviewer.model),
-      roundDir,
+    const r = await runner.runAgent({
+      name: reviewer.name,
+      args: claudeArgs(prompt, reviewer.model),
+      cwd: roundDir,
+      minutes: options.minutes,
       logFile,
-      options.minutes,
-    );
-    log(`${reviewer.name}: exit ${code}`);
-    return code === 0 ? claudeAnswer(readFileSync(logFile, "utf8")) : null;
+    });
+    if (r.ending !== "finished") return null;
+    return claudeAnswer(readFileSync(logFile, "utf8"));
   }
-  const answerFile = join(roundDir, "logs", `${reviewer.name}.answer.md`);
+  const answerFile = join(roundDir, "logs", `${reviewer.name}${tag}.answer.md`);
   rmSync(answerFile, { force: true });
-  const code = await runFor(
+  const child = runner.startChild(
     "codex",
     codexArgs(prompt, images, answerFile, reviewer.model),
     roundDir,
     logFile,
-    options.minutes,
   );
+  const timer = setTimeout(
+    () => child.kill("SIGTERM"),
+    options.minutes * 60_000,
+  );
+  const code = await new Promise<number | null>((done) =>
+    child.on("exit", (c) => done(c)),
+  );
+  clearTimeout(timer);
   log(`${reviewer.name}: exit ${code}`);
   return existsSync(answerFile) ? readFileSync(answerFile, "utf8") : null;
 }
 
+/**
+ * Which new issues of the reviewers are the same: one Sonnet call, the same
+ * runner as the reviewers. Any failure leaves every issue on its own.
+ */
+async function mergeGroups(reviews: Review[]): Promise<number[][]> {
+  const issues = newIssuesOf(reviews);
+  if (issues.length < 2) return [];
+  try {
+    const answer = await ask(
+      { name: "merge", kind: "claude", model: CLAUDE_MODELS.sonnet! },
+      mergePrompt(issues),
+      [],
+    );
+    if (answer === null) throw new Error("no answer in time");
+    return parseGroups(answer);
+  } catch (error) {
+    log(
+      `merge: ${error instanceof Error ? error.message : error}; every issue stays on its own`,
+    );
+    return [];
+  }
+}
+
+/**
+ * From round 2: each shot whose picture changed since the last round goes into
+ * `compare/` beside the last round's, as `<shot>-A.png` and `<shot>-B.png`
+ * (a coin flip per shot decides which is which), and every reviewer says,
+ * in a call of its own, which it would ship. The key (which side is the new
+ * picture) is written after they answered, so no reviewer can read it.
+ * Round 1 has nothing to compare: no folder, no calls, null. With no changed
+ * shot there are no calls either.
+ */
+async function compareWithLast(reviewers: Reviewer[]) {
+  const previous = previousScreens(runDir, round);
+  const compareDir = join(roundDir, "compare");
+  rmSync(compareDir, { recursive: true, force: true });
+  if (!previous) return null;
+  const key = assignSides(
+    changedShots(hashShots(previous), hashShots(screensDir)),
+    Math.random,
+  );
+  const shots = Object.keys(key);
+  const answers: Record<string, Record<string, Vote>> = {};
+  if (shots.length) {
+    mkdirSync(compareDir, { recursive: true });
+    for (const [shot, { A, B }] of Object.entries(key)) {
+      copyFileSync(
+        join(A === "new" ? screensDir : previous, `${shot}.png`),
+        join(roundDir, compareFile(shot, "A")),
+      );
+      copyFileSync(
+        join(B === "new" ? screensDir : previous, `${shot}.png`),
+        join(roundDir, compareFile(shot, "B")),
+      );
+    }
+    const prompt = comparePrompt(
+      readFileSync(join(prompts, "compare.md"), "utf8"),
+      APP,
+      shots,
+    );
+    writeFileSync(join(roundDir, "compare-prompt.md"), prompt);
+    const images = shots.flatMap((shot) =>
+      (["A", "B"] as const).map((side) =>
+        join(roundDir, compareFile(shot, side)),
+      ),
+    );
+    log(`Comparing ${shots.length} changed shots with the last round…`);
+    await Promise.all(
+      reviewers.map(async (reviewer) => {
+        try {
+          const answer = await ask(reviewer, prompt, images, "-compare");
+          if (answer === null) throw new Error("no answer in time");
+          writeFileSync(join(roundDir, `${reviewer.name}-compare.md`), answer);
+          answers[reviewer.name] = parseComparison(
+            reviewer.name,
+            answer,
+            shots,
+          );
+        } catch (error) {
+          log(
+            `${reviewer.name} (comparison): ${error instanceof Error ? error.message : error}`,
+          );
+        }
+      }),
+    );
+    writeFileSync(join(compareDir, "key.json"), JSON.stringify(key, null, 2));
+  }
+  return { key, answers, result: comparison(key, answers) };
+}
+
 async function main() {
-  if (round < 1) throw new Error("No round to review yet: run one first");
   mkdirSync(join(roundDir, "logs"), { recursive: true });
   log(`Round ${round} in ${roundDir}`);
-  let commit = git(["rev-parse", "HEAD"]);
+  let commit = runner.git(["rev-parse", "HEAD"], root);
 
   if (!options.reviewOnly) {
+    preflight();
+    commit = snapshot();
+    runner.prepareWorktree(root, worktree, commit);
     rmSync(screensDir, { recursive: true, force: true });
     mkdirSync(screensDir, { recursive: true });
-    if (options.url) {
-      // A deployment: what it runs isn't this checkout, so say so.
-      commit = `deployed:${options.url}`;
-      log(`Photographing ${options.url} (not this checkout)`);
-    } else {
-      commit = snapshot();
-      prepareWorktree(commit);
-      await startSite();
-    }
+    const app = await startLocalApp({
+      runner,
+      worktree,
+      logDir: join(roundDir, "logs"),
+      ports: PORTS["design-council"],
+    });
     log("Taking the screenshots…");
-    const { shots, failures } = await capture(
-      shotsFor(pickScreens(SCREENS, options.screens)),
-    );
+    const { shots, failures } = await capture({
+      baseUrl: app.baseUrl,
+      screens: pickScreens(SCREENS, options.screens),
+      lookups: LOOKUPS,
+      outDir: screensDir,
+      log,
+    });
     writeFileSync(
       join(roundDir, "manifest.json"),
       JSON.stringify({ commit, shots, failures }, null, 2),
@@ -467,29 +459,30 @@ async function main() {
 
   const manifest = JSON.parse(
     readFileSync(join(roundDir, "manifest.json"), "utf8"),
-  ) as {
-    commit: string;
-    shots: Shot[];
-  };
+  ) as { commit: string; shots: Shot[] };
   commit = manifest.commit;
   const refs = copyReferences();
   if (!Object.keys(refs).length)
     log(
-      "No reference sites in design/references/: reviewers judging one site alone score it too high (see design/references/README.md).",
+      "No reference apps in design/references/: reviewers judging one app alone answer too kindly (see design/references/README.md).",
     );
-  const prompt = reviewerPrompt(manifest.shots, refs);
+  const earlier = earlierLedger(runDir, round);
+  const prompt = reviewerPrompt(template(), APP, manifest.shots, refs, earlier);
   writeFileSync(join(roundDir, "prompt.md"), prompt);
   const images = [
-    ...manifest.shots.map((s) => join(screensDir, s.file)),
+    ...manifest.shots.map((s) => join(roundDir, "screens", s.file)),
     ...Object.values(refs)
       .flat()
       .map((f) => join(roundDir, f)),
   ];
 
   let reviewers = options.reviewers;
-  if (reviewers.some((r) => r.kind === "codex") && !installed("codex")) {
+  const skipped = reviewers.filter(
+    (r) => r.kind === "codex" && runner.missing(["codex"]).length,
+  );
+  if (skipped.length) {
     log("codex isn't installed: skipping it (npm i -g @openai/codex).");
-    reviewers = reviewers.filter((r) => r.kind !== "codex");
+    reviewers = reviewers.filter((r) => !skipped.includes(r));
   }
   if (!reviewers.length) throw new Error("No reviewers to ask");
 
@@ -502,7 +495,12 @@ async function main() {
         const answer = await ask(reviewer, prompt, images);
         if (answer === null) throw new Error("no answer in time");
         writeFileSync(join(roundDir, `${reviewer.name}.md`), answer);
-        const review = parseReview(reviewer.name, answer, Object.keys(refs));
+        const review = parseReview(
+          reviewer.name,
+          answer,
+          Object.keys(refs),
+          earlier.map((i) => i.id),
+        );
         writeFileSync(
           join(roundDir, `${reviewer.name}.json`),
           JSON.stringify(review, null, 2),
@@ -518,43 +516,91 @@ async function main() {
   );
   reviews.sort((a, b) => a.reviewer.localeCompare(b.reviewer));
 
-  const { passed, gaps } = verdict(reviews, options.target, failed);
+  const compared = await compareWithLast(
+    reviewers.filter((r) => reviews.some((x) => x.reviewer === r.name)),
+  );
+  if (compared)
+    writeFileSync(
+      join(roundDir, "compare.md"),
+      compareMarkdown(compared.key, compared.result, compared.answers),
+    );
+  const ledger = updateLedger(
+    earlier,
+    round,
+    reviews,
+    await mergeGroups(reviews),
+  );
+  const { state, reasons } = verdict({
+    reviews,
+    ledger,
+    comparison: compared?.result ?? null,
+    target: options.target,
+    failed,
+  });
+  writeFileSync(join(roundDir, "issues.json"), JSON.stringify(ledger, null, 2));
+  writeFileSync(join(runDir, "issues.json"), JSON.stringify(ledger, null, 2));
+  writeFileSync(
+    join(runDir, "proposals.md"),
+    proposalsMarkdown(ledger, reviews.length),
+  );
   writeFileSync(join(roundDir, "scores.md"), `${scoresTable(reviews)}\n`);
   writeFileSync(
     join(roundDir, "feedback.md"),
-    feedbackMarkdown(reviews, gaps, failed),
+    feedbackMarkdown(
+      reviews,
+      gaps(reviews, options.target),
+      failed,
+      ledger,
+      compared?.result ?? null,
+    ),
   );
   const history: RoundRecord[] = existsSync(historyFile)
     ? (JSON.parse(readFileSync(historyFile, "utf8")) as RoundRecord[])
     : [];
-  const record = roundRecord(round, commit, new Date(), reviews, passed);
+  const record = roundRecord({
+    round,
+    commit,
+    at: new Date(),
+    reviews,
+    ledger,
+    state,
+    comparison: compared?.result ?? null,
+  });
   const next = [...history.filter((h) => h.round !== round), record].sort(
     (a, b) => a.round - b.round,
   );
   writeFileSync(historyFile, JSON.stringify(next, null, 2));
+  const stuck = stalled(next, ledger);
   writeFileSync(
     join(runDir, "README.md"),
-    `# Design council: ${branch}\n\nTarget ${options.target} in every category, and at least every reference site's score.\n\n${historyTable(next)}\n\nLatest: ${roundFolder(round)}/feedback.md\n`,
+    readmeMarkdown({
+      branch,
+      target: options.target,
+      history: next,
+      round,
+      reasons,
+      stalled: stuck,
+      proposals: proposals(ledger).length,
+    }),
   );
   console.log(`\n${scoresTable(reviews)}\n`);
   console.log(
-    passed
-      ? `PASSED round ${round}: every reviewer gave every category ${options.target} or more.`
-      : `NOT YET round ${round}: ${gaps.length} gaps${failed.length ? `, ${failed.join(", ")} gave no answer` : ""}. Read ${join(roundDir, "feedback.md")}`,
+    state === "done"
+      ? `DONE round ${round}: ${options.target}% overall from every reviewer, no confirmed high issue open, no reference app far ahead, and the pictures no longer getting better.`
+      : `CONTINUE round ${round}:\n${reasons.map((r) => `- ${r}`).join("\n")}\nRead ${join(roundDir, "feedback.md")}`,
   );
+  if (stuck)
+    console.log(
+      "STALLED: the last two rounds closed no issue and made no picture better. Stop and report what is holding it back.",
+    );
+  const open = proposals(ledger).length;
+  if (open)
+    console.log(
+      `${open} proposals for the owner in ${join(runDir, "proposals.md")}`,
+    );
 }
 
-for (const signal of ["SIGINT", "SIGTERM"] as const)
-  process.on(signal, () => {
-    for (const child of children) stop(child);
-    process.exit(1);
-  });
-
-main()
-  .catch((error: unknown) => {
-    console.error(error instanceof Error ? error.message : error);
-    process.exitCode = 1;
-  })
-  .finally(() => {
-    for (const child of children) stop(child);
-  });
+// The backend binary can outlive the script that started it.
+runner.main(main, () => {
+  spawnSync("pkill", ["-f", join(worktree, ".convex")]);
+});
