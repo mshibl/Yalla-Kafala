@@ -1,8 +1,13 @@
-import { type NextRequest, NextResponse } from "next/server";
+import {
+  type NextFetchEvent,
+  type NextRequest,
+  NextResponse,
+} from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { clerkMiddleware } from "@clerk/nextjs/server";
 import { volunteerFormUrl, brochurePdfUrl } from "@/constants/links";
+import { COUNCIL_COOKIE, councilTestMode } from "@/lib/councilTestMode";
 import {
   DEFAULT_REGION,
   REGION_COOKIE,
@@ -67,7 +72,10 @@ function rememberRegion(
   return response;
 }
 
-export default clerkMiddleware(async (auth, request) => {
+/** All that the routing below needs from the signed-in state. */
+type GetUserId = () => Promise<{ userId: string | null }>;
+
+async function handle(auth: GetUserId, request: NextRequest) {
   const { pathname } = request.nextUrl;
   const host = (request.headers.get("host") ?? "").split(":")[0] ?? "";
 
@@ -236,7 +244,25 @@ export default clerkMiddleware(async (auth, request) => {
     host,
     region,
   );
-});
+}
+
+const clerk = clerkMiddleware((auth, request) => handle(auth, request));
+
+export default function middleware(
+  request: NextRequest,
+  event: NextFetchEvent,
+) {
+  // Council test mode (src/lib/councilTestMode.ts): local backend only, never
+  // Clerk. The test admin is whoever holds the cookie /api/council/login sets.
+  if (councilTestMode()) {
+    const signedIn = request.cookies.get(COUNCIL_COOKIE)?.value === "1";
+    return handle(
+      async () => ({ userId: signedIn ? "council-admin" : null }),
+      request,
+    );
+  }
+  return clerk(request, event);
+}
 
 export const config = {
   matcher: [

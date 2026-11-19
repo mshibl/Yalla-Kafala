@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "allowImportingTsExtensions": true,
+    "plugins": [],
+    "types": ["node"]
+  },
+  "include": [
+    "scripts/**/*.ts",
+    "vitest.config.ts",
+    "src/lib/councilTestMode*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
